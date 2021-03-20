@@ -1,0 +1,58 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=4
+
+_global_script_classes=[ {
+"base": "Node2D",
+"class": "Background",
+"language": "GDScript",
+"path": "res://src/image_manager/background.gd"
+}, {
+"base": "Node2D",
+"class": "Delay",
+"language": "GDScript",
+"path": "res://src/utils/delay.gd"
+}, {
+"base": "Node2D",
+"class": "Game",
+"language": "GDScript",
+"path": "res://src/game/game.gd"
+}, {
+"base": "Node2D",
+"class": "ImageManager",
+"language": "GDScript",
+"path": "res://src/image_manager/image_manager.gd"
+}, {
+"base": "Node2D",
+"class": "Message",
+"language": "GDScript",
+"path": "res://src/message/message.gd"
+}, {
+"base": "Node",
+"class": "Transition",
+"language": "GDScript",
+"path": "res://src/image_manager/transition.gd"
+} ]
+_global_script_class_icons={
+"Background": "",
+"Delay": "",
+"Game": "",
+"ImageManager": "",
+"Message": "",
+"Transition": ""
+}
+
+[application]
+
+config/name="Immanent"
+run/main_scene="res://main.tscn"
+
+[rendering]
+
+environment/default_environment="res://default_env.tres"
