@@ -1,7 +1,7 @@
 class_name Message extends Node2D
 
 var label: Label
-var delay = load("res://src/utils/delay.gd").new("show_next_char")
+var delay = load("res://src/utils/timer/delay.gd").new("show_next_char")
 var split_message: Array
 var text: String
 var is_complete: bool
