@@ -1,7 +1,10 @@
-extends Node
+extends BaseNode
 
 var world: Node
-var game = load("res://src/game/game.gd").new()
+var game: Game
+
+func _init():
+	game = Load.src("game/game")
 
 func _ready():
 	config_world()

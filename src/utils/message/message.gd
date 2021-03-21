@@ -7,7 +7,7 @@ var text: String
 var is_complete: bool
 
 func _init():
-	delay = Load.src("utils/timer/delay.gd", "show_next_char")
+	delay = Load.src("utils/timer/delay", "show_next_char")
 	
 	config_label()
 	config_delay()

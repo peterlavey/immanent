@@ -17,7 +17,7 @@ func _ready():
 	config_screen()
 
 func config_screen()-> void:
-	screen.texture = Load.asset("transition/black.png")
+	screen.texture = Load.asset("transition/black")
 	screen.centered = false
 	screen.scale.x = OS.get_window_size().x * 0.01
 	screen.scale.y = OS.get_window_size().y * 0.01

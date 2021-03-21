@@ -3,7 +3,7 @@ class_name Game extends BaseNode
 var prologue: Prologue
 
 func _init():
-	prologue = Load.src("scenes/prologue/prologue.gd")
+	prologue = Load.src("scenes/prologue/prologue")
 
 func _ready():
 	add_child(prologue)

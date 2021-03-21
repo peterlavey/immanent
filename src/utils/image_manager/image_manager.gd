@@ -7,7 +7,7 @@ var current: int = 0
 var transition: Transition
 
 func _init(images):
-	transition = Load.src("utils/image_manager/transition.gd")
+	transition = Load.src("utils/image_manager/transition")
 	
 	self.images = images
 	load_images()

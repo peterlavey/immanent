@@ -16,9 +16,9 @@ var messages: Array = [
 ]
 
 func _init():
-	image_manager = Load.src("utils/image_manager/image_manager.gd", images)
-	message = Load.src("utils/message/message.gd")
-	delay = Load.src("utils/timer/delay.gd", "show_next_message", 2)
+	image_manager = Load.src("utils/image_manager/image_manager", images)
+	message = Load.src("utils/message/message")
+	delay = Load.src("utils/timer/delay", "show_next_message", 2)
 
 func start()-> void:
 	show_images()
