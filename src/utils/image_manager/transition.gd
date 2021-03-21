@@ -1,11 +1,10 @@
-class_name Transition extends Node
+class_name Transition extends BaseNode
 
 var screen = Sprite.new()
 var alpha = 0
 var isComplete = true
 var processSelected = 0
 var callback = 0
-const transition_image = "res://assets/transition/black.png"
 export var speed = 1
 signal on_blackout
 
@@ -18,7 +17,7 @@ func _ready():
 	config_screen()
 
 func config_screen()-> void:
-	screen.texture = load(transition_image)
+	screen.texture = Load.asset("transition/black.png")
 	screen.centered = false
 	screen.scale.x = OS.get_window_size().x * 0.01
 	screen.scale.y = OS.get_window_size().y * 0.01

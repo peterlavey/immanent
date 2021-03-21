@@ -1,12 +1,14 @@
-class_name Message extends Node2D
+class_name Message extends BaseNode
 
 var label: Label
-var delay = load("res://src/utils/timer/delay.gd").new("show_next_char")
+var delay: Delay
 var split_message: Array
 var text: String
 var is_complete: bool
 
 func _init():
+	delay = Load.src("utils/timer/delay.gd", "show_next_char")
+	
 	config_label()
 	config_delay()
 
