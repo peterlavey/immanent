@@ -9,10 +9,14 @@ var images: Array = [
 	"res://assets/prologue/4.png",
 ]
 var DIALOGUES: GDScript
+var picure_options: PictureOptions
 
 func _init():
+	picure_options = Load.src("utils/image_manager/picture_options")
+	picure_options.scale = 60
+	
 	DIALOGUES = Load.src("resources/dialogues")
-	image_manager = Load.src("utils/image_manager/image_manager", images)
+	image_manager = Load.src("utils/image_manager/image_manager", images, picure_options)
 	message = Load.src("utils/message/message")
 
 func _process(delta):

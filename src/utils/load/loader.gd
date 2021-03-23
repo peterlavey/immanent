@@ -5,6 +5,9 @@ const CLASS_EXTENSION = ".gd"
 const ASSETS = "res://assets"
 const ASSET_EXTENSION = ".png"
 
+func ref(path: String):
+	return load(SRC + path + CLASS_EXTENSION)
+
 func src(path: String, arg1 = null, arg2 = null, arg3 = null):
 	if arg1 != null && arg2 != null && arg3 != null:
 		return load(SRC + path + CLASS_EXTENSION).new(arg1, arg2, arg3)

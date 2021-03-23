@@ -9,7 +9,7 @@
 config_version=4
 
 _global_script_classes=[ {
-"base": "Node2D",
+"base": "BaseNode",
 "class": "Background",
 "language": "GDScript",
 "path": "res://src/utils/image_manager/background.gd"
@@ -54,10 +54,25 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://src/utils/message/message.gd"
 }, {
+"base": "Sprite",
+"class": "Picture",
+"language": "GDScript",
+"path": "res://src/utils/image_manager/picture.gd"
+}, {
+"base": "Object",
+"class": "PictureOptions",
+"language": "GDScript",
+"path": "res://src/utils/image_manager/picture_options.gd"
+}, {
 "base": "BaseNode",
 "class": "Prologue",
 "language": "GDScript",
 "path": "res://src/scenes/prologue/prologue.gd"
+}, {
+"base": "GDScript",
+"class": "Responsive",
+"language": "GDScript",
+"path": "res://src/utils/image_manager/responsive.gd"
 }, {
 "base": "BaseNode",
 "class": "Transition",
@@ -74,7 +89,10 @@ _global_script_class_icons={
 "ImageManager": "",
 "Loader": "",
 "Message": "",
+"Picture": "",
+"PictureOptions": "",
 "Prologue": "",
+"Responsive": "",
 "Transition": ""
 }
 
@@ -82,6 +100,10 @@ _global_script_class_icons={
 
 config/name="Immanent"
 run/main_scene="res://main.tscn"
+
+[display]
+
+window/stretch/mode="viewport"
 
 [rendering]
 

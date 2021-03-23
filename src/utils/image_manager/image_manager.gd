@@ -1,18 +1,21 @@
 class_name ImageManager extends BaseNode
 
-var Background = load("res://src/utils/image_manager/background.gd")
+var Picture
 var images: Array
 var images_loaded: Array
 var current: int = 0
 var transition: Transition
+var options
 
-func _init(images):
+func _init(images, options = false):
+	self.options = options
+	Picture = Load.ref("utils/image_manager/picture")
 	transition = Load.src("utils/image_manager/transition")
-	
 	self.images = images
+
+func _ready():
 	load_images()
 	config_transition()
-	pass
 
 func next()-> void:
 	if current < images_loaded.size():
@@ -22,11 +25,12 @@ func next()-> void:
 func show_next_image()-> void:
 	remove_child(images_loaded[current])
 	current += 1
-	add_child(images_loaded[current])	
+	add_child(images_loaded[current])
 
 func load_images()-> void:
 	for i in images.size():
-		images_loaded.append(Background.new(images[i]))
+		var image = config_image(Picture.new(images[i])) if options else Picture.new(images[i])
+		images_loaded.append(image)
 	show_first()
 
 func show_first()-> void:
@@ -35,3 +39,6 @@ func show_first()-> void:
 func config_transition()-> void:
 	transition.connect("on_blackout", self, "show_next_image")
 	add_child(transition)
+
+func config_image(image):
+	return image.set_percentage(options.scale)
