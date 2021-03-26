@@ -41,4 +41,8 @@ func config_transition()-> void:
 	add_child(transition)
 
 func config_image(image):
-	return image.set_percentage(options.scale)
+	image.set_percentage(options.scale)
+	image.set_h_align(options.h_align)
+	image.set_v_align(options.v_align)
+	image.set_padding(options.padding)
+	return image

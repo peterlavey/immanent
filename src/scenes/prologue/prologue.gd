@@ -14,6 +14,9 @@ var picure_options: PictureOptions
 func _init():
 	picure_options = Load.src("utils/image_manager/picture_options")
 	picure_options.scale = 60
+	picure_options.h_align = POSITION.CENTER
+	picure_options.v_align = POSITION.TOP
+	picure_options.padding = 15
 	
 	DIALOGUES = Load.src("resources/dialogues")
 	image_manager = Load.src("utils/image_manager/image_manager", images, picure_options)
