@@ -100,6 +100,7 @@ _global_script_class_icons={
 
 config/name="Immanent"
 run/main_scene="res://main.tscn"
+boot_splash/bg_color=Color( 0, 0, 0, 1 )
 
 [display]
 
@@ -107,4 +108,5 @@ window/stretch/mode="viewport"
 
 [rendering]
 
+environment/default_clear_color=Color( 0, 0, 0, 1 )
 environment/default_environment="res://default_env.tres"

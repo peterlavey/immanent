@@ -12,15 +12,27 @@ var DIALOGUES: GDScript
 var picure_options: PictureOptions
 
 func _init():
-	picure_options = Load.src("utils/image_manager/picture_options")
-	picure_options.scale = 60
-	picure_options.h_align = POSITION.CENTER
-	picure_options.v_align = POSITION.TOP
-	picure_options.padding = 15
+	config_pictures()
 	
 	DIALOGUES = Load.src("resources/dialogues")
 	image_manager = Load.src("utils/image_manager/image_manager", images, picure_options)
 	message = Load.src("utils/message/message")
+
+func config_pictures()-> void:
+	picure_options = Load.src("utils/image_manager/picture_options")
+	picure_options.scale = 50
+	picure_options.h_align = POSITION.CENTER
+	picure_options.v_align = POSITION.TOP
+	picure_options.padding = 10
+
+func config_message()-> void:
+	var margin = 15
+	var screen_height = OS.get_window_size().y
+	var picture_x = image_manager.images_loaded[0].position.x
+	#var picture_h = image_manager.images_loaded[0].texture.get_height() * picure_options.scale / 100
+	
+	message.position.x = picture_x
+	message.position.y = (screen_height * .5) + picure_options.padding + margin
 
 func _process(delta):
 	listen_start_button()
@@ -38,6 +50,7 @@ func show_images()-> void:
 
 func show_messages():
 	add_child(message)
+	config_message()
 	message.show_message(DIALOGUES.PROLOGUE.pop_front())
 
 func show_next_message():
