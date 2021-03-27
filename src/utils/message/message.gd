@@ -46,4 +46,6 @@ func config_delay()-> void:
 
 func config_label()-> void:
 	label = Label.new()
+	label.autowrap = true
+	label.clip_text = true
 	add_child(label)

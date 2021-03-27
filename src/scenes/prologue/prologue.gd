@@ -29,10 +29,13 @@ func config_message()-> void:
 	var margin = 15
 	var screen_height = OS.get_window_size().y
 	var picture_x = image_manager.images_loaded[0].position.x
-	#var picture_h = image_manager.images_loaded[0].texture.get_height() * picure_options.scale / 100
-	
-	message.position.x = picture_x
-	message.position.y = (screen_height * .5) + picure_options.padding + margin
+	var picture_w = image_manager.images_loaded[0].width
+	var picture_h = image_manager.images_loaded[0].height
+
+	var position = Vector2(picture_x, (screen_height * .5) + picure_options.padding + margin)
+	message.set_position(position)
+	message.set_size(Vector2(picture_w, picture_h))
+	message.label.set_size(Vector2(picture_w, picture_h))
 
 func _process(delta):
 	listen_start_button()

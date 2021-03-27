@@ -1,4 +1,4 @@
-class_name BaseNode extends Node2D
+class_name BaseNode extends Control
 
 var Load: GDScript = load("res://src/utils/load/loader.gd").new()
 var POSITION = {

@@ -1,5 +1,6 @@
-extends BaseNode
+extends Node2D
 
+var Load = load("res://src/utils/load/loader.gd").new()
 var world: Node
 var game: Game
 

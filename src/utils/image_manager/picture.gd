@@ -8,6 +8,8 @@ var POSITION = {
 	"DOWN": 3,
 	"LEFT": 4
 }
+var width: float
+var height: float
 
 func _init(image_url):
 	self.image_url = image_url
@@ -18,7 +20,10 @@ func config_background()-> void:
 	centered = false
 
 func set_percentage(scale)-> void:
-	set_scale(Responsive.sprite(self, scale))
+	var picture_scale = Responsive.sprite(self, scale)
+	width = texture.get_width() * picture_scale.x
+	height = texture.get_height() * picture_scale.y
+	set_scale(picture_scale)
 
 func set_h_align(_position)-> void:
 	var screen_width = OS.get_window_size().x
