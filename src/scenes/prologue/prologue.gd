@@ -26,7 +26,7 @@ func config_pictures()-> void:
 	picure_options.padding = 10
 
 func config_message()-> void:
-	var margin = 15
+	var margin = 30
 	var screen_height = OS.get_window_size().y
 	var picture_x = image_manager.images_loaded[0].position.x
 	var picture_w = image_manager.images_loaded[0].width

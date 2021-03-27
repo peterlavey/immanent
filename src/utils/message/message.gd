@@ -1,6 +1,6 @@
 class_name Message extends BaseNode
 
-var label: Label
+var label: RichTextLabel
 var delay: Delay
 var split_message: Array
 var text: String
@@ -19,12 +19,19 @@ func show_message(message: String):
 	delay.start()
 
 func split_message(message: String)-> void:
+	var tag = ""
 	for i in message.length():
-		split_message.append(message[i])
+		if message[i] == "[" || tag != "":
+			tag += message[i]
+			if message[i] == "]":
+				split_message.append(tag)
+				tag = ""
+		elif tag == "":
+			split_message.append(message[i])
 
 func show_next_char()-> void:
 	text += split_message.pop_front()
-	label.set_text(text)
+	label.set_bbcode(text)
 	
 	if split_message.empty():
 		is_complete = true
@@ -33,7 +40,7 @@ func show_next_char()-> void:
 func complete()-> void:
 	delay.stop()
 	text += PoolStringArray(split_message).join("")
-	label.set_text(text)
+	label.set_bbcode(text)
 	is_complete = true
 
 func clean()-> void:
@@ -45,7 +52,6 @@ func config_delay()-> void:
 	add_child(delay)
 
 func config_label()-> void:
-	label = Label.new()
-	label.autowrap = true
-	label.clip_text = true
+	label = RichTextLabel.new()
+	label.bbcode_enabled = true
 	add_child(label)

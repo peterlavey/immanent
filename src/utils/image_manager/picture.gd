@@ -10,6 +10,8 @@ var POSITION = {
 }
 var width: float
 var height: float
+var screen_width = OS.get_window_size().x
+var screen_height = OS.get_window_size().y
 
 func _init(image_url):
 	self.image_url = image_url
@@ -26,39 +28,28 @@ func set_percentage(scale)-> void:
 	set_scale(picture_scale)
 
 func set_h_align(_position)-> void:
-	var screen_width = OS.get_window_size().x
-	var image_width = texture.get_width() * scale.x
-	
 	if _position == POSITION.LEFT:
 		position.x = 0
 	elif _position == POSITION.CENTER:
-		position.x = (screen_width * .5) - (image_width * .5)
+		position.x = (screen_width * .5) - (width * .5)
 	elif _position == POSITION.RIGHT:
-		position.x = screen_width - image_width
+		position.x = screen_width - width
 
 func set_v_align(_position)-> void:
-	var screen_height = OS.get_window_size().y
-	var image_height = texture.get_height() * scale.y
-	
 	if _position == POSITION.TOP:
 		position.y = 0
 	elif _position == POSITION.CENTER:
-		position.y = (screen_height * .5) - (image_height * .5)
+		position.y = (screen_height * .5) - (height * .5)
 	elif _position == POSITION.DOWN:
-		position.y = screen_height - image_height
+		position.y = screen_height - height
 
 func set_padding(padding)-> void:
-	var screen_width = OS.get_window_size().x
-	var screen_height = OS.get_window_size().y
-	var image_width = texture.get_width() * scale.x
-	var image_height = texture.get_height() * scale.y
-	
 	if position.x == 0:
 		position.x += padding
-	elif position.x == screen_width - image_width:
+	elif position.x == screen_width - width:
 		position.x -= padding
 	
 	if position.y == 0:
 		position.y += padding
-	elif screen_height - image_height:
+	elif screen_height - height:
 		position.y -= padding
