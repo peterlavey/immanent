@@ -10,6 +10,7 @@ var images: Array = [
 ]
 var DIALOGUES: GDScript
 var picure_options: PictureOptions
+#https://open.spotify.com/track/073qwNpeFHepLKcTS43WWT?si=f4AoHBqwQqye16sew5da0A
 
 func _init():
 	config_pictures()

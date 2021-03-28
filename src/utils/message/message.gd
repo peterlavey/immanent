@@ -4,9 +4,11 @@ var label: RichTextLabel
 var delay: Delay
 var split_message: Array
 var text: String
+var font: DynamicFont
 var is_complete: bool
 
 func _init():
+	font = Load.font("Ubuntu-Regular")
 	delay = Load.src("utils/timer/delay", "show_next_char")
 	
 	config_label()
@@ -54,4 +56,6 @@ func config_delay()-> void:
 func config_label()-> void:
 	label = RichTextLabel.new()
 	label.bbcode_enabled = true
+	label.set("custom_fonts/normal_font", font)
+	label.set("custom_colors/default_color", Color.white)
 	add_child(label)
