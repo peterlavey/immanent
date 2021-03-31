@@ -10,14 +10,23 @@ var images: Array = [
 ]
 var DIALOGUES: GDScript
 var picure_options: PictureOptions
-#https://open.spotify.com/track/073qwNpeFHepLKcTS43WWT?si=f4AoHBqwQqye16sew5da0A
+var music_player: MusicPlayer
+var songs: Array = ["res://assets/prologue/prologue.ogg"]
+#class_name Playlist extends Nodehttps://open.spotify.com/track/073qwNpeFHepLKcTS43WWT?si=f4AoHBqwQqye16sew5da0A
 
 func _init():
 	config_pictures()
 	
+	music_player = Load.src("utils/music/music_player")
 	DIALOGUES = Load.src("resources/dialogues")
 	image_manager = Load.src("utils/image_manager/image_manager", images, picure_options)
 	message = Load.src("utils/message/message")
+	
+	config_music()
+
+func config_music()-> void:
+	music_player.set_songs(songs)
+	music_player.shuffle = false
 
 func config_pictures()-> void:
 	picure_options = Load.src("utils/image_manager/picture_options")
@@ -46,8 +55,13 @@ func listen_start_button()-> void:
 		show_next_message()
 
 func start()-> void:
+	play_music()
 	show_images()
 	show_messages()
+
+func play_music()-> void:
+	add_child(music_player)
+	music_player.start()
 
 func show_images()-> void:
 	add_child(image_manager)

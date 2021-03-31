@@ -11,7 +11,7 @@ const PROLOGUE = [
 	NEXT,
 	"Ha llegado el día del juicio final, no existe material ni energía que nos salve esta vez",
 	"La humanidad al fin logra ver el origen de todo cara a cara",
-	"Según nuestros calculos quedan siente días",
+	"Según nuestros calculos quedan siete días",
 	NEXT,
 	"Este podría ser nuestro fin y el inicio de un nuevo ciclo",
 	"Pero aún tenemos una esperanza...",
