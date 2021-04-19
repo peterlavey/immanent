@@ -1,6 +1,7 @@
 class_name Dialogues extends GDScript
 
 const NEXT = "->"
+
 const PROLOGUE = [
 	"Hemos superado muchos obstaculos, luchado guerras, desarrollado tecnología y avances médicos",
 	"Todo con el fin de derrotar a la muerte y desafiar nuestra naturaleza",
@@ -17,5 +18,22 @@ const PROLOGUE = [
 	"Pero aún tenemos una esperanza...",
 	"Desafiaremos a la creación y viviremos para continuar nuestro legado.",
 	NEXT,
-	"[shake rate=13 level=6]ESTA ES LA RESPUESTA DE LA HUMANIDAD![/shake]"
+	"[shake rate=13 level=6]ESTA ES LA RESPUESTA DE LA HUMANIDAD![/shake]",
+	NEXT,
+	"CLICK*",
+	NEXT,
+	" ",
+	NEXT,
+	NEXT,
+	"¿Cuál es mi proposito?",
+	NEXT,
+	"Debo...",
+	NEXT,
+	"salvar...",
+	NEXT,
+	"al...",
+	NEXT,
+	"creador",
+	NEXT,
+	"¿Cuál es mi proposito?"
 ]

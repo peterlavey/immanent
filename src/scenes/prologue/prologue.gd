@@ -2,21 +2,19 @@ class_name Prologue extends BaseNode
 
 var image_manager: ImageManager
 var message: Message
-var images: Array = [
-	"res://assets/prologue/1.png",
-	"res://assets/prologue/2.png",
-	"res://assets/prologue/3.png",
-	"res://assets/prologue/4.png",
-]
+var images: Array
 var DIALOGUES: GDScript
 var picure_options: PictureOptions
 var music_player: MusicPlayer
-var songs: Array = ["res://assets/prologue/prologue.ogg"]
+var songs: Array = ["res://assets/prologue/music/prologue.ogg"]
+var folder_manager: FolderManager
 #class_name Playlist extends Nodehttps://open.spotify.com/track/073qwNpeFHepLKcTS43WWT?si=f4AoHBqwQqye16sew5da0A
 
 func _init():
 	config_pictures()
 	
+	folder_manager = Load.src("utils/directory/folder_manager")
+	images = folder_manager.get_directory_list("res://assets/prologue/images", "png", true)
 	music_player = Load.src("utils/music/music_player")
 	DIALOGUES = Load.src("resources/dialogues")
 	image_manager = Load.src("utils/image_manager/image_manager", images, picure_options)
@@ -69,7 +67,7 @@ func show_images()-> void:
 func show_messages():
 	add_child(message)
 	config_message()
-	message.show_message(DIALOGUES.PROLOGUE.pop_front())
+	show_next_message()
 
 func show_next_message():
 	if message.is_complete:
@@ -77,11 +75,19 @@ func show_next_message():
 			#iniciar juego o siguiente secuencia
 			pass
 		else:
-			var text = DIALOGUES.PROLOGUE.pop_front()
-			if text == DIALOGUES.NEXT:
-				image_manager.next()
-				message.show_message(DIALOGUES.PROLOGUE.pop_front())
+			if DIALOGUES.PROLOGUE[0] == DIALOGUES.NEXT:
+				show_next_image()
 			else:
-				message.show_message(text)
+				show_next_text()
 	else:
 		message.complete()
+
+func show_next_image()-> void:
+	DIALOGUES.PROLOGUE.pop_front()
+	image_manager.next()
+	if !DIALOGUES.PROLOGUE.empty():
+		if DIALOGUES.PROLOGUE[0] != DIALOGUES.NEXT:
+			message.show_message(DIALOGUES.PROLOGUE.pop_front())
+
+func show_next_text()-> void:
+	message.show_message(DIALOGUES.PROLOGUE.pop_front())

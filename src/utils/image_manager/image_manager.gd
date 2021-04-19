@@ -6,11 +6,13 @@ var images_loaded: Array
 var current: int = 0
 var transition: Transition
 var options
+var sort
 
 func _init(images, options = false):
 	self.options = options
 	Picture = Load.ref("utils/image_manager/picture")
 	transition = Load.src("utils/image_manager/transition")
+	sort = Load.src("utils/sort/sort_path")
 	self.images = images
 
 func _ready():
@@ -19,6 +21,8 @@ func _ready():
 
 func next()-> void:
 	if current < images_loaded.size():
+		remove_child(transition)
+		add_child(transition)
 		transition.speed = 8
 		transition.light_to_dark_to_light()
 
@@ -28,6 +32,8 @@ func show_next_image()-> void:
 	add_child(images_loaded[current])
 
 func load_images()-> void:
+	images.sort_custom(sort, "asc")
+
 	for i in images.size():
 		var image = config_image(Picture.new(images[i])) if options else Picture.new(images[i])
 		images_loaded.append(image)
@@ -38,7 +44,6 @@ func show_first()-> void:
 
 func config_transition()-> void:
 	transition.connect("on_blackout", self, "show_next_image")
-	add_child(transition)
 
 func config_image(image):
 	image.set_percentage(options.scale)
