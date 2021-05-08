@@ -1,10 +1,11 @@
 class_name Game extends BaseNode
 
 var prologue: Prologue
+var evolution: Evolution
 
 func _init():
-	prologue = Load.src("scenes/prologue/prologue")
+	evolution = Load.src("scenes/evolution/evolution")
 
 func _ready():
-	add_child(prologue)
-	prologue.start()
+	add_child(evolution)
+	evolution.start()
