@@ -5,8 +5,8 @@ var tileGreen = load("res://src/mechanics/role/assets/tile-green.png")
 var tileGray = load("res://src/mechanics/role/assets/tile-gray.png")
 var CONFIG = load("res://src/mechanics/role/constants/config.gd").new()
 enum {
-	BUSH = 0,
-	WALL = 1
+	B = 0,
+	W = 1
 }
 
 func _draw():
@@ -17,8 +17,8 @@ func draw_terrain():
 	for i in terrain.size():
 		for j in terrain[i].size():
 			match terrain[i][j]:
-				BUSH:
+				B:
 					tile = tileGreen
-				WALL:
+				W:
 					tile = tileGray
 			draw_texture(tile, Vector2(CONFIG.TILE_SIZE * j, CONFIG.TILE_SIZE * i))
