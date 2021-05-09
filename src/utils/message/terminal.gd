@@ -1,30 +1,20 @@
 class_name Terminal extends BaseNode
 
+signal on_finish
 var message: Message
-var DIALOGUES: GDScript
-var folder_manager: FolderManager
+var DIALOGUES: Array
 
-func _init():
-	DIALOGUES = Load.src("resources/dialogues")
+func _init(dialogues):
+	DIALOGUES = dialogues
 	message = Load.src("utils/message/message")
 
 func config_message()-> void:
-	var screen_weigth = OS.get_window_size().x
-	var screen_height = OS.get_window_size().y
-	var position = Vector2((screen_weigth * 0.15), (screen_height * .3))
-	message.font.size = 32
-	message.set_position(position)
-	#message.set_size(Vector2((screen_weigth * 0.85), (screen_height * 85)))
-	message.label.set_size(Vector2((screen_weigth * 0.7), (screen_height * 85)))
-
-func config_message_terminal()-> void:
 	var screen_weigth = OS.get_window_size().x
 	var screen_height = OS.get_window_size().y
 	var position = Vector2(screen_weigth * 0.05, screen_height * 0.01)
 	message.delay.set_speed(0.05)
 	message.font.size = 16
 	message.set_position(position)
-	#message.set_size(Vector2((screen_weigth * 0.85), (screen_height * 85)))
 	message.label.set_size(Vector2((screen_weigth * 0.7), (screen_height * 85)))
 
 func _process(delta):
@@ -39,14 +29,13 @@ func start()-> void:
 
 func show_messages():
 	add_child(message)
-	#config_message()
-	config_message_terminal()
+	config_message()
 	show_next_message()
 
 func show_next_message():
 	if message.is_complete:
-		if DIALOGUES.INITIALIZATION.empty():
-			#iniciar juego o siguiente secuencia
+		if DIALOGUES.empty():
+			emit_signal("on_finish")
 			pass
 		else:
 			show_next_text()
@@ -54,4 +43,4 @@ func show_next_message():
 		message.complete()
 
 func show_next_text()-> void:
-	message.show_message(DIALOGUES.INITIALIZATION.pop_front())
+	message.show_message(DIALOGUES.pop_front())

@@ -1,7 +1,7 @@
 class_name Game extends BaseNode
 
 var prologue: Prologue
-var terminal: Terminal
+var evolution_first: EvolutionFirst
 
 func _init():
 	prologue = Load.src("scenes/prologue/prologue")
@@ -12,11 +12,11 @@ func _ready():
 
 func init_prologue():
 	add_child(prologue)
-	prologue.connect("next", self, "next")
+	prologue.connect("next", self, "init_evolution_first")
 	prologue.start()
 
-func next():
-	print("next")
+func init_evolution_first():
 	remove_child(prologue)
-	terminal = Load.src("scenes/evolution/terminal")
-	add_child(terminal)
+	evolution_first = Load.src("scenes/evolution/evolutionFirst")
+	add_child(evolution_first)
+	evolution_first.start()

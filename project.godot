@@ -50,6 +50,11 @@ _global_script_classes=[ {
 "path": "res://src/mechanics/role/stage/dungeon.gd"
 }, {
 "base": "BaseNode",
+"class": "EvolutionFirst",
+"language": "GDScript",
+"path": "res://src/scenes/evolution/evolutionFirst.gd"
+}, {
+"base": "BaseNode",
 "class": "EvolutionTest",
 "language": "GDScript",
 "path": "res://src/scenes/evolution/evolutionTestBenign.gd"
@@ -114,6 +119,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://src/mechanics/role/player/rolePlayer.gd"
 }, {
+"base": "BaseNode",
+"class": "Sequence",
+"language": "GDScript",
+"path": "res://src/utils/message/sequence.gd"
+}, {
 "base": "Player",
 "class": "Snake",
 "language": "GDScript",
@@ -132,7 +142,7 @@ _global_script_classes=[ {
 "base": "BaseNode",
 "class": "Terminal",
 "language": "GDScript",
-"path": "res://src/scenes/evolution/terminal.gd"
+"path": "res://src/utils/message/terminal.gd"
 }, {
 "base": "Stage",
 "class": "TheWay",
@@ -153,6 +163,7 @@ _global_script_class_icons={
 "Delay": "",
 "Dialogues": "",
 "Dungeon": "",
+"EvolutionFirst": "",
 "EvolutionTest": "",
 "FolderManager": "",
 "Game": "",
@@ -166,6 +177,7 @@ _global_script_class_icons={
 "Prologue": "",
 "Responsive": "",
 "RolePlayer": "",
+"Sequence": "",
 "Snake": "",
 "SortPath": "",
 "Stage": "",
