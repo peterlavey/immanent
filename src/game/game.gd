@@ -8,7 +8,7 @@ func _init():
 	
 
 func _ready():
-	init_prologue()
+	init_evolution_first()
 
 func init_prologue():
 	add_child(prologue)

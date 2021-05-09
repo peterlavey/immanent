@@ -57,3 +57,10 @@ const THE_WAY = [
 	"Deben existir otros seres cómo yo, puede que perciban el mundo mejor",
 	"¿Qué es esto que me atrae?"
 ]
+
+const PERCEPTION = {
+	"DANGER": [
+		"Hay peligro cerca",
+		"Debo alejarme"
+	]
+}

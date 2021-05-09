@@ -23,6 +23,9 @@ func src(path: String, arg1 = null, arg2 = null, arg3 = null):
 func asset(path: String):
 	return load(ASSETS + path + ASSET_EXTENSION)
 
+func particle(path: String):
+	return load(ASSETS + path + ".tscn").instance()
+
 func font(path: String)-> DynamicFont:
 	var dynamic_font = DynamicFont.new()
 	dynamic_font.font_data = load(FONTS + path + FONTS_EXTENSIONS)

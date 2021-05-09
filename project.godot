@@ -34,6 +34,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://src/mechanics/role/constants/config.gd"
 }, {
+"base": "BaseNode",
+"class": "Danger",
+"language": "GDScript",
+"path": "res://src/mechanics/role/player/perception/danger.gd"
+}, {
 "base": "Node2D",
 "class": "Delay",
 "language": "GDScript",
@@ -93,6 +98,11 @@ _global_script_classes=[ {
 "class": "MusicPlayer",
 "language": "GDScript",
 "path": "res://src/utils/music/music_player.gd"
+}, {
+"base": "BaseNode",
+"class": "Perception",
+"language": "GDScript",
+"path": "res://src/mechanics/role/player/perception/perception.gd"
 }, {
 "base": "Sprite",
 "class": "Picture",
@@ -165,6 +175,7 @@ _global_script_class_icons={
 "BaseNode": "",
 "Benign": "",
 "Config": "",
+"Danger": "",
 "Delay": "",
 "Dialogues": "",
 "Dramatic": "",
@@ -177,6 +188,7 @@ _global_script_class_icons={
 "Loader": "",
 "Message": "",
 "MusicPlayer": "",
+"Perception": "",
 "Picture": "",
 "PictureOptions": "",
 "Player": "",
