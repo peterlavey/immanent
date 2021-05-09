@@ -1,5 +1,6 @@
 class_name Dialogues extends GDScript
 
+const YELLOW = "color=#FFF747"
 const NEXT = "->"
 
 const PROLOGUE = [
@@ -36,4 +37,23 @@ const PROLOGUE = [
 	"creador",
 	NEXT,
 	"¿Cuál es mi proposito?"
+]
+
+const INITIALIZATION = [
+	"""
+	[color=#FF4B99]GODHEAD UNI. GENEZIS PROJECT[/color] [color=#796cb5]<version 32.5.132.5778>[/color]\n
+	%[color=#47FFEC]protocol GHZ&7-GNZ676-BNG769[/color]%\n\n
+		[GHZ.TME 32677hrz] [color=#FFF747]$inicializando...[/color]\n
+		[GHZ.TME 34392hrz] protocolo de comunicacion... [color=#88FB80]inciado[/color]\n
+		[GHZ.TME 34435hrz] receptores de contacto... [color=#88FB80]inciado[/color]\n
+		[GHZ.TME 34507hrz] percepcion de tiempo... [color=#FFF747]en proceso[/color]\n
+		[GHZ.TME 38276hrz] presione para continuar...
+	"""
+]
+
+const THE_WAY = [
+	"...hmm? ¿qué es está sensación? ¿debo avanzar?",
+	"Debo avanzar, mi existencia depende de ello... tengo miedo",
+	"Deben existir otros seres cómo yo, puede que perciban el mundo mejor",
+	"¿Qué es esto que me atrae?"
 ]

@@ -5,6 +5,7 @@ var delay: Delay
 var split_message: Array
 var text: String
 var font: DynamicFont
+var font_size: int
 var is_complete: bool
 
 func _init():

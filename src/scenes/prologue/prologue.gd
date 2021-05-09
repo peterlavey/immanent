@@ -73,6 +73,7 @@ func show_next_message():
 	if message.is_complete:
 		if DIALOGUES.PROLOGUE.empty():
 			#iniciar juego o siguiente secuencia
+			emit_signal("next")
 			pass
 		else:
 			if DIALOGUES.PROLOGUE[0] == DIALOGUES.NEXT:
