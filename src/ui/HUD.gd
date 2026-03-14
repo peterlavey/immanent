@@ -32,6 +32,7 @@ func _ready() -> void:
 	var world_manager = get_tree().get_first_node_in_group("world_manager")
 	if world_manager:
 		world_manager.genezis_spawned.connect(_on_genezis_spawned)
+		world_manager.genezis_g2_spawned.connect(_on_genezis_g2_spawned)
 	
 	# Initial count
 	_update_genezis_count()
@@ -73,6 +74,10 @@ func _on_upgrade_purchased(upgrade_id: String) -> void:
 			var world_manager = get_tree().get_first_node_in_group("world_manager")
 			if world_manager:
 				world_manager.spawn_extra_genezis()
+		"fusion":
+			var world_manager = get_tree().get_first_node_in_group("world_manager")
+			if world_manager:
+				world_manager.fuse_genezis()
 	
 	# Refresh UI if a Genezis is selected
 	if selected_genezis and is_instance_valid(selected_genezis):
@@ -80,14 +85,26 @@ func _on_upgrade_purchased(upgrade_id: String) -> void:
 
 func _update_genezis_count() -> void:
 	var count = get_tree().get_nodes_in_group("genezis").size()
-	genezis_count_label.text = "Genezis: %d" % count
+	var g2_count = get_tree().get_nodes_in_group("genezis_g2").size()
+	
+	if g2_count > 0:
+		genezis_count_label.text = "Genezis: %d G1, %d G2" % [count, g2_count]
+	else:
+		genezis_count_label.text = "Genezis: %d" % count
 	
 	# Re-connect signals for all Genezis beings to ensure new ones are included
 	for genezis in get_tree().get_nodes_in_group("genezis"):
 		if not genezis.selected.is_connected(_on_genezis_selected):
 			genezis.selected.connect(_on_genezis_selected)
+			
+	for g2 in get_tree().get_nodes_in_group("genezis_g2"):
+		if not g2.selected.is_connected(_on_genezis_g2_selected):
+			g2.selected.connect(_on_genezis_g2_selected)
 
 func _on_genezis_spawned(_genezis: CharacterBody3D) -> void:
+	_update_genezis_count()
+
+func _on_genezis_g2_spawned(_genezis: CharacterBody3D) -> void:
 	_update_genezis_count()
 
 func _on_genezis_selected(genezis: CharacterBody3D) -> void:
@@ -97,6 +114,14 @@ func _on_genezis_selected(genezis: CharacterBody3D) -> void:
 	if upgrade_menu:
 		upgrade_menu.set_mode(upgrade_menu.Mode.GENEZIS)
 		upgrade_menu.show()
+
+func _on_genezis_g2_selected(genezis: CharacterBody3D) -> void:
+	selected_genezis = genezis
+	if genezis_stats_ui:
+		genezis_stats_ui.display_stats(genezis.get_stats())
+	# G2 might have its own upgrade mode later, but for now Core mode is fine or just hide menu
+	if upgrade_menu:
+		upgrade_menu.hide()
 
 func _on_data_changed(amount: int) -> void:
 	data_label.text = "Data: " + format_bytes(amount)

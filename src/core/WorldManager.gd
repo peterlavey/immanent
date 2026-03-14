@@ -2,9 +2,12 @@ extends Node3D
 
 signal data_spot_spawned(spot: Node3D)
 signal genezis_spawned(genezis: CharacterBody3D)
+signal genezis_g2_spawned(genezis: CharacterBody3D)
+signal genezis_removed
 
 @export var data_spot_scene: PackedScene
 @export var genezis_scene: PackedScene
+@export var genezis_g2_scene: PackedScene
 @export var spawn_radius: float = 20.0
 @export var min_spawn_distance: float = 5.0
 @export var initial_spots: int = 5
@@ -35,6 +38,38 @@ func _on_iteration_started(_number: int) -> void:
 
 func spawn_extra_genezis() -> void:
 	_spawn_genezis()
+
+func fuse_genezis() -> void:
+	var g1_beings = get_tree().get_nodes_in_group("genezis")
+	if g1_beings.size() >= 5: # Require at least 5 G1s (4 to fuse, 1 to keep)
+		# Take 4 G1s
+		var to_fuse = []
+		for i in range(4):
+			to_fuse.append(g1_beings[i])
+		
+		# Average position
+		var avg_pos = Vector3.ZERO
+		for g in to_fuse:
+			avg_pos += g.global_position
+		avg_pos /= 4.0
+		
+		# Remove G1s
+		for g in to_fuse:
+			g.remove_from_group("genezis")
+			g.queue_free()
+		
+		genezis_removed.emit()
+		
+		# Spawn G2
+		_spawn_genezis_g2(avg_pos)
+		print("Fusion complete: 4 G1 fused into 1 G2.")
+
+func _spawn_genezis_g2(pos: Vector3) -> void:
+	if not genezis_g2_scene: return
+	var g2 = genezis_g2_scene.instantiate()
+	add_child(g2)
+	g2.global_position = pos
+	genezis_g2_spawned.emit(g2)
 
 func _spawn_initial_data_spots() -> void:
 	var core = get_tree().get_first_node_in_group("core")

@@ -75,3 +75,15 @@ Immanent is a 3D idle game set inside a digital simulation (processor). Players 
    - **User Story**: As a player, I want a final objective so that I have a reason to reach the end of the evolution tree.
    - **Acceptance Criteria**:
      - WHEN all evolution phases are completed THEN the system SHALL allow the player to "escape the simulation" and win the game.
+  78:
+  79:10. **Genezi G2 & Fusion**
+  80:   - **User Story**: As a player, I want to fuse four G1 Genezi into a single G2 Genezi so that I can have a more powerful unit to protect my Core and other G1 units.
+  81:   - **Acceptance Criteria**:
+  82:     - THE system SHALL allow the fusion of four Genezi "G1" into a single Genezi "G2".
+     - THE system SHALL ensure at least one Genezi "G1" remains after fusion to prevent resource collection stalling.
+     - THE system SHALL allow spawning more Genezi "G1" if their count falls below the current limit due to fusion.
+  83:     - THE Genezi "G2" SHALL be a larger, more advanced species.
+  84:     - THE Genezi "G2" SHALL be in charge of protecting the G1s and the Core from threats.
+  85:     - THE Genezi "G2" SHALL have a distinct visual representation from G1.
+  86:     - THE fusion process SHALL require 4 existing G1 units (meaning at least 5 must be present) and a specific amount of data as a cost.
+  87:

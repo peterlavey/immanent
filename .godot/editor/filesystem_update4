@@ -7,3 +7,5 @@ res://src/core/Camera.gd
 res://src/core/Core.gd
 res://src/ui/FloatingText.gd
 res://src/ui/FloatingText.tscn
+res://src/entities/GenezisG2.gd
+res://src/ui/GenezisStatsUI.gd

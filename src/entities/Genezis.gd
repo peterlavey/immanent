@@ -104,6 +104,7 @@ func move_towards(target_pos: Vector3, delta: float) -> void:
 
 func get_stats() -> Dictionary:
 	return {
+		"type": "Genezis G1",
 		"speed": move_speed,
 		"capacity": carry_capacity,
 		"extraction": extraction_rate,

@@ -7,12 +7,18 @@ func _ready() -> void:
 
 func display_stats(stats: Dictionary) -> void:
 	show()
-	var text = "Genezis Statistics\n"
+	var type_label = stats.get("type", "Genezis G1")
+	var text = "%s Statistics\n" % type_label
 	text += "------------------\n"
-	text += "Status: %s\n" % stats["state"]
-	text += "Speed: %.1f m/s\n" % stats["speed"]
-	text += "Extraction: %d B/s\n" % stats["extraction"]
-	text += "Load: %s / %s" % [format_bytes(stats["load"]), format_bytes(stats["capacity"])]
+	text += "Status: %s\n" % stats.get("state", "UNKNOWN")
+	text += "Speed: %.1f m/s\n" % stats.get("speed", 0.0)
+	
+	if type_label == "Genezis G2":
+		text += "Role: Protection / Security\n"
+	else:
+		text += "Extraction: %d B/s\n" % stats.get("extraction", 0)
+		text += "Load: %s / %s" % [format_bytes(stats.get("load", 0)), format_bytes(stats.get("capacity", 0))]
+	
 	stats_label.text = text
 
 func format_bytes(bytes: int) -> String:

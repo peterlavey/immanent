@@ -89,6 +89,12 @@ Goal: Implement the final evolution stages and the game's conclusion.
    - Priority: Low
    - Requirements: Req 9
 
+3. **Genezi Fusion & G2 Implementation** (Plan: 4.3)
+   - Implement the fusion logic for G1 to G2.
+   - Implement the Genezi G2 protective behaviors and visual.
+   - Priority: Medium
+   - Requirements: Req 10
+
 ## Dependencies & Risks
 - **Dependency**: Godot Engine integration.
 - **Risk**: Performance issues with many Genezis beings (mitigate with optimized scripts).
