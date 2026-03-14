@@ -97,6 +97,16 @@ Follow the methodology below step by step:
 
 ---
 
+### Step 5: Visual Identity & Modeling
+
+- The project follows a "Digital Biome" aesthetic.
+- Characters and entities must have designs that reflect their role in the simulation.
+- **Genezis G1**: Designed as robotic "Bacteriophages" (viruses). Lean, specialized for mining, with a hexagonal head, neck, and "legs" for anchoring to data.
+- **Enemies**: Must look aggressive and disruptive, based on malware or corruption themes.
+- **The Core**: A central processor hub with glowing circuits and a "server rack" or "central unit" look.
+
+---
+
 ## Input:
 
 [INSERT YOUR HIGH-LEVEL REQUIREMENTS FOR THE APPLICATION YOU WANT TO CREATE; ASK THE USER]

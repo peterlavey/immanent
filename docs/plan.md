@@ -120,6 +120,40 @@ Goal: Implement digital threats (viruses) and defense mechanics.
    - Priority: Low
    - Requirements: Req 12
 
+## Phase 6: Visual Overhaul (High Priority)
+Goal: Redesign entities to match the "Digital Biome" aesthetic.
+
+1. **Genezis G1: Bacteriophage Model** (Plan: 6.1)
+   - Implement the "Bacteriophage" design using Godot nodes (Hexagonal head, neck, legs).
+   - Priority: High
+   - Requirements: Req 13
+
+2. **Genezis G2: Guardian Model** (Plan: 6.2)
+   - Redesign G2 as a robust "Cell Guardian" version of G1.
+   - Priority: Medium
+   - Requirements: Req 13
+
+3. **The Core: Processor Hub** (Plan: 6.3)
+   - Redesign the Core as a central unit with glowing circuits and mechanical components.
+   - Priority: Medium
+   - Requirements: Req 13
+
+4. **Enemies: Malware Redesign** (Plan: 6.4)
+   - Update Bit-Scrubber and Defragmenter to look more like digital "corruption".
+   - Priority: Medium
+   - Requirements: Req 13
+
+ 5. **Data Spot: Code Crystal** (Plan: 6.5)
+   - Redesign the Data Spot as a "Code Crystal" with floating shards.
+   - Priority: Medium
+   - Requirements: Req 13
+
+6. **Background Atmosphere: Space-Digital** (Plan: 6.6)
+   - Implement a dark, space-like sky with digital grid/star elements.
+   - Configure Glow/Bloom for better visual quality.
+   - Priority: Medium
+   - Requirements: Req 14
+
 ## Dependencies & Risks
 - **Dependency**: Godot Engine integration.
 - **Risk**: Performance issues with many Genezis G1 beings (mitigate with optimized scripts).

@@ -97,7 +97,35 @@
   - [x] Trigger Bit-Scrubber spawn on the first Genezis G2 generation.
   - [x] Trigger Defragmenter spawn on the second Genezis G2 generation.
 
-## Phase 5: Digital Threats & Combat
+## Phase 6: Visual Identity & Modeling
+
+- [x] **6.1 Genezis G1 Redesign**
+  - [x] Implement the "Bacteriophage" hexagonal head using a `CylinderMesh` or custom procedural mesh (Plan: 6.1) (Req: 13)
+  - [x] Implement the "Neck/Stalk" using a `CylinderMesh` (Plan: 6.1) (Req: 13)
+  - [x] Implement "Legs" for anchoring using `CylinderMesh` or `CSGBox3D` (Plan: 6.1) (Req: 13)
+  - [x] Add mining animations (e.g., slight head pulsation when extracting) (Plan: 6.1) (Req: 13)
+
+- [x] **6.2 Genezis G2 Redesign**
+  - [x] Enhance G2 model with protective plates/armor based on the G1 base (Plan: 6.2) (Req: 13)
+  - [x] Add defensive light/shield visual when in intercept mode (Plan: 6.2) (Req: 13)
+
+- [x] **6.3 The Core Redesign**
+  - [x] Build a "Processor Hub" using `CSGBox3D` and `CSGCylinder3D` (Plan: 6.3) (Req: 13)
+  - [x] Add glowing circuitry materials (Plan: 6.3) (Req: 13)
+
+- [x] **6.4 Enemy Visual Polish**
+  - [x] Redesign Bit-Scrubber with jagged "corruption" elements (Plan: 6.4) (Req: 13)
+  - [x] Redesign Defragmenter with "glitchy" geometry (Plan: 6.4) (Req: 13)
+
+- [x] **6.5 Data Spot Redesign**
+  - [x] Redesign Data Spot as a "Code Crystal" with a central core and floating shards (Plan: 6.5) (Req: 13)
+
+
+- [x] **6.6 Background Atmosphere**
+  - [x] Update `WorldEnvironment` with a dark space-digital theme (Plan: 6.6) (Req: 14)
+  - [x] Configure `ProceduralSkyMaterial` with deep blues/blacks (Plan: 6.6) (Req: 14)
+  - [x] Enable and calibrate Glow/Bloom for digital atmosphere (Plan: 6.6) (Req: 14)
+  - [x] Add a grid or digital pattern to the environment visuals (Plan: 6.6) (Req: 14)
 
 - [x] **5.1 Basic Enemy Infrastructure**
   - [x] Create base `Enemy.gd` with state machine and navigation (Plan: 5.1) (Req: 11)

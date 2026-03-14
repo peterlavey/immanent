@@ -1,25 +1,71 @@
-[gd_scene load_steps=5 format=3]
+[gd_scene load_steps=10 format=3]
 
 [ext_resource type="Script" path="res://src/entities/BitScrubber.gd" id="1_script"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1"]
-albedo_color = Color(1, 0, 0, 1) # Red for danger
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_Body"]
+albedo_color = Color(0.2, 0.0, 0.0, 1.0)
 emission_enabled = true
-emission = Color(0.5, 0, 0, 1)
+emission = Color(0.8, 0.0, 0.0, 1.0)
+emission_energy_multiplier = 2.0
 
-[sub_resource type="SphereMesh" id="SphereMesh_1"]
-radius = 0.4
-height = 0.8
+[sub_resource type="BoxMesh" id="BoxMesh_Core"]
+size = Vector3(0.4, 0.4, 0.4)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_Spike"]
+albedo_color = Color(1, 0, 0, 1)
+
+[sub_resource type="PrismMesh" id="PrismMesh_Spike"]
+size = Vector3(0.2, 0.4, 0.2)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_Trail"]
+transparency = 1
+albedo_color = Color(1, 0, 0, 0.3)
+emission_enabled = true
+emission = Color(1, 0, 0, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_Trail"]
+size = Vector3(0.3, 0.3, 0.3)
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_1"]
-radius = 0.4
+radius = 0.5
 
-[node name="BitScrubber" type="CharacterBody3D"]
+[node name="BitScrubber" type="CharacterBody3D" groups=["enemies"]]
 script = ExtResource("1_script")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-mesh = SubResource("SphereMesh_1")
-surface_material_override/0 = SubResource("StandardMaterial3D_1")
+[node name="Visuals" type="Node3D" parent="."]
+
+[node name="Body" type="MeshInstance3D" parent="Visuals"]
+mesh = SubResource("BoxMesh_Core")
+surface_material_override/0 = SubResource("StandardMaterial3D_Body")
+
+[node name="Spike1" type="MeshInstance3D" parent="Visuals"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3, 0)
+mesh = SubResource("PrismMesh_Spike")
+surface_material_override/0 = SubResource("StandardMaterial3D_Spike")
+
+[node name="Spike2" type="MeshInstance3D" parent="Visuals"]
+transform = Transform3D(1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, 0, -0.3, 0)
+mesh = SubResource("PrismMesh_Spike")
+surface_material_override/0 = SubResource("StandardMaterial3D_Spike")
+
+[node name="Spike3" type="MeshInstance3D" parent="Visuals"]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0.3, 0, 0)
+mesh = SubResource("PrismMesh_Spike")
+surface_material_override/0 = SubResource("StandardMaterial3D_Spike")
+
+[node name="Spike4" type="MeshInstance3D" parent="Visuals"]
+transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, -0.3, 0, 0)
+mesh = SubResource("PrismMesh_Spike")
+surface_material_override/0 = SubResource("StandardMaterial3D_Spike")
+
+[node name="TrailEffect" type="MeshInstance3D" parent="Visuals"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.4)
+mesh = SubResource("BoxMesh_Trail")
+surface_material_override/0 = SubResource("StandardMaterial3D_Trail")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("SphereShape3D_1")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+light_color = Color(1, 0, 0, 1)
+omni_range = 3.0

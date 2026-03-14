@@ -95,16 +95,21 @@ Immanent is a 3D idle game set inside a digital simulation (processor). Players 
      - THE "Defragmenter" SHALL move toward Data Spots and consume them.
      - THE G2 units SHALL automatically intercept and disperse enemies within their protective range.
 
-12. **Advanced Digital Threats**
-   - **User Story**: As a player, I want more varied threats as the simulation approaches its reset so that the challenge increases over time.
-   - **Acceptance Criteria**:
-     - THE system SHALL spawn "Logic Leak" enemies periodically.
-     - THE "Logic Leak" SHALL follow G1 units and cause a negative extraction rate (draining data from the Core) upon contact until dispersed.
-     - THE system SHALL spawn "Code-Shadow" enemies that mimic G1 units.
-     - THE "Code-Shadow" SHALL attempt to enter the Core and "lock" an upgrade slot or cause a data drop if successful.
-     - THE system SHALL spawn "Null-Pointer" anomalies at the edge of the FOV.
-     - THE "Null-Pointer" SHALL create a "dead zone" where G1 units cannot enter, requiring a G2 to "patch" it by staying nearby.
-     - THE system SHALL spawn "Stack-Overflow" boss-level threats.
-     - THE "Stack-Overflow" SHALL be a multi-segmented worm that grows by consuming data and requires multiple G2s to dismantle.
-     - THE system SHALL spawn "Firewall Guardian" turrets at high data levels.
-     - THE "Firewall Guardian" SHALL fire projectiles at Genezis units, requiring G2s to act as shields.
+## Visual Identity (Digital Biome)
+
+13. **Digital Biome Aesthetic**
+    - **User Story**: As a player, I want the world and entities to have a design that reflects their function in a virtual environment so that the game feels immersive and coherent.
+    - **Acceptance Criteria**:
+      - THE overall aesthetic SHALL be "Digital Biome," a mix of biological forms and robotic/mechanical elements.
+      - **Genezis G1**: Design SHALL be based on **Bacteriophages** (viruses). It MUST be lean, not robust, featuring a hexagonal head, a neck/stalk, and "legs" for anchoring to data spots.
+      - **Genezis G2**: Design SHALL be a more advanced, robust version of the G1, functioning as a "Cell Guardian" with defensive armor plates.
+      - **The Core**: SHALL be designed as a central processor hub with glowing circuits and a central unit/server rack look.
+      - **Data Spot**: SHALL be redesigned as "Code Crystals" with a central core and floating shards that pulse with data.
+      - **Enemies**: SHALL look aggressive and disruptive, inspired by malware (e.g., jagged edges, "corruption" particles).
+
+14. **Background Atmosphere**
+    - **User Story**: As a player, I want a background atmosphere that blends space and digital aesthetics so that I feel immersed in a vast, virtual universe.
+    - **Acceptance Criteria**:
+      - THE background SHALL use dark colors (space-like).
+      - THE background SHALL include subtle digital elements (e.g., distant grids, data streams, or glowing "data stars").
+      - THE system SHALL utilize Glow and Bloom to enhance the digital feel of the atmosphere.

@@ -31,7 +31,20 @@ func upgrade_extraction(multiplier: float) -> void:
 func upgrade_capacity(multiplier: float) -> void:
 	carry_capacity = int(carry_capacity * multiplier)
 
+@onready var visuals: Node3D = $Visuals
+@onready var head: MeshInstance3D = $Visuals/Head
+
+var _pulse_timer: float = 0.0
+
 func _physics_process(delta: float) -> void:
+	if current_state == State.EXTRACTING:
+		_pulse_timer += delta * 10.0
+		var s = 1.0 + sin(_pulse_timer) * 0.1
+		head.scale = Vector3(s, s, s)
+	else:
+		head.scale = Vector3.ONE
+		_pulse_timer = 0.0
+	
 	match current_state:
 		State.IDLE:
 			find_data_spot()

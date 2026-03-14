@@ -12,8 +12,11 @@
 [ext_resource type="PackedScene" uid="uid_hud" path="res://src/ui/HUD.tscn" id="10_hud_scene"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_1"]
-sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
-ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+sky_top_color = Color(0.02, 0.05, 0.1, 1)
+sky_horizon_color = Color(0.05, 0.1, 0.2, 1)
+ground_bottom_color = Color(0.0, 0.0, 0.0, 1)
+ground_horizon_color = Color(0.05, 0.1, 0.2, 1)
+sun_angle_max = 0.0
 
 [sub_resource type="Sky" id="Sky_1"]
 sky_material = SubResource("ProceduralSkyMaterial_1")
@@ -23,6 +26,20 @@ background_mode = 2
 sky = SubResource("Sky_1")
 tonemap_mode = 2
 glow_enabled = true
+glow_intensity = 0.8
+glow_strength = 1.0
+glow_bloom = 0.2
+glow_blend_mode = 0
+fog_enabled = true
+fog_light_color = Color(0.0, 0.1, 0.2, 1)
+fog_density = 0.02
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_Grid"]
+transparency = 1
+albedo_color = Color(0.0, 0.5, 1.0, 0.1)
+emission_enabled = true
+emission = Color(0.0, 0.3, 0.6, 1)
+emission_energy_multiplier = 0.5
 
 [node name="World" type="Node3D" groups=["world_manager"]]
 script = ExtResource("1_script")
@@ -52,8 +69,9 @@ max_zoom = 30.0
 [node name="Core" parent="." instance=ExtResource("9_core_scene")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 
-[node name="CSGBox3D" type="CSGBox3D" parent="."]
+[node name="FloorGrid" type="CSGBox3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
 size = Vector3(100, 1, 100)
+material = SubResource("StandardMaterial3D_Grid")
 
 [node name="HUD" parent="." instance=ExtResource("10_hud_scene")]

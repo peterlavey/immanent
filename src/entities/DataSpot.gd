@@ -14,6 +14,13 @@ var current_bytes: int = max_bytes:
 			depleted.emit(self)
 			queue_free()
 
+@onready var visuals: Node3D = $Visuals
+
+func _process(delta: float) -> void:
+	if is_instance_valid(visuals):
+		visuals.rotate_y(delta * 0.5)
+		visuals.position.y = sin(Time.get_ticks_msec() * 0.002) * 0.1
+
 func extract_data(amount: int) -> int:
 	var actual_extracted = min(amount, current_bytes)
 	current_bytes -= actual_extracted

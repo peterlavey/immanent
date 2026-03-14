@@ -1,31 +1,106 @@
-[gd_scene load_steps=5 format=3]
+[gd_scene load_steps=12 format=3]
 
 [ext_resource type="Script" path="res://src/entities/GenezisG2.gd" id="1_script"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_Head"]
 albedo_color = Color(0.1, 0.6, 1.0, 1.0)
 emission_enabled = true
 emission = Color(0.0, 0.3, 0.8, 1.0)
 emission_energy_multiplier = 2.0
 
-[sub_resource type="BoxMesh" id="BoxMesh_1"]
-size = Vector3(1.2, 1.2, 1.2)
+[sub_resource type="CylinderMesh" id="CylinderMesh_Head"]
+top_radius = 0.5
+bottom_radius = 0.5
+height = 0.6
+radial_segments = 6
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_1"]
-size = Vector3(1.2, 1.2, 1.2)
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_Stalk"]
+albedo_color = Color(0.5, 0.5, 0.5, 1.0)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_Stalk"]
+top_radius = 0.1
+bottom_radius = 0.1
+height = 0.6
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_Armor"]
+albedo_color = Color(0.2, 0.4, 0.8, 1.0)
+metallic = 0.8
+roughness = 0.2
+
+[sub_resource type="BoxMesh" id="BoxMesh_Plate"]
+size = Vector3(0.4, 0.1, 0.6)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_Shield"]
+transparency = 1
+albedo_color = Color(0.0, 0.8, 1.0, 0.15)
+emission_enabled = true
+emission = Color(0.0, 0.4, 1.0, 1.0)
+emission_energy_multiplier = 0.5
+
+[sub_resource type="SphereMesh" id="SphereMesh_Shield"]
+radius = 1.2
+height = 2.4
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_Leg"]
+top_radius = 0.04
+bottom_radius = 0.04
+height = 0.5
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_1"]
+radius = 1.2
 
 [node name="GenezisG2" type="CharacterBody3D"]
 input_ray_pickable = true
 script = ExtResource("1_script")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-mesh = SubResource("BoxMesh_1")
-surface_material_override/0 = SubResource("StandardMaterial3D_1")
+[node name="Visuals" type="Node3D" parent="."]
+
+[node name="Head" type="MeshInstance3D" parent="Visuals"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8, 0)
+mesh = SubResource("CylinderMesh_Head")
+surface_material_override/0 = SubResource("StandardMaterial3D_Head")
+
+[node name="ArmorPlate1" type="MeshInstance3D" parent="Visuals/Head"]
+transform = Transform3D(1, 0, 0, 0, 0.866025, -0.5, 0, 0.5, 0.866025, 0, 0.2, 0.3)
+mesh = SubResource("BoxMesh_Plate")
+surface_material_override/0 = SubResource("StandardMaterial3D_Armor")
+
+[node name="ArmorPlate2" type="MeshInstance3D" parent="Visuals/Head"]
+transform = Transform3D(1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, 0, 0.2, -0.3)
+mesh = SubResource("BoxMesh_Plate")
+surface_material_override/0 = SubResource("StandardMaterial3D_Armor")
+
+[node name="Stalk" type="MeshInstance3D" parent="Visuals"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4, 0)
+mesh = SubResource("CylinderMesh_Stalk")
+surface_material_override/0 = SubResource("StandardMaterial3D_Stalk")
+
+[node name="Leg1" type="MeshInstance3D" parent="Visuals"]
+transform = Transform3D(0.866025, -0.5, 0, 0.5, 0.866025, 0, 0, 0, 1, 0.2, 0.1, 0)
+mesh = SubResource("CylinderMesh_Leg")
+surface_material_override/0 = SubResource("StandardMaterial3D_Stalk")
+
+[node name="Leg2" type="MeshInstance3D" parent="Visuals"]
+transform = Transform3D(-0.433013, -0.5, 0.75, 0.5, -0.866025, 0, 0.75, 0.375, 0.53033, -0.1, 0.1, 0.1732)
+mesh = SubResource("CylinderMesh_Leg")
+surface_material_override/0 = SubResource("StandardMaterial3D_Stalk")
+
+[node name="Leg3" type="MeshInstance3D" parent="Visuals"]
+transform = Transform3D(-0.433013, -0.5, -0.75, 0.5, -0.866025, 0, -0.75, 0.375, 0.53033, -0.1, 0.1, -0.1732)
+mesh = SubResource("CylinderMesh_Leg")
+surface_material_override/0 = SubResource("StandardMaterial3D_Stalk")
+
+[node name="Shield" type="MeshInstance3D" parent="Visuals"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+mesh = SubResource("SphereMesh_Shield")
+surface_material_override/0 = SubResource("StandardMaterial3D_Shield")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-shape = SubResource("BoxShape3D_1")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+shape = SubResource("SphereShape3D_1")
 
 [node name="OmniLight3D" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8, 0)
 light_color = Color(0.1, 0.6, 1.0, 1.0)
 omni_range = 5.0
 omni_attenuation = 0.5
