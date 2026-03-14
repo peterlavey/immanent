@@ -29,6 +29,8 @@ var upgrade_levels = {
 
 func _ready() -> void:
 	core_node = get_tree().get_first_node_in_group("core")
+	if core_node:
+		core_node.data_changed.connect(_on_core_data_changed)
 	
 	# Setup evolution button
 	evolution_button.text = "Evolve Core"
@@ -106,6 +108,9 @@ func _update_buttons() -> void:
 	_update_button_text(genezis_count_button, "genezis_count", "Spawn Genezis")
 	_update_button_text(evolution_button, "evolution", "Evolve Core")
 
+func _on_core_data_changed(_new_data: int) -> void:
+	_update_buttons()
+
 func _update_button_text(button: Button, type: String, label: String) -> void:
 	if not button.visible: return
 	
@@ -118,8 +123,9 @@ func _update_button_text(button: Button, type: String, label: String) -> void:
 		button.text = "%s (MAXED)" % label
 		button.disabled = true
 	else:
-		button.text = "%s (Cost: %s)" % [label, format_bytes(get_upgrade_cost(type))]
-		button.disabled = false
+		var cost = get_upgrade_cost(type)
+		button.text = "%s (Cost: %s)" % [label, format_bytes(cost)]
+		button.disabled = core_node.current_data < cost
 
 func get_max_level() -> int:
 	if upgrade_levels["evolution"] > 0:
