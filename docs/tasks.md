@@ -63,9 +63,10 @@
 
 ## Phase 4: Final Features & Goal
 
-- [ ] **4.1 Evolution Milestones**
+- [x] **4.1 Evolution Milestones**
   - [ ] Implement the evolution logic at the Core (Plan: 4.1) (Req: 2)
   - [ ] Create larger data spot variants (e.g., 50 MB) (Plan: 4.1) (Req: 4)
+  - [x] Ensure at least 4 "data" spots at the beginning within the "FOV"
 
 - [ ] **4.2 The Escape**
   - [ ] Implement the final win condition logic (Plan: 4.2) (Req: 9)
