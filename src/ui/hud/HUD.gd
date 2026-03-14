@@ -42,13 +42,20 @@ func _ready() -> void:
 	# Connect to MissionManager
 	var mission_manager = get_tree().get_first_node_in_group("mission_manager")
 	if mission_manager:
-		mission_manager.mission_updated.connect(_on_mission_updated)
-		# Initialize mission display
-		_on_mission_updated(mission_manager.current_mission_name, mission_manager.current_mission_description, mission_manager.current_mission_progress)
+		if not mission_manager.mission_updated.is_connected(_on_mission_updated):
+			mission_manager.mission_updated.connect(_on_mission_updated)
+		
+		# Initialize mission display with the latest data from the manager
+		_on_mission_updated(
+			mission_manager.current_mission_name, 
+			mission_manager.current_mission_description, 
+			mission_manager.current_mission_progress
+		)
 		
 		# Link MissionManager to signals for tracking
 		if core:
 			core.data_changed.connect(mission_manager._on_data_changed)
+			core.evolution_changed.connect(mission_manager._on_evolution_changed)
 		if world_manager:
 			world_manager.genezis_g2_spawned.connect(mission_manager._on_genezis_g2_spawned)
 	

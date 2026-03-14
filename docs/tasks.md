@@ -161,8 +161,9 @@
   - [x] Update game start to 0 data and 1 G1 (Plan: 8.1) (Req: 15)
 
 - [x] **8.2 Level 1 Missions**
-  - [x] Implement Mission 1: "First Steps" - Create a G2 (Plan: 8.2) (Req: 15)
-  - [x] Implement Mission 2: "Information Gathering" - Collect 1 MB (Plan: 8.2) (Req: 15)
+  - [x] Implement Mission 1: "Core Optimization" - Optimize the Core, earn 500 bytes reward (Plan: 8.2) (Req: 15)
+  - [x] Implement Mission 2: "Security Protocol" - Fuse 4 G1 to create a G2 (Plan: 8.2) (Req: 15)
+  - [x] Implement Mission 3: "Data Harvest" - Accumulate a total of 1 MB (Plan: 8.2) (Req: 15)
 
 - [x] **6.7 Space Environment & 3D Floating**
   - [x] Remove the floor grid to create a space-like void (Plan: 6.7)

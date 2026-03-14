@@ -129,15 +129,14 @@ Immanent is a 3D idle game set inside a digital simulation (processor). Players 
       - THE background SHALL use dark colors (space-like).
       - THE background SHALL include subtle digital elements (e.g., distant grids, data streams, or glowing "data stars").
       - THE system SHALL utilize Glow and Bloom to enhance the digital feel of the atmosphere.
-      131:
-      132:15. **Mission System**
-      133:    - **User Story**: As a player, I want to have clear objectives so that I know what to work towards.
-      134:    - **Acceptance Criteria**:
-      135:      - THE system SHALL display a "Current Mission" on the HUD.
-      136:      - THE system SHALL track progress toward the current mission's goal.
-      137:      - THE first mission SHALL be to create a Genezis G2.
-      138:      - THE game SHALL start with 0 data and 1 Genezis G1.
-      139:      - UPON completion of a mission, the system SHALL automatically start the next mission in the sequence.
+ 15. **Mission System**
+    - **User Story**: As a player, I want to have clear objectives so that I know what to work towards.
+    - **Acceptance Criteria**:
+      - THE system SHALL display a "Current Mission" on the HUD.
+      - THE system SHALL track progress toward the current mission's goal.
+      - THE first mission SHALL be to evolve the Processor Core.
+      - THE game SHALL start with 0 data and 1 Genezis G1.
+      - UPON completion of a mission, the system SHALL automatically start the next mission in the sequence.
 
 16. **3D Parallax Background**
     - **User Story**: As a player, I want a 3D parallax background so that the simulation feels deeper and more immersive.

@@ -24,3 +24,4 @@ res://src/entities/genezis/genezis_g1/GenezisG1.gd
 res://src/entities/genezis/genezis_g1/LightningBolt.gd
 res://src/entities/enemy/bit_scrubber/BitScrubber.gd
 res://src/entities/enemy/defragmenter/Defragmenter.gd
+res://src/core/mission_manager/MissionManager.gd

@@ -68,12 +68,12 @@ horizontal_alignment = 2
 [node name="MissionName" type="Label" parent="MarginContainer/MissionContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 24
-text = "Mission Name"
+text = "Core Optimization"
 horizontal_alignment = 2
 
 [node name="MissionDescription" type="Label" parent="MarginContainer/MissionContainer"]
 layout_mode = 2
-text = "Mission Description goes here."
+text = "Optimize the Processor Core to Level 1. Completion grants a 500-byte data packet."
 horizontal_alignment = 2
 autowrap_mode = 3
 
