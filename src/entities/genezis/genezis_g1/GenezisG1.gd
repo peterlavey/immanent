@@ -99,6 +99,13 @@ func _physics_process(delta: float) -> void:
 				current_state = State.IDLE
 
 func find_data_spot() -> void:
+	if not is_instance_valid(core_node):
+		var cores = get_tree().get_nodes_in_group("core")
+		if cores.size() > 0:
+			core_node = cores[0]
+		else:
+			return # No core yet, cannot find spots
+			
 	var spots = get_tree().get_nodes_in_group("data_spots")
 	var closest_spot: Node3D = null
 	var min_distance: float = INF
@@ -109,12 +116,24 @@ func find_data_spot() -> void:
 			# Add a small buffer (0.5) to FOV check to account for spot size and float precision
 			if dist_to_core <= core_node.fov_radius + 0.5:
 				var dist_to_me = global_position.distance_to(spot.global_position)
-				if dist_to_me < min_distance:
-					min_distance = dist_to_me
+				
+				# Count how many other G1s are targeting this spot
+				var targeting_count = 0
+				var g1s = get_tree().get_nodes_in_group("genezis_g1")
+				for g1 in g1s:
+					if g1 != self and is_instance_valid(g1.target_data_spot) and g1.target_data_spot == spot and (g1.current_state == State.MOVING_TO_DATA or g1.current_state == State.EXTRACTING):
+						targeting_count += 1
+				
+				# Preference for spots with fewer miners already targeting them
+				# A spot with more miners is effectively 'further away'
+				var score = dist_to_me + (targeting_count * 10.0) # Penalty of 10 units per miner
+				
+				if score < min_distance:
+					min_distance = score
 					closest_spot = spot
 	
 	if closest_spot:
-		print("[G1] Found data spot at ", closest_spot.global_position, " (dist to core: ", closest_spot.global_position.distance_to(core_node.global_position), ")")
+		print("[G1] ", get_instance_id(), " Found data spot at ", closest_spot.global_position, " (dist to core: ", closest_spot.global_position.distance_to(core_node.global_position), ") score: ", min_distance)
 		target_data_spot = closest_spot
 		# Calculate a surrounding offset in 3D
 		var angle = (get_instance_id() % 360) * (PI / 180.0)
@@ -126,6 +145,11 @@ func find_data_spot() -> void:
 			sin(angle) * cos(elevation) * radius
 		)
 		current_state = State.MOVING_TO_DATA
+	else:
+		if spots.size() > 0:
+			print("[G1] ", get_instance_id(), " FAILED to find data spot among ", spots.size(), " spots. FOV radius: ", core_node.fov_radius if core_node else "N/A")
+		else:
+			pass # Normal if no spots exist yet
 
 func move_towards(target_pos: Vector3, delta: float) -> void:
 	var direction = (target_pos - global_position).normalized()

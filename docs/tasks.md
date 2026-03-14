@@ -68,8 +68,10 @@
   - [x] Ensure Genezis G1 stats update in real-time when purchasing upgrades (Plan: 3.2.4) (Req: 3, 6)
   - [x] Fix initial Genezis G1 not being clickable for upgrades (Plan: 3.2.5) (Req: 3)
   - [x] Disable upgrades that the player cannot afford (Plan: 3.2.6) (Req: 2, 3)
+  - [x] Implement data spot targeting optimization to prevent Genezis G1 miners from piling up (Plan: 3.2.7) (Req: 3)
+  - [x] Fix second G1 not mining data when appearing (Plan: 3.2.8) (Req: 3)
 
-- [x] **3.3 Visual Feedback**
+  - [x] **3.3 Visual Feedback**
   - [x] Create Floating Text scene and script (Plan: 3.3) (Req: 8)
   - [x] Integrate Floating Text spawning in Core data deposition (Plan: 3.3) (Req: 8)
   - [x] Calibrate Floating Text size (twice the size of Genezis G1) and movement for RPG-like feedback (Plan: 3.3) (Req: 8)
