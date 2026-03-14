@@ -40,12 +40,18 @@ var _pulse_timer: float = 0.0
 
 func _physics_process(delta: float) -> void:
 	if current_state == State.EXTRACTING:
-		_pulse_timer += delta * 10.0
-		var s = 1.0 + sin(_pulse_timer) * 0.1
-		head.scale = Vector3(s, s, s)
-		_update_connection_visual(target_data_spot.global_position)
+		if is_instance_valid(target_data_spot):
+			_pulse_timer += delta * 10.0
+			var s = 1.0 + sin(_pulse_timer) * 0.1
+			head.scale = Vector3(s, s, s)
+			_update_connection_visual(target_data_spot.global_position)
+		else:
+			current_state = State.RETURNING_TO_CORE
 	elif current_state == State.DEPOSITING:
-		_update_connection_visual(core_node.global_position)
+		if is_instance_valid(core_node):
+			_update_connection_visual(core_node.global_position)
+		else:
+			current_state = State.IDLE
 	else:
 		head.scale = Vector3.ONE
 		_pulse_timer = 0.0
@@ -111,11 +117,12 @@ func find_data_spot() -> void:
 	var min_distance: float = INF
 	
 	for spot in spots:
-		if is_instance_valid(core_node):
-			var dist_to_core = spot.global_position.distance_to(core_node.global_position)
+		if is_instance_valid(spot) and is_instance_valid(core_node):
+			var spot_pos = spot.global_position
+			var dist_to_core = spot_pos.distance_to(core_node.global_position)
 			# Add a small buffer (0.5) to FOV check to account for spot size and float precision
 			if dist_to_core <= core_node.fov_radius + 0.5:
-				var dist_to_me = global_position.distance_to(spot.global_position)
+				var dist_to_me = global_position.distance_to(spot_pos)
 				
 				# Count how many other G1s are targeting this spot
 				var targeting_count = 0
@@ -132,8 +139,9 @@ func find_data_spot() -> void:
 					min_distance = score
 					closest_spot = spot
 	
-	if closest_spot:
-		print("[G1] ", get_instance_id(), " Found data spot at ", closest_spot.global_position, " (dist to core: ", closest_spot.global_position.distance_to(core_node.global_position), ") score: ", min_distance)
+	if closest_spot and is_instance_valid(closest_spot) and is_instance_valid(core_node):
+		var spot_pos = closest_spot.global_position
+		print("[G1] ", get_instance_id(), " Found data spot at ", spot_pos, " (dist to core: ", spot_pos.distance_to(core_node.global_position), ") score: ", min_distance)
 		target_data_spot = closest_spot
 		# Calculate a surrounding offset in 3D
 		var angle = (get_instance_id() % 360) * (PI / 180.0)

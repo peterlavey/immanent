@@ -140,7 +140,7 @@
   - [x] Implement "Defragmenter" entity and visuals (Plan: 5.1) (Req: 11)
   - [x] Implement enemy spawning logic in `WorldManager` (Plan: 5.1) (Req: 11)
 
-- [ ] **5.2 Combat & Protection Logic**
+- [x] **5.2 Combat & Protection Logic**
   - [ ] Add `health` / `integrity` to Genezis and Enemies (Plan: 5.2) (Req: 11)
   - [x] Update Genezis G2 AI to include `INTERCEPT` and `ATTACK` states (Plan: 5.2) (Req: 10, 11)
   - [x] Implement shooting mechanic for Genezis G2 (Plan: 5.2) (Req: 10, 11)
@@ -151,6 +151,7 @@
   - [x] Fix missing EnemyDescriptionUI scene and connection in HUD (Plan: 5.2.2)
   - [x] Ensure other menus are closed when the enemy description appears to avoid interaction conflicts (Plan: 5.2.3)
   - [x] Fix input blocking and signal connection for EnemyDescriptionUI close button (Plan: 5.2.4)
+  - [x] Fix crash "Invalid access to property or key 'global_position' on a base object of type 'previously freed'" by adding defensive instance validation.
 
 ## Phase 8: Missions & Levels
 

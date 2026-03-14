@@ -36,15 +36,19 @@ func _find_target() -> void:
 	pass
 
 func _move_towards_target(delta: float) -> void:
-	if not target: return
-	var direction = (target.global_position - global_position).normalized()
+	if not is_instance_valid(target):
+		target = null
+		current_state = State.IDLE
+		return
+	var target_pos = target.global_position
+	var direction = (target_pos - global_position).normalized()
 	velocity = direction * move_speed
 	if direction != Vector3.ZERO:
 		var look_target = global_position + direction
 		look_at(look_target, Vector3.UP)
 	move_and_slide()
 	
-	if global_position.distance_to(target.global_position) < 1.0:
+	if global_position.distance_to(target_pos) < 1.0:
 		current_state = State.PERFORMING_ACTION
 
 func _perform_action(_delta: float) -> void:

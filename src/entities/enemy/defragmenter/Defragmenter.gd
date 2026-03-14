@@ -13,8 +13,9 @@ func _find_target() -> void:
 	var min_dist = INF
 	
 	for spot in data_spots:
-		if is_instance_valid(spot):
-			var d = global_position.distance_to(spot.global_position)
+		if is_instance_valid(spot) and not spot.is_queued_for_deletion():
+			var spot_pos = spot.global_position
+			var d = global_position.distance_to(spot_pos)
 			if d < min_dist:
 				min_dist = d
 				closest = spot

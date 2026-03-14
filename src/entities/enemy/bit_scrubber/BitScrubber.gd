@@ -13,8 +13,9 @@ func _find_target() -> void:
 	var min_dist = INF
 	
 	for g1 in g1_units:
-		if is_instance_valid(g1):
-			var d = global_position.distance_to(g1.global_position)
+		if is_instance_valid(g1) and not g1.is_queued_for_deletion():
+			var g1_pos = g1.global_position
+			var d = global_position.distance_to(g1_pos)
 			if d < min_dist:
 				min_dist = d
 				closest = g1

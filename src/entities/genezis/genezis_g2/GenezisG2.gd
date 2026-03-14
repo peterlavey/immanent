@@ -56,10 +56,12 @@ func _physics_process(delta: float) -> void:
 		
 		State.INTERCEPT_THREAT:
 			if is_instance_valid(threat_target):
-				move_towards(threat_target.global_position, delta)
-				if global_position.distance_to(threat_target.global_position) < 2.0:
+				var target_pos = threat_target.global_position
+				move_towards(target_pos, delta)
+				if global_position.distance_to(target_pos) < 2.0:
 					current_state = State.ATTACKING
 			else:
+				threat_target = null
 				current_state = State.PATROL
 		
 		State.ATTACKING:
@@ -76,8 +78,9 @@ func _check_for_threats() -> void:
 	var min_dist = detection_radius
 	
 	for enemy in enemies:
-		if is_instance_valid(enemy):
-			var d = global_position.distance_to(enemy.global_position)
+		if is_instance_valid(enemy) and not enemy.is_queued_for_deletion():
+			var enemy_pos = enemy.global_position
+			var d = global_position.distance_to(enemy_pos)
 			if d < min_dist:
 				min_dist = d
 				closest = enemy
@@ -87,30 +90,33 @@ func _check_for_threats() -> void:
 		current_state = State.INTERCEPT_THREAT
 
 func _attack_threat(delta: float) -> void:
-	if is_instance_valid(threat_target):
+	if is_instance_valid(threat_target) and not threat_target.is_queued_for_deletion():
+		var target_pos = threat_target.global_position
 		_attack_timer += delta
 		if _attack_timer >= attack_cooldown:
 			_shoot()
 			_attack_timer = 0.0
 		
 		# Face threat
-		look_at(threat_target.global_position, Vector3.UP)
+		look_at(target_pos, Vector3.UP)
 		# Maintain small distance
-		if global_position.distance_to(threat_target.global_position) > 5.0:
-			move_towards(threat_target.global_position, delta)
-		elif global_position.distance_to(threat_target.global_position) < 3.0:
+		var dist = global_position.distance_to(target_pos)
+		if dist > 5.0:
+			move_towards(target_pos, delta)
+		elif dist < 3.0:
 			# Back away slightly if too close
-			var dir = (global_position - threat_target.global_position).normalized()
+			var dir = (global_position - target_pos).normalized()
 			move_towards(global_position + dir * 2.0, delta)
 	else:
 		threat_target = null
 		current_state = State.PATROL
 
 func _shoot() -> void:
-	if not projectile_scene or not is_instance_valid(threat_target): return
+	if not projectile_scene or not is_instance_valid(threat_target) or threat_target.is_queued_for_deletion(): return
 	var p = projectile_scene.instantiate()
 	get_parent().add_child(p)
-	var dir = (threat_target.global_position - global_position).normalized()
+	var target_pos = threat_target.global_position
+	var dir = (target_pos - global_position).normalized()
 	p.launch(global_position + dir * 1.0, dir)
 	p.damage = attack_damage
 	
