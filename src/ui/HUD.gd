@@ -8,6 +8,8 @@ extends Control
 @onready var upgrade_menu = $UpgradeMenu
 @onready var genezis_stats_ui = $GenezisStatsUI
 
+var selected_genezis: CharacterBody3D = null
+
 func _ready() -> void:
 	# Connect to Core signals
 	var core = get_tree().get_first_node_in_group("core")
@@ -37,12 +39,14 @@ func _unhandled_input(event: InputEvent) -> void:
 			# and it's not over some UI element, we can hide the menus
 			if genezis_stats_ui and genezis_stats_ui.visible:
 				genezis_stats_ui.hide()
+				selected_genezis = null
 			if upgrade_menu and upgrade_menu.visible:
 				upgrade_menu.hide()
 
 func _on_core_selected() -> void:
 	if genezis_stats_ui:
 		genezis_stats_ui.hide()
+		selected_genezis = null
 	if upgrade_menu:
 		upgrade_menu.set_mode(upgrade_menu.Mode.CORE)
 		upgrade_menu.show()
@@ -66,6 +70,10 @@ func _on_upgrade_purchased(upgrade_id: String) -> void:
 				world_manager.spawn_extra_genezis()
 				# Delay slightly to allow the new Genezis to be added to the tree
 				call_deferred("_update_genezis_count")
+	
+	# Refresh UI if a Genezis is selected
+	if selected_genezis and is_instance_valid(selected_genezis):
+		genezis_stats_ui.display_stats(selected_genezis.get_stats())
 
 func _update_genezis_count() -> void:
 	var count = get_tree().get_nodes_in_group("genezis").size()
@@ -76,9 +84,10 @@ func _update_genezis_count() -> void:
 		if not genezis.selected.is_connected(_on_genezis_selected):
 			genezis.selected.connect(_on_genezis_selected)
 
-func _on_genezis_selected(stats: Dictionary) -> void:
+func _on_genezis_selected(genezis: CharacterBody3D) -> void:
+	selected_genezis = genezis
 	if genezis_stats_ui:
-		genezis_stats_ui.display_stats(stats)
+		genezis_stats_ui.display_stats(genezis.get_stats())
 	if upgrade_menu:
 		upgrade_menu.set_mode(upgrade_menu.Mode.GENEZIS)
 		upgrade_menu.show()

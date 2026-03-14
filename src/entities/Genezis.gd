@@ -1,6 +1,6 @@
 extends CharacterBody3D
 
-signal selected(stats: Dictionary)
+signal selected(genezis: CharacterBody3D)
 
 enum State { IDLE, MOVING_TO_DATA, EXTRACTING, RETURNING_TO_CORE, DEPOSITING }
 
@@ -102,15 +102,17 @@ func move_towards(target_pos: Vector3, delta: float) -> void:
 		look_at(look_target, Vector3.UP)
 	move_and_slide()
 
+func get_stats() -> Dictionary:
+	return {
+		"speed": move_speed,
+		"capacity": carry_capacity,
+		"extraction": extraction_rate,
+		"load": current_load,
+		"state": State.keys()[current_state]
+	}
+
 func _input_event(_camera: Camera3D, event: InputEvent, _position: Vector3, _normal: Vector3, _shape_idx: int) -> void:
 	if event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
-			var stats = {
-				"speed": move_speed,
-				"capacity": carry_capacity,
-				"extraction": extraction_rate,
-				"load": current_load,
-				"state": State.keys()[current_state]
-			}
-			selected.emit(stats)
+			selected.emit(self)
 			get_viewport().set_input_as_handled()
