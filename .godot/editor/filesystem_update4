@@ -16,3 +16,7 @@ res://src/entities/enemy/Enemy.gd
 res://src/core/camera/Camera.gd
 res://src/core/audio_manager/AudioManager.gd
 res://src/core/world_manager/WorldManager.gd
+res://src/core/core/Core.gd
+res://src/ui/hud/HUD.gd
+res://src/ui/upgrade_menu/UpgradeMenu.gd
+res://src/entities/genezis/genezis_g2/GenezisG2.gd

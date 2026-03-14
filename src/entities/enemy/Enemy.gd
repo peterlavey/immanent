@@ -13,6 +13,11 @@ var target: Node3D = null
 
 func _ready() -> void:
 	add_to_group("enemies")
+	
+	var audio_manager = get_tree().root.get_node_or_null("AudioManager")
+	if audio_manager:
+		# Use G2 sfx for enemy arrival but lower volume and higher pitch for creepiness
+		audio_manager.play_sfx("res://assets/audio/sfx/G2.mp3", -10.0)
 
 func _physics_process(delta: float) -> void:
 	match current_state:
@@ -65,4 +70,10 @@ func _disperse() -> void:
 		var effect = defragmentation_scene.instantiate()
 		get_parent().add_child(effect)
 		effect.global_position = global_position
+	
+	var audio_manager = get_tree().root.get_node_or_null("AudioManager")
+	if audio_manager:
+		# Higher pitch sfx for dispersal
+		audio_manager.play_sfx("res://assets/audio/sfx/G1.mp3", -5.0)
+		
 	queue_free()

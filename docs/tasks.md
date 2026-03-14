@@ -90,6 +90,7 @@
   - [x] Implement Genezi G2 entity with protective AI (Plan: 4.3) (Req: 10)
   - [x] Implement fusion logic (4 G1 -> 1 G2) in WorldManager (Plan: 4.3) (Req: 10)
   - [x] Add fusion option to Core's upgrade menu (Plan: 4.3) (Req: 10)
+  - [x] Require Evolution Level 2 for G2 fusion (Req: 10)
   - [x] Create visual representation for Genezi G2 (Plan: 4.3) (Req: 10)
   - [x] Add validation to Fusion to require at least 5 G1 units (leaving 1 spare) (Plan: 4.3) (Req: 10)
   - [x] Validate G1 limit based on current population to allow replenishing after fusion (Plan: 4.3) (Req: 10)
@@ -147,6 +148,17 @@
   - [x] Ensure other menus are closed when the enemy description appears to avoid interaction conflicts (Plan: 5.2.3)
   - [x] Fix input blocking and signal connection for EnemyDescriptionUI close button (Plan: 5.2.4)
 
+## Phase 8: Missions & Levels
+
+- [x] **8.1 Mission Infrastructure**
+  - [x] Implement `MissionManager` to track objectives (Plan: 8.1) (Req: 15)
+  - [x] Update HUD to display Mission name, description, and progress (Plan: 8.1) (Req: 15)
+  - [x] Update game start to 0 data and 1 G1 (Plan: 8.1) (Req: 15)
+
+- [x] **8.2 Level 1 Missions**
+  - [x] Implement Mission 1: "First Steps" - Create a G2 (Plan: 8.2) (Req: 15)
+  - [x] Implement Mission 2: "Information Gathering" - Collect 1 MB (Plan: 8.2) (Req: 15)
+
 - [x] **6.7 Space Environment & 3D Floating**
   - [x] Remove the floor grid to create a space-like void (Plan: 6.7)
   - [x] Implement 3D spawning for Data Spots and Enemies (Plan: 6.7)
@@ -183,9 +195,18 @@
   - [x] Ensure music continues playing during pause (enemy description popups) (Plan: 7.2) (Req: 12)
 
 - [x] **7.3 Sound Effects (SFX)**
-  - [ ] Implement SFX for Data Deposition in `Core.gd` (Plan: 7.3) (Req: 12)
-  - [ ] Implement SFX for UI Button clicks in `UpgradeMenu.gd` (Plan: 7.3) (Req: 12)
-  - [ ] Implement SFX for Evolution event (Plan: 7.3) (Req: 12)
-  - [ ] Implement SFX for Enemy arrival and dispersal (Plan: 7.3) (Req: 12)
-  - [ ] Implement SFX for G2 shooting (Plan: 7.3) (Req: 12)
+  - [x] Implement SFX for Data Deposition in `Core.gd` (Plan: 7.3) (Req: 12)
+  - [x] Implement SFX for UI Button clicks in `UpgradeMenu.gd` (Plan: 7.3) (Req: 12)
+  - [x] Implement SFX for Evolution event (Plan: 7.3) (Req: 12)
+  - [x] Implement SFX for Enemy arrival and dispersal (Plan: 7.3) (Req: 12)
+  - [x] Implement SFX for G2 shooting (Plan: 7.3) (Req: 12)
   - [x] Implement SFX for Genezis G1 and G2 generation (Plan: 7.3) (Req: 12)
+
+## Phase 9: Visual Enhancements
+
+- [x] **9.1 3D Parallax Background**
+  - [x] Update `WorldEnvironment` to use `space.jpg` (now in `assets/textures/`) as a Panorama Sky (Plan: 9.1) (Req: 16)
+  - [x] Create a `ParallaxBackground3D` layer with a sphere or large quads using the space texture (Plan: 9.1) (Req: 16)
+  - [x] Implement camera rotation/orbit-based parallax logic in `Camera.gd` (Plan: 9.1) (Req: 16)
+  - [x] Ensure the background appears "distant" but responds with depth to camera movements (Plan: 9.1) (Req: 16)
+  - [x] Fix "mosaic" effect in background by disabling triplanar mapping and adjusting UV scale (Plan: 9.1) (Req: 16)

@@ -190,3 +190,29 @@ Goal: Add immersive music and sound effects to the simulation.
 - **Dependency**: Godot Engine integration.
 - **Risk**: Performance issues with many Genezis G1 beings (mitigate with optimized scripts).
 - **Consideration**: Balancing the upgrade costs and iteration length.
+193:
+194:## Phase 8: Missions & Objectives (Medium Priority)
+195:Goal: Provide a structured progression system with specific tasks.
+196:
+197:1. **Mission System Framework** (Plan: 8.1)
+198:   - Implement `MissionManager` to track current mission and progress.
+199:   - Create HUD interface for mission display.
+200:   - Priority: Medium
+201:   - Requirements: Req 15
+202:
+203:2. **Level 1 Missions** (Plan: 8.2)
+204:   - Define initial mission sequence.
+205:   - Mission 1: "First Steps" - Create 1 Genezis G2.
+206:   - Mission 2: "Information Gathering" - Collect 1 MB of data.
+207:   - Priority: Medium
+208:   - Requirements: Req 15
+
+## Phase 9: Visual Enhancements (High Priority)
+Goal: Enhance the simulation's visual depth and atmosphere.
+
+1. **3D Parallax Background** (Plan: 9.1)
+   - Implement a parallax effect using `space.jpg` to create a 3D sense of depth.
+   - Use a `PanoramaSkyMaterial` for the base background.
+   - Use a separate, slower-moving 3D layer for the parallax effect.
+   - Priority: High
+   - Requirements: Req 16

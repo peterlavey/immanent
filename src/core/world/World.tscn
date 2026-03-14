@@ -10,16 +10,25 @@
 [ext_resource type="Script" path="res://src/core/camera/Camera.gd" id="8_camera_script"]
 [ext_resource type="PackedScene" uid="uid_core" path="res://src/core/core/Core.tscn" id="9_core_scene"]
 [ext_resource type="PackedScene" uid="uid_hud" path="res://src/ui/hud/HUD.tscn" id="10_hud_scene"]
+[ext_resource type="Script" path="res://src/core/mission_manager/MissionManager.gd" id="11_mission_manager"]
+[ext_resource type="Texture2D" uid="uid_space_texture" path="res://assets/textures/space.jpg" id="space_texture"]
 
-[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_1"]
-sky_top_color = Color(0.02, 0.05, 0.1, 1)
-sky_horizon_color = Color(0.05, 0.1, 0.2, 1)
-ground_bottom_color = Color(0.0, 0.0, 0.0, 1)
-ground_horizon_color = Color(0.05, 0.1, 0.2, 1)
-sun_angle_max = 0.0
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_Space"]
+shading_mode = 0
+albedo_texture = ExtResource("space_texture")
+uv1_scale = Vector3(1, 1, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_Space"]
+material = SubResource("StandardMaterial3D_Space")
+radius = 100.0
+height = 200.0
+flip_faces = true
+
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_1"]
+panorama = ExtResource("space_texture")
 
 [sub_resource type="Sky" id="Sky_1"]
-sky_material = SubResource("ProceduralSkyMaterial_1")
+sky_material = SubResource("PanoramaSkyMaterial_1")
 
 [sub_resource type="Environment" id="Environment_1"]
 background_mode = 2
@@ -64,9 +73,16 @@ transform = Transform3D(0.707107, -0.5, 0.5, 0, 0.707107, 0.707107, -0.707107, -
 projection = 0
 current = true
 script = ExtResource("8_camera_script")
-max_zoom = 30.0
+min_zoom = 8.0
+max_zoom = 40.0
 
 [node name="Core" parent="." instance=ExtResource("9_core_scene")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 
 [node name="HUD" parent="." instance=ExtResource("10_hud_scene")]
+
+[node name="ParallaxBackground" type="MeshInstance3D" parent="."]
+mesh = SubResource("SphereMesh_Space")
+
+[node name="MissionManager" type="Node" parent="."]
+script = ExtResource("11_mission_manager")

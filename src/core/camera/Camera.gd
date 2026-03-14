@@ -5,8 +5,9 @@ extends Camera3D
 @export var max_zoom: float = 50.0
 @export var rotation_speed: float = 0.005
 @export var gesture_zoom_speed: float = 1.0
+@export var parallax_factor: float = 0.05
 
-var orbit_distance: float = 35.0
+var orbit_distance: float = 20.0
 var target: Vector3 = Vector3.ZERO
 var rotation_angles: Vector2 = Vector2(0.7, 0.7) # X: vertical, Y: horizontal
 
@@ -83,3 +84,13 @@ func _update_camera_position() -> void:
 	
 	global_position = target + pos
 	look_at(target, Vector3.UP)
+	
+	# Parallax effect: background follows camera position but at a fraction
+	# and rotates slightly to create depth.
+	var parallax_bg = get_node_or_null("../ParallaxBackground")
+	if parallax_bg:
+		# Follow camera but move less
+		parallax_bg.global_position = global_position * parallax_factor
+		# Slight rotation based on camera position
+		parallax_bg.rotation.y = rotation_angles.y * 0.1
+		parallax_bg.rotation.x = rotation_angles.x * 0.1

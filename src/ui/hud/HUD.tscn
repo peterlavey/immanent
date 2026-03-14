@@ -52,6 +52,37 @@ text = "Data: 0 B"
 layout_mode = 2
 text = "Genezis G1: 1"
 
+[node name="MissionContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+mouse_filter = 2
+
+[node name="MissionTitle" type="Label" parent="MarginContainer/MissionContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 1, 1, 1)
+theme_override_font_sizes/font_size = 20
+text = "Current Mission"
+horizontal_alignment = 2
+
+[node name="MissionName" type="Label" parent="MarginContainer/MissionContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Mission Name"
+horizontal_alignment = 2
+
+[node name="MissionDescription" type="Label" parent="MarginContainer/MissionContainer"]
+layout_mode = 2
+text = "Mission Description goes here."
+horizontal_alignment = 2
+autowrap_mode = 3
+
+[node name="MissionProgress" type="Label" parent="MarginContainer/MissionContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 0, 1)
+text = "Progress: 0/1"
+horizontal_alignment = 2
+
 [node name="UpgradeMenu" parent="." instance=ExtResource("2_scene")]
 visible = false
 layout_mode = 1

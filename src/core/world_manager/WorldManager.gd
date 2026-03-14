@@ -83,6 +83,10 @@ func spawn_extra_genezis_g1() -> void:
 	_spawn_genezis_g1()
 
 func fuse_genezis() -> void:
+	if core_node and core_node.evolution_level < 2:
+		print("Fusion failed: Requires evolution level 2.")
+		return
+		
 	var g1_beings = get_tree().get_nodes_in_group("genezis_g1")
 	if g1_beings.size() >= 5: # Require at least 5 G1s (4 to fuse, 1 to keep)
 		# Take 4 G1s
@@ -113,7 +117,9 @@ func _spawn_genezis_g2(pos: Vector3) -> void:
 	add_child(g2)
 	g2.global_position = pos
 	genezis_g2_spawned.emit(g2)
-	AudioManager.play_sfx("res://assets/audio/sfx/G2.mp3")
+	var audio_manager = get_tree().root.get_node_or_null("AudioManager")
+	if audio_manager:
+		audio_manager.play_sfx("res://assets/audio/sfx/G2.mp3")
 	
 	_g2_spawn_count += 1
 	
@@ -180,4 +186,6 @@ func _spawn_genezis_g1() -> void:
 		sin(angle) * cos(elevation) * distance
 	)
 	genezis_spawned.emit(genezis)
-	AudioManager.play_sfx("res://assets/audio/sfx/G1.mp3")
+	var audio_manager = get_tree().root.get_node_or_null("AudioManager")
+	if audio_manager:
+		audio_manager.play_sfx("res://assets/audio/sfx/G1.mp3")

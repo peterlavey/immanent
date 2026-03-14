@@ -8,6 +8,9 @@ extends Control
 @onready var upgrade_menu = $UpgradeMenu
 @onready var genezis_stats_ui = $GenezisStatsUI
 @onready var enemy_description_ui = $EnemyDescriptionUI
+@onready var mission_name_label = $MarginContainer/MissionContainer/MissionName
+@onready var mission_description_label = $MarginContainer/MissionContainer/MissionDescription
+@onready var mission_progress_label = $MarginContainer/MissionContainer/MissionProgress
 
 var selected_genezis: CharacterBody3D = null
 
@@ -35,6 +38,19 @@ func _ready() -> void:
 		world_manager.genezis_spawned.connect(_on_genezis_spawned)
 		world_manager.genezis_g2_spawned.connect(_on_genezis_g2_spawned)
 		world_manager.new_enemy_type_spawned.connect(_on_new_enemy_type_spawned)
+	
+	# Connect to MissionManager
+	var mission_manager = get_tree().get_first_node_in_group("mission_manager")
+	if mission_manager:
+		mission_manager.mission_updated.connect(_on_mission_updated)
+		# Initialize mission display
+		_on_mission_updated(mission_manager.current_mission_name, mission_manager.current_mission_description, mission_manager.current_mission_progress)
+		
+		# Link MissionManager to signals for tracking
+		if core:
+			core.data_changed.connect(mission_manager._on_data_changed)
+		if world_manager:
+			world_manager.genezis_g2_spawned.connect(mission_manager._on_genezis_g2_spawned)
 	
 	# Initial count
 	_update_genezis_count()
@@ -145,6 +161,11 @@ func _on_time_updated(remaining: float) -> void:
 
 func _on_iteration_started(number: int) -> void:
 	iteration_label.text = str(number) + " Hz"
+
+func _on_mission_updated(m_name: String, m_desc: String, m_prog: String) -> void:
+	mission_name_label.text = m_name
+	mission_description_label.text = m_desc
+	mission_progress_label.text = m_prog
 
 func format_bytes(bytes: int) -> String:
 	if bytes < 1024:

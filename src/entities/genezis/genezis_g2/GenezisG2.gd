@@ -113,6 +113,11 @@ func _shoot() -> void:
 	var dir = (threat_target.global_position - global_position).normalized()
 	p.launch(global_position + dir * 1.0, dir)
 	p.damage = attack_damage
+	
+	var audio_manager = get_tree().root.get_node_or_null("AudioManager")
+	if audio_manager:
+		# Use G2 sfx for shooting but at a higher pitch for a "laser" feel
+		audio_manager.play_sfx("res://assets/audio/sfx/G2.mp3", -12.0)
 
 func _set_new_patrol_target() -> void:
 	var center = Vector3.ZERO

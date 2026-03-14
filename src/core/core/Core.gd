@@ -7,7 +7,7 @@ signal fov_changed(new_radius: float)
 signal evolution_changed(new_level: int)
 
 @export var floating_text_scene: PackedScene = preload("res://src/ui/floating_text/FloatingText.tscn")
-@export var current_data: int = 3145728: # Start with 3 MB for testing (3 * 1024 * 1024)
+@export var current_data: int = 0: # Start with 0 data
 	set(value):
 		current_data = value
 		data_changed.emit(current_data)
@@ -38,11 +38,23 @@ func _update_visual_for_evolution() -> void:
 	# Evolve visual by scaling or changing color
 	var scale_factor = 1.0 + (evolution_level * 0.5)
 	$MeshInstance3D.scale = Vector3(scale_factor, scale_factor, scale_factor)
+	
+	var audio_manager = get_tree().root.get_node_or_null("AudioManager")
+	if audio_manager:
+		# Use G2 sfx for evolution as it's more impactful
+		audio_manager.play_sfx("res://assets/audio/sfx/G2.mp3", -5.0)
+		
 	print("Core evolved to level ", evolution_level)
 
 func deposit_data(amount: int, position: Vector3 = Vector3.ZERO) -> void:
 	current_data += amount
 	_spawn_floating_text(amount, position)
+	
+	var audio_manager = get_tree().root.get_node_or_null("AudioManager")
+	if audio_manager:
+		# Use a subtle high-pitched beep for data deposition
+		audio_manager.play_sfx("res://assets/audio/sfx/G1.mp3", -15.0)
+	
 	print("Data deposited. Total: ", current_data)
 
 func _spawn_floating_text(amount: int, pos: Vector3) -> void:
