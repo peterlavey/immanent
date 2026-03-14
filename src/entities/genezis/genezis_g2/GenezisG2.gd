@@ -8,7 +8,7 @@ enum State { PATROL, PROTECT_CORE, PROTECT_G1, INTERCEPT_THREAT, ATTACKING }
 @export var patrol_radius: float = 15.0
 @export var detection_radius: float = 10.0
 @export var attack_damage: float = 1.0
-@export var projectile_scene: PackedScene = preload("res://src/entities/g2_projectile/G2Projectile.tscn")
+@export var projectile_scene: PackedScene = preload("res://src/entities/genezis/g2_projectile/G2Projectile.tscn")
 @export var attack_cooldown: float = 0.5
 
 var current_state: State = State.PATROL

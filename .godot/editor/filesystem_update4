@@ -12,3 +12,4 @@ res://src/ui/GenezisStatsUI.gd
 res://src/entities/GenezisG1.gd
 res://src/ui/EnemyDescriptionUI.gd
 res://src/entities/Enemy.gd
+res://src/entities/enemy/Enemy.gd
