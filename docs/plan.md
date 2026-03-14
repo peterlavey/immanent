@@ -40,16 +40,16 @@ Goal: Implement the primary loop of data collection and time management.
    - Priority: High
    - Requirements: Req 4
 
-3. **Genezis Beings Behavior** (Plan: 2.3)
-   - Implement the Genezis AI: move to data spot -> extract (in bytes) -> return to core.
+3. **Genezis G1 Beings Behavior** (Plan: 2.3)
+   - Implement the Genezis G1 AI: move to data spot -> extract (in bytes) -> return to core.
    - Implement capacity logic using byte increments (1024 base translation).
-   - Implement Genezis selection and statistics display (Plan: 2.3.1).
+   - Implement Genezis G1 selection and statistics display (Plan: 2.3.1).
    - Priority: High
    - Requirements: Req 3
 
 51: 4. **HUD & Resource Display** (Plan: 2.4)
     - Implement the HUD to display current data/bytes.
-    - Implement the HUD to display current Genezis count.
+    - Implement the HUD to display current Genezis G1 count.
     - Priority: Medium
     - Requirements: Req 6
 
@@ -58,13 +58,13 @@ Goal: Implement the upgrade systems and field of view expansion.
 
 1. **Field of View (FOV) Sphere** (Plan: 3.1)
    - Implement the visual sphere representing FOV.
-   - Implement the logic to restrict Genezis interactions within FOV.
+   - Implement the logic to restrict Genezis G1 interactions within FOV.
    - Priority: Medium
    - Requirements: Req 7
 
 2. **Upgrade System** (Plan: 3.2)
    - Implement the Core's upgrade interface.
-   - Apply upgrades to Genezis (Speed, Capacity, Extraction Rate, Count).
+   - Apply upgrades to Genezis G1 (Speed, Capacity, Extraction Rate, Count).
    - Apply upgrades to FOV radius.
    - Priority: Medium
    - Requirements: Req 2, Req 3, Req 7
@@ -89,7 +89,7 @@ Goal: Implement the final evolution stages and the game's conclusion.
    - Priority: Low
    - Requirements: Req 9
 
-3. **Genezi Fusion & G2 Implementation** (Plan: 4.3)
+3. **Genezi G1 Fusion & G2 Implementation** (Plan: 4.3)
    - Implement the fusion logic for G1 to G2.
    - Implement the Genezi G2 protective behaviors and visual.
    - Priority: Medium
@@ -97,5 +97,5 @@ Goal: Implement the final evolution stages and the game's conclusion.
 
 ## Dependencies & Risks
 - **Dependency**: Godot Engine integration.
-- **Risk**: Performance issues with many Genezis beings (mitigate with optimized scripts).
+- **Risk**: Performance issues with many Genezis G1 beings (mitigate with optimized scripts).
 - **Consideration**: Balancing the upgrade costs and iteration length.

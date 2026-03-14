@@ -29,19 +29,19 @@
   - [x] Create a Data Spot scene with a "megabytes" property (Plan: 2.2) (Req: 4)
   - [x] Implement spawning logic (5 spots per iteration, 1 KB each initially, min distance from Core) (Plan: 2.2) (Req: 4)
 
-- [x] **2.3 Genezis Beings**
-  - [x] Create a Genezis being scene (Plan: 2.3) (Req: 3)
-  - [x] Implement state machine for Genezis AI: IDLE -> MOVING_TO_DATA -> EXTRACTING -> RETURNING_TO_CORE -> DEPOSITING (Plan: 2.3) (Req: 3)
-  - [x] Implement movement logic (Plan: 2.3) (Req: 3)
-  - [x] Implement data extraction and carry capacity (Plan: 2.3) (Req: 3)
-  - [x] Refactor collection to use 1-byte increments and 1024-based translation (Plan: 2.3) (Req: 3)
-  - [x] Implement clickable Genezis to show statistics (Plan: 2.3.1) (Req: 3)
-  - [x] Implement surrounding logic for data spots to prevent piling up (Plan: 2.3.2) (Req: 3)
+- [x] **2.3 Genezis G1 Beings**
+- [x] Create a Genezis G1 being scene (Plan: 2.3) (Req: 3)
+- [x] Implement state machine for Genezis G1 AI: IDLE -> MOVING_TO_DATA -> EXTRACTING -> RETURNING_TO_CORE -> DEPOSITING (Plan: 2.3) (Req: 3)
+- [x] Implement movement logic (Plan: 2.3) (Req: 3)
+- [x] Implement data extraction and carry capacity (Plan: 2.3) (Req: 3)
+- [x] Refactor collection to use 1-byte increments and 1024-based translation (Plan: 2.3) (Req: 3)
+- [x] Implement clickable Genezis G1 to show statistics (Plan: 2.3.1) (Req: 3)
+- [x] Implement surrounding logic for data spots to prevent piling up (Plan: 2.3.2) (Req: 3)
 
 - [x] **2.4 HUD**
   - [x] Create the HUD scene (Plan: 2.4) (Req: 6)
   - [x] Display total collected bytes from the Core (Plan: 2.4) (Req: 6)
-  - [x] Display total Genezis count on the HUD (Plan: 2.4) (Req: 6)
+  - [x] Display total Genezis G1 count on the HUD (Plan: 2.4) (Req: 6)
 
 ## Phase 3: Progression & Upgrades
 
@@ -51,25 +51,25 @@
 
 - [x] **3.2 Upgrade System**
   - [x] Create an upgrade UI menu at the Core (Plan: 3.2) (Req: 2, 3)
-  - [x] Implement "Genezis Movement Speed" upgrade (Plan: 3.2) (Req: 3)
+  - [x] Implement "Genezis G1 Movement Speed" upgrade (Plan: 3.2) (Req: 3)
   - [x] Implement "Extraction Rate" upgrade (Plan: 3.2) (Req: 3)
   - [x] Implement "Carry Capacity" upgrade (Plan: 3.2) (Req: 3)
   - [x] Implement "FOV Expansion" upgrade (Plan: 3.2) (Req: 7)
-  - [x] Implement "Genezis Count" upgrade (Plan: 3.2) (Req: 3)
-  - [x] Split upgrades between Core and Genezis clicks (Plan: 3.2.1) (Req: 2, 3)
+  - [x] Implement "Genezis G1 Count" upgrade (Plan: 3.2) (Req: 3)
+  - [x] Split upgrades between Core and Genezis G1 clicks (Plan: 3.2.1) (Req: 2, 3)
   - [x] Remove legacy upgrade button and fix context-sensitive clicking (Plan: 3.2.2) (Req: 2, 3)
   - [x] Fix click interference from FOV and improve menu closing logic (Plan: 3.2.3) (Req: 2, 3)
   - [x] Upgrade costs increase as improvements are made (Plan: 3.2) (Req: 2, 3)
-  - [x] Limit Genezis and Core upgrades to a maximum of 5 (Plan: 3.2) (Req: 3, 7)
+  - [x] Limit Genezis G1 and Core upgrades to a maximum of 5 (Plan: 3.2) (Req: 3, 7)
   - [x] Implement "Core Evolution" upgrade to expand limits and unlock new features (Plan: 4.1) (Req: 4.1)
-  - [x] Ensure Genezis stats update in real-time when purchasing upgrades (Plan: 3.2.4) (Req: 3, 6)
-  - [x] Fix initial Genezis not being clickable for upgrades (Plan: 3.2.5) (Req: 3)
+  - [x] Ensure Genezis G1 stats update in real-time when purchasing upgrades (Plan: 3.2.4) (Req: 3, 6)
+  - [x] Fix initial Genezis G1 not being clickable for upgrades (Plan: 3.2.5) (Req: 3)
   - [x] Disable upgrades that the player cannot afford (Plan: 3.2.6) (Req: 2, 3)
 
 - [x] **3.3 Visual Feedback**
   - [x] Create Floating Text scene and script (Plan: 3.3) (Req: 8)
   - [x] Integrate Floating Text spawning in Core data deposition (Plan: 3.3) (Req: 8)
-  - [x] Calibrate Floating Text size (twice the size of Genezis) and movement for RPG-like feedback (Plan: 3.3) (Req: 8)
+  - [x] Calibrate Floating Text size (twice the size of Genezis G1) and movement for RPG-like feedback (Plan: 3.3) (Req: 8)
 
 ## Phase 4: Final Features & Goal
 
@@ -91,4 +91,5 @@
   - [x] Create visual representation for Genezi G2 (Plan: 4.3) (Req: 10)
   - [x] Add validation to Fusion to require at least 5 G1 units (leaving 1 spare) (Plan: 4.3) (Req: 10)
   - [x] Validate G1 limit based on current population to allow replenishing after fusion (Plan: 4.3) (Req: 10)
-  - [x] Fix Upgrade Menu refresh bug after fusion by removing Genezis from group before queue_free() (Plan: 4.3.1)
+  - [x] Fix Upgrade Menu refresh bug after fusion by removing Genezis G1 from group before queue_free() (Plan: 4.3.1)
+  - [x] Fix Godot editor 'File not found' errors by updating cached script references after renaming Genezis to Genezis G1.

@@ -49,7 +49,7 @@ text = "Data: 0 B"
 
 [node name="GenezisCountLabel" type="Label" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
-text = "Genezis: 1"
+text = "Genezis G1: 1"
 
 [node name="UpgradeMenu" parent="." instance=ExtResource("2_scene")]
 visible = false

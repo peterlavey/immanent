@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3]
 
-[ext_resource type="Script" path="res://src/entities/Genezis.gd" id="1_script"]
+[ext_resource type="Script" path="res://src/entities/GenezisG1.gd" id="1_script"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1"]
 albedo_color = Color(1.0, 1.0, 1.0, 1.0)
@@ -14,7 +14,7 @@ height = 1.0
 [sub_resource type="SphereShape3D" id="SphereShape3D_1"]
 radius = 0.5
 
-[node name="Genezis" type="CharacterBody3D"]
+[node name="GenezisG1" type="CharacterBody3D"]
 input_ray_pickable = true
 script = ExtResource("1_script")
 

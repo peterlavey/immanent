@@ -61,11 +61,11 @@ func _on_upgrade_purchased(upgrade_id: String) -> void:
 	# Inform all Genezis beings or Core about the upgrade
 	match upgrade_id:
 		"speed":
-			get_tree().call_group("genezis", "upgrade_speed", 1.2)
+			get_tree().call_group("genezis_g1", "upgrade_speed", 1.2)
 		"extraction":
-			get_tree().call_group("genezis", "upgrade_extraction", 1.2)
+			get_tree().call_group("genezis_g1", "upgrade_extraction", 1.2)
 		"capacity":
-			get_tree().call_group("genezis", "upgrade_capacity", 1.2)
+			get_tree().call_group("genezis_g1", "upgrade_capacity", 1.2)
 		"fov":
 			var core = get_tree().get_first_node_in_group("core")
 			if core:
@@ -73,27 +73,27 @@ func _on_upgrade_purchased(upgrade_id: String) -> void:
 		"genezis_count":
 			var world_manager = get_tree().get_first_node_in_group("world_manager")
 			if world_manager:
-				world_manager.spawn_extra_genezis()
+				world_manager.spawn_extra_genezis_g1()
 		"fusion":
 			var world_manager = get_tree().get_first_node_in_group("world_manager")
 			if world_manager:
 				world_manager.fuse_genezis()
 	
-	# Refresh UI if a Genezis is selected
+	# Refresh UI if a Genezis G1 is selected
 	if selected_genezis and is_instance_valid(selected_genezis):
 		genezis_stats_ui.display_stats(selected_genezis.get_stats())
 
 func _update_genezis_count() -> void:
-	var count = get_tree().get_nodes_in_group("genezis").size()
+	var count = get_tree().get_nodes_in_group("genezis_g1").size()
 	var g2_count = get_tree().get_nodes_in_group("genezis_g2").size()
 	
 	if g2_count > 0:
 		genezis_count_label.text = "Genezis: %d G1, %d G2" % [count, g2_count]
 	else:
-		genezis_count_label.text = "Genezis: %d" % count
+		genezis_count_label.text = "Genezis G1: %d" % count
 	
 	# Re-connect signals for all Genezis beings to ensure new ones are included
-	for genezis in get_tree().get_nodes_in_group("genezis"):
+	for genezis in get_tree().get_nodes_in_group("genezis_g1"):
 		if not genezis.selected.is_connected(_on_genezis_selected):
 			genezis.selected.connect(_on_genezis_selected)
 			
@@ -112,7 +112,7 @@ func _on_genezis_selected(genezis: CharacterBody3D) -> void:
 	if genezis_stats_ui:
 		genezis_stats_ui.display_stats(genezis.get_stats())
 	if upgrade_menu:
-		upgrade_menu.set_mode(upgrade_menu.Mode.GENEZIS)
+		upgrade_menu.set_mode(upgrade_menu.Mode.GENEZIS_G1)
 		upgrade_menu.show()
 
 func _on_genezis_g2_selected(genezis: CharacterBody3D) -> void:

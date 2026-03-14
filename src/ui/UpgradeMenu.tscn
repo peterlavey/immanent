@@ -66,9 +66,9 @@ text = "Upgrade Capacity"
 layout_mode = 2
 text = "Upgrade FOV"
 
-[node name="GenezisCountButton" type="Button" parent="Panel/MarginContainer/VBoxContainer"]
+[node name="GenezisG1CountButton" type="Button" parent="Panel/MarginContainer/VBoxContainer"]
 layout_mode = 2
-text = "Spawn Genezis"
+text = "Spawn Genezis G1"
 
 [node name="Spacer" type="Control" parent="Panel/MarginContainer/VBoxContainer"]
 layout_mode = 2
@@ -82,5 +82,5 @@ text = "Close"
 [connection signal="pressed" from="Panel/MarginContainer/VBoxContainer/ExtractionButton" to="." method="_on_extraction_button_pressed"]
 [connection signal="pressed" from="Panel/MarginContainer/VBoxContainer/CapacityButton" to="." method="_on_capacity_button_pressed"]
 [connection signal="pressed" from="Panel/MarginContainer/VBoxContainer/FOVButton" to="." method="_on_fov_button_pressed"]
-[connection signal="pressed" from="Panel/MarginContainer/VBoxContainer/GenezisCountButton" to="." method="_on_genezis_count_button_pressed"]
+[connection signal="pressed" from="Panel/MarginContainer/VBoxContainer/GenezisG1CountButton" to="." method="_on_genezis_count_button_pressed"]
 [connection signal="pressed" from="Panel/MarginContainer/VBoxContainer/CloseButton" to="." method="_on_close_button_pressed"]

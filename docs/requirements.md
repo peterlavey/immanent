@@ -16,19 +16,19 @@ Immanent is a 3D idle game set inside a digital simulation (processor). Players 
 2. **The Core (Space Center)**
    - **User Story**: As a player, I want a central hub (the Core) so that I can store resources and manage evolutions.
    - **Acceptance Criteria**:
-     - WHEN a genezis being returns with data THEN the system SHALL store the data in the Core.
+     - WHEN a Genezis G1 being returns with data THEN the system SHALL store the data in the Core.
      - THE Core SHALL serve as the interface for triggering evolution phases.
-     - THE Core SHALL allow upgrading Genezis attributes.
+     - THE Core SHALL allow upgrading Genezis G1 attributes.
 
-3. **Genezis Beings & Data Collection**
-   - **User Story**: As a player, I want autonomous beings to collect data in 1-byte increments so that my resource pool grows with precision.
+3. **Genezis G1 Beings & Data Collection**
+   - **User Story**: As a player, I want autonomous G1 beings to collect data in 1-byte increments so that my resource pool grows with precision.
    - **Acceptance Criteria**:
-     - WHEN data spots are within the field of view THEN Genezis beings SHALL automatically move to them and extract data in 1-byte increments at a slow initial rate (e.g., 10 B/s).
+     - WHEN data spots are within the field of view THEN Genezis G1 beings SHALL automatically move to them and extract data in 1-byte increments at a slow initial rate (e.g., 10 B/s).
      - THE system SHALL translate 1024 bytes into 1 KB, 1024 KB into 1 MB, and so on, for display.
-     - WHEN a Genezis being's capacity is reached THEN it SHALL return to the Core to deposit data.
+     - WHEN a Genezis G1 being's capacity is reached THEN it SHALL return to the Core to deposit data.
      - THE extraction rate, movement speed, carry capacity, and count SHALL be upgradeable.
    - EACH attribute SHALL have a maximum upgrade level of 5 (initial) or 10 (post-evolution).
-     - WHEN a Genezis being is clicked THEN the system SHALL show its statistics (Speed, Capacity, Extraction Rate, Current Load).
+     - WHEN a Genezis G1 being is clicked THEN the system SHALL show its statistics (Speed, Capacity, Extraction Rate, Current Load).
 
 4. **Evolution & Milestones**
    - **User Story**: As a player, I want to evolve the Core so that I can unlock new potentials and expand my reach.
@@ -54,7 +54,7 @@ Immanent is a 3D idle game set inside a digital simulation (processor). Players 
    - **User Story**: As a player, I want to see my collected data balance so that I can track my progress.
    - **Acceptance Criteria**:
      - THE system SHALL display the total number of collected bytes on the screen.
-     - THE system SHALL display the total number of Genezis beings currently active in the simulation.
+     - THE system SHALL display the total number of Genezis G1 beings currently active in the simulation.
 
 7. **Upgrades & Field of View**
    - **User Story**: As a player, I want to expand my field of view so that I can discover more distant data spots.
@@ -62,12 +62,12 @@ Immanent is a 3D idle game set inside a digital simulation (processor). Players 
      - THE field of view SHALL be visually represented by a sphere around the Core.
      - WHEN the field of view is upgraded THEN the sphere SHALL expand.
      - THE field of view upgrade SHALL have a maximum level of 5 (initial) or 10 (post-evolution).
-     - ONLY data spots inside the field of view sphere SHALL be interactable by Genezis beings.
+     - ONLY data spots inside the field of view sphere SHALL be interactable by Genezis G1 beings.
 
 8. **Visual Feedback**
    - **User Story**: As a player, I want to see floating text when data is deposited so that I get immediate visual feedback on the amount collected.
    - **Acceptance Criteria**:
-     - WHEN a Genezis being deposits data into the Core THEN the system SHALL spawn floating text at the point of deposition.
+     - WHEN a Genezis G1 being deposits data into the Core THEN the system SHALL spawn floating text at the point of deposition.
      - THE floating text SHALL display the amount of data deposited (formatted as bytes/KB/MB).
      - THE floating text SHALL move upwards slightly and fade out (bubble effect).
 

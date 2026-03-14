@@ -6,7 +6,7 @@ signal genezis_g2_spawned(genezis: CharacterBody3D)
 signal genezis_removed
 
 @export var data_spot_scene: PackedScene
-@export var genezis_scene: PackedScene
+@export var genezis_g1_scene: PackedScene
 @export var genezis_g2_scene: PackedScene
 @export var spawn_radius: float = 20.0
 @export var min_spawn_distance: float = 5.0
@@ -25,7 +25,7 @@ func _ready() -> void:
 	# Initial spawn: ensure at least 4 spots within FOV
 	_spawn_initial_data_spots()
 	# Initial genezis
-	_spawn_genezis()
+	_spawn_genezis_g1()
 
 func _on_core_evolution_changed(new_level: int) -> void:
 	if new_level == 1:
@@ -36,11 +36,11 @@ func _on_core_evolution_changed(new_level: int) -> void:
 func _on_iteration_started(_number: int) -> void:
 	_spawn_data_spots(5)
 
-func spawn_extra_genezis() -> void:
-	_spawn_genezis()
+func spawn_extra_genezis_g1() -> void:
+	_spawn_genezis_g1()
 
 func fuse_genezis() -> void:
-	var g1_beings = get_tree().get_nodes_in_group("genezis")
+	var g1_beings = get_tree().get_nodes_in_group("genezis_g1")
 	if g1_beings.size() >= 5: # Require at least 5 G1s (4 to fuse, 1 to keep)
 		# Take 4 G1s
 		var to_fuse = []
@@ -55,7 +55,7 @@ func fuse_genezis() -> void:
 		
 		# Remove G1s
 		for g in to_fuse:
-			g.remove_from_group("genezis")
+			g.remove_from_group("genezis_g1")
 			g.queue_free()
 		
 		genezis_removed.emit()
@@ -108,8 +108,9 @@ func _spawn_single_data_spot(min_dist: float, max_dist: float) -> void:
 	var distance = randf_range(min_dist, max_dist)
 	spot.global_position = Vector3(cos(angle) * distance, 0, sin(angle) * distance)
 
-func _spawn_genezis() -> void:
-	var genezis = genezis_scene.instantiate()
+func _spawn_genezis_g1() -> void:
+	if not genezis_g1_scene: return
+	var genezis = genezis_g1_scene.instantiate()
 	add_child(genezis)
 	genezis.global_position = Vector3(2, 0, 2)
 	genezis_spawned.emit(genezis)

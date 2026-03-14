@@ -16,7 +16,7 @@ var core_node: Node3D = null
 var _extraction_accumulator: float = 0.0
 
 func _ready() -> void:
-	add_to_group("genezis")
+	add_to_group("genezis_g1")
 	# Find core in group if not assigned
 	var cores = get_tree().get_nodes_in_group("core")
 	if cores.size() > 0:
