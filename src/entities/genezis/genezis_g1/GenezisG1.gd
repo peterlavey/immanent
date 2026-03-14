@@ -33,6 +33,8 @@ func upgrade_capacity(multiplier: float) -> void:
 
 @onready var visuals: Node3D = $Visuals
 @onready var head: MeshInstance3D = $Visuals/Head
+@onready var connection_beam: MeshInstance3D = $ConnectionBeam
+@onready var data_particles: GPUParticles3D = $DataParticles
 
 var _pulse_timer: float = 0.0
 
@@ -41,9 +43,15 @@ func _physics_process(delta: float) -> void:
 		_pulse_timer += delta * 10.0
 		var s = 1.0 + sin(_pulse_timer) * 0.1
 		head.scale = Vector3(s, s, s)
+		_update_connection_visual(target_data_spot.global_position)
+	elif current_state == State.DEPOSITING:
+		_update_connection_visual(core_node.global_position)
 	else:
 		head.scale = Vector3.ONE
 		_pulse_timer = 0.0
+		connection_beam.visible = false
+		data_particles.emitting = false
+		data_particles.visible = false
 	
 	match current_state:
 		State.IDLE:
@@ -131,6 +139,37 @@ func move_towards(target_pos: Vector3, delta: float) -> void:
 		else:
 			look_at(look_target, Vector3.RIGHT)
 	move_and_slide()
+
+func _update_connection_visual(target_pos: Vector3) -> void:
+	if not connection_beam or not data_particles:
+		return
+		
+	var start_pos = head.global_position
+	var end_pos = target_pos
+	
+	var diff = end_pos - start_pos
+	var distance = diff.length()
+	
+	connection_beam.visible = true
+	connection_beam.global_position = start_pos + diff * 0.5
+	
+	# Rotate the cylinder to point from start to end
+	if diff.length() > 0.001:
+		connection_beam.look_at(end_pos, Vector3.UP)
+		connection_beam.rotate_object_local(Vector3.RIGHT, PI/2.0)
+		
+	# Scale the cylinder mesh height
+	connection_beam.scale.y = distance
+	
+	# Pulse the beam width slightly
+	var pulse = 1.0 + sin(Time.get_ticks_msec() * 0.02) * 0.2
+	connection_beam.scale.x = pulse
+	connection_beam.scale.z = pulse
+	
+	# Update particles
+	data_particles.visible = true
+	data_particles.emitting = true
+	data_particles.global_position = end_pos
 
 func reset_load() -> void:
 	current_load = 0

@@ -21,3 +21,4 @@ res://src/ui/hud/HUD.gd
 res://src/ui/upgrade_menu/UpgradeMenu.gd
 res://src/entities/genezis/genezis_g2/GenezisG2.gd
 res://src/entities/genezis/genezis_g1/GenezisG1.gd
+res://src/entities/genezis/genezis_g1/LightningBolt.gd

@@ -108,6 +108,7 @@
   - [x] Implement the "Neck/Stalk" using a `CylinderMesh` (Plan: 6.1) (Req: 13)
   - [x] Implement "Legs" for anchoring using `CylinderMesh` or `CSGBox3D` (Plan: 6.1) (Req: 13)
   - [x] Add mining animations (e.g., slight head pulsation when extracting) (Plan: 6.1) (Req: 13)
+  - [x] Implement visual connection (beam) between G1 and Data Spots/Core during extraction and deposition
 
 - [x] **6.2 Genezis G2 Redesign**
   - [x] Enhance G2 model with protective plates/armor based on the G1 base (Plan: 6.2) (Req: 13)
