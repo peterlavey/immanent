@@ -27,9 +27,16 @@ Immanent is a 3D idle game set inside a digital simulation (processor). Players 
      - THE system SHALL translate 1024 bytes into 1 KB, 1024 KB into 1 MB, and so on, for display.
      - WHEN a Genezis being's capacity is reached THEN it SHALL return to the Core to deposit data.
      - THE extraction rate, movement speed, carry capacity, and count SHALL be upgradeable.
+   - EACH attribute SHALL have a maximum upgrade level of 5 (initial) or 10 (post-evolution).
      - WHEN a Genezis being is clicked THEN the system SHALL show its statistics (Speed, Capacity, Extraction Rate, Current Load).
 
-4. **Data Spots & Spawning**
+4. **Evolution & Milestones**
+   - **User Story**: As a player, I want to evolve the Core so that I can unlock new potentials and expand my reach.
+   - **Acceptance Criteria**:
+     - THE Core SHALL have an "Evolution" upgrade available after reaching certain milestones or data levels.
+     - WHEN the Core is evolved THEN the maximum upgrade level for all attributes SHALL increase from 5 to 10.
+     - WHEN the Core is evolved THEN new upgrades SHALL be unlocked (e.g., Data Density, Auto-Spawning).
+     - WHEN the Core is evolved THEN the system SHALL spawn larger data spot variants (e.g., 50 MB).
    - **User Story**: As a player, I want new data spots to appear periodically so that I have a continuous supply of resources.
    - **Acceptance Criteria**:
      - WHEN a new "day" (iteration) starts THEN the system SHALL spawn 5 data spots initially.
@@ -54,6 +61,7 @@ Immanent is a 3D idle game set inside a digital simulation (processor). Players 
    - **Acceptance Criteria**:
      - THE field of view SHALL be visually represented by a sphere around the Core.
      - WHEN the field of view is upgraded THEN the sphere SHALL expand.
+     - THE field of view upgrade SHALL have a maximum level of 5 (initial) or 10 (post-evolution).
      - ONLY data spots inside the field of view sphere SHALL be interactable by Genezis beings.
 
 8. **Visual Feedback**

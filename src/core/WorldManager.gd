@@ -11,12 +11,24 @@ signal genezis_spawned(genezis: CharacterBody3D)
 
 @onready var time_manager = $TimeManager
 
+var core_node: Node3D = null
+
 func _ready() -> void:
+	core_node = get_tree().get_first_node_in_group("core")
+	if core_node:
+		core_node.evolution_changed.connect(_on_core_evolution_changed)
+	
 	time_manager.iteration_started.connect(_on_iteration_started)
 	# Initial spawn: ensure at least 4 spots within FOV
 	_spawn_initial_data_spots()
 	# Initial genezis
 	_spawn_genezis()
+
+func _on_core_evolution_changed(new_level: int) -> void:
+	if new_level == 1:
+		# Immediate spawn some evolved spots
+		_spawn_data_spots(5)
+		print("Evolution 1: Evolving simulation environment.")
 
 func _on_iteration_started(_number: int) -> void:
 	_spawn_data_spots(5)
@@ -45,6 +57,16 @@ func _spawn_data_spots(count: int) -> void:
 func _spawn_single_data_spot(min_dist: float, max_dist: float) -> void:
 	var spot = data_spot_scene.instantiate()
 	add_child(spot)
+	
+	# Evolve data spot size based on Core evolution level
+	if core_node and core_node.evolution_level > 0:
+		# Randomly spawn a larger variant if evolved
+		if randf() < 0.2: # 20% chance for a 50 MB spot
+			spot.max_bytes = 52428800 # 50 MB
+			spot.scale = Vector3(2, 2, 2)
+		else:
+			spot.max_bytes = 1048576 # 1 MB instead of 1 KB
+			spot.scale = Vector3(1.2, 1.2, 1.2)
 	
 	# Random position within range [min_dist, max_dist]
 	var angle = randf() * TAU

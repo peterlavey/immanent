@@ -4,11 +4,19 @@ signal selected
 signal data_changed(new_amount: int)
 signal fov_changed(new_radius: float)
 
+signal evolution_changed(new_level: int)
+
 @export var floating_text_scene: PackedScene = preload("res://src/ui/FloatingText.tscn")
 @export var current_data: int = 1048576: # Start with 1 MB for testing (1024 * 1024)
 	set(value):
 		current_data = value
 		data_changed.emit(current_data)
+
+@export var evolution_level: int = 0:
+	set(value):
+		evolution_level = value
+		evolution_changed.emit(evolution_level)
+		_update_visual_for_evolution()
 
 @export var fov_radius: float = 10.0:
 	set(value):
@@ -25,6 +33,12 @@ func _ready() -> void:
 func _update_fov_visual() -> void:
 	if is_instance_valid(fov_visual):
 		fov_visual.scale = Vector3(fov_radius * 2, fov_radius * 2, fov_radius * 2)
+
+func _update_visual_for_evolution() -> void:
+	# Evolve visual by scaling or changing color
+	var scale_factor = 1.0 + (evolution_level * 0.5)
+	$MeshInstance3D.scale = Vector3(scale_factor, scale_factor, scale_factor)
+	print("Core evolved to level ", evolution_level)
 
 func deposit_data(amount: int, position: Vector3 = Vector3.ZERO) -> void:
 	current_data += amount

@@ -60,6 +60,8 @@
   - [x] Remove legacy upgrade button and fix context-sensitive clicking (Plan: 3.2.2) (Req: 2, 3)
   - [x] Fix click interference from FOV and improve menu closing logic (Plan: 3.2.3) (Req: 2, 3)
   - [x] Upgrade costs increase as improvements are made (Plan: 3.2) (Req: 2, 3)
+  - [x] Limit Genezis and Core upgrades to a maximum of 5 (Plan: 3.2) (Req: 3, 7)
+  - [x] Implement "Core Evolution" upgrade to expand limits and unlock new features (Plan: 4.1) (Req: 4.1)
   - [x] Ensure Genezis stats update in real-time when purchasing upgrades (Plan: 3.2.4) (Req: 3, 6)
   - [x] Fix initial Genezis not being clickable for upgrades (Plan: 3.2.5) (Req: 3)
 
@@ -71,8 +73,10 @@
 ## Phase 4: Final Features & Goal
 
 - [x] **4.1 Evolution Milestones**
-  - [ ] Implement the evolution logic at the Core (Plan: 4.1) (Req: 2)
-  - [ ] Create larger data spot variants (e.g., 50 MB) (Plan: 4.1) (Req: 4)
+  - [x] Implement the evolution logic at the Core (Plan: 4.1) (Req: 4.1)
+  - [x] Expand upgrade limits from 5 to 10 upon evolution (Plan: 4.1) (Req: 4.1)
+  - [x] Implement new upgrades unlocked after evolution (Plan: 4.1) (Req: 4.1)
+  - [x] Create larger data spot variants (e.g., 50 MB) (Plan: 4.1) (Req: 4.1)
   - [x] Ensure at least 4 "data" spots at the beginning within the "FOV"
 
 - [ ] **4.2 The Escape**
