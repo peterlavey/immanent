@@ -1,6 +1,11 @@
-[gd_scene format=3 uid="uid://d0yljr5qglfw"]
+[gd_scene load_steps=8 format=3]
 
-[ext_resource type="Script" path="res://src/entities/GenezisG1.gd" id="1_script"]
+[ext_resource type="Script" path="res://src/entities/genezis_g1/GenezisG1.gd" id="1_script"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_Head"]
+albedo_color = Color(1.0, 1.0, 1.0, 1.0)
+emission_enabled = true
+emission = Color(0.8, 0.8, 0.8, 1.0)
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_Head"]
 top_radius = 0.3
@@ -8,17 +13,13 @@ bottom_radius = 0.3
 height = 0.4
 radial_segments = 6
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_Head"]
-emission_enabled = true
-emission = Color(0.8, 0.8, 0.8, 1)
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_Stalk"]
+albedo_color = Color(0.7, 0.7, 0.7, 1.0)
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_Stalk"]
 top_radius = 0.05
 bottom_radius = 0.05
 height = 0.4
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_Stalk"]
-albedo_color = Color(0.7, 0.7, 0.7, 1)
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_Leg"]
 top_radius = 0.02
@@ -26,41 +27,44 @@ bottom_radius = 0.02
 height = 0.3
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_1"]
+radius = 0.5
 
-[node name="GenezisG1" type="CharacterBody3D" unique_id=20645167]
+[node name="GenezisG1" type="CharacterBody3D"]
+input_ray_pickable = true
 script = ExtResource("1_script")
 
-[node name="Visuals" type="Node3D" parent="." unique_id=1724595932]
+[node name="Visuals" type="Node3D" parent="."]
 
-[node name="Head" type="MeshInstance3D" parent="Visuals" unique_id=1150689279]
+[node name="Head" type="MeshInstance3D" parent="Visuals"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 mesh = SubResource("CylinderMesh_Head")
 surface_material_override/0 = SubResource("StandardMaterial3D_Head")
 
-[node name="Stalk" type="MeshInstance3D" parent="Visuals" unique_id=1389554793]
+[node name="Stalk" type="MeshInstance3D" parent="Visuals"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, 0)
 mesh = SubResource("CylinderMesh_Stalk")
 surface_material_override/0 = SubResource("StandardMaterial3D_Stalk")
 
-[node name="Leg1" type="MeshInstance3D" parent="Visuals" unique_id=1163023404]
+[node name="Leg1" type="MeshInstance3D" parent="Visuals"]
 transform = Transform3D(0.866025, -0.5, 0, 0.5, 0.866025, 0, 0, 0, 1, 0.1, 0.05, 0)
 mesh = SubResource("CylinderMesh_Leg")
 surface_material_override/0 = SubResource("StandardMaterial3D_Stalk")
 
-[node name="Leg2" type="MeshInstance3D" parent="Visuals" unique_id=1194849410]
+[node name="Leg2" type="MeshInstance3D" parent="Visuals"]
 transform = Transform3D(-0.433013, -0.5, 0.75, 0.5, -0.866025, 0, 0.75, 0.375, 0.53033, -0.05, 0.05, 0.0866)
 mesh = SubResource("CylinderMesh_Leg")
 surface_material_override/0 = SubResource("StandardMaterial3D_Stalk")
 
-[node name="Leg3" type="MeshInstance3D" parent="Visuals" unique_id=1429339329]
+[node name="Leg3" type="MeshInstance3D" parent="Visuals"]
 transform = Transform3D(-0.433013, -0.5, -0.75, 0.5, -0.866025, 0, -0.75, 0.375, 0.53033, -0.05, 0.05, -0.0866)
 mesh = SubResource("CylinderMesh_Leg")
 surface_material_override/0 = SubResource("StandardMaterial3D_Stalk")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1887556070]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3, 0)
 shape = SubResource("SphereShape3D_1")
 
-[node name="OmniLight3D" type="OmniLight3D" parent="." unique_id=565284117]
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+light_color = Color(1.0, 1.0, 1.0, 1.0)
 omni_range = 2.0

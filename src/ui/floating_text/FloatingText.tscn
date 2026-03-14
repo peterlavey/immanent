@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3]
 
-[ext_resource type="Script" path="res://src/ui/FloatingText.gd" id="1_script"]
+[ext_resource type="Script" path="res://src/ui/floating_text/FloatingText.gd" id="1_script"]
 
 [node name="FloatingText" type="Label3D"]
 pixel_size = 0.01

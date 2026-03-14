@@ -5,6 +5,7 @@
 - [x] **1.1 Project Initialization**
   - [x] Initialize Godot project and establish core directory structure (src/entities, src/ui, assets/models, etc.) (Plan: 1.1) (Req: All)
   - [x] Add basic documentation (README, guidelines) (Plan: 1.1) (Req: All)
+  - [x] Reorganize files into component-specific subfolders (e.g., src/entities/genezis_g1/)
 
 - [x] **1.2 Advanced 3D Camera**
   - [x] Create a main 3D scene (World.tscn) (Plan: 1.2) (Req: 1)

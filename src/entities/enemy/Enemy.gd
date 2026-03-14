@@ -6,7 +6,7 @@ enum State { IDLE, MOVING_TO_TARGET, PERFORMING_ACTION, ESCAPING }
 
 @export var move_speed: float = 3.0
 @export var health: float = 1.0
-@export var defragmentation_scene: PackedScene = preload("res://src/entities/DefragmentationEffect.tscn")
+@export var defragmentation_scene: PackedScene = preload("res://src/entities/defragmentation_effect/DefragmentationEffect.tscn")
 
 var current_state: State = State.IDLE
 var target: Node3D = null

@@ -1,6 +1,6 @@
 [gd_scene load_steps=10 format=3]
 
-[ext_resource type="Script" path="res://src/entities/DataSpot.gd" id="1_script"]
+[ext_resource type="Script" path="res://src/entities/data_spot/DataSpot.gd" id="1_script"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_Core"]
 albedo_color = Color(0.0, 1.0, 0.4, 1.0)

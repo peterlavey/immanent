@@ -6,7 +6,7 @@ signal fov_changed(new_radius: float)
 
 signal evolution_changed(new_level: int)
 
-@export var floating_text_scene: PackedScene = preload("res://src/ui/FloatingText.tscn")
+@export var floating_text_scene: PackedScene = preload("res://src/ui/floating_text/FloatingText.tscn")
 @export var current_data: int = 3145728: # Start with 3 MB for testing (3 * 1024 * 1024)
 	set(value):
 		current_data = value

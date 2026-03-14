@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3]
 
-[ext_resource type="Script" path="res://src/ui/GenezisStatsUI.gd" id="1_script"]
+[ext_resource type="Script" path="res://src/ui/genezis_stats_ui/GenezisStatsUI.gd" id="1_script"]
 
 [node name="GenezisStatsUI" type="Control"]
 layout_mode = 3
