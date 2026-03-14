@@ -52,9 +52,10 @@ func _physics_process(delta: float) -> void:
 			if is_instance_valid(target_data_spot):
 				var target_pos = target_data_spot.global_position + target_offset
 				move_towards(target_pos, delta)
-				if global_position.distance_to(target_pos) < 0.2:
+				if global_position.distance_to(target_pos) < 0.5:
 					current_state = State.EXTRACTING
 					_extraction_accumulator = 0.0
+					print("[G1] Started extracting")
 			else:
 				current_state = State.IDLE
 		State.EXTRACTING:
@@ -69,18 +70,23 @@ func _physics_process(delta: float) -> void:
 					current_load += extracted
 					_extraction_accumulator -= extracted
 				
-				if current_load >= carry_capacity or not is_instance_valid(target_data_spot):
+				if current_load >= carry_capacity:
+					current_state = State.RETURNING_TO_CORE
+					print("[G1] Capacity reached, returning to core")
+				elif not is_instance_valid(target_data_spot):
 					current_state = State.RETURNING_TO_CORE
 			else:
 				current_state = State.RETURNING_TO_CORE
 		State.RETURNING_TO_CORE:
 			if is_instance_valid(core_node):
 				move_towards(core_node.global_position, delta)
-				if global_position.distance_to(core_node.global_position) < 2.0:
+				if global_position.distance_to(core_node.global_position) < 2.5:
 					current_state = State.DEPOSITING
+					print("[G1] Started depositing")
 		State.DEPOSITING:
 			if is_instance_valid(core_node):
 				core_node.deposit_data(current_load, global_position)
+				print("[G1] Deposited ", current_load, " data")
 				current_load = 0
 				current_state = State.IDLE
 
@@ -92,13 +98,15 @@ func find_data_spot() -> void:
 	for spot in spots:
 		if is_instance_valid(core_node):
 			var dist_to_core = spot.global_position.distance_to(core_node.global_position)
-			if dist_to_core <= core_node.fov_radius:
+			# Add a small buffer (0.5) to FOV check to account for spot size and float precision
+			if dist_to_core <= core_node.fov_radius + 0.5:
 				var dist_to_me = global_position.distance_to(spot.global_position)
 				if dist_to_me < min_distance:
 					min_distance = dist_to_me
 					closest_spot = spot
 	
 	if closest_spot:
+		print("[G1] Found data spot at ", closest_spot.global_position, " (dist to core: ", closest_spot.global_position.distance_to(core_node.global_position), ")")
 		target_data_spot = closest_spot
 		# Calculate a surrounding offset in 3D
 		var angle = (get_instance_id() % 360) * (PI / 180.0)
@@ -117,7 +125,11 @@ func move_towards(target_pos: Vector3, delta: float) -> void:
 	# Simple look at
 	if direction != Vector3.ZERO:
 		var look_target = global_position + direction
-		look_at(look_target, Vector3.UP)
+		# Check if the target is not exactly above or below to avoid look_at error
+		if abs(direction.dot(Vector3.UP)) < 0.99:
+			look_at(look_target, Vector3.UP)
+		else:
+			look_at(look_target, Vector3.RIGHT)
 	move_and_slide()
 
 func reset_load() -> void:
