@@ -13,6 +13,7 @@ func _ready() -> void:
 	var core = get_tree().get_first_node_in_group("core")
 	if core:
 		core.data_changed.connect(_on_data_changed)
+		core.selected.connect(_on_core_selected)
 		_on_data_changed(core.current_data)
 	
 	# Connect to TimeManager signals
@@ -28,23 +29,23 @@ func _ready() -> void:
 	# Initial count
 	_update_genezis_count()
 
-func _input(event: InputEvent) -> void:
-	# Close stats UI if clicking on empty space
+func _unhandled_input(event: InputEvent) -> void:
+	# Close menus if clicking on empty space
 	if event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
-			# If the click was not handled by any Genezis (which calls set_input_as_handled)
-			# and it's not over some UI element, we can hide the stats UI
-			# We use a small delay to let other objects handle it first
-			get_tree().create_timer(0.01).timeout.connect(func():
-				if not get_viewport().is_input_handled():
-					if genezis_stats_ui and genezis_stats_ui.visible:
-						genezis_stats_ui.hide()
-			)
+			# If the click was not handled by any entity (which calls set_input_as_handled)
+			# and it's not over some UI element, we can hide the menus
+			if genezis_stats_ui and genezis_stats_ui.visible:
+				genezis_stats_ui.hide()
+			if upgrade_menu and upgrade_menu.visible:
+				upgrade_menu.hide()
 
-func _on_upgrade_button_pressed() -> void:
+func _on_core_selected() -> void:
+	if genezis_stats_ui:
+		genezis_stats_ui.hide()
 	if upgrade_menu:
+		upgrade_menu.set_mode(upgrade_menu.Mode.CORE)
 		upgrade_menu.show()
-		upgrade_menu._update_buttons()
 
 func _on_upgrade_purchased(upgrade_id: String) -> void:
 	# Inform all Genezis beings or Core about the upgrade
@@ -78,6 +79,9 @@ func _update_genezis_count() -> void:
 func _on_genezis_selected(stats: Dictionary) -> void:
 	if genezis_stats_ui:
 		genezis_stats_ui.display_stats(stats)
+	if upgrade_menu:
+		upgrade_menu.set_mode(upgrade_menu.Mode.GENEZIS)
+		upgrade_menu.show()
 
 func _on_data_changed(amount: int) -> void:
 	data_label.text = "Data: " + format_bytes(amount)

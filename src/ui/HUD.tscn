@@ -51,10 +51,6 @@ text = "Data: 0 B"
 layout_mode = 2
 text = "Genezis: 1"
 
-[node name="UpgradeButton" type="Button" parent="MarginContainer/VBoxContainer"]
-layout_mode = 2
-text = "Upgrades"
-
 [node name="UpgradeMenu" parent="." instance=ExtResource("2_scene")]
 visible = false
 layout_mode = 1
@@ -62,5 +58,3 @@ layout_mode = 1
 [node name="GenezisStatsUI" parent="." instance=ExtResource("3_scene")]
 visible = false
 layout_mode = 1
-
-[connection signal="pressed" from="MarginContainer/VBoxContainer/UpgradeButton" to="." method="_on_upgrade_button_pressed"]

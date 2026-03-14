@@ -56,6 +56,9 @@
   - [x] Implement "Carry Capacity" upgrade (Plan: 3.2) (Req: 3)
   - [x] Implement "FOV Expansion" upgrade (Plan: 3.2) (Req: 7)
   - [x] Implement "Genezis Count" upgrade (Plan: 3.2) (Req: 3)
+  - [x] Split upgrades between Core and Genezis clicks (Plan: 3.2.1) (Req: 2, 3)
+  - [x] Remove legacy upgrade button and fix context-sensitive clicking (Plan: 3.2.2) (Req: 2, 3)
+  - [x] Fix click interference from FOV and improve menu closing logic (Plan: 3.2.3) (Req: 2, 3)
   - [x] Upgrade costs increase as improvements are made (Plan: 3.2) (Req: 2, 3)
 
 - [x] **3.3 Visual Feedback**

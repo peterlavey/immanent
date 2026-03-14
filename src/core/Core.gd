@@ -1,5 +1,6 @@
-extends Node3D
+extends StaticBody3D
 
+signal selected
 signal data_changed(new_amount: int)
 signal fov_changed(new_radius: float)
 
@@ -59,3 +60,9 @@ func spend_data(amount: int) -> bool:
 		current_data -= amount
 		return true
 	return false
+
+func _input_event(_camera: Camera3D, event: InputEvent, _position: Vector3, _normal: Vector3, _shape_idx: int) -> void:
+	if event is InputEventMouseButton:
+		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
+			selected.emit()
+			get_viewport().set_input_as_handled()

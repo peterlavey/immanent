@@ -21,8 +21,15 @@ emission_energy_multiplier = 0.5
 radius = 0.5
 height = 1.0
 
-[node name="Core" type="Node3D"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_Core"]
+size = Vector3(2, 2, 2)
+
+[node name="Core" type="StaticBody3D" groups=["core"]]
+input_ray_pickable = true
 script = ExtResource("1_script")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_Core")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 mesh = SubResource("BoxMesh_1")

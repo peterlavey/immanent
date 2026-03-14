@@ -7,6 +7,10 @@ signal upgrade_purchased(upgrade_id: String)
 @onready var capacity_button = $Panel/MarginContainer/VBoxContainer/CapacityButton
 @onready var fov_button = $Panel/MarginContainer/VBoxContainer/FOVButton
 @onready var genezis_count_button = $Panel/MarginContainer/VBoxContainer/GenezisCountButton
+@onready var title_label = $Panel/MarginContainer/VBoxContainer/Title
+
+enum Mode { CORE, GENEZIS }
+var current_mode: Mode = Mode.CORE
 
 var core_node: Node3D = null
 
@@ -20,6 +24,14 @@ var upgrade_levels = {
 
 func _ready() -> void:
 	core_node = get_tree().get_first_node_in_group("core")
+	_update_buttons()
+
+func set_mode(mode: Mode) -> void:
+	current_mode = mode
+	if title_label:
+		match current_mode:
+			Mode.CORE: title_label.text = "Core Upgrades"
+			Mode.GENEZIS: title_label.text = "Genezis Upgrades"
 	_update_buttons()
 
 func _on_speed_button_pressed() -> void:
@@ -55,11 +67,22 @@ func _on_genezis_count_button_pressed() -> void:
 func _update_buttons() -> void:
 	if not core_node: return
 	
-	speed_button.text = "Upgrade Speed (Cost: %s)" % format_bytes(get_upgrade_cost("speed"))
-	extraction_button.text = "Upgrade Extraction (Cost: %s)" % format_bytes(get_upgrade_cost("extraction"))
-	capacity_button.text = "Upgrade Capacity (Cost: %s)" % format_bytes(get_upgrade_cost("capacity"))
-	fov_button.text = "Upgrade FOV (Cost: %s)" % format_bytes(get_upgrade_cost("fov"))
-	genezis_count_button.text = "Spawn Genezis (Cost: %s)" % format_bytes(get_upgrade_cost("genezis_count"))
+	speed_button.visible = current_mode == Mode.GENEZIS
+	extraction_button.visible = current_mode == Mode.GENEZIS
+	capacity_button.visible = current_mode == Mode.GENEZIS
+	fov_button.visible = current_mode == Mode.CORE
+	genezis_count_button.visible = current_mode == Mode.CORE
+	
+	if speed_button.visible:
+		speed_button.text = "Upgrade Speed (Cost: %s)" % format_bytes(get_upgrade_cost("speed"))
+	if extraction_button.visible:
+		extraction_button.text = "Upgrade Extraction (Cost: %s)" % format_bytes(get_upgrade_cost("extraction"))
+	if capacity_button.visible:
+		capacity_button.text = "Upgrade Capacity (Cost: %s)" % format_bytes(get_upgrade_cost("capacity"))
+	if fov_button.visible:
+		fov_button.text = "Upgrade FOV (Cost: %s)" % format_bytes(get_upgrade_cost("fov"))
+	if genezis_count_button.visible:
+		genezis_count_button.text = "Spawn Genezis (Cost: %s)" % format_bytes(get_upgrade_cost("genezis_count"))
 
 func get_upgrade_cost(type: String) -> int:
 	var base_cost = 0
