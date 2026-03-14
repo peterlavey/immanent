@@ -2,15 +2,15 @@ extends StaticBody3D
 
 signal depleted(data_spot: Node3D)
 
-@export var max_megabytes: float = 5.0
-var current_megabytes: float = max_megabytes:
+@export var max_bytes: int = 1024 # 1 KB per spot initially
+var current_bytes: int = max_bytes:
 	set(value):
-		current_megabytes = max(0, value)
-		if current_megabytes <= 0:
+		current_bytes = max(0, value)
+		if current_bytes <= 0:
 			depleted.emit(self)
 			queue_free()
 
-func extract_data(amount: float) -> float:
-	var actual_extracted = min(amount, current_megabytes)
-	current_megabytes -= actual_extracted
+func extract_data(amount: int) -> int:
+	var actual_extracted = min(amount, current_bytes)
+	current_bytes -= actual_extracted
 	return actual_extracted

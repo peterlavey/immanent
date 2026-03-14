@@ -12,9 +12,10 @@ Goal: Set up the fundamental project structure and the static elements of the si
    - Priority: High
    - Requirements: All
 
-2. **Basic 3D Scene & Camera** (Plan: 1.2)
-   - Implement the 3D world with a 2D fixed camera.
-   - Implement zoom functionality.
+2. **Advanced 3D Camera** (Plan: 1.2)
+   - Implement the 3D camera that orbits around the Core.
+   - Implement zoom functionality towards the center.
+   - Implement rotation/orbiting via mouse/touch input.
    - Priority: High
    - Requirements: Req 1
 
@@ -40,15 +41,17 @@ Goal: Implement the primary loop of data collection and time management.
    - Requirements: Req 4
 
 3. **Genezis Beings Behavior** (Plan: 2.3)
-   - Implement the Genezis AI: move to data spot -> extract -> return to core.
-   - Implement basic extraction and capacity logic.
+   - Implement the Genezis AI: move to data spot -> extract (in bytes) -> return to core.
+   - Implement capacity logic using byte increments (1024 base translation).
+   - Implement Genezis selection and statistics display (Plan: 2.3.1).
    - Priority: High
    - Requirements: Req 3
 
-4. **HUD & Resource Display** (Plan: 2.4)
-   - Implement the HUD to display current data/bytes.
-   - Priority: Medium
-   - Requirements: Req 6
+51: 4. **HUD & Resource Display** (Plan: 2.4)
+    - Implement the HUD to display current data/bytes.
+    - Implement the HUD to display current Genezis count.
+    - Priority: Medium
+    - Requirements: Req 6
 
 ## Phase 3: Progression & Upgrades (Medium Priority)
 Goal: Implement the upgrade systems and field of view expansion.
@@ -66,6 +69,12 @@ Goal: Implement the upgrade systems and field of view expansion.
    - Priority: Medium
    - Requirements: Req 2, Req 3, Req 7
 
+3. **Visual Feedback (Floating Text)** (Plan: 3.3)
+   - Implement floating text bubble for data deposits.
+   - Move text upwards and fade out.
+   - Priority: Medium
+   - Requirements: Req 8
+
 ## Phase 4: Evolution & Win Condition (Low Priority)
 Goal: Implement the final evolution stages and the game's conclusion.
 
@@ -78,7 +87,7 @@ Goal: Implement the final evolution stages and the game's conclusion.
 2. **The "Escape" Win Condition** (Plan: 4.2)
    - Implement the final "Escape the Simulation" event.
    - Priority: Low
-   - Requirements: Req 8
+   - Requirements: Req 9
 
 ## Dependencies & Risks
 - **Dependency**: Godot Engine integration.

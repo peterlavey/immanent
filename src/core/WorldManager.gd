@@ -3,6 +3,7 @@ extends Node3D
 @export var data_spot_scene: PackedScene
 @export var genezis_scene: PackedScene
 @export var spawn_radius: float = 20.0
+@export var min_spawn_distance: float = 5.0
 @export var initial_spots: int = 5
 
 @onready var time_manager = $TimeManager
@@ -25,9 +26,9 @@ func _spawn_data_spots(count: int) -> void:
 		var spot = data_spot_scene.instantiate()
 		add_child(spot)
 		
-		# Random position within radius
+		# Random position within range [min_spawn_distance, spawn_radius]
 		var angle = randf() * TAU
-		var distance = randf() * spawn_radius
+		var distance = randf_range(min_spawn_distance, spawn_radius)
 		spot.global_position = Vector3(cos(angle) * distance, 0, sin(angle) * distance)
 
 func _spawn_genezis() -> void:

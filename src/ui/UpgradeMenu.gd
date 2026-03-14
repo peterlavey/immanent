@@ -51,20 +51,20 @@ func _update_buttons() -> void:
 func get_upgrade_cost(type: String) -> int:
 	# Placeholder cost logic, could be more complex later
 	match type:
-		"speed": return 10 * 1024 * 1024 # 10 MB
-		"extraction": return 15 * 1024 * 1024 # 15 MB
-		"capacity": return 12 * 1024 * 1024 # 12 MB
-		"fov": return 20 * 1024 * 1024 # 20 MB
-		"genezis_count": return 50 * 1024 * 1024 # 50 MB
+		"speed": return 50 # 50 B
+		"extraction": return 75 # 75 B
+		"capacity": return 60 # 60 B
+		"fov": return 100 # 100 B
+		"genezis_count": return 250 # 250 B
 	return 0
 
 func format_bytes(bytes: int) -> String:
 	if bytes < 1024:
 		return str(bytes) + " B"
-	elif bytes < 1024 * 1024:
+	elif bytes < 1048576:
 		return "%.1f KB" % (bytes / 1024.0)
 	else:
-		return "%.1f MB" % (bytes / (1024.0 * 1024.0))
+		return "%.1f MB" % (bytes / 1048576.0)
 
 func _on_close_button_pressed() -> void:
 	hide()

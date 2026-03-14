@@ -15,6 +15,7 @@ height = 1.0
 radius = 0.5
 
 [node name="Genezis" type="CharacterBody3D"]
+input_ray_pickable = true
 script = ExtResource("1_script")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]

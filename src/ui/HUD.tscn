@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" path="res://src/ui/HUD.gd" id="1_script"]
 [ext_resource type="PackedScene" path="res://src/ui/UpgradeMenu.tscn" id="2_scene"]
+[ext_resource type="PackedScene" path="res://src/ui/GenezisStatsUI.tscn" id="3_scene"]
 
 [node name="HUD" type="Control"]
 layout_mode = 3
@@ -46,11 +47,19 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 32
 text = "Data: 0 B"
 
+[node name="GenezisCountLabel" type="Label" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Genezis: 1"
+
 [node name="UpgradeButton" type="Button" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
 text = "Upgrades"
 
 [node name="UpgradeMenu" parent="." instance=ExtResource("2_scene")]
+visible = false
+layout_mode = 1
+
+[node name="GenezisStatsUI" parent="." instance=ExtResource("3_scene")]
 visible = false
 layout_mode = 1
 

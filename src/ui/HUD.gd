@@ -3,8 +3,10 @@ extends Control
 @onready var data_label = $MarginContainer/VBoxContainer/DataLabel
 @onready var iteration_label = $MarginContainer/VBoxContainer/IterationLabel
 @onready var timer_label = $MarginContainer/VBoxContainer/TimerLabel
+@onready var genezis_count_label = $MarginContainer/VBoxContainer/GenezisCountLabel
 
 @onready var upgrade_menu = $UpgradeMenu
+@onready var genezis_stats_ui = $GenezisStatsUI
 
 func _ready() -> void:
 	# Connect to Core signals
@@ -22,6 +24,18 @@ func _ready() -> void:
 	
 	if upgrade_menu:
 		upgrade_menu.upgrade_purchased.connect(_on_upgrade_purchased)
+	
+	# Initial count
+	_update_genezis_count()
+
+func _input(event: InputEvent) -> void:
+	# Close stats UI if clicking on empty space (simplified)
+	if event is InputEventMouseButton:
+		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
+			# Give some time for Genezis to handle its own input first
+			# If it's not handled by the end of this frame, we might want to hide UI
+			# But for now, let's keep it simple.
+			pass
 
 func _on_upgrade_button_pressed() -> void:
 	if upgrade_menu:
@@ -45,6 +59,21 @@ func _on_upgrade_purchased(upgrade_id: String) -> void:
 			var world_manager = get_tree().get_first_node_in_group("world_manager")
 			if world_manager:
 				world_manager.spawn_extra_genezis()
+				# Delay slightly to allow the new Genezis to be added to the tree
+				call_deferred("_update_genezis_count")
+
+func _update_genezis_count() -> void:
+	var count = get_tree().get_nodes_in_group("genezis").size()
+	genezis_count_label.text = "Genezis: %d" % count
+	
+	# Re-connect signals for all Genezis beings to ensure new ones are included
+	for genezis in get_tree().get_nodes_in_group("genezis"):
+		if not genezis.selected.is_connected(_on_genezis_selected):
+			genezis.selected.connect(_on_genezis_selected)
+
+func _on_genezis_selected(stats: Dictionary) -> void:
+	if genezis_stats_ui:
+		genezis_stats_ui.display_stats(stats)
 
 func _on_data_changed(amount: int) -> void:
 	data_label.text = "Data: " + format_bytes(amount)
@@ -60,9 +89,9 @@ func _on_iteration_started(number: int) -> void:
 func format_bytes(bytes: int) -> String:
 	if bytes < 1024:
 		return str(bytes) + " B"
-	elif bytes < 1024 * 1024:
+	elif bytes < 1048576: # 1024 * 1024
 		return "%.2f KB" % (bytes / 1024.0)
-	elif bytes < 1024 * 1024 * 1024:
-		return "%.2f MB" % (bytes / (1024.0 * 1024.0))
+	elif bytes < 1073741824: # 1024 * 1024 * 1024
+		return "%.2f MB" % (bytes / 1048576.0)
 	else:
-		return "%.2f GB" % (bytes / (1024.0 * 1024.0 * 1024.0))
+		return "%.2f GB" % (bytes / 1073741824.0)
