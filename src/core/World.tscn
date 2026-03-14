@@ -1,0 +1,53 @@
+[gd_scene load_steps=10 format=3]
+
+[ext_resource type="Script" path="res://src/core/WorldManager.gd" id="1_script"]
+[ext_resource type="PackedScene" uid="uid_data_spot" path="res://src/entities/DataSpot.tscn" id="2_data_spot"]
+[ext_resource type="PackedScene" uid="uid_genezis" path="res://src/entities/Genezis.tscn" id="3_genezis"]
+[ext_resource type="Script" path="res://src/core/TimeManager.gd" id="4_time_manager"]
+[ext_resource type="Script" path="res://src/core/Camera.gd" id="5_camera_script"]
+[ext_resource type="PackedScene" uid="uid_core" path="res://src/core/Core.tscn" id="6_core_scene"]
+[ext_resource type="PackedScene" uid="uid_hud" path="res://src/ui/HUD.tscn" id="7_hud_scene"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_1"]
+sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+
+[sub_resource type="Sky" id="Sky_1"]
+sky_material = SubResource("ProceduralSkyMaterial_1")
+
+[sub_resource type="Environment" id="Environment_1"]
+background_mode = 2
+sky = SubResource("Sky_1")
+tonemap_mode = 2
+glow_enabled = true
+
+[node name="World" type="Node3D" groups=["world_manager"]]
+script = ExtResource("1_script")
+data_spot_scene = ExtResource("2_data_spot")
+genezis_scene = ExtResource("3_genezis")
+
+[node name="TimeManager" type="Node" parent="." groups=["time_manager"]]
+script = ExtResource("4_time_manager")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_1")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 0, 0, 0)
+shadow_enabled = true
+
+[node name="MainCamera" type="Camera3D" parent="."]
+transform = Transform3D(0.707107, -0.5, 0.5, 0, 0.707107, 0.707107, -0.707107, -0.5, 0.5, 10, 14.142, 10)
+projection = 0
+current = true
+script = ExtResource("5_camera_script")
+max_zoom = 30.0
+
+[node name="Core" parent="." instance=ExtResource("6_core_scene")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+size = Vector3(100, 1, 100)
+
+[node name="HUD" parent="." instance=ExtResource("7_hud_scene")]

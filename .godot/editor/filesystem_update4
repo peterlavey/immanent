@@ -1,0 +1,4 @@
+res://src/entities/Genezis.gd
+res://src/ui/HUD.gd
+res://src/core/WorldManager.gd
+res://src/ui/UpgradeMenu.gd
