@@ -9,9 +9,10 @@ Immanent is a 3D idle game set inside a digital simulation (processor). Players 
    - **User Story**: As a player, I want to be able to move and rotate the camera while it remains focused on the Core so that I can view the simulation from different angles.
    - **Acceptance Criteria**: 
      - WHEN the game starts THEN the camera SHALL be focused on the Core at the center.
-     - WHEN the player uses the mouse wheel or touch gesture THEN the camera SHALL zoom in or out towards the Core.
-     - WHEN the player drags the mouse (e.g., right-click or middle-click) THEN the camera SHALL orbit around the Core.
+     - WHEN the player uses the mouse wheel or touch gesture (pinch-to-zoom) THEN the camera SHALL zoom in or out towards the Core.
+     - WHEN the player drags the mouse (e.g., right-click or middle-click) or uses a pan gesture THEN the camera SHALL orbit around the Core.
      - THE system SHALL ensure the Core remains at the center of the camera's view.
+     - THE system SHALL support laptop touchpad gestures for zoom and orbit/rotation for macOS and other compatible systems.
 
 2. **The Core (Space Center)**
    - **User Story**: As a player, I want a central hub (the Core) so that I can store resources and manage evolutions.

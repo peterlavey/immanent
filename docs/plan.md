@@ -153,6 +153,14 @@ Goal: Redesign entities to match the "Digital Biome" aesthetic.
    - Configure Glow/Bloom for better visual quality.
    - Priority: Medium
    - Requirements: Req 14
+   - Status: Completed
+
+7. **Laptop Compatibility: Touchpad Gestures** (Plan: 6.7)
+   - Implement macOS/Laptop touchpad support for pinch-to-zoom.
+   - Enhance camera orbiting to respond correctly to trackpad pan gestures.
+   - Priority: Medium
+   - Requirements: Req 1
+   - Status: Completed
 
 ## Dependencies & Risks
 - **Dependency**: Godot Engine integration.

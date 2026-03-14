@@ -153,6 +153,15 @@
   - [x] Enable 3D movement and pathfinding for Genezis G1 and G2 (Plan: 6.7)
   - [x] Update camera to allow full spherical rotation (Plan: 6.7)
 
+- [x] **6.8 Laptop Compatibility**
+  - [x] Implement macOS/Laptop touchpad support for pinch-to-zoom (Plan: 6.7) (Req: 1)
+  - [x] Enhance camera orbiting for trackpad pan gestures (Plan: 6.7) (Req: 1)
+  - [x] Fix compilation error for gesture types by using generic `is_class` and `get` checks.
+  - [x] Handle potential null values when using `get()` for gesture properties.
+  - [x] Switch to `_unhandled_input` and `get_class()` for better reliability.
+  - [x] Add fallback support for Ctrl + Mouse Wheel zoom (standard macOS behavior).
+  - [x] Implement support for `command_or_control_autoremap` to catch macOS Command-based gestures.
+
 - [ ] **5.3 Advanced Threats**
   - [ ] Implement "Logic Leak" enemy and negative extraction logic (Plan: 5.3) (Req: 12)
   - [ ] Implement "Code-Shadow" enemy and mimic behavior (Plan: 5.3) (Req: 12)
