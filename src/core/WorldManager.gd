@@ -1,5 +1,8 @@
 extends Node3D
 
+signal data_spot_spawned(spot: Node3D)
+signal genezis_spawned(genezis: CharacterBody3D)
+
 @export var data_spot_scene: PackedScene
 @export var genezis_scene: PackedScene
 @export var spawn_radius: float = 20.0
@@ -52,3 +55,4 @@ func _spawn_genezis() -> void:
 	var genezis = genezis_scene.instantiate()
 	add_child(genezis)
 	genezis.global_position = Vector3(2, 0, 2)
+	genezis_spawned.emit(genezis)

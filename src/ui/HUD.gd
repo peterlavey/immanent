@@ -28,6 +28,11 @@ func _ready() -> void:
 	if upgrade_menu:
 		upgrade_menu.upgrade_purchased.connect(_on_upgrade_purchased)
 	
+	# Connect to WorldManager for genezis spawning
+	var world_manager = get_tree().get_first_node_in_group("world_manager")
+	if world_manager:
+		world_manager.genezis_spawned.connect(_on_genezis_spawned)
+	
 	# Initial count
 	_update_genezis_count()
 
@@ -68,8 +73,6 @@ func _on_upgrade_purchased(upgrade_id: String) -> void:
 			var world_manager = get_tree().get_first_node_in_group("world_manager")
 			if world_manager:
 				world_manager.spawn_extra_genezis()
-				# Delay slightly to allow the new Genezis to be added to the tree
-				call_deferred("_update_genezis_count")
 	
 	# Refresh UI if a Genezis is selected
 	if selected_genezis and is_instance_valid(selected_genezis):
@@ -83,6 +86,9 @@ func _update_genezis_count() -> void:
 	for genezis in get_tree().get_nodes_in_group("genezis"):
 		if not genezis.selected.is_connected(_on_genezis_selected):
 			genezis.selected.connect(_on_genezis_selected)
+
+func _on_genezis_spawned(_genezis: CharacterBody3D) -> void:
+	_update_genezis_count()
 
 func _on_genezis_selected(genezis: CharacterBody3D) -> void:
 	selected_genezis = genezis

@@ -61,6 +61,7 @@
   - [x] Fix click interference from FOV and improve menu closing logic (Plan: 3.2.3) (Req: 2, 3)
   - [x] Upgrade costs increase as improvements are made (Plan: 3.2) (Req: 2, 3)
   - [x] Ensure Genezis stats update in real-time when purchasing upgrades (Plan: 3.2.4) (Req: 3, 6)
+  - [x] Fix initial Genezis not being clickable for upgrades (Plan: 3.2.5) (Req: 3)
 
 - [x] **3.3 Visual Feedback**
   - [x] Create Floating Text scene and script (Plan: 3.3) (Req: 8)
