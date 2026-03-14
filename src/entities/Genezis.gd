@@ -10,6 +10,7 @@ enum State { IDLE, MOVING_TO_DATA, EXTRACTING, RETURNING_TO_CORE, DEPOSITING }
 
 var current_state: State = State.IDLE
 var target_data_spot: Node3D = null
+var target_offset: Vector3 = Vector3.ZERO
 var current_load: int = 0
 var core_node: Node3D = null
 var _extraction_accumulator: float = 0.0
@@ -36,8 +37,9 @@ func _physics_process(delta: float) -> void:
 			find_data_spot()
 		State.MOVING_TO_DATA:
 			if is_instance_valid(target_data_spot):
-				move_towards(target_data_spot.global_position, delta)
-				if global_position.distance_to(target_data_spot.global_position) < 1.5:
+				var target_pos = target_data_spot.global_position + target_offset
+				move_towards(target_pos, delta)
+				if global_position.distance_to(target_pos) < 0.2:
 					current_state = State.EXTRACTING
 					_extraction_accumulator = 0.0
 			else:
@@ -85,6 +87,10 @@ func find_data_spot() -> void:
 	
 	if closest_spot:
 		target_data_spot = closest_spot
+		# Calculate a surrounding offset based on instance ID to keep it stable
+		var angle = (get_instance_id() % 360) * (PI / 180.0)
+		var radius = 1.2 # Distance from the data spot center
+		target_offset = Vector3(cos(angle) * radius, 0, sin(angle) * radius)
 		current_state = State.MOVING_TO_DATA
 
 func move_towards(target_pos: Vector3, delta: float) -> void:

@@ -35,6 +35,7 @@
   - [x] Implement data extraction and carry capacity (Plan: 2.3) (Req: 3)
   - [x] Refactor collection to use 1-byte increments and 1024-based translation (Plan: 2.3) (Req: 3)
   - [x] Implement clickable Genezis to show statistics (Plan: 2.3.1) (Req: 3)
+  - [x] Implement surrounding logic for data spots to prevent piling up (Plan: 2.3.2) (Req: 3)
 
 - [x] **2.4 HUD**
   - [x] Create the HUD scene (Plan: 2.4) (Req: 6)
