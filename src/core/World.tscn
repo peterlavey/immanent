@@ -4,10 +4,12 @@
 [ext_resource type="PackedScene" uid="uid_data_spot" path="res://src/entities/DataSpot.tscn" id="2_data_spot"]
 [ext_resource type="PackedScene" uid="uid_genezis" path="res://src/entities/GenezisG1.tscn" id="3_genezis"]
 [ext_resource type="PackedScene" path="res://src/entities/GenezisG2.tscn" id="4_genezis_g2"]
-[ext_resource type="Script" path="res://src/core/TimeManager.gd" id="5_time_manager"]
-[ext_resource type="Script" path="res://src/core/Camera.gd" id="6_camera_script"]
-[ext_resource type="PackedScene" uid="uid_core" path="res://src/core/Core.tscn" id="7_core_scene"]
-[ext_resource type="PackedScene" uid="uid_hud" path="res://src/ui/HUD.tscn" id="8_hud_scene"]
+[ext_resource type="PackedScene" path="res://src/entities/BitScrubber.tscn" id="5_bit_scrubber"]
+[ext_resource type="PackedScene" path="res://src/entities/Defragmenter.tscn" id="6_defragmenter"]
+[ext_resource type="Script" path="res://src/core/TimeManager.gd" id="7_time_manager"]
+[ext_resource type="Script" path="res://src/core/Camera.gd" id="8_camera_script"]
+[ext_resource type="PackedScene" uid="uid_core" path="res://src/core/Core.tscn" id="9_core_scene"]
+[ext_resource type="PackedScene" uid="uid_hud" path="res://src/ui/HUD.tscn" id="10_hud_scene"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_1"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -27,9 +29,11 @@ script = ExtResource("1_script")
 data_spot_scene = ExtResource("2_data_spot")
 genezis_g1_scene = ExtResource("3_genezis")
 genezis_g2_scene = ExtResource("4_genezis_g2")
+bit_scrubber_scene = ExtResource("5_bit_scrubber")
+defragmenter_scene = ExtResource("6_defragmenter")
 
 [node name="TimeManager" type="Node" parent="." groups=["time_manager"]]
-script = ExtResource("5_time_manager")
+script = ExtResource("7_time_manager")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_1")
@@ -42,14 +46,14 @@ shadow_enabled = true
 transform = Transform3D(0.707107, -0.5, 0.5, 0, 0.707107, 0.707107, -0.707107, -0.5, 0.5, 10, 14.142, 10)
 projection = 0
 current = true
-script = ExtResource("6_camera_script")
+script = ExtResource("8_camera_script")
 max_zoom = 30.0
 
-[node name="Core" parent="." instance=ExtResource("7_core_scene")]
+[node name="Core" parent="." instance=ExtResource("9_core_scene")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 
 [node name="CSGBox3D" type="CSGBox3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
 size = Vector3(100, 1, 100)
 
-[node name="HUD" parent="." instance=ExtResource("8_hud_scene")]
+[node name="HUD" parent="." instance=ExtResource("10_hud_scene")]

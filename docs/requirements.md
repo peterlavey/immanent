@@ -75,15 +75,36 @@ Immanent is a 3D idle game set inside a digital simulation (processor). Players 
    - **User Story**: As a player, I want a final objective so that I have a reason to reach the end of the evolution tree.
    - **Acceptance Criteria**:
      - WHEN all evolution phases are completed THEN the system SHALL allow the player to "escape the simulation" and win the game.
-  78:
-  79:10. **Genezi G2 & Fusion**
-  80:   - **User Story**: As a player, I want to fuse four G1 Genezi into a single G2 Genezi so that I can have a more powerful unit to protect my Core and other G1 units.
-  81:   - **Acceptance Criteria**:
-  82:     - THE system SHALL allow the fusion of four Genezi "G1" into a single Genezi "G2".
+10. **Genezi G2 & Fusion**
+   - **User Story**: As a player, I want to fuse four G1 Genezi into a single G2 Genezi so that I can have a more powerful unit to protect my Core and other G1 units.
+   - **Acceptance Criteria**:
+     - THE system SHALL allow the fusion of four Genezi "G1" into a single Genezi "G2".
      - THE system SHALL ensure at least one Genezi "G1" remains after fusion to prevent resource collection stalling.
      - THE system SHALL allow spawning more Genezi "G1" if their count falls below the current limit due to fusion.
-  83:     - THE Genezi "G2" SHALL be a larger, more advanced species.
-  84:     - THE Genezi "G2" SHALL be in charge of protecting the G1s and the Core from threats.
-  85:     - THE Genezi "G2" SHALL have a distinct visual representation from G1.
-  86:     - THE fusion process SHALL require 4 existing G1 units (meaning at least 5 must be present) and a specific amount of data as a cost.
-  87:
+     - THE Genezi "G2" SHALL be a larger, more advanced species.
+     - THE Genezi "G2" SHALL be in charge of protecting the G1s and the Core from threats.
+     - THE Genezi "G2" SHALL have a distinct visual representation from G1.
+     - THE fusion process SHALL require 4 existing G1 units (meaning at least 5 must be present) and a specific amount of data as a cost.
+
+11. **Digital Threats (Viruses)**
+   - **User Story**: As a player, I want the simulation to have threats so that the G2 units have a defensive purpose and the game has more depth.
+   - **Acceptance Criteria**:
+     - THE system SHALL spawn "Bit-Scrubber" enemies periodically.
+     - THE "Bit-Scrubber" SHALL move quickly toward G1 units and reset their load upon contact.
+     - THE system SHALL spawn "Defragmenter" enemies periodically.
+     - THE "Defragmenter" SHALL move toward Data Spots and consume them.
+     - THE G2 units SHALL automatically intercept and disperse enemies within their protective range.
+
+12. **Advanced Digital Threats**
+   - **User Story**: As a player, I want more varied threats as the simulation approaches its reset so that the challenge increases over time.
+   - **Acceptance Criteria**:
+     - THE system SHALL spawn "Logic Leak" enemies periodically.
+     - THE "Logic Leak" SHALL follow G1 units and cause a negative extraction rate (draining data from the Core) upon contact until dispersed.
+     - THE system SHALL spawn "Code-Shadow" enemies that mimic G1 units.
+     - THE "Code-Shadow" SHALL attempt to enter the Core and "lock" an upgrade slot or cause a data drop if successful.
+     - THE system SHALL spawn "Null-Pointer" anomalies at the edge of the FOV.
+     - THE "Null-Pointer" SHALL create a "dead zone" where G1 units cannot enter, requiring a G2 to "patch" it by staying nearby.
+     - THE system SHALL spawn "Stack-Overflow" boss-level threats.
+     - THE "Stack-Overflow" SHALL be a multi-segmented worm that grows by consuming data and requires multiple G2s to dismantle.
+     - THE system SHALL spawn "Firewall Guardian" turrets at high data levels.
+     - THE "Firewall Guardian" SHALL fire projectiles at Genezis units, requiring G2s to act as shields.

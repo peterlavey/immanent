@@ -93,3 +93,25 @@
   - [x] Validate G1 limit based on current population to allow replenishing after fusion (Plan: 4.3) (Req: 10)
   - [x] Fix Upgrade Menu refresh bug after fusion by removing Genezis G1 from group before queue_free() (Plan: 4.3.1)
   - [x] Fix Godot editor 'File not found' errors by updating cached script references after renaming Genezis to Genezis G1.
+  - [x] Spawn enemies when the first Genezis G2 is created for testing. (Plan: 4.3) (Req: 10, 11)
+
+## Phase 5: Digital Threats & Combat
+
+- [x] **5.1 Basic Enemy Infrastructure**
+  - [x] Create base `Enemy.gd` with state machine and navigation (Plan: 5.1) (Req: 11)
+  - [x] Implement "Bit-Scrubber" entity and visuals (Plan: 5.1) (Req: 11)
+  - [x] Implement "Defragmenter" entity and visuals (Plan: 5.1) (Req: 11)
+  - [x] Implement enemy spawning logic in `WorldManager` (Plan: 5.1) (Req: 11)
+
+- [ ] **5.2 Combat & Protection Logic**
+  - [ ] Add `health` / `integrity` to Genezis and Enemies (Plan: 5.2) (Req: 11)
+  - [x] Update Genezis G2 AI to include `INTERCEPT` and `ATTACK` states (Plan: 5.2) (Req: 10, 11)
+  - [x] Implement dispersal logic (enemies are removed when health reach 0) (Plan: 5.2) (Req: 11)
+  - [x] Implement visual feedback for combat (e.g., color flashes or small particles) (Plan: 5.2) (Req: 11)
+
+- [ ] **5.3 Advanced Threats**
+  - [ ] Implement "Logic Leak" enemy and negative extraction logic (Plan: 5.3) (Req: 12)
+  - [ ] Implement "Code-Shadow" enemy and mimic behavior (Plan: 5.3) (Req: 12)
+  - [ ] Implement "Null-Pointer" anomaly and patching mechanic (Plan: 5.3) (Req: 12)
+  - [ ] Implement "Stack-Overflow" boss worm logic (Plan: 5.3) (Req: 12)
+  - [ ] Implement "Firewall Guardian" turret and projectile system (Plan: 5.3) (Req: 12)

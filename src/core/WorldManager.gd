@@ -8,6 +8,8 @@ signal genezis_removed
 @export var data_spot_scene: PackedScene
 @export var genezis_g1_scene: PackedScene
 @export var genezis_g2_scene: PackedScene
+@export var bit_scrubber_scene: PackedScene
+@export var defragmenter_scene: PackedScene
 @export var spawn_radius: float = 20.0
 @export var min_spawn_distance: float = 5.0
 @export var initial_spots: int = 5
@@ -15,6 +17,7 @@ signal genezis_removed
 @onready var time_manager = $TimeManager
 
 var core_node: Node3D = null
+var _first_g2_spawned: bool = false
 
 func _ready() -> void:
 	core_node = get_tree().get_first_node_in_group("core")
@@ -33,8 +36,31 @@ func _on_core_evolution_changed(new_level: int) -> void:
 		_spawn_data_spots(5)
 		print("Evolution 1: Evolving simulation environment.")
 
-func _on_iteration_started(_number: int) -> void:
+func _on_iteration_started(number: int) -> void:
 	_spawn_data_spots(5)
+	
+	# Spawn enemies every 2 iterations after the first 3 iterations
+	if number > 3 and number % 2 == 0:
+		_spawn_enemies()
+
+func _spawn_enemies() -> void:
+	# Randomly spawn 1-2 BitScrubbers and 1 Defragmenter
+	var num_scrubbers = randi_range(1, 2)
+	for i in range(num_scrubbers):
+		_spawn_single_enemy(bit_scrubber_scene)
+	
+	_spawn_single_enemy(defragmenter_scene)
+	print("Enemies spawned!")
+
+func _spawn_single_enemy(scene: PackedScene) -> void:
+	if not scene: return
+	var enemy = scene.instantiate()
+	add_child(enemy)
+	
+	# Spawn at edge of FOV or random distance
+	var angle = randf() * TAU
+	var distance = spawn_radius * 1.5 # Spawn outside initial view
+	enemy.global_position = Vector3(cos(angle) * distance, 2, sin(angle) * distance)
 
 func spawn_extra_genezis_g1() -> void:
 	_spawn_genezis_g1()
@@ -70,6 +96,12 @@ func _spawn_genezis_g2(pos: Vector3) -> void:
 	add_child(g2)
 	g2.global_position = pos
 	genezis_g2_spawned.emit(g2)
+	
+	# For testing: spawn enemies when the first G2 is created
+	if not _first_g2_spawned:
+		_first_g2_spawned = true
+		_spawn_enemies()
+		print("First G2 created: Spawning enemies for testing!")
 
 func _spawn_initial_data_spots() -> void:
 	var core = get_tree().get_first_node_in_group("core")

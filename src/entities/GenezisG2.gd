@@ -2,14 +2,17 @@ extends CharacterBody3D
 
 signal selected(genezis: CharacterBody3D)
 
-enum State { PATROL, PROTECT_CORE, PROTECT_G1, INTERCEPT_THREAT }
+enum State { PATROL, PROTECT_CORE, PROTECT_G1, INTERCEPT_THREAT, ATTACKING }
 
 @export var move_speed: float = 8.0
 @export var patrol_radius: float = 15.0
+@export var detection_radius: float = 10.0
+@export var attack_damage: float = 1.0
 
 var current_state: State = State.PATROL
 var core_node: Node3D = null
 var target_to_protect: Node3D = null
+var threat_target: Node3D = null
 var patrol_target: Vector3 = Vector3.ZERO
 var _wait_timer: float = 0.0
 
@@ -23,6 +26,9 @@ func _ready() -> void:
 	_set_new_patrol_target()
 
 func _physics_process(delta: float) -> void:
+	# Priority: Detect threats
+	_check_for_threats()
+	
 	match current_state:
 		State.PATROL:
 			if global_position.distance_to(patrol_target) < 1.0:
@@ -44,6 +50,51 @@ func _physics_process(delta: float) -> void:
 				move_towards(target_pos, delta)
 			else:
 				current_state = State.PATROL
+		
+		State.INTERCEPT_THREAT:
+			if is_instance_valid(threat_target):
+				move_towards(threat_target.global_position, delta)
+				if global_position.distance_to(threat_target.global_position) < 2.0:
+					current_state = State.ATTACKING
+			else:
+				current_state = State.PATROL
+		
+		State.ATTACKING:
+			if is_instance_valid(threat_target):
+				_attack_threat(delta)
+			else:
+				current_state = State.PATROL
+
+func _check_for_threats() -> void:
+	if current_state == State.ATTACKING: return
+	
+	var enemies = get_tree().get_nodes_in_group("enemies")
+	var closest: Node3D = null
+	var min_dist = detection_radius
+	
+	for enemy in enemies:
+		if is_instance_valid(enemy):
+			var d = global_position.distance_to(enemy.global_position)
+			if d < min_dist:
+				min_dist = d
+				closest = enemy
+	
+	if closest:
+		threat_target = closest
+		current_state = State.INTERCEPT_THREAT
+
+func _attack_threat(delta: float) -> void:
+	if is_instance_valid(threat_target) and threat_target.has_method("take_damage"):
+		# Attack speed: e.g., 2 times per second
+		threat_target.take_damage(attack_damage * delta * 2.0)
+		# Face threat
+		look_at(threat_target.global_position, Vector3.UP)
+		# Maintain small distance
+		if global_position.distance_to(threat_target.global_position) > 1.5:
+			move_towards(threat_target.global_position, delta)
+	else:
+		threat_target = null
+		current_state = State.PATROL
 
 func _set_new_patrol_target() -> void:
 	var center = Vector3.ZERO

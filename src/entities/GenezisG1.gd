@@ -102,6 +102,11 @@ func move_towards(target_pos: Vector3, delta: float) -> void:
 		look_at(look_target, Vector3.UP)
 	move_and_slide()
 
+func reset_load() -> void:
+	current_load = 0
+	# Brief visual feedback or state reset if needed
+	current_state = State.RETURNING_TO_CORE
+
 func get_stats() -> Dictionary:
 	return {
 		"type": "Genezis G1",

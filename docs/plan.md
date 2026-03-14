@@ -95,6 +95,31 @@ Goal: Implement the final evolution stages and the game's conclusion.
    - Priority: Medium
    - Requirements: Req 10
 
+## Phase 5: Digital Threats & Combat (Medium Priority)
+Goal: Implement digital threats (viruses) and defense mechanics.
+
+1. **Digital Threats (Viruses)** (Plan: 5.1)
+   - Create base enemy scene and AI.
+   - Implement "Bit-Scrubber" (targets G1 load).
+   - Implement "Defragmenter" (consumes Data Spots).
+   - Priority: Medium
+   - Requirements: Req 11
+
+2. **G2 Combat & Protection** (Plan: 5.2)
+   - Implement G2 defensive behavior to intercept enemies.
+   - Implement basic health/integrity system and dispersal logic.
+   - Priority: Medium
+   - Requirements: Req 10, Req 11
+
+3. **Advanced Digital Threats** (Plan: 5.3)
+   - Implement "Logic Leak" (negative extraction/core drain).
+   - Implement "Code-Shadow" (G1 mimic/core saboteur).
+   - Implement "Null-Pointer" (FOV dead zone/patching mechanic).
+   - Implement "Stack-Overflow" (multi-segmented boss worm).
+   - Implement "Firewall Guardian" (turret/projectile defense).
+   - Priority: Low
+   - Requirements: Req 12
+
 ## Dependencies & Risks
 - **Dependency**: Godot Engine integration.
 - **Risk**: Performance issues with many Genezis G1 beings (mitigate with optimized scripts).
