@@ -54,6 +54,7 @@
   - [x] Implement "Carry Capacity" upgrade (Plan: 3.2) (Req: 3)
   - [x] Implement "FOV Expansion" upgrade (Plan: 3.2) (Req: 7)
   - [x] Implement "Genezis Count" upgrade (Plan: 3.2) (Req: 3)
+  - [x] Upgrade costs increase as improvements are made (Plan: 3.2) (Req: 2, 3)
 
 - [x] **3.3 Visual Feedback**
   - [x] Create Floating Text scene and script (Plan: 3.3) (Req: 8)
