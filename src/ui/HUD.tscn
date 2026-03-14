@@ -1,8 +1,9 @@
-[gd_scene load_steps=3 format=3]
+[gd_scene load_steps=5 format=3]
 
 [ext_resource type="Script" path="res://src/ui/HUD.gd" id="1_script"]
 [ext_resource type="PackedScene" path="res://src/ui/UpgradeMenu.tscn" id="2_scene"]
 [ext_resource type="PackedScene" path="res://src/ui/GenezisStatsUI.tscn" id="3_scene"]
+[ext_resource type="PackedScene" path="res://src/ui/EnemyDescriptionUI.tscn" id="4_scene"]
 
 [node name="HUD" type="Control"]
 layout_mode = 3
@@ -56,5 +57,9 @@ visible = false
 layout_mode = 1
 
 [node name="GenezisStatsUI" parent="." instance=ExtResource("3_scene")]
+visible = false
+layout_mode = 1
+
+[node name="EnemyDescriptionUI" parent="." instance=ExtResource("4_scene")]
 visible = false
 layout_mode = 1

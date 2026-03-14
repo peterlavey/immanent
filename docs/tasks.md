@@ -17,7 +17,7 @@
 - [x] **1.3 Core Base**
   - [x] Create the Core node and placeholder visual representation (Plan: 1.3) (Req: 2)
   - [x] Implement the Core's data storage script (Plan: 1.3) (Req: 2)
-  - [x] Calibrate initial data to 1 MB for testing (Plan: 1.3) (Req: 2)
+  - [x] Calibrate initial data to 3 MB for testing (Plan: 1.3) (Req: 2)
 
 ## Phase 2: Core Gameplay Loop
 
@@ -94,6 +94,8 @@
   - [x] Fix Upgrade Menu refresh bug after fusion by removing Genezis G1 from group before queue_free() (Plan: 4.3.1)
   - [x] Fix Godot editor 'File not found' errors by updating cached script references after renaming Genezis to Genezis G1.
   - [x] Spawn enemies when the first Genezis G2 is created for testing. (Plan: 4.3) (Req: 10, 11)
+  - [x] Trigger Bit-Scrubber spawn on the first Genezis G2 generation.
+  - [x] Trigger Defragmenter spawn on the second Genezis G2 generation.
 
 ## Phase 5: Digital Threats & Combat
 
@@ -108,6 +110,10 @@
   - [x] Update Genezis G2 AI to include `INTERCEPT` and `ATTACK` states (Plan: 5.2) (Req: 10, 11)
   - [x] Implement dispersal logic (enemies are removed when health reach 0) (Plan: 5.2) (Req: 11)
   - [x] Implement visual feedback for combat (e.g., color flashes or small particles) (Plan: 5.2) (Req: 11)
+  - [x] Implement enemy discovery description popups that pause the game (Plan: 5.2.1) (Req: 11)
+  - [x] Fix missing EnemyDescriptionUI scene and connection in HUD (Plan: 5.2.2)
+  - [x] Ensure other menus are closed when the enemy description appears to avoid interaction conflicts (Plan: 5.2.3)
+  - [x] Fix input blocking and signal connection for EnemyDescriptionUI close button (Plan: 5.2.4)
 
 - [ ] **5.3 Advanced Threats**
   - [ ] Implement "Logic Leak" enemy and negative extraction logic (Plan: 5.3) (Req: 12)

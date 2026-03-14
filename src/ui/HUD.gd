@@ -7,6 +7,7 @@ extends Control
 
 @onready var upgrade_menu = $UpgradeMenu
 @onready var genezis_stats_ui = $GenezisStatsUI
+@onready var enemy_description_ui = $EnemyDescriptionUI
 
 var selected_genezis: CharacterBody3D = null
 
@@ -33,6 +34,7 @@ func _ready() -> void:
 	if world_manager:
 		world_manager.genezis_spawned.connect(_on_genezis_spawned)
 		world_manager.genezis_g2_spawned.connect(_on_genezis_g2_spawned)
+		world_manager.new_enemy_type_spawned.connect(_on_new_enemy_type_spawned)
 	
 	# Initial count
 	_update_genezis_count()
@@ -106,6 +108,16 @@ func _on_genezis_spawned(_genezis: CharacterBody3D) -> void:
 
 func _on_genezis_g2_spawned(_genezis: CharacterBody3D) -> void:
 	_update_genezis_count()
+
+func _on_new_enemy_type_spawned(type_name: String) -> void:
+	# Hide all other menus to avoid overlapping and blocking input
+	if upgrade_menu:
+		upgrade_menu.hide()
+	if genezis_stats_ui:
+		genezis_stats_ui.hide()
+	
+	if enemy_description_ui:
+		enemy_description_ui.show_enemy_description(type_name)
 
 func _on_genezis_selected(genezis: CharacterBody3D) -> void:
 	selected_genezis = genezis

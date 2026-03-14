@@ -4,6 +4,7 @@ signal data_spot_spawned(spot: Node3D)
 signal genezis_spawned(genezis: CharacterBody3D)
 signal genezis_g2_spawned(genezis: CharacterBody3D)
 signal genezis_removed
+signal new_enemy_type_spawned(type_name: String)
 
 @export var data_spot_scene: PackedScene
 @export var genezis_g1_scene: PackedScene
@@ -17,7 +18,8 @@ signal genezis_removed
 @onready var time_manager = $TimeManager
 
 var core_node: Node3D = null
-var _first_g2_spawned: bool = false
+var _g2_spawn_count: int = 0
+var _discovered_enemies: Array[String] = []
 
 func _ready() -> void:
 	core_node = get_tree().get_first_node_in_group("core")
@@ -56,6 +58,15 @@ func _spawn_single_enemy(scene: PackedScene) -> void:
 	if not scene: return
 	var enemy = scene.instantiate()
 	add_child(enemy)
+	
+	# Handle discovery
+	var enemy_type = ""
+	if enemy is BitScrubber: enemy_type = "BitScrubber"
+	elif enemy is Defragmenter: enemy_type = "Defragmenter"
+	
+	if enemy_type != "" and not _discovered_enemies.has(enemy_type):
+		_discovered_enemies.append(enemy_type)
+		new_enemy_type_spawned.emit(enemy_type)
 	
 	# Spawn at edge of FOV or random distance
 	var angle = randf() * TAU
@@ -97,11 +108,14 @@ func _spawn_genezis_g2(pos: Vector3) -> void:
 	g2.global_position = pos
 	genezis_g2_spawned.emit(g2)
 	
-	# For testing: spawn enemies when the first G2 is created
-	if not _first_g2_spawned:
-		_first_g2_spawned = true
-		_spawn_enemies()
-		print("First G2 created: Spawning enemies for testing!")
+	_g2_spawn_count += 1
+	
+	if _g2_spawn_count == 1:
+		_spawn_single_enemy(bit_scrubber_scene)
+		print("First G2 created: Spawning Bit-Scrubber for discovery!")
+	elif _g2_spawn_count == 2:
+		_spawn_single_enemy(defragmenter_scene)
+		print("Second G2 created: Spawning Defragmenter for discovery!")
 
 func _spawn_initial_data_spots() -> void:
 	var core = get_tree().get_first_node_in_group("core")
