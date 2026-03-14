@@ -76,6 +76,7 @@ Immanent is a 3D idle game set inside a digital simulation (processor). Players 
    - **User Story**: As a player, I want a final objective so that I have a reason to reach the end of the evolution tree.
    - **Acceptance Criteria**:
      - WHEN all evolution phases are completed THEN the system SHALL allow the player to "escape the simulation" and win the game.
+
 10. **Genezi G2 & Fusion**
    - **User Story**: As a player, I want to fuse four G1 Genezi into a single G2 Genezi so that I can have a more powerful unit to protect my Core and other G1 units.
    - **Acceptance Criteria**:
@@ -95,6 +96,19 @@ Immanent is a 3D idle game set inside a digital simulation (processor). Players 
      - THE system SHALL spawn "Defragmenter" enemies periodically.
      - THE "Defragmenter" SHALL move toward Data Spots and consume them.
      - THE G2 units SHALL automatically intercept and disperse enemies within their protective range.
+
+12. **Audio Experience**
+    - **User Story**: As a player, I want an immersive audio environment so that the digital simulation feels more alive.
+    - **Acceptance Criteria**:
+      - THE system SHALL include ambient electronic/lo-fi music that fits the simulation theme.
+      - THE music SHALL loop seamlessly.
+      - THE system SHALL provide sound effects for:
+        - Data extraction (continuous/loop when mining).
+        - Data deposition in the Core (single chime).
+        - Upgrades being purchased (digital "ding").
+        - Evolution events (sweeping drone).
+        - Enemy arrival and dispersal (glitchy impacts).
+      - THE volume of music and SFX SHALL be independently adjustable (via future settings).
 
 ## Visual Identity (Digital Biome)
 

@@ -15,6 +15,14 @@ run/main_scene="res://src/core/world/World.tscn"
 config/features=PackedStringArray("4.6", "Forward Plus")
 config/icon="res://icon.svg"
 
+[audio]
+
+buses/default_bus_layout="res://default_bus_layout.tres"
+
+[autoload]
+
+AudioManager="*res://src/core/audio_manager/AudioManager.gd"
+
 [physics]
 
 3d/physics_engine="Jolt Physics"

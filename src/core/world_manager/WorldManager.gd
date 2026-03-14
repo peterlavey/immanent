@@ -113,6 +113,7 @@ func _spawn_genezis_g2(pos: Vector3) -> void:
 	add_child(g2)
 	g2.global_position = pos
 	genezis_g2_spawned.emit(g2)
+	AudioManager.play_sfx("res://assets/audio/sfx/G2.mp3")
 	
 	_g2_spawn_count += 1
 	
@@ -179,3 +180,4 @@ func _spawn_genezis_g1() -> void:
 		sin(angle) * cos(elevation) * distance
 	)
 	genezis_spawned.emit(genezis)
+	AudioManager.play_sfx("res://assets/audio/sfx/G1.mp3")

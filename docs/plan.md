@@ -162,6 +162,30 @@ Goal: Redesign entities to match the "Digital Biome" aesthetic.
    - Requirements: Req 1
    - Status: Completed
 
+## Phase 7: Audio & Atmosphere (Medium Priority)
+Goal: Add immersive music and sound effects to the simulation.
+
+1. **Audio Infrastructure** (Plan: 7.1)
+   - Create `AudioManager` singleton to manage global music and SFX.
+   - Set up audio buses (Master, Music, SFX) in Godot.
+   - Priority: Medium
+   - Requirements: Req 12
+
+2. **Ambient Music** (Plan: 7.2)
+   - Integrate seamless looping ambient electronic music.
+   - Implement fade-in/out logic for scene transitions.
+   - Priority: Medium
+   - Requirements: Req 12
+
+3. **Sound Effects (SFX)** (Plan: 7.3)
+   - Implement SFX for:
+     - Data collection/deposition.
+     - UI interactions (upgrades, menu clicks).
+     - Combat (shots, dispersal, enemy arrival).
+     - Evolution milestones.
+   - Priority: Medium
+   - Requirements: Req 12
+
 ## Dependencies & Risks
 - **Dependency**: Godot Engine integration.
 - **Risk**: Performance issues with many Genezis G1 beings (mitigate with optimized scripts).

@@ -168,3 +168,24 @@
   - [ ] Implement "Null-Pointer" anomaly and patching mechanic (Plan: 5.3) (Req: 12)
   - [ ] Implement "Stack-Overflow" boss worm logic (Plan: 5.3) (Req: 12)
   - [ ] Implement "Firewall Guardian" turret and projectile system (Plan: 5.3) (Req: 12)
+
+## Phase 7: Audio Implementation
+
+- [x] **7.1 Audio Infrastructure**
+  - [x] Create `assets/audio/music` and `assets/audio/sfx` directories (Plan: 7.1)
+  - [x] Create `AudioManager.gd` singleton (Plan: 7.1) (Req: 12)
+  - [x] Register `AudioManager` in project settings as an Autoload (Plan: 7.1) (Req: 12)
+  - [x] Configure `default_bus_layout.tres` with Music and SFX buses (Plan: 7.1) (Req: 12)
+
+- [x] **7.2 Music Integration**
+  - [x] Add background music track (Plan: 7.2) (Req: 12)
+  - [x] Implement music looping and basic volume control (Plan: 7.2) (Req: 12)
+  - [x] Ensure music continues playing during pause (enemy description popups) (Plan: 7.2) (Req: 12)
+
+- [x] **7.3 Sound Effects (SFX)**
+  - [ ] Implement SFX for Data Deposition in `Core.gd` (Plan: 7.3) (Req: 12)
+  - [ ] Implement SFX for UI Button clicks in `UpgradeMenu.gd` (Plan: 7.3) (Req: 12)
+  - [ ] Implement SFX for Evolution event (Plan: 7.3) (Req: 12)
+  - [ ] Implement SFX for Enemy arrival and dispersal (Plan: 7.3) (Req: 12)
+  - [ ] Implement SFX for G2 shooting (Plan: 7.3) (Req: 12)
+  - [x] Implement SFX for Genezis G1 and G2 generation (Plan: 7.3) (Req: 12)
