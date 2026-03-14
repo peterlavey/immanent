@@ -11,6 +11,7 @@
   - [x] Implement camera orbit logic around the Core center (Plan: 1.2) (Req: 1)
   - [x] Implement camera zoom (Plan: 1.2) (Req: 1)
   - [x] Implement camera rotation controls (Plan: 1.2) (Req: 1)
+  - [x] Implement camera movement by holding down the main click and dragging (Plan: 1.2) (Req: 1)
   - [x] Calibrate initial camera distance to show FOV (Plan: 1.2) (Req: 1)
 
 - [x] **1.3 Core Base**

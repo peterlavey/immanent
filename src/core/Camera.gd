@@ -23,8 +23,12 @@ func _input(event: InputEvent) -> void:
 				zoom(zoom_speed)
 	
 	if event is InputEventMouseMotion:
-		# Use right-click or middle-click for orbiting
-		if event.button_mask & MOUSE_BUTTON_MASK_RIGHT or event.button_mask & MOUSE_BUTTON_MASK_MIDDLE:
+		# Use left-click, right-click, or middle-click for orbiting
+		# Check if input is already handled (e.g. by dragging UI or Genezis interaction)
+		if get_viewport().is_input_handled():
+			return
+			
+		if event.button_mask & MOUSE_BUTTON_MASK_LEFT or event.button_mask & MOUSE_BUTTON_MASK_RIGHT or event.button_mask & MOUSE_BUTTON_MASK_MIDDLE:
 			rotation_angles.y -= event.relative.x * rotation_speed
 			rotation_angles.x -= event.relative.y * rotation_speed
 			# Clamp vertical rotation to avoid flipping or going underground

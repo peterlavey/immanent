@@ -29,13 +29,17 @@ func _ready() -> void:
 	_update_genezis_count()
 
 func _input(event: InputEvent) -> void:
-	# Close stats UI if clicking on empty space (simplified)
+	# Close stats UI if clicking on empty space
 	if event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
-			# Give some time for Genezis to handle its own input first
-			# If it's not handled by the end of this frame, we might want to hide UI
-			# But for now, let's keep it simple.
-			pass
+			# If the click was not handled by any Genezis (which calls set_input_as_handled)
+			# and it's not over some UI element, we can hide the stats UI
+			# We use a small delay to let other objects handle it first
+			get_tree().create_timer(0.01).timeout.connect(func():
+				if not get_viewport().is_input_handled():
+					if genezis_stats_ui and genezis_stats_ui.visible:
+						genezis_stats_ui.hide()
+			)
 
 func _on_upgrade_button_pressed() -> void:
 	if upgrade_menu:
