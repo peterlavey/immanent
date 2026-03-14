@@ -136,12 +136,20 @@
 - [ ] **5.2 Combat & Protection Logic**
   - [ ] Add `health` / `integrity` to Genezis and Enemies (Plan: 5.2) (Req: 11)
   - [x] Update Genezis G2 AI to include `INTERCEPT` and `ATTACK` states (Plan: 5.2) (Req: 10, 11)
+  - [x] Implement shooting mechanic for Genezis G2 (Plan: 5.2) (Req: 10, 11)
   - [x] Implement dispersal logic (enemies are removed when health reach 0) (Plan: 5.2) (Req: 11)
+  - [x] Implement defragmentation effect when enemies die (Plan: 5.2) (Req: 11)
   - [x] Implement visual feedback for combat (e.g., color flashes or small particles) (Plan: 5.2) (Req: 11)
   - [x] Implement enemy discovery description popups that pause the game (Plan: 5.2.1) (Req: 11)
   - [x] Fix missing EnemyDescriptionUI scene and connection in HUD (Plan: 5.2.2)
   - [x] Ensure other menus are closed when the enemy description appears to avoid interaction conflicts (Plan: 5.2.3)
   - [x] Fix input blocking and signal connection for EnemyDescriptionUI close button (Plan: 5.2.4)
+
+- [x] **6.7 Space Environment & 3D Floating**
+  - [x] Remove the floor grid to create a space-like void (Plan: 6.7)
+  - [x] Implement 3D spawning for Data Spots and Enemies (Plan: 6.7)
+  - [x] Enable 3D movement and pathfinding for Genezis G1 and G2 (Plan: 6.7)
+  - [x] Update camera to allow full spherical rotation (Plan: 6.7)
 
 - [ ] **5.3 Advanced Threats**
   - [ ] Implement "Logic Leak" enemy and negative extraction logic (Plan: 5.3) (Req: 12)

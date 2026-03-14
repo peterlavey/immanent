@@ -6,6 +6,7 @@ enum State { IDLE, MOVING_TO_TARGET, PERFORMING_ACTION, ESCAPING }
 
 @export var move_speed: float = 3.0
 @export var health: float = 1.0
+@export var defragmentation_scene: PackedScene = preload("res://src/entities/DefragmentationEffect.tscn")
 
 var current_state: State = State.IDLE
 var target: Node3D = null
@@ -60,5 +61,8 @@ func take_damage(amount: float) -> void:
 		_disperse()
 
 func _disperse() -> void:
-	# Add visual effect here later
+	if defragmentation_scene:
+		var effect = defragmentation_scene.instantiate()
+		get_parent().add_child(effect)
+		effect.global_position = global_position
 	queue_free()

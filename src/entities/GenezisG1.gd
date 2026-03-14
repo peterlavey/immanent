@@ -100,10 +100,15 @@ func find_data_spot() -> void:
 	
 	if closest_spot:
 		target_data_spot = closest_spot
-		# Calculate a surrounding offset based on instance ID to keep it stable
+		# Calculate a surrounding offset in 3D
 		var angle = (get_instance_id() % 360) * (PI / 180.0)
-		var radius = 1.2 # Distance from the data spot center
-		target_offset = Vector3(cos(angle) * radius, 0, sin(angle) * radius)
+		var elevation = (get_instance_id() % 180 - 90) * (PI / 180.0)
+		var radius = 1.2
+		target_offset = Vector3(
+			cos(angle) * cos(elevation) * radius,
+			sin(elevation) * radius,
+			sin(angle) * cos(elevation) * radius
+		)
 		current_state = State.MOVING_TO_DATA
 
 func move_towards(target_pos: Vector3, delta: float) -> void:

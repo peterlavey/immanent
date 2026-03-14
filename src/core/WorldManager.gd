@@ -70,8 +70,14 @@ func _spawn_single_enemy(scene: PackedScene) -> void:
 	
 	# Spawn at edge of FOV or random distance
 	var angle = randf() * TAU
+	var elevation = randf_range(-PI/4, PI/4) # Spread vertically
 	var distance = spawn_radius * 1.5 # Spawn outside initial view
-	enemy.global_position = Vector3(cos(angle) * distance, 2, sin(angle) * distance)
+	
+	enemy.global_position = Vector3(
+		cos(angle) * cos(elevation) * distance,
+		sin(elevation) * distance,
+		sin(angle) * cos(elevation) * distance
+	)
 
 func spawn_extra_genezis_g1() -> void:
 	_spawn_genezis_g1()
@@ -149,14 +155,27 @@ func _spawn_single_data_spot(min_dist: float, max_dist: float) -> void:
 			spot.max_bytes = 1048576 # 1 MB instead of 1 KB
 			spot.scale = Vector3(1.2, 1.2, 1.2)
 	
-	# Random position within range [min_dist, max_dist]
+	# Random position within range [min_dist, max_dist] in 3D
 	var angle = randf() * TAU
+	var elevation = randf_range(-PI/2, PI/2)
 	var distance = randf_range(min_dist, max_dist)
-	spot.global_position = Vector3(cos(angle) * distance, 0, sin(angle) * distance)
+	spot.global_position = Vector3(
+		cos(angle) * cos(elevation) * distance,
+		sin(elevation) * distance,
+		sin(angle) * cos(elevation) * distance
+	)
 
 func _spawn_genezis_g1() -> void:
 	if not genezis_g1_scene: return
 	var genezis = genezis_g1_scene.instantiate()
 	add_child(genezis)
-	genezis.global_position = Vector3(2, 0, 2)
+	# Random initial position in space
+	var angle = randf() * TAU
+	var elevation = randf_range(-PI/4, PI/4)
+	var distance = 5.0
+	genezis.global_position = Vector3(
+		cos(angle) * cos(elevation) * distance,
+		sin(elevation) * distance,
+		sin(angle) * cos(elevation) * distance
+	)
 	genezis_spawned.emit(genezis)

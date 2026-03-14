@@ -69,9 +69,4 @@ max_zoom = 30.0
 [node name="Core" parent="." instance=ExtResource("9_core_scene")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 
-[node name="FloorGrid" type="CSGBox3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
-size = Vector3(100, 1, 100)
-material = SubResource("StandardMaterial3D_Grid")
-
 [node name="HUD" parent="." instance=ExtResource("10_hud_scene")]

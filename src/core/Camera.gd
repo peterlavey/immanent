@@ -31,8 +31,8 @@ func _input(event: InputEvent) -> void:
 		if event.button_mask & MOUSE_BUTTON_MASK_LEFT or event.button_mask & MOUSE_BUTTON_MASK_RIGHT or event.button_mask & MOUSE_BUTTON_MASK_MIDDLE:
 			rotation_angles.y -= event.relative.x * rotation_speed
 			rotation_angles.x -= event.relative.y * rotation_speed
-			# Clamp vertical rotation to avoid flipping or going underground
-			rotation_angles.x = clamp(rotation_angles.x, 0.2, PI/2 - 0.1)
+			# Clamp vertical rotation to avoid being exactly at poles where look_at(Vector3.UP) fails
+			rotation_angles.x = clamp(rotation_angles.x, -PI/2 + 0.1, PI/2 - 0.1)
 			_update_camera_position()
 
 func zoom(amount: float) -> void:
