@@ -118,6 +118,9 @@ func _on_upgrade_purchased(upgrade_id: String) -> void:
 			var world_manager = get_tree().get_first_node_in_group("world_manager")
 			if world_manager:
 				world_manager.fuse_genezis()
+		"psinergy":
+			var level = upgrade_menu.upgrade_levels.get("psinergy", 0)
+			get_tree().call_group("genezis_g1", "upgrade_psinergy", level)
 	
 	# Refresh UI if a Genezis G1 is selected
 	if selected_genezis and is_instance_valid(selected_genezis):

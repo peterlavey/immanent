@@ -231,3 +231,19 @@ Goal: Enhance the simulation's visual depth and atmosphere.
    - Use a separate, slower-moving 3D layer for the parallax effect.
    - Priority: High
    - Requirements: Req 16
+
+## Phase 11: Advanced G1 Networks (High Priority)
+Goal: Implement G1 connection-based upgrades (Psinergy).
+
+1. **Psinergy Logic** (Plan: 11.1)
+   - Implement proximity detection between G1 units.
+   - Visualize connections using beams at all times when in range.
+   - Apply extraction speed boost when connected.
+   - Priority: High
+   - Requirements: Req 14
+
+2. **Psinergy Upgrade** (Plan: 11.2)
+   - Add a single "Psinergy" upgrade to the Upgrade Menu that increases both range and boost.
+   - Restrict upgrades to Core Level 2+.
+   - Priority: High
+   - Requirements: Req 14

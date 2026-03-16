@@ -242,3 +242,7 @@ func _apply_current_upgrades(genezis: CharacterBody3D) -> void:
 		var capacity_level = menu.upgrade_levels.get("capacity", 0)
 		if capacity_level > 0:
 			genezis.upgrade_capacity(pow(1.2, capacity_level))
+		# Psinergy
+		var psinergy_level = menu.upgrade_levels.get("psinergy", 0)
+		if psinergy_level > 0:
+			genezis.upgrade_psinergy(psinergy_level)

@@ -7,6 +7,7 @@ signal upgrade_purchased(upgrade_id: String)
 @onready var capacity_button = $Panel/MarginContainer/VBoxContainer/CapacityButton
 @onready var fov_button = $Panel/MarginContainer/VBoxContainer/FOVButton
 @onready var genezis_count_button = $Panel/MarginContainer/VBoxContainer/GenezisG1CountButton
+@onready var psinergy_button = Button.new()
 @onready var fusion_button = Button.new()
 @onready var evolution_button = Button.new()
 @onready var title_label = $Panel/MarginContainer/VBoxContainer/Title
@@ -26,7 +27,8 @@ var upgrade_levels = {
 	"fov": 0,
 	"genezis_count": 0,
 	"evolution": 0,
-	"fusion": 0
+	"fusion": 0,
+	"psinergy": 0
 }
 
 func _ready() -> void:
@@ -52,6 +54,12 @@ func _ready() -> void:
 	fusion_button.pressed.connect(_on_fusion_button_pressed)
 	$Panel/MarginContainer/VBoxContainer.add_child(fusion_button)
 	$Panel/MarginContainer/VBoxContainer.move_child(fusion_button, $Panel/MarginContainer/VBoxContainer.get_child_count() - 3)
+	
+	# Setup psinergy button
+	psinergy_button.text = "Upgrade Psinergy"
+	psinergy_button.pressed.connect(_on_psinergy_button_pressed)
+	$Panel/MarginContainer/VBoxContainer.add_child(psinergy_button)
+	$Panel/MarginContainer/VBoxContainer.move_child(psinergy_button, $Panel/MarginContainer/VBoxContainer.get_child_count() - 3)
 	
 	_update_buttons()
 
@@ -128,11 +136,19 @@ func _on_fusion_button_pressed() -> void:
 		upgrade_purchased.emit("fusion")
 		_update_buttons()
 
+func _on_psinergy_button_pressed() -> void:
+	if upgrade_levels["psinergy"] >= get_max_level(): return
+	if core_node and core_node.spend_data(get_upgrade_cost("psinergy")):
+		_play_click_sfx()
+		upgrade_levels["psinergy"] += 1
+		upgrade_purchased.emit("psinergy")
+		_update_buttons()
+
 func _update_buttons() -> void:
 	if not core_node: return
 	
 	# Ensure upgrade_levels has all necessary keys (for safety when loading old saves)
-	for key in ["speed", "extraction", "capacity", "fov", "genezis_count", "evolution", "fusion"]:
+	for key in ["speed", "extraction", "capacity", "fov", "genezis_count", "evolution", "fusion", "psinergy"]:
 		if not upgrade_levels.has(key):
 			upgrade_levels[key] = 0
 	
@@ -143,6 +159,7 @@ func _update_buttons() -> void:
 	genezis_count_button.visible = current_mode == Mode.CORE
 	evolution_button.visible = current_mode == Mode.CORE
 	fusion_button.visible = current_mode == Mode.GENEZIS_G1
+	psinergy_button.visible = current_mode == Mode.GENEZIS_G1
 	
 	_update_button_text(speed_button, "speed", "Upgrade G1 Speed")
 	_update_button_text(extraction_button, "extraction", "Upgrade G1 Extraction")
@@ -151,6 +168,7 @@ func _update_buttons() -> void:
 	_update_button_text(genezis_count_button, "genezis_count", "Spawn Genezis G1")
 	_update_button_text(evolution_button, "evolution", "") # Label is generated in _update_button_text
 	_update_button_text(fusion_button, "fusion", "Fuse Genezis")
+	_update_button_text(psinergy_button, "psinergy", "Upgrade Psinergy")
 
 func _on_core_data_changed(_new_data: int) -> void:
 	_update_buttons()
@@ -181,14 +199,17 @@ func _update_button_text(button: Button, type: String, label: String) -> void:
 		
 		var can_afford = core_node.current_data >= cost
 		var requirements_met = true
-		if type == "fusion":
-			var g1_count = get_tree().get_nodes_in_group("genezis_g1").size()
+		if type == "fusion" or type == "psinergy":
 			var evolution_met = core_node.evolution_level >= 2
-			requirements_met = g1_count >= 5 and evolution_met
+			requirements_met = evolution_met
 			if not evolution_met:
 				button.text = "%s (Requires Evolution Level 2)" % label
-			elif g1_count < 5:
-				button.text = "%s (Requires 5 G1)" % label
+			
+			if type == "fusion":
+				var g1_count = get_tree().get_nodes_in_group("genezis_g1").size()
+				requirements_met = requirements_met and g1_count >= 5
+				if evolution_met and g1_count < 5:
+					button.text = "%s (Requires 5 G1)" % label
 		
 		button.disabled = not (can_afford and requirements_met)
 
@@ -214,6 +235,7 @@ func get_upgrade_cost(type: String) -> int:
 		"evolution": 
 			base_cost = 1024 if level == 0 else 131072 # 1 KB for first evolution, 128 KB for others (reduced from 256 KB)
 		"fusion": base_cost = 25600 # 25 KB to fuse, reduced from 50 KB
+		"psinergy": base_cost = 1000
 		
 	if type == "fusion":
 		# For fusion, level should represent how many G2s we have

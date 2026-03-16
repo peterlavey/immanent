@@ -101,7 +101,9 @@ func _get_world_data() -> Dictionary:
 			"load": g.current_load,
 			"speed": g.move_speed,
 			"capacity": g.carry_capacity,
-			"extraction": g.extraction_rate
+			"extraction": g.extraction_rate,
+			"conn_range": g.connection_range,
+			"conn_boost": g.connection_boost
 		})
 		
 	for g in get_tree().get_nodes_in_group("genezis_g2"):
@@ -162,6 +164,8 @@ func _apply_world_data(data: Dictionary) -> void:
 		g.move_speed = g_data.speed
 		g.carry_capacity = g_data.capacity
 		g.extraction_rate = g_data.extraction
+		g.connection_range = g_data.get("conn_range", 0.0)
+		g.connection_boost = g_data.get("conn_boost", 1.0)
 		world_manager.genezis_spawned.emit(g)
 		
 	# Restore Genezis G2

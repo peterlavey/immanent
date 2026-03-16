@@ -8,6 +8,10 @@ enum State { IDLE, MOVING_TO_DATA, EXTRACTING, RETURNING_TO_CORE, DEPOSITING, ME
 @export var carry_capacity: int = 100 # Capacity in bytes
 @export var extraction_rate: int = 10 # Bytes per second
 
+# Psinergy upgrade variables
+@export var connection_range: float = 0.0 # Disabled by default (0.0)
+@export var connection_boost: float = 1.0 # Multiplier (1.0 = no boost)
+
 var current_state: State = State.IDLE
 var target_data_spot: Node3D = null
 var target_offset: Vector3 = Vector3.ZERO
@@ -15,6 +19,8 @@ var current_load: int = 0
 var core_node: Node3D = null
 var merging_target_pos: Vector3 = Vector3.ZERO
 var _extraction_accumulator: float = 0.0
+
+var connected_g1: CharacterBody3D = null
 
 # Stuck detection variables
 var _stuck_timer: float = 0.0
@@ -40,9 +46,18 @@ func upgrade_extraction(multiplier: float) -> void:
 func upgrade_capacity(multiplier: float) -> void:
 	carry_capacity = int(carry_capacity * multiplier)
 
+func upgrade_psinergy(level: int) -> void:
+	if level <= 0:
+		connection_range = 0.0
+		connection_boost = 1.0
+	else:
+		connection_range = level * 5.0
+		connection_boost = 1.0 + (level * 0.2)
+
 @onready var visuals: Node3D = $Visuals
 @onready var head: MeshInstance3D = $Visuals/Head
 @onready var connection_beam: MeshInstance3D = $ConnectionBeam
+@onready var psinergy_beam: MeshInstance3D = $PsinergyBeam
 @onready var data_particles: GPUParticles3D = $DataParticles
 
 var _pulse_timer: float = 0.0
@@ -87,10 +102,30 @@ func _physics_process(delta: float) -> void:
 	else:
 		head.scale = Vector3.ONE
 		_pulse_timer = 0.0
+		
+		# Show G1 connection beam at all times when not mining or depositing
+		# Only the G1 with the smaller instance ID shows the beam to avoid double lines
+		if connected_g1 and is_instance_valid(connected_g1) and get_instance_id() < connected_g1.get_instance_id():
+			_update_psinergy_visual(connected_g1.global_position)
+		else:
+			psinergy_beam.visible = false
+		
 		connection_beam.visible = false
 		data_particles.emitting = false
 		data_particles.visible = false
 	
+	# Connection logic
+	_update_g1_connection(delta)
+	
+	# If we are currently extracting or depositing, we should ALSO show the psinergy beam if connected
+	# and we are the designated G1 for visuals (smaller instance ID)
+	if (current_state == State.EXTRACTING or current_state == State.DEPOSITING) and \
+	   connected_g1 and is_instance_valid(connected_g1) and \
+	   get_instance_id() < connected_g1.get_instance_id():
+		_update_psinergy_visual(connected_g1.global_position)
+	elif current_state == State.EXTRACTING or current_state == State.DEPOSITING:
+		psinergy_beam.visible = false
+
 	match current_state:
 		State.IDLE:
 			find_data_spot()
@@ -109,7 +144,11 @@ func _physics_process(delta: float) -> void:
 				current_state = State.IDLE
 		State.EXTRACTING:
 			if is_instance_valid(target_data_spot):
-				_extraction_accumulator += extraction_rate * delta
+				var effective_extraction_rate = extraction_rate
+				if connected_g1 and is_instance_valid(connected_g1):
+					effective_extraction_rate *= connection_boost
+					
+				_extraction_accumulator += effective_extraction_rate * delta
 				var to_extract = int(_extraction_accumulator)
 				if to_extract > 0:
 					var space_left = carry_capacity - current_load
@@ -218,6 +257,37 @@ func move_towards(target_pos: Vector3, delta: float) -> void:
 			look_at(look_target, Vector3.RIGHT)
 	move_and_slide()
 
+func _update_g1_connection(_delta: float) -> void:
+	if connection_range <= 0.0:
+		connected_g1 = null
+		return
+		
+	# Check if current connection is still valid and in range
+	if connected_g1 and is_instance_valid(connected_g1):
+		# If the other G1 is connected to someone else, we should drop it to avoid overlapping connections
+		# or multiple connections to the same G1 (forming a triangle or line)
+		if global_position.distance_to(connected_g1.global_position) > connection_range or \
+		   (connected_g1.connected_g1 and connected_g1.connected_g1 != self):
+			connected_g1 = null
+	
+	# If no connection, look for a new one
+	if not connected_g1 or not is_instance_valid(connected_g1):
+		var g1s = get_tree().get_nodes_in_group("genezis_g1")
+		var closest_g1: CharacterBody3D = null
+		var min_dist = connection_range
+		
+		for g in g1s:
+			if g == self: continue
+			# Don't connect to a G1 that is already connected to someone else
+			if g.connected_g1 and g.connected_g1 != self: continue
+			
+			var dist = global_position.distance_to(g.global_position)
+			if dist < min_dist:
+				min_dist = dist
+				closest_g1 = g
+		
+		connected_g1 = closest_g1
+
 func _update_connection_visual(target_pos: Vector3) -> void:
 	if not connection_beam or not data_particles:
 		return
@@ -249,6 +319,32 @@ func _update_connection_visual(target_pos: Vector3) -> void:
 	data_particles.emitting = true
 	data_particles.global_position = end_pos
 
+func _update_psinergy_visual(target_pos: Vector3) -> void:
+	if not psinergy_beam:
+		return
+		
+	var start_pos = head.global_position
+	var end_pos = target_pos
+	
+	var diff = end_pos - start_pos
+	var distance = diff.length()
+	
+	psinergy_beam.visible = true
+	psinergy_beam.global_position = start_pos + diff * 0.5
+	
+	# Rotate the cylinder to point from start to end
+	if diff.length() > 0.001:
+		psinergy_beam.look_at(end_pos, Vector3.UP)
+		psinergy_beam.rotate_object_local(Vector3.RIGHT, PI/2.0)
+		
+	# Scale the cylinder mesh height
+	psinergy_beam.scale.y = distance
+	
+	# Pulse the beam width slightly (different frequency than extraction beam)
+	var pulse = 1.0 + sin(Time.get_ticks_msec() * 0.01) * 0.15
+	psinergy_beam.scale.x = pulse
+	psinergy_beam.scale.z = pulse
+
 func reset_load() -> void:
 	current_load = 0
 	# Brief visual feedback or state reset if needed
@@ -261,7 +357,10 @@ func get_stats() -> Dictionary:
 		"capacity": carry_capacity,
 		"extraction": extraction_rate,
 		"load": current_load,
-		"state": State.keys()[current_state]
+		"state": State.keys()[current_state],
+		"conn_range": connection_range,
+		"conn_boost": connection_boost,
+		"is_connected": connected_g1 != null and is_instance_valid(connected_g1)
 	}
 
 func _input_event(_camera: Camera3D, event: InputEvent, _position: Vector3, _normal: Vector3, _shape_idx: int) -> void:

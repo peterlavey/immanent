@@ -123,13 +123,25 @@ Immanent is a 3D idle game set inside a digital simulation (processor). Players 
       - **Data Spot**: SHALL be redesigned as "Code Crystals" with a central core and floating shards that pulse with data.
       - **Enemies**: SHALL look aggressive and disruptive, inspired by malware (e.g., jagged edges, "corruption" particles).
 
-14. **Background Atmosphere**
+14. **Psinergy Network (Inter-Bacteriophage Link)**
+    - **User Story**: As a player, I want my Genezis G1 beings to connect with each other so that they can share resources and increase their extraction speed.
+    - **Acceptance Criteria**:
+      - THE system SHALL allow Genezis G1 units to form a "connection" if they are within a certain range of each other.
+      - THE system SHALL ensure each G1 unit connects to only one other neighbor at a time, and only one visual beam is rendered between any two connected units to avoid overlapping visuals.
+      - THE connection SHALL be visually represented by a digital beam or line between connected G1 units, using a purple/magenta color and thinner line to distinguish it from extraction rays.
+      - THE connection SHALL provide an extraction speed boost to both connected G1 units.
+      - THE connection range and the speed boost multiplier SHALL be upgradeable via a single upgrade named "Psinergy".
+      - THE Psinergy connection SHALL be visible at all times when G1 units are within range, including while they are extracting data.
+      - THE Psinergy feature SHALL ONLY be available after the Core has reached its second evolution (Evolution Level 2).
+
+15. **Background Atmosphere**
     - **User Story**: As a player, I want a background atmosphere that blends space and digital aesthetics so that I feel immersed in a vast, virtual universe.
     - **Acceptance Criteria**:
       - THE background SHALL use dark colors (space-like).
       - THE background SHALL include subtle digital elements (e.g., distant grids, data streams, or glowing "data stars").
       - THE system SHALL utilize Glow and Bloom to enhance the digital feel of the atmosphere.
- 15. **Mission System**
+
+16. **Mission System**
     - **User Story**: As a player, I want to have clear objectives so that I know what to work towards.
     - **Acceptance Criteria**:
       - THE system SHALL display a "Current Mission" on the HUD.
@@ -138,14 +150,14 @@ Immanent is a 3D idle game set inside a digital simulation (processor). Players 
       - THE game SHALL start with 0 data and 1 Genezis G1.
       - UPON completion of a mission, the system SHALL automatically start the next mission in the sequence.
 
-16. **3D Parallax Background**
+17. **3D Parallax Background**
     - **User Story**: As a player, I want a 3D parallax background so that the simulation feels deeper and more immersive.
     - **Acceptance Criteria**:
       - THE background SHALL use `space.jpg` as the primary texture.
       - THE background SHALL feature a parallax effect that updates based on the camera's orbit and rotation, creating a sense of depth (3D).
       - THE background SHALL be integrated into the `WorldEnvironment` or as a separate 3D layer that maintains its "distant" appearance.
 
-17. **Persistence & Autosave**
+18. **Persistence & Autosave**
     - **User Story**: As a player, I want my progress to be saved automatically so that I don't lose data if I close the simulation.
     - **Acceptance Criteria**:
       - THE system SHALL provide manual Save, Load, and Delete buttons on the HUD.

@@ -16,8 +16,20 @@ func display_stats(stats: Dictionary) -> void:
 	if type_label == "Genezis G2":
 		text += "Role: Protection / Security\n"
 	else:
-		text += "Extraction: %d B/s\n" % stats.get("extraction", 0)
-		text += "Load: %s / %s" % [format_bytes(stats.get("load", 0)), format_bytes(stats.get("capacity", 0))]
+		var extraction = stats.get("extraction", 0)
+		var is_connected = stats.get("is_connected", false)
+		var boost = stats.get("conn_boost", 1.0)
+		
+		if is_connected:
+			text += "Extraction: %d B/s (x%.1f Boost!)\n" % [extraction, boost]
+		else:
+			text += "Extraction: %d B/s\n" % extraction
+			
+		text += "Load: %s / %s\n" % [format_bytes(stats.get("load", 0)), format_bytes(stats.get("capacity", 0))]
+		
+		var conn_range = stats.get("conn_range", 0.0)
+		if conn_range > 0:
+			text += "Psinergy: %s" % ("Active" if is_connected else "Scanning...")
 	
 	stats_label.text = text
 

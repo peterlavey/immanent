@@ -245,3 +245,20 @@
   - [x] Implement camera rotation/orbit-based parallax logic in `Camera.gd` (Plan: 9.1) (Req: 16)
   - [x] Ensure the background appears "distant" but responds with depth to camera movements (Plan: 9.1) (Req: 16)
   - [x] Fix "mosaic" effect in background by disabling triplanar mapping and adjusting UV scale (Plan: 9.1) (Req: 16)
+
+## Phase 11: Advanced G1 Networks (Psinergy)
+
+- [x] **11.1 Psinergy Logic**
+  - [x] Implement proximity detection between G1 units in `GenezisG1.gd` (Plan: 11.1) (Req: 14)
+  - [x] Visualize connections using beams at all times when in range, using a distinct purple color and thinner line to avoid confusion with extraction rays (Plan: 11.1) (Req: 14)
+  - [x] Apply extraction speed boost when G1s are connected (Plan: 11.1) (Req: 14)
+  - [x] Update G1 statistics display to show Psinergy status and boost (Plan: 11.1) (Req: 14)
+  - [x] Fix overlapping Psinergy beams by ensuring only one visual is rendered per connection. (Req: 14)
+  - [x] Implement mutual exclusion for G1 connections to ensure each G1 connects to only one neighbor at a time. (Req: 14)
+
+- [x] **11.2 Psinergy Upgrade**
+  - [x] Add a single "Psinergy" upgrade to `UpgradeMenu.gd` replacing Range and Boost (Plan: 11.2) (Req: 14)
+  - [x] Restrict Psinergy upgrade to Core Evolution Level 2+ (Plan: 11.2) (Req: 14)
+  - [x] Handle upgrade purchase in `HUD.gd` and propagate to all G1s (Plan: 11.2) (Req: 14)
+  - [x] Ensure `WorldManager.gd` applies Psinergy upgrade to new G1s (Plan: 11.2) (Req: 14)
+  - [x] Integrate Psinergy into the Save/Load system in `SaveManager.gd` (Plan: 11.2) (Req: 14)
