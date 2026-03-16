@@ -15,6 +15,14 @@ var current_load: int = 0
 var core_node: Node3D = null
 var _extraction_accumulator: float = 0.0
 
+# Stuck detection variables
+var _stuck_timer: float = 0.0
+var _last_position: Vector3 = Vector3.ZERO
+var _last_load: int = 0
+var _stuck_threshold: float = 8.0 # Seconds before declaring stuck
+var _position_threshold: float = 0.1 # Minimum movement in 1 second
+var _stuck_reset_count: int = 0
+
 func _ready() -> void:
 	add_to_group("genezis_g1")
 	# Find core in group if not assigned
@@ -39,6 +47,29 @@ func upgrade_capacity(multiplier: float) -> void:
 var _pulse_timer: float = 0.0
 
 func _physics_process(delta: float) -> void:
+	# Stuck detection logic
+	if current_state != State.IDLE:
+		_stuck_timer += delta
+		
+		# Check if we've moved significantly or changed load (if extracting)
+		var distance_moved = global_position.distance_to(_last_position)
+		if distance_moved > _position_threshold * delta or current_load != _last_load:
+			_stuck_timer = 0.0
+			_last_position = global_position
+			_last_load = current_load
+			
+		# If we've been stuck too long, force idle and reset
+		if _stuck_timer >= _stuck_threshold:
+			print("[G1] ", get_instance_id(), " declared stuck in state ", State.keys()[current_state], ". Resetting to IDLE.")
+			current_state = State.IDLE
+			_stuck_timer = 0.0
+			target_data_spot = null
+			_stuck_reset_count += 1
+	else:
+		_stuck_timer = 0.0
+		_last_position = global_position
+		_last_load = current_load
+
 	if current_state == State.EXTRACTING:
 		if is_instance_valid(target_data_spot):
 			_pulse_timer += delta * 10.0
@@ -66,7 +97,10 @@ func _physics_process(delta: float) -> void:
 			if is_instance_valid(target_data_spot):
 				var target_pos = target_data_spot.global_position + target_offset
 				move_towards(target_pos, delta)
-				if global_position.distance_to(target_pos) < 0.5:
+				
+				var dist = global_position.distance_to(target_pos)
+				# If we are close enough OR we are stuck but very close to the data spot itself
+				if dist < 0.6 or (dist < 1.0 and velocity.length() < 0.1):
 					current_state = State.EXTRACTING
 					_extraction_accumulator = 0.0
 					print("[G1] Started extracting")
@@ -144,9 +178,11 @@ func find_data_spot() -> void:
 		print("[G1] ", get_instance_id(), " Found data spot at ", spot_pos, " (dist to core: ", spot_pos.distance_to(core_node.global_position), ") score: ", min_distance)
 		target_data_spot = closest_spot
 		# Calculate a surrounding offset in 3D
-		var angle = (get_instance_id() % 360) * (PI / 180.0)
-		var elevation = (get_instance_id() % 180 - 90) * (PI / 180.0)
-		var radius = 1.2
+		# Use _stuck_reset_count to vary the offset if we were stuck
+		var seed_val = get_instance_id() + _stuck_reset_count * 12345
+		var angle = (seed_val % 360) * (PI / 180.0)
+		var elevation = (seed_val % 180 - 90) * (PI / 180.0)
+		var radius = 1.6 # Increased from 1.2 to be safely outside DataSpot's 1.2x1.2x1.2 box
 		target_offset = Vector3(
 			cos(angle) * cos(elevation) * radius,
 			sin(elevation) * radius,
@@ -160,8 +196,14 @@ func find_data_spot() -> void:
 			pass # Normal if no spots exist yet
 
 func move_towards(target_pos: Vector3, delta: float) -> void:
+	# Add slight random jitter to prevent being perfectly stuck in local minima/collisions
+	var jitter = Vector3(
+		randf_range(-0.1, 0.1),
+		randf_range(-0.1, 0.1),
+		randf_range(-0.1, 0.1)
+	)
 	var direction = (target_pos - global_position).normalized()
-	velocity = direction * move_speed
+	velocity = (direction + jitter * 0.1).normalized() * move_speed
 	# Simple look at
 	if direction != Vector3.ZERO:
 		var look_target = global_position + direction

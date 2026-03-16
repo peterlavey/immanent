@@ -70,6 +70,8 @@
   - [x] Fix initial Genezis G1 not being clickable for upgrades (Plan: 3.2.5) (Req: 3)
   - [x] Disable upgrades that the player cannot afford (Plan: 3.2.6) (Req: 2, 3)
   - [x] Fix second G1 not mining data when appearing (Plan: 3.2.8) (Req: 3)
+  - [x] Implement stuck detection for Genezis G1 to prevent idle loops or pathfinding failures.
+  - [x] Improve G1 stuck recovery by varying target offsets and relaxing reachability thresholds.
 
   - [x] **3.3 Visual Feedback**
   - [x] Create Floating Text scene and script (Plan: 3.3) (Req: 8)
