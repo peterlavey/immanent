@@ -186,10 +186,25 @@ Goal: Add immersive music and sound effects to the simulation.
    - Priority: Medium
    - Requirements: Req 12
 
-## Dependencies & Risks
-- **Dependency**: Godot Engine integration.
-- **Risk**: Performance issues with many Genezis G1 beings (mitigate with optimized scripts).
-- **Consideration**: Balancing the upgrade costs and iteration length.
+## Phase 10: Persistence & Optimization (Medium Priority)
+Goal: Implement game state persistence and performance optimizations.
+
+1. **Save & Load System** (Plan: 10.1)
+   - Implement `SaveManager` for JSON serialization.
+   - Integrate manual Save/Load buttons in HUD.
+   - Priority: Medium
+   - Requirements: Req 17
+
+2. **Autosave Feature** (Plan: 10.2)
+   - Trigger `SaveManager.save_game()` upon mission completion.
+   - Priority: Medium
+   - Requirements: Req 17
+
+3. **Delete Save Feature** (Plan: 10.3)
+   - Implement `delete_save()` in `SaveManager`.
+   - Add Delete button to HUD and handle UI state.
+   - Priority: Low
+   - Requirements: Req 17
 193:
 194:## Phase 8: Missions & Objectives (Medium Priority)
 195:Goal: Provide a structured progression system with specific tasks.

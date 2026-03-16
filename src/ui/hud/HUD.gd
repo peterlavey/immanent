@@ -12,6 +12,10 @@ extends Control
 @onready var mission_description_label = $MarginContainer/MissionContainer/MissionDescription
 @onready var mission_progress_label = $MarginContainer/MissionContainer/MissionProgress
 
+@onready var save_button = $MarginContainer/SaveLoadContainer/SaveButton
+@onready var load_button = $MarginContainer/SaveLoadContainer/LoadButton
+@onready var delete_button = $MarginContainer/SaveLoadContainer/DeleteButton
+
 var selected_genezis: CharacterBody3D = null
 
 func _ready() -> void:
@@ -58,6 +62,17 @@ func _ready() -> void:
 		print("HUD: Connected to MissionManager")
 	else:
 		printerr("HUD: MissionManager not found in group or at parent level")
+	
+	if save_button:
+		save_button.pressed.connect(_on_save_button_pressed)
+	if load_button:
+		load_button.pressed.connect(_on_load_button_pressed)
+		# Only enable load button if save file exists
+		load_button.disabled = not FileAccess.file_exists("user://savegame.json")
+	
+	if delete_button:
+		delete_button.pressed.connect(_on_delete_button_pressed)
+		delete_button.disabled = not FileAccess.file_exists("user://savegame.json")
 	
 	# Initial count
 	_update_genezis_count()
@@ -173,6 +188,37 @@ func _on_mission_updated(m_name: String, m_desc: String, m_prog: String) -> void
 	mission_name_label.text = m_name
 	mission_description_label.text = m_desc
 	mission_progress_label.text = m_prog
+
+func _on_save_button_pressed() -> void:
+	if has_node("/root/SaveManager"):
+		get_node("/root/SaveManager").save_game()
+		if load_button:
+			load_button.disabled = false
+		if delete_button:
+			delete_button.disabled = false
+		_play_click_sfx()
+
+func _on_load_button_pressed() -> void:
+	if has_node("/root/SaveManager"):
+		if get_node("/root/SaveManager").load_game():
+			# Close menus after load
+			if upgrade_menu: upgrade_menu.hide()
+			if genezis_stats_ui: genezis_stats_ui.hide()
+			_play_click_sfx()
+
+func _on_delete_button_pressed() -> void:
+	if has_node("/root/SaveManager"):
+		get_node("/root/SaveManager").delete_save()
+		if load_button:
+			load_button.disabled = true
+		if delete_button:
+			delete_button.disabled = true
+		_play_click_sfx()
+
+func _play_click_sfx() -> void:
+	var audio_manager = get_tree().root.get_node_or_null("AudioManager")
+	if audio_manager:
+		audio_manager.play_sfx("res://assets/audio/sfx/G1.mp3", -10.0)
 
 func format_bytes(bytes: int) -> String:
 	if bytes < 1024:

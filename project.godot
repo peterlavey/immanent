@@ -17,6 +17,7 @@ config/icon="res://icon.svg"
 
 [autoload]
 
+SaveManager="*res://src/core/core/SaveManager.gd"
 AudioManager="*res://src/core/audio_manager/AudioManager.gd"
 
 [physics]

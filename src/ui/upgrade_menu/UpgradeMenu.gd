@@ -129,6 +129,11 @@ func _on_fusion_button_pressed() -> void:
 func _update_buttons() -> void:
 	if not core_node: return
 	
+	# Ensure upgrade_levels has all necessary keys (for safety when loading old saves)
+	for key in ["speed", "extraction", "capacity", "fov", "genezis_count", "evolution", "fusion"]:
+		if not upgrade_levels.has(key):
+			upgrade_levels[key] = 0
+	
 	speed_button.visible = current_mode == Mode.GENEZIS_G1
 	extraction_button.visible = current_mode == Mode.GENEZIS_G1
 	capacity_button.visible = current_mode == Mode.GENEZIS_G1

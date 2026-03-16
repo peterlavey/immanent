@@ -45,6 +45,7 @@
   - [x] Create the HUD scene (Plan: 2.4) (Req: 6)
   - [x] Display total collected bytes from the Core (Plan: 2.4) (Req: 6)
   - [x] Display total Genezis G1 count on the HUD (Plan: 2.4) (Req: 6)
+  - [x] Fix missing GenezisCountLabel in HUD.tscn (Plan: 2.4.1) (Req: 6)
 
 ## Phase 3: Progression & Upgrades
 
@@ -210,6 +211,24 @@
   - [x] Implement SFX for Enemy arrival and dispersal (Plan: 7.3) (Req: 12)
   - [x] Implement SFX for G2 shooting (Plan: 7.3) (Req: 12)
   - [x] Implement SFX for Genezis G1 and G2 generation (Plan: 7.3) (Req: 12)
+
+## Phase 10: Persistence & Optimization
+
+- [x] **10.1 Save & Load System**
+  - [x] Implement `SaveManager` to handle JSON serialization of game state (Plan: 10.1) (Req: 17)
+  - [x] Integrate Save/Load buttons into the HUD (Plan: 10.1) (Req: 17)
+  - [x] Implement state restoration for Core, World, Missions, Upgrades, and Time (Plan: 10.1) (Req: 17)
+  - [x] Fix duplicate initial spawns when loading a saved game (Plan: 10.1) (Req: 17)
+  - [x] Enable/Disable Load button based on save file existence (Plan: 10.1) (Req: 17)
+
+- [x] **10.2 Autosave**
+  - [x] Trigger autosave every time a mission is completed (Plan: 10.2) (Req: 17)
+
+- [x] **10.3 Save/Load Fixes**
+  - [x] Fix typed array assignment error in `SaveManager.gd` for `_discovered_enemies` (Plan: 10.3)
+  - [x] Improve enemy type identification using `class_name` and `is` operator (Plan: 10.3)
+  - [x] Fix save/load for G2 count, G1 stats, and Core data (Plan: 10.3)
+  - [x] Implement save file deletion functionality in `SaveManager` and HUD (Plan: 10.3) (Req: 17)
 
 ## Phase 9: Visual Enhancements
 

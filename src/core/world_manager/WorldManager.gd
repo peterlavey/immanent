@@ -27,10 +27,15 @@ func _ready() -> void:
 		core_node.evolution_changed.connect(_on_core_evolution_changed)
 	
 	time_manager.iteration_started.connect(_on_iteration_started)
-	# Initial spawn: ensure at least 4 spots within FOV
-	_spawn_initial_data_spots()
-	# Initial genezis
-	_spawn_genezis_g1()
+	
+	# Skip initial spawn if we're loading a game
+	# We check if there's any G1 already (SaveManager might have spawned them)
+	await get_tree().process_frame
+	if get_tree().get_nodes_in_group("genezis_g1").is_empty():
+		# Initial spawn: ensure at least 4 spots within FOV
+		_spawn_initial_data_spots()
+		# Initial genezis
+		_spawn_genezis_g1()
 
 func _on_core_evolution_changed(new_level: int) -> void:
 	if new_level == 1:

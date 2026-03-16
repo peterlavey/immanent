@@ -27,8 +27,9 @@ func _ready() -> void:
 	if world_manager:
 		world_manager.genezis_g2_spawned.connect(_on_genezis_g2_spawned)
 
-	# Start mission immediately to have initial state ready for HUD
-	_start_mission(MissionID.EVOLVE_CORE)
+ # Start mission immediately to have initial state ready for HUD
+	if current_mission_id != -1:
+		_start_mission(current_mission_id)
 
 func _start_mission(mission_id: MissionID) -> void:
 	current_mission_id = mission_id
@@ -101,6 +102,11 @@ func _complete_current_mission() -> void:
 
 	mission_completed.emit(completed_mission_name)
 	print("Mission Completed: ", completed_mission_name)
+	
+	# Autosave on mission completion
+	if has_node("/root/SaveManager"):
+		get_node("/root/SaveManager").save_game()
+		print("Autosave triggered after completing mission: ", completed_mission_name)
 	
 	# Grant reward for Mission 1 AFTER state transition
 	if completed_mission_id == MissionID.EVOLVE_CORE:

@@ -144,3 +144,11 @@ Immanent is a 3D idle game set inside a digital simulation (processor). Players 
       - THE background SHALL use `space.jpg` as the primary texture.
       - THE background SHALL feature a parallax effect that updates based on the camera's orbit and rotation, creating a sense of depth (3D).
       - THE background SHALL be integrated into the `WorldEnvironment` or as a separate 3D layer that maintains its "distant" appearance.
+
+17. **Persistence & Autosave**
+    - **User Story**: As a player, I want my progress to be saved automatically so that I don't lose data if I close the simulation.
+    - **Acceptance Criteria**:
+      - THE system SHALL provide manual Save, Load, and Delete buttons on the HUD.
+      - THE system SHALL automatically save the game state EVERY TIME a mission is completed.
+      - THE save data SHALL include Core status, World entities, Mission progress, Upgrades, and Time.
+      - WHEN the "Delete Save" button is pressed THEN the system SHALL remove the save file and disable the Load and Delete buttons.

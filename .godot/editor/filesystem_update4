@@ -1,1 +1,4 @@
 res://src/core/core/Core.gd
+res://src/ui/upgrade_menu/UpgradeMenu.gd
+res://src/core/core/SaveManager.gd
+res://src/ui/hud/HUD.gd

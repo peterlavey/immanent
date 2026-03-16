@@ -50,7 +50,27 @@ text = "Data: 0 B"
 
 [node name="GenezisCountLabel" type="Label" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
-text = "Genezis G1: 1"
+theme_override_font_sizes/font_size = 20
+text = "Genezis Count: 0"
+
+[node name="SaveLoadContainer" type="HBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
+mouse_filter = 0
+theme_override_constants/separation = 10
+
+[node name="SaveButton" type="Button" parent="MarginContainer/SaveLoadContainer"]
+layout_mode = 2
+text = "Save Simulation"
+
+[node name="LoadButton" type="Button" parent="MarginContainer/SaveLoadContainer"]
+layout_mode = 2
+text = "Load Simulation"
+
+[node name="DeleteButton" type="Button" parent="MarginContainer/SaveLoadContainer"]
+layout_mode = 2
+text = "Delete Save"
 
 [node name="MissionContainer" type="VBoxContainer" parent="MarginContainer"]
 layout_mode = 2
