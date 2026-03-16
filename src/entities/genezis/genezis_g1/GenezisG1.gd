@@ -2,7 +2,7 @@ extends CharacterBody3D
 
 signal selected(genezis: CharacterBody3D)
 
-enum State { IDLE, MOVING_TO_DATA, EXTRACTING, RETURNING_TO_CORE, DEPOSITING }
+enum State { IDLE, MOVING_TO_DATA, EXTRACTING, RETURNING_TO_CORE, DEPOSITING, MERGING }
 
 @export var move_speed: float = 5.0
 @export var carry_capacity: int = 100 # Capacity in bytes
@@ -13,6 +13,7 @@ var target_data_spot: Node3D = null
 var target_offset: Vector3 = Vector3.ZERO
 var current_load: int = 0
 var core_node: Node3D = null
+var merging_target_pos: Vector3 = Vector3.ZERO
 var _extraction_accumulator: float = 0.0
 
 # Stuck detection variables
@@ -137,6 +138,9 @@ func _physics_process(delta: float) -> void:
 				print("[G1] Deposited ", current_load, " data")
 				current_load = 0
 				current_state = State.IDLE
+		State.MERGING:
+			move_towards(merging_target_pos, delta)
+			# Rotation is handled in move_towards
 
 func find_data_spot() -> void:
 	if not is_instance_valid(core_node):

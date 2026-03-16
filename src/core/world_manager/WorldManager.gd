@@ -93,11 +93,17 @@ func fuse_genezis() -> void:
 		return
 		
 	var g1_beings = get_tree().get_nodes_in_group("genezis_g1")
-	if g1_beings.size() >= 5: # Require at least 5 G1s (4 to fuse, 1 to keep)
+	# Filter out G1s that are already merging
+	var available_g1s = []
+	for g in g1_beings:
+		if g.current_state != 5: # 5 is State.MERGING in GenezisG1.gd
+			available_g1s.append(g)
+			
+	if available_g1s.size() >= 5: # Require at least 5 G1s (4 to fuse, 1 to keep)
 		# Take 4 G1s
 		var to_fuse = []
 		for i in range(4):
-			to_fuse.append(g1_beings[i])
+			to_fuse.append(available_g1s[i])
 		
 		# Average position
 		var avg_pos = Vector3.ZERO
@@ -105,16 +111,39 @@ func fuse_genezis() -> void:
 			avg_pos += g.global_position
 		avg_pos /= 4.0
 		
-		# Remove G1s
+		# Set G1s to merging state
 		for g in to_fuse:
-			g.remove_from_group("genezis_g1")
-			g.queue_free()
+			g.current_state = 5 # State.MERGING
+			g.merging_target_pos = avg_pos
 		
-		genezis_removed.emit()
+		print("Fusion started: 4 G1s merging at ", avg_pos)
 		
-		# Spawn G2
-		_spawn_genezis_g2(avg_pos)
-		print("Fusion complete: 4 G1 fused into 1 G2.")
+		# Create a timer to complete the fusion
+		var timer = get_tree().create_timer(1.0)
+		timer.timeout.connect(func():
+			# Re-calculate average position in case they moved significantly (though they should converge)
+			var final_avg_pos = Vector3.ZERO
+			var count = 0
+			for g in to_fuse:
+				if is_instance_valid(g):
+					final_avg_pos += g.global_position
+					count += 1
+			
+			if count > 0:
+				final_avg_pos /= float(count)
+				
+				# Remove G1s
+				for g in to_fuse:
+					if is_instance_valid(g):
+						g.remove_from_group("genezis_g1")
+						g.queue_free()
+				
+				genezis_removed.emit()
+				
+				# Spawn G2
+				_spawn_genezis_g2(final_avg_pos)
+				print("Fusion complete: 4 G1 fused into 1 G2.")
+		)
 
 func _spawn_genezis_g2(pos: Vector3) -> void:
 	if not genezis_g2_scene: return
