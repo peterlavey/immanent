@@ -154,6 +154,8 @@
   - [x] Ensure other menus are closed when the enemy description appears to avoid interaction conflicts (Plan: 5.2.3)
   - [x] Fix input blocking and signal connection for EnemyDescriptionUI close button (Plan: 5.2.4)
   - [x] Fix crash "Invalid access to property or key 'global_position' on a base object of type 'previously freed'" by adding defensive instance validation.
+  - [x] Implement Bit-Scrubber data theft visuals (laser/particles) and red floating text (Plan: 5.2.5)
+  - [x] Implement Bit-Scrubber theft cooldown logic (Plan: 5.2.6)
 
 ## Phase 8: Missions & Levels
 
