@@ -170,6 +170,7 @@
   - [x] Fix stack overflow when evolving core (Mission reward recursion)
   - [x] Ensure all upgrades apply to both existing and future Genezis beings (Plan: 3.2.9) (Req: 3)
   - [x] Implement data spot targeting optimization to prevent Genezis G1 miners from piling up (Plan: 3.2.7) (Req: 3)
+  - [x] Fix G2 Fusion button not being enabled after Core evolution (Mission 2)
 
 - [x] **6.7 Space Environment & 3D Floating**
   - [x] Remove the floor grid to create a space-like void (Plan: 6.7)

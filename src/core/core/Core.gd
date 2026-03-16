@@ -12,7 +12,7 @@ signal evolution_changed(new_level: int)
 		current_data = value
 		data_changed.emit(current_data)
 
-@export var evolution_level: int = 0:
+@export var evolution_level: int = 1:
 	set(value):
 		evolution_level = value
 		evolution_changed.emit(evolution_level)

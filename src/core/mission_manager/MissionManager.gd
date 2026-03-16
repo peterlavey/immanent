@@ -11,7 +11,7 @@ enum MissionID {
 
 var current_mission_id = MissionID.EVOLVE_CORE
 var current_mission_name = "Core Optimization"
-var current_mission_description = "Optimize the Processor Core to Level 1. Completion grants a 500-byte data packet."
+var current_mission_description = "Optimize the Processor Core to Level 2. Completion grants a 500-byte data packet."
 var current_mission_progress = "Initializing..."
 
 func _enter_tree() -> void:
@@ -37,7 +37,7 @@ func _start_mission(mission_id: MissionID) -> void:
 	match mission_id:
 		MissionID.EVOLVE_CORE:
 			current_mission_name = "Core Optimization"
-			current_mission_description = "Optimize the Processor Core to Level 1. Completion grants a 500-byte data packet."
+			current_mission_description = "Optimize the Processor Core to Level 2. Completion grants a 500-byte data packet."
 			_update_progress_evolution()
 		MissionID.CREATE_G2:
 			current_mission_name = "Security Protocol"
@@ -54,10 +54,10 @@ func _update_progress_evolution() -> void:
 	var core = get_tree().get_first_node_in_group("core")
 	if not core: return
 	
-	current_mission_progress = "Evolve Core to level 1 (Current: %d)" % core.evolution_level
+	current_mission_progress = "Evolve Core to level 2 (Current: %d)" % core.evolution_level
 	mission_updated.emit(current_mission_name, current_mission_description, current_mission_progress)
 	
-	if core.evolution_level >= 1:
+	if core.evolution_level >= 2:
 		_complete_current_mission()
 
 func _update_progress_g2() -> void:

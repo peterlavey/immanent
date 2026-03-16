@@ -78,7 +78,7 @@ func _apply_core_data(data: Dictionary) -> void:
 	var core = get_tree().get_first_node_in_group("core")
 	if core and not data.is_empty():
 		core.current_data = data.get("current_data", 0)
-		core.evolution_level = data.get("evolution_level", 0)
+		core.evolution_level = data.get("evolution_level", 1) # Start new games at level 1
 		core.fov_radius = data.get("fov_radius", 10.0)
 
 func _get_world_data() -> Dictionary:

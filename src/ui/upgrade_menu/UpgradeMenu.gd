@@ -33,6 +33,8 @@ func _ready() -> void:
 	core_node = get_tree().get_first_node_in_group("core")
 	if core_node:
 		core_node.data_changed.connect(_on_core_data_changed)
+		# Initialize upgrade_levels["evolution"] to match the core's level (offset by 1)
+		upgrade_levels["evolution"] = max(0, core_node.evolution_level - 1)
 	
 	var world_manager = get_tree().get_first_node_in_group("world_manager")
 	if world_manager:
@@ -112,7 +114,7 @@ func _on_evolution_button_pressed() -> void:
 	if core_node and core_node.spend_data(get_upgrade_cost("evolution")):
 		_play_click_sfx()
 		upgrade_levels["evolution"] += 1
-		core_node.evolution_level = upgrade_levels["evolution"]
+		core_node.evolution_level = upgrade_levels["evolution"] + 1
 		upgrade_purchased.emit("evolution")
 		_update_buttons()
 
@@ -147,7 +149,7 @@ func _update_buttons() -> void:
 	_update_button_text(capacity_button, "capacity", "Upgrade G1 Capacity")
 	_update_button_text(fov_button, "fov", "Upgrade FOV")
 	_update_button_text(genezis_count_button, "genezis_count", "Spawn Genezis G1")
-	_update_button_text(evolution_button, "evolution", "Evolve Core")
+	_update_button_text(evolution_button, "evolution", "") # Label is generated in _update_button_text
 	_update_button_text(fusion_button, "fusion", "Fuse Genezis")
 
 func _on_core_data_changed(_new_data: int) -> void:
@@ -166,6 +168,9 @@ func _update_button_text(button: Button, type: String, label: String) -> void:
 	var max_level = get_max_level()
 	if type == "evolution":
 		max_level = 10 # Allow up to 10 evolution stages
+		# The current button text should show what we are evolving TO
+		var target_level = core_node.evolution_level + 1
+		label = "Evolve Core to Level %d" % target_level
 		
 	if level >= max_level:
 		button.text = "%s (MAXED)" % label
