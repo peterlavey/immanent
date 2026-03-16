@@ -29,6 +29,7 @@ var _last_load: int = 0
 var _stuck_threshold: float = 8.0 # Seconds before declaring stuck
 var _position_threshold: float = 0.1 # Minimum movement in 1 second
 var _stuck_reset_count: int = 0
+var inactivity_timer: float = 0.0 # Time since last data extraction/deposit
 
 func _ready() -> void:
 	add_to_group("genezis_g1")
@@ -46,13 +47,10 @@ func upgrade_extraction(multiplier: float) -> void:
 func upgrade_capacity(multiplier: float) -> void:
 	carry_capacity = int(carry_capacity * multiplier)
 
-func upgrade_psinergy(level: int) -> void:
-	if level <= 0:
-		connection_range = 0.0
-		connection_boost = 1.0
-	else:
-		connection_range = level * 5.0
-		connection_boost = 1.0 + (level * 0.2)
+func force_search_data() -> void:
+	if current_state == State.IDLE:
+		target_data_spot = null # Clear any potential invalid target
+		find_data_spot()
 
 @onready var visuals: Node3D = $Visuals
 @onready var head: MeshInstance3D = $Visuals/Head
@@ -63,6 +61,7 @@ func upgrade_psinergy(level: int) -> void:
 var _pulse_timer: float = 0.0
 
 func _physics_process(delta: float) -> void:
+	inactivity_timer += delta
 	# Stuck detection logic
 	if current_state != State.IDLE:
 		_stuck_timer += delta
@@ -155,6 +154,8 @@ func _physics_process(delta: float) -> void:
 					var can_extract = min(to_extract, space_left)
 					
 					var extracted = target_data_spot.extract_data(can_extract)
+					if extracted > 0:
+						inactivity_timer = 0.0
 					current_load += extracted
 					_extraction_accumulator -= extracted
 				
@@ -176,6 +177,7 @@ func _physics_process(delta: float) -> void:
 				core_node.deposit_data(current_load, global_position)
 				print("[G1] Deposited ", current_load, " data")
 				current_load = 0
+				inactivity_timer = 0.0
 				current_state = State.IDLE
 		State.MERGING:
 			move_towards(merging_target_pos, delta)

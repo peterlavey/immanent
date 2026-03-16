@@ -114,6 +114,10 @@ func _on_upgrade_purchased(upgrade_id: String) -> void:
 			var world_manager = get_tree().get_first_node_in_group("world_manager")
 			if world_manager:
 				world_manager.spawn_extra_genezis_g1()
+		"genezis_g0_count":
+			var world_manager = get_tree().get_first_node_in_group("world_manager")
+			if world_manager:
+				world_manager.spawn_extra_genezis_g0()
 		"fusion":
 			var world_manager = get_tree().get_first_node_in_group("world_manager")
 			if world_manager:

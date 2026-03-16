@@ -7,6 +7,7 @@ signal upgrade_purchased(upgrade_id: String)
 @onready var capacity_button = $Panel/MarginContainer/VBoxContainer/CapacityButton
 @onready var fov_button = $Panel/MarginContainer/VBoxContainer/FOVButton
 @onready var genezis_count_button = $Panel/MarginContainer/VBoxContainer/GenezisG1CountButton
+@onready var genezis_g0_button = Button.new()
 @onready var psinergy_button = Button.new()
 @onready var fusion_button = Button.new()
 @onready var evolution_button = Button.new()
@@ -26,6 +27,7 @@ var upgrade_levels = {
 	"capacity": 0,
 	"fov": 0,
 	"genezis_count": 0,
+	"genezis_g0_count": 0,
 	"evolution": 0,
 	"fusion": 0,
 	"psinergy": 0
@@ -60,6 +62,12 @@ func _ready() -> void:
 	psinergy_button.pressed.connect(_on_psinergy_button_pressed)
 	$Panel/MarginContainer/VBoxContainer.add_child(psinergy_button)
 	$Panel/MarginContainer/VBoxContainer.move_child(psinergy_button, $Panel/MarginContainer/VBoxContainer.get_child_count() - 3)
+	
+	# Setup G0 button
+	genezis_g0_button.text = "Spawn Genezis G0"
+	genezis_g0_button.pressed.connect(_on_genezis_g0_button_pressed)
+	$Panel/MarginContainer/VBoxContainer.add_child(genezis_g0_button)
+	$Panel/MarginContainer/VBoxContainer.move_child(genezis_g0_button, $Panel/MarginContainer/VBoxContainer.get_child_count() - 3)
 	
 	_update_buttons()
 
@@ -117,6 +125,14 @@ func _on_genezis_count_button_pressed() -> void:
 		upgrade_purchased.emit("genezis_count")
 		_update_buttons()
 
+func _on_genezis_g0_button_pressed() -> void:
+	var g0_count = get_tree().get_nodes_in_group("genezis_g0").size()
+	if g0_count >= 5: return # Arbitrary cap for G0
+	if core_node and core_node.spend_data(get_upgrade_cost("genezis_g0_count")):
+		_play_click_sfx()
+		upgrade_purchased.emit("genezis_g0_count")
+		_update_buttons()
+
 func _on_evolution_button_pressed() -> void:
 	if upgrade_levels["evolution"] >= 10: return # Limit to 10 evolution for now
 	if core_node and core_node.spend_data(get_upgrade_cost("evolution")):
@@ -148,7 +164,7 @@ func _update_buttons() -> void:
 	if not core_node: return
 	
 	# Ensure upgrade_levels has all necessary keys (for safety when loading old saves)
-	for key in ["speed", "extraction", "capacity", "fov", "genezis_count", "evolution", "fusion", "psinergy"]:
+	for key in ["speed", "extraction", "capacity", "fov", "genezis_count", "genezis_g0_count", "evolution", "fusion", "psinergy"]:
 		if not upgrade_levels.has(key):
 			upgrade_levels[key] = 0
 	
@@ -157,6 +173,7 @@ func _update_buttons() -> void:
 	capacity_button.visible = current_mode == Mode.GENEZIS_G1
 	fov_button.visible = current_mode == Mode.CORE
 	genezis_count_button.visible = current_mode == Mode.CORE
+	genezis_g0_button.visible = current_mode == Mode.CORE
 	evolution_button.visible = current_mode == Mode.CORE
 	fusion_button.visible = current_mode == Mode.GENEZIS_G1
 	psinergy_button.visible = current_mode == Mode.GENEZIS_G1
@@ -166,6 +183,7 @@ func _update_buttons() -> void:
 	_update_button_text(capacity_button, "capacity", "Upgrade G1 Capacity")
 	_update_button_text(fov_button, "fov", "Upgrade FOV")
 	_update_button_text(genezis_count_button, "genezis_count", "Spawn Genezis G1")
+	_update_button_text(genezis_g0_button, "genezis_g0_count", "Spawn Genezis G0")
 	_update_button_text(evolution_button, "evolution", "") # Label is generated in _update_button_text
 	_update_button_text(fusion_button, "fusion", "Fuse Genezis")
 	_update_button_text(psinergy_button, "psinergy", "Upgrade Psinergy")
@@ -182,6 +200,8 @@ func _update_button_text(button: Button, type: String, label: String) -> void:
 	var level = upgrade_levels[type]
 	if type == "genezis_count":
 		level = max(0, get_tree().get_nodes_in_group("genezis_g1").size() - 1)
+	elif type == "genezis_g0_count":
+		level = get_tree().get_nodes_in_group("genezis_g0").size()
 		
 	var max_level = get_max_level()
 	if type == "evolution":
@@ -189,6 +209,8 @@ func _update_button_text(button: Button, type: String, label: String) -> void:
 		# The current button text should show what we are evolving TO
 		var target_level = core_node.evolution_level + 1
 		label = "Evolve Core to Level %d" % target_level
+	elif type == "genezis_g0_count":
+		max_level = 5
 		
 	if level >= max_level:
 		button.text = "%s (MAXED)" % label
@@ -225,6 +247,8 @@ func get_upgrade_cost(type: String) -> int:
 	var level = upgrade_levels.get(type, 0)
 	if type == "genezis_count":
 		level = max(0, get_tree().get_nodes_in_group("genezis_g1").size() - 1)
+	elif type == "genezis_g0_count":
+		level = get_tree().get_nodes_in_group("genezis_g0").size()
 	
 	match type:
 		"speed": base_cost = 50
@@ -232,6 +256,7 @@ func get_upgrade_cost(type: String) -> int:
 		"capacity": base_cost = 60
 		"fov": base_cost = 100
 		"genezis_count": base_cost = 250
+		"genezis_g0_count": base_cost = 25
 		"evolution": 
 			base_cost = 1024 if level == 0 else 131072 # 1 KB for first evolution, 128 KB for others (reduced from 256 KB)
 		"fusion": base_cost = 25600 # 25 KB to fuse, reduced from 50 KB

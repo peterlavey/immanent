@@ -247,3 +247,19 @@ Goal: Implement G1 connection-based upgrades (Psinergy).
    - Restrict upgrades to Core Level 2+.
    - Priority: High
    - Requirements: Req 14
+
+## Phase 12: Genezis G0 Mobilizers (High Priority)
+Goal: Implement Genezis G0 units to find and unblock idle G1 units.
+
+1. **Genezis G0 Entity** (Plan: 12.1)
+   - Create the G0 visual representation (smaller bacteriophage with antenna).
+   - Implement G0 AI logic for finding idle G1s and "waking" them up.
+   - Priority: High
+   - Requirements: Req 19
+
+2. **WorldManager Integration** (Plan: 12.2)
+   - Handle G0 spawning (available from Level 1, cheapest unit at 25 bytes).
+   - Ensure one G0 is spawned at the start of the simulation.
+   - Priority: High
+   - Requirements: Req 19
+   - Status: Completed

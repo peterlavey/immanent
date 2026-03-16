@@ -86,6 +86,7 @@ func _get_world_data() -> Dictionary:
 	var data = {
 		"genezis_g1": [],
 		"genezis_g2": [],
+		"genezis_g0": [],
 		"data_spots": [],
 		"enemies": [],
 		"discovered_enemies": []
@@ -108,6 +109,11 @@ func _get_world_data() -> Dictionary:
 		
 	for g in get_tree().get_nodes_in_group("genezis_g2"):
 		data["genezis_g2"].append({
+			"pos": _vec3_to_dict(g.global_position)
+		})
+	
+	for g in get_tree().get_nodes_in_group("genezis_g0"):
+		data["genezis_g0"].append({
 			"pos": _vec3_to_dict(g.global_position)
 		})
 		
@@ -138,6 +144,7 @@ func _apply_world_data(data: Dictionary) -> void:
 	# Clear existing entities except Core
 	for g in get_tree().get_nodes_in_group("genezis_g1"): g.queue_free()
 	for g in get_tree().get_nodes_in_group("genezis_g2"): g.queue_free()
+	for g in get_tree().get_nodes_in_group("genezis_g0"): g.queue_free()
 	for s in get_tree().get_nodes_in_group("data_spots"): s.queue_free()
 	for e in get_tree().get_nodes_in_group("enemies"): e.queue_free()
 	
@@ -175,6 +182,12 @@ func _apply_world_data(data: Dictionary) -> void:
 		world_manager.add_child(g)
 		g.global_position = _dict_to_vec3(g_data.pos)
 		world_manager.genezis_g2_spawned.emit(g)
+		
+	# Restore Genezis G0
+	for g_data in data.get("genezis_g0", []):
+		var g = world_manager.genezis_g0_scene.instantiate()
+		world_manager.add_child(g)
+		g.global_position = _dict_to_vec3(g_data.pos)
 		
 	# Restore Enemies
 	for e_data in data.get("enemies", []):

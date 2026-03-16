@@ -9,6 +9,7 @@ signal new_enemy_type_spawned(type_name: String)
 @export var data_spot_scene: PackedScene
 @export var genezis_g1_scene: PackedScene
 @export var genezis_g2_scene: PackedScene
+@export var genezis_g0_scene: PackedScene
 @export var bit_scrubber_scene: PackedScene
 @export var defragmenter_scene: PackedScene
 @export var spawn_radius: float = 20.0
@@ -36,6 +37,8 @@ func _ready() -> void:
 		_spawn_initial_data_spots()
 		# Initial genezis
 		_spawn_genezis_g1()
+		# Initial genezis G0
+		_spawn_genezis_g0()
 
 func _on_core_evolution_changed(new_level: int) -> void:
 	if new_level == 1:
@@ -86,6 +89,9 @@ func _spawn_single_enemy(scene: PackedScene) -> void:
 
 func spawn_extra_genezis_g1() -> void:
 	_spawn_genezis_g1()
+
+func spawn_extra_genezis_g0() -> void:
+	_spawn_genezis_g0()
 
 func fuse_genezis() -> void:
 	if core_node and core_node.evolution_level < 2:
@@ -156,6 +162,25 @@ func _spawn_genezis_g2(pos: Vector3) -> void:
 		audio_manager.play_sfx("res://assets/audio/sfx/G2.mp3")
 	
 	_g2_spawn_count += 1
+	
+	# Spawn a G0 when the first G2 is spawned to help manage G1s
+	if _g2_spawn_count == 1:
+		_spawn_genezis_g0()
+
+func _spawn_genezis_g0() -> void:
+	if not genezis_g0_scene: return
+	var g0 = genezis_g0_scene.instantiate()
+	add_child(g0)
+	
+	# Spawn near core
+	if core_node:
+		var angle = randf() * TAU
+		var offset = Vector3(cos(angle), 0, sin(angle)) * 3.0
+		g0.global_position = core_node.global_position + offset
+	else:
+		g0.global_position = Vector3.ZERO
+		
+	print("[WorldManager] Genezis G0 spawned!")
 	
 	if _g2_spawn_count == 1:
 		_spawn_single_enemy(bit_scrubber_scene)

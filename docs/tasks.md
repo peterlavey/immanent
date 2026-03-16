@@ -164,7 +164,7 @@
 - [x] **8.1 Mission Infrastructure**
   - [x] Implement `MissionManager` to track objectives (Plan: 8.1) (Req: 15)
   - [x] Update HUD to display Mission name, description, and progress (Plan: 8.1) (Req: 15)
-  - [x] Update game start to 0 data and 1 G1 (Plan: 8.1) (Req: 15)
+  - [x] Update game start to 0 data, 1 G1, and 1 G0 (Plan: 8.1) (Req: 15)
 
 - [x] **8.2 Level 1 Missions**
   - [x] Implement Mission 1: "Core Optimization" - Optimize the Core, earn 500 bytes reward (Plan: 8.2) (Req: 15)
@@ -263,3 +263,24 @@
   - [x] Handle upgrade purchase in `HUD.gd` and propagate to all G1s (Plan: 11.2) (Req: 14)
   - [x] Ensure `WorldManager.gd` applies Psinergy upgrade to new G1s (Plan: 11.2) (Req: 14)
   - [x] Integrate Psinergy into the Save/Load system in `SaveManager.gd` (Plan: 11.2) (Req: 14)
+
+## Phase 12: Genezis G0 Mobilizers
+
+- [x] **12.1 Genezis G0 Entity**
+  - [x] Create `GenezisG0.tscn` and `GenezisG0.gd` (Plan: 12.1) (Req: 19)
+  - [x] Implement visual representation (smaller than G1, unique antenna) (Plan: 12.1) (Req: 19)
+  - [x] Implement AI logic: search for idle G1s -> move to target -> unblock (Plan: 12.1) (Req: 19)
+  - [x] Implement "Unblock" signal/function to trigger G1 re-evaluation (Plan: 12.1) (Req: 19)
+
+- [x] **12.2 WorldManager Integration**
+  - [x] Add `genezis_g0_scene` property to `WorldManager.gd` (Plan: 12.2) (Req: 19)
+  - [x] Implement spawning logic for G0 (e.g., reward for a new mission or after first evolution) (Plan: 12.2) (Req: 19)
+  - [x] Update `MissionManager.gd` to include a mission that unlocks G0 (Plan: 12.2) (Req: 19)
+  - [x] Ensure G0 status is saved and loaded in `SaveManager.gd` (Plan: 12.2) (Req: 19)
+  - [x] Add option to create G0 units from the Core upgrade menu at Level 1, as the cheapest unit (25 bytes) (Plan: 12.2) (Req: 19)
+  - [x] Ensure one G0 is spawned at the start of the simulation (Plan: 12.2) (Req: 19)
+  - [x] Fix G0 spawn button (G0 scene assignment in World.tscn)
+  - [x] Fix type mismatch error in GenezisG0.gd (Node3D assigned to MeshInstance3D)
+  - [x] Implement inactivity timer in Genezis G1 to help G0 units identify stuck miners (Plan: 12.1)
+  - [x] Update G0 search logic to include G1s with high inactivity (Plan: 12.1)
+  - [x] Implement teleportation of inactive G1s to the Core by G0 units (Plan: 12.1)

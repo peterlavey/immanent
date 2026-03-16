@@ -6,7 +6,8 @@ signal mission_completed(mission_name: String)
 enum MissionID {
 	EVOLVE_CORE,
 	CREATE_G2,
-	COLLECT_DATA
+	COLLECT_DATA,
+	G0_MOBILIZATION
 }
 
 var current_mission_id = MissionID.EVOLVE_CORE
@@ -47,6 +48,10 @@ func _start_mission(mission_id: MissionID) -> void:
 			current_mission_name = "Data Harvest"
 			current_mission_description = "Accumulate a total of 1 MB of data to stabilize the digital biome."
 			_update_progress_data(0)
+		MissionID.G0_MOBILIZATION:
+			current_mission_name = "The Mobilizers"
+			current_mission_description = "Unblock the Genezis G0 Mobilizer by reaching 1.5 MB of data. G0 will find and wake up idle G1 units."
+			_update_progress_g0(0)
 	
 	mission_updated.emit(current_mission_name, current_mission_description, current_mission_progress)
 
@@ -82,6 +87,14 @@ func _update_progress_data(current: int) -> void:
 	if current >= target:
 		_complete_current_mission()
 
+func _update_progress_g0(current: int) -> void:
+	var target = 1572864 # 1.5 MB
+	current_mission_progress = "Data: %s / %s" % [format_bytes(current), format_bytes(target)]
+	mission_updated.emit(current_mission_name, current_mission_description, current_mission_progress)
+	
+	if current >= target:
+		_complete_current_mission()
+
 func _complete_current_mission() -> void:
 	var completed_mission_id = current_mission_id
 	var completed_mission_name = current_mission_name
@@ -93,6 +106,8 @@ func _complete_current_mission() -> void:
 		MissionID.CREATE_G2:
 			_start_mission(MissionID.COLLECT_DATA)
 		MissionID.COLLECT_DATA:
+			_start_mission(MissionID.G0_MOBILIZATION)
+		MissionID.G0_MOBILIZATION:
 			# More missions can be added here
 			current_mission_id = -1 # No more missions
 			current_mission_name = "All missions completed"
@@ -114,6 +129,12 @@ func _complete_current_mission() -> void:
 		if core:
 			core.deposit_data(500)
 			print("Reward of 500 bytes granted for Mission 1.")
+	
+	if completed_mission_id == MissionID.G0_MOBILIZATION:
+		var world_manager = get_tree().get_first_node_in_group("world_manager")
+		if world_manager and world_manager.has_method("_spawn_genezis_g0"):
+			world_manager.call("_spawn_genezis_g0")
+			print("Genezis G0 spawned as a reward for G0 Mobilization mission.")
 
 func _on_genezis_g2_spawned(_genezis) -> void:
 	if current_mission_id == MissionID.CREATE_G2:
@@ -126,6 +147,8 @@ func _on_data_changed(new_amount: int) -> void:
 		_update_progress_g2()
 	elif current_mission_id == MissionID.COLLECT_DATA:
 		_update_progress_data(new_amount)
+	elif current_mission_id == MissionID.G0_MOBILIZATION:
+		_update_progress_g0(new_amount)
 
 func _on_evolution_changed(_new_level: int) -> void:
 	if current_mission_id == MissionID.EVOLVE_CORE:

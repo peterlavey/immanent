@@ -147,7 +147,7 @@ Immanent is a 3D idle game set inside a digital simulation (processor). Players 
       - THE system SHALL display a "Current Mission" on the HUD.
       - THE system SHALL track progress toward the current mission's goal.
       - THE first mission SHALL be to evolve the Processor Core.
-      - THE game SHALL start with 0 data and 1 Genezis G1.
+      - THE game SHALL start with 0 data, 1 Genezis G1, and 1 Genezis G0.
       - UPON completion of a mission, the system SHALL automatically start the next mission in the sequence.
 
 17. **3D Parallax Background**
@@ -164,3 +164,14 @@ Immanent is a 3D idle game set inside a digital simulation (processor). Players 
       - THE system SHALL automatically save the game state EVERY TIME a mission is completed.
       - THE save data SHALL include Core status, World entities, Mission progress, Upgrades, and Time.
       - WHEN the "Delete Save" button is pressed THEN the system SHALL remove the save file and disable the Load and Delete buttons.
+
+19. **Genezis G0 (The Mobilizers)**
+    - **User Story**: As a player, I want a specialized unit to find and unblock idle G1 units so that my resource collection remains efficient without manual intervention.
+    - **Acceptance Criteria**:
+      - THE Genezis G0 SHALL be a specialized unit dedicated to managing G1 productivity.
+      - THE G0 SHALL automatically search for Genezis G1 units that are in an `IDLE` state.
+      - WHEN an `IDLE` G1 is found THEN the G0 SHALL move toward it.
+      - UPON reaching an `IDLE` G1 THEN the G0 SHALL "unblock" it, triggering the G1 to re-evaluate its surroundings for data spots.
+      - THE G0 SHALL have a distinct visual design, smaller than G1 but with a unique "signal" or "antenna" feature.
+      - THE G0 units SHALL be available for purchase from the Core at Level 1 and SHALL be the cheapest unit in the simulation.
+      - THE G0 units SHALL be unlocked or spawned under specific conditions (e.g., as a mission reward).
