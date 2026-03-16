@@ -95,7 +95,7 @@
   - [x] Implement Genezi G2 entity with protective AI (Plan: 4.3) (Req: 10)
   - [x] Implement fusion logic (4 G1 -> 1 G2) in WorldManager (Plan: 4.3) (Req: 10)
   - [x] Implement visual merging (4 G1s moving to center) before G2 creation (Plan: 4.3) (Req: 10)
-  - [x] Add fusion option to Core's upgrade menu (Plan: 4.3) (Req: 10)
+  - [x] Add fusion option to Genezis G1's upgrade menu (Plan: 4.3) (Req: 10)
   - [x] Require Evolution Level 2 for G2 fusion (Req: 10)
   - [x] Create visual representation for Genezi G2 (Plan: 4.3) (Req: 10)
   - [x] Add validation to Fusion to require at least 5 G1 units (leaving 1 spare) (Plan: 4.3) (Req: 10)

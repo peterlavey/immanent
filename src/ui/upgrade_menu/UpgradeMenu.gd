@@ -142,7 +142,7 @@ func _update_buttons() -> void:
 	fov_button.visible = current_mode == Mode.CORE
 	genezis_count_button.visible = current_mode == Mode.CORE
 	evolution_button.visible = current_mode == Mode.CORE
-	fusion_button.visible = current_mode == Mode.CORE
+	fusion_button.visible = current_mode == Mode.GENEZIS_G1
 	
 	_update_button_text(speed_button, "speed", "Upgrade G1 Speed")
 	_update_button_text(extraction_button, "extraction", "Upgrade G1 Extraction")
