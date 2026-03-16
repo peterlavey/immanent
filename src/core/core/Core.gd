@@ -39,9 +39,9 @@ func _update_fov_visual() -> void:
 func _update_visual_for_evolution() -> void:
 	if not is_node_ready():
 		return
-	# Evolve visual by scaling or changing color
-	var scale_factor = 1.0 + (evolution_level * 0.5)
-	$Visuals.scale = Vector3(scale_factor, scale_factor, scale_factor)
+	# Evolve visual by changing color or adding effects, but keep scale constant
+	# var scale_factor = 1.0 + (evolution_level * 0.5)
+	# $Visuals.scale = Vector3(scale_factor, scale_factor, scale_factor)
 	
 	var audio_manager = get_tree().root.get_node_or_null("AudioManager")
 	if audio_manager:

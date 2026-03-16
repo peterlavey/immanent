@@ -82,6 +82,7 @@
 
 - [x] **4.1 Evolution Milestones**
   - [x] Implement the evolution logic at the Core (Plan: 4.1) (Req: 4.1)
+  - [x] Ensure Core scale remains constant regardless of level (requested change)
   - [x] Expand upgrade limits from 5 to 10 upon evolution (Plan: 4.1) (Req: 4.1)
   - [x] Implement new upgrades unlocked after evolution (Plan: 4.1) (Req: 4.1)
   - [x] Create larger data spot variants (e.g., 50 MB) (Plan: 4.1) (Req: 4.1)
