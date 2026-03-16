@@ -199,7 +199,7 @@ func get_max_level() -> int:
 
 func get_upgrade_cost(type: String) -> int:
 	var base_cost = 0
-	var multiplier = 1.5
+	var multiplier = 1.25 # Reduced from 1.5 to make subsequent upgrades cheaper
 	
 	var level = upgrade_levels.get(type, 0)
 	if type == "genezis_count":
@@ -212,13 +212,12 @@ func get_upgrade_cost(type: String) -> int:
 		"fov": base_cost = 100
 		"genezis_count": base_cost = 250
 		"evolution": 
-			base_cost = 1024 if level == 0 else 1048576 # 1 KB for first evolution, 1 MB for others
-		"fusion": base_cost = 524288 # 512 KB to fuse
+			base_cost = 1024 if level == 0 else 131072 # 1 KB for first evolution, 128 KB for others (reduced from 256 KB)
+		"fusion": base_cost = 25600 # 25 KB to fuse, reduced from 50 KB
 		
 	if type == "fusion":
-		# Fusion cost also depends on how many G2s we already have? 
-		# For now just use base_cost * multiplier^level
-		pass
+		# For fusion, level should represent how many G2s we have
+		level = get_tree().get_nodes_in_group("genezis_g2").size()
 		
 	return int(base_cost * pow(multiplier, level))
 
