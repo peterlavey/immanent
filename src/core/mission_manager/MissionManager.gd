@@ -14,13 +14,25 @@ var current_mission_name = "Core Optimization"
 var current_mission_description = "Optimize the Processor Core to Level 1. Completion grants a 500-byte data packet."
 var current_mission_progress = "Initializing..."
 
-func _ready() -> void:
+func _enter_tree() -> void:
 	add_to_group("mission_manager")
+
+func _ready() -> void:
+	var core = get_tree().get_first_node_in_group("core")
+	if core:
+		core.data_changed.connect(_on_data_changed)
+		core.evolution_changed.connect(_on_evolution_changed)
+	
+	var world_manager = get_tree().get_first_node_in_group("world_manager")
+	if world_manager:
+		world_manager.genezis_g2_spawned.connect(_on_genezis_g2_spawned)
+
 	# Start mission immediately to have initial state ready for HUD
 	_start_mission(MissionID.EVOLVE_CORE)
 
 func _start_mission(mission_id: MissionID) -> void:
 	current_mission_id = mission_id
+	print("Starting Mission: ", mission_id)
 	match mission_id:
 		MissionID.EVOLVE_CORE:
 			current_mission_name = "Core Optimization"
@@ -28,7 +40,7 @@ func _start_mission(mission_id: MissionID) -> void:
 			_update_progress_evolution()
 		MissionID.CREATE_G2:
 			current_mission_name = "Security Protocol"
-			current_mission_description = "Fuse 4 G1 units into a G2 Guardian to establish a defense perimeter."
+			current_mission_description = "Fuse G1 units into 2 G2 Guardians to establish a defense perimeter."
 			_update_progress_g2()
 		MissionID.COLLECT_DATA:
 			current_mission_name = "Data Harvest"
@@ -54,11 +66,11 @@ func _update_progress_g2() -> void:
 	if core and core.evolution_level < 2:
 		current_mission_progress = "Evolve Core to level 2 (Current: %d)" % core.evolution_level
 	else:
-		current_mission_progress = "G2 Count: %d / 1" % g2_count
+		current_mission_progress = "G2 Count: %d / 2" % g2_count
 	
 	mission_updated.emit(current_mission_name, current_mission_description, current_mission_progress)
 	
-	if g2_count >= 1:
+	if g2_count >= 2:
 		_complete_current_mission()
 
 func _update_progress_data(current: int) -> void:
@@ -70,28 +82,32 @@ func _update_progress_data(current: int) -> void:
 		_complete_current_mission()
 
 func _complete_current_mission() -> void:
-	mission_completed.emit(current_mission_name)
-	print("Mission Completed: ", current_mission_name)
+	var completed_mission_id = current_mission_id
+	var completed_mission_name = current_mission_name
 	
-	# Grant reward for Mission 1
-	if current_mission_id == MissionID.EVOLVE_CORE:
-		var core = get_tree().get_first_node_in_group("core")
-		if core:
-			core.deposit_data(500)
-			print("Reward of 500 bytes granted for Mission 1.")
-	
-	# Transition to next mission
-	match current_mission_id:
+	# Transition to next mission FIRST to prevent recursion
+	match completed_mission_id:
 		MissionID.EVOLVE_CORE:
 			_start_mission(MissionID.CREATE_G2)
 		MissionID.CREATE_G2:
 			_start_mission(MissionID.COLLECT_DATA)
 		MissionID.COLLECT_DATA:
 			# More missions can be added here
+			current_mission_id = -1 # No more missions
 			current_mission_name = "All missions completed"
 			current_mission_description = "Wait for more updates."
 			current_mission_progress = ""
 			mission_updated.emit(current_mission_name, current_mission_description, current_mission_progress)
+
+	mission_completed.emit(completed_mission_name)
+	print("Mission Completed: ", completed_mission_name)
+	
+	# Grant reward for Mission 1 AFTER state transition
+	if completed_mission_id == MissionID.EVOLVE_CORE:
+		var core = get_tree().get_first_node_in_group("core")
+		if core:
+			core.deposit_data(500)
+			print("Reward of 500 bytes granted for Mission 1.")
 
 func _on_genezis_g2_spawned(_genezis) -> void:
 	if current_mission_id == MissionID.CREATE_G2:

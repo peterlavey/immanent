@@ -31,13 +31,17 @@ func _ready() -> void:
 	_update_fov_visual()
 
 func _update_fov_visual() -> void:
+	if not is_node_ready():
+		return
 	if is_instance_valid(fov_visual):
 		fov_visual.scale = Vector3(fov_radius * 2, fov_radius * 2, fov_radius * 2)
 
 func _update_visual_for_evolution() -> void:
+	if not is_node_ready():
+		return
 	# Evolve visual by scaling or changing color
 	var scale_factor = 1.0 + (evolution_level * 0.5)
-	$MeshInstance3D.scale = Vector3(scale_factor, scale_factor, scale_factor)
+	$Visuals.scale = Vector3(scale_factor, scale_factor, scale_factor)
 	
 	var audio_manager = get_tree().root.get_node_or_null("AudioManager")
 	if audio_manager:

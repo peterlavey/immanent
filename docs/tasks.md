@@ -68,7 +68,6 @@
   - [x] Ensure Genezis G1 stats update in real-time when purchasing upgrades (Plan: 3.2.4) (Req: 3, 6)
   - [x] Fix initial Genezis G1 not being clickable for upgrades (Plan: 3.2.5) (Req: 3)
   - [x] Disable upgrades that the player cannot afford (Plan: 3.2.6) (Req: 2, 3)
-  - [x] Implement data spot targeting optimization to prevent Genezis G1 miners from piling up (Plan: 3.2.7) (Req: 3)
   - [x] Fix second G1 not mining data when appearing (Plan: 3.2.8) (Req: 3)
 
   - [x] **3.3 Visual Feedback**
@@ -162,8 +161,12 @@
 
 - [x] **8.2 Level 1 Missions**
   - [x] Implement Mission 1: "Core Optimization" - Optimize the Core, earn 500 bytes reward (Plan: 8.2) (Req: 15)
-  - [x] Implement Mission 2: "Security Protocol" - Fuse 4 G1 to create a G2 (Plan: 8.2) (Req: 15)
+  - [x] Implement Mission 2: "Security Protocol" - Fuse G1 to create 2 G2 Guardians (Plan: 8.2) (Req: 15)
   - [x] Implement Mission 3: "Data Harvest" - Accumulate a total of 1 MB (Plan: 8.2) (Req: 15)
+  - [x] Fix mission HUD not advancing to the second mission
+  - [x] Fix stack overflow when evolving core (Mission reward recursion)
+  - [x] Ensure all upgrades apply to both existing and future Genezis beings (Plan: 3.2.9) (Req: 3)
+  - [x] Implement data spot targeting optimization to prevent Genezis G1 miners from piling up (Plan: 3.2.7) (Req: 3)
 
 - [x] **6.7 Space Environment & 3D Floating**
   - [x] Remove the floor grid to create a space-like void (Plan: 6.7)

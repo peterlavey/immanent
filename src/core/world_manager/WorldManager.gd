@@ -176,6 +176,8 @@ func _spawn_genezis_g1() -> void:
 	if not genezis_g1_scene: return
 	var genezis = genezis_g1_scene.instantiate()
 	add_child(genezis)
+	# Apply current upgrades if any
+	_apply_current_upgrades(genezis)
 	# Random initial position in space
 	var angle = randf() * TAU
 	var elevation = randf_range(-PI/4, PI/4)
@@ -189,3 +191,20 @@ func _spawn_genezis_g1() -> void:
 	var audio_manager = get_tree().root.get_node_or_null("AudioManager")
 	if audio_manager:
 		audio_manager.play_sfx("res://assets/audio/sfx/G1.mp3")
+
+func _apply_current_upgrades(genezis: CharacterBody3D) -> void:
+	var hud = get_tree().get_first_node_in_group("hud")
+	if hud and hud.has_node("UpgradeMenu"):
+		var menu = hud.get_node("UpgradeMenu")
+		# Speed
+		var speed_level = menu.upgrade_levels.get("speed", 0)
+		if speed_level > 0:
+			genezis.upgrade_speed(pow(1.2, speed_level))
+		# Extraction
+		var extraction_level = menu.upgrade_levels.get("extraction", 0)
+		if extraction_level > 0:
+			genezis.upgrade_extraction(pow(1.2, extraction_level))
+		# Capacity
+		var capacity_level = menu.upgrade_levels.get("capacity", 0)
+		if capacity_level > 0:
+			genezis.upgrade_capacity(pow(1.2, capacity_level))

@@ -15,6 +15,7 @@ extends Control
 var selected_genezis: CharacterBody3D = null
 
 func _ready() -> void:
+	add_to_group("hud")
 	# Connect to Core signals
 	var core = get_tree().get_first_node_in_group("core")
 	if core:
@@ -41,6 +42,9 @@ func _ready() -> void:
 	
 	# Connect to MissionManager
 	var mission_manager = get_tree().get_first_node_in_group("mission_manager")
+	if not mission_manager:
+		mission_manager = get_parent().get_node_or_null("MissionManager")
+		
 	if mission_manager:
 		if not mission_manager.mission_updated.is_connected(_on_mission_updated):
 			mission_manager.mission_updated.connect(_on_mission_updated)
@@ -51,13 +55,9 @@ func _ready() -> void:
 			mission_manager.current_mission_description, 
 			mission_manager.current_mission_progress
 		)
-		
-		# Link MissionManager to signals for tracking
-		if core:
-			core.data_changed.connect(mission_manager._on_data_changed)
-			core.evolution_changed.connect(mission_manager._on_evolution_changed)
-		if world_manager:
-			world_manager.genezis_g2_spawned.connect(mission_manager._on_genezis_g2_spawned)
+		print("HUD: Connected to MissionManager")
+	else:
+		printerr("HUD: MissionManager not found in group or at parent level")
 	
 	# Initial count
 	_update_genezis_count()
