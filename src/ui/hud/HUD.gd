@@ -257,7 +257,7 @@ func _on_delete_button_pressed() -> void:
 func _play_click_sfx() -> void:
 	var audio_manager = get_tree().root.get_node_or_null("AudioManager")
 	if audio_manager:
-		audio_manager.play_sfx("res://assets/audio/sfx/G1.mp3", -10.0)
+		audio_manager.play_sfx("res://assets/audio/sfx/selected.mp3", -10.0)
 
 func format_bytes(bytes: int) -> String:
 	if bytes < 1024:

@@ -180,7 +180,7 @@ Goal: Add immersive music and sound effects to the simulation.
 3. **Sound Effects (SFX)** (Plan: 7.3)
    - Implement SFX for:
      - Data collection/deposition.
-     - UI interactions (upgrades, menu clicks).
+     - UI interactions (upgrades, menu clicks, and all UI buttons using 'selected.mp3').
      - Combat (shots, dispersal, enemy arrival).
      - Evolution milestones.
    - Priority: Medium

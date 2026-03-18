@@ -64,6 +64,12 @@ func show_missions() -> void:
 	get_tree().paused = true
 
 func _on_close_button_pressed() -> void:
+	_play_click_sfx()
 	hide()
 	get_tree().paused = false
 	closed.emit()
+
+func _play_click_sfx() -> void:
+	var audio_manager = get_tree().root.get_node_or_null("AudioManager")
+	if audio_manager:
+		audio_manager.play_sfx("res://assets/audio/sfx/selected.mp3", -10.0)

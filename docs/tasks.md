@@ -219,7 +219,7 @@
 
 - [x] **7.3 Sound Effects (SFX)**
   - [x] Implement SFX for Data Deposition in `Core.gd` (Plan: 7.3) (Req: 12)
-  - [x] Implement SFX for UI Button clicks in `UpgradeMenu.gd` (Plan: 7.3) (Req: 12)
+  - [x] Implement SFX for UI Button clicks using `selected.mp3` for all UI buttons (Plan: 7.3) (Req: 12)
   - [x] Implement SFX for Evolution event (Plan: 7.3) (Req: 12)
   - [x] Implement SFX for Enemy arrival and dispersal (Plan: 7.3) (Req: 12)
   - [x] Implement SFX for G2 shooting (Plan: 7.3) (Req: 12)

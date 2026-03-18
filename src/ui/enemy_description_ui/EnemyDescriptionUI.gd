@@ -21,10 +21,16 @@ func show_enemy_description(enemy_type: String) -> void:
 		push_warning("Unknown enemy type: " + enemy_type)
 
 func _on_close_button_pressed() -> void:
+	_play_click_sfx()
 	print("EnemyDescriptionUI: Close button pressed.")
 	hide()
 	get_tree().paused = false
 	description_closed.emit()
+
+func _play_click_sfx() -> void:
+	var audio_manager = get_tree().root.get_node_or_null("AudioManager")
+	if audio_manager:
+		audio_manager.play_sfx("res://assets/audio/sfx/selected.mp3", -10.0)
 
 func _input(event: InputEvent) -> void:
 	# If we use _input, we intercept everything before the Button gets it.

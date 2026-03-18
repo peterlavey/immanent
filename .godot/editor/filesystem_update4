@@ -4,3 +4,8 @@ res://src/entities/genezis/genezis_g1/GenezisG1.gd
 res://src/core/mission_manager/MissionManager.gd
 res://src/ui/hud/HUD.gd
 res://src/entities/genezis/genezis_g0/GenezisG0.gd
+res://src/ui/enemy_description_ui/EnemyDescriptionUI.gd
+res://src/ui/genezis_stats_ui/GenezisStatsUI.gd
+res://src/ui/mission_list_ui/MissionListUI.gd
+res://src/ui/mission_presentation_ui/MissionPresentationUI.gd
+res://src/ui/upgrade_menu/UpgradeMenu.gd

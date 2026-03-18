@@ -82,8 +82,7 @@ func set_mode(mode: Mode) -> void:
 func _play_click_sfx() -> void:
 	var audio_manager = get_tree().root.get_node_or_null("AudioManager")
 	if audio_manager:
-		# Using G1.mp3 as a generic UI click for now as no specific UI sfx exists
-		audio_manager.play_sfx("res://assets/audio/sfx/G1.mp3", -10.0)
+		audio_manager.play_sfx("res://assets/audio/sfx/selected.mp3", -10.0)
 
 func _on_speed_button_pressed() -> void:
 	if upgrade_levels["speed"] >= get_max_level(): return

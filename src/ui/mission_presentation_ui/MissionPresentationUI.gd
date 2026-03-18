@@ -17,6 +17,12 @@ func present_mission(m_name: String, m_desc: String) -> void:
 	get_tree().paused = true
 
 func _on_start_button_pressed() -> void:
+	_play_click_sfx()
 	hide()
 	get_tree().paused = false
 	presentation_closed.emit()
+
+func _play_click_sfx() -> void:
+	var audio_manager = get_tree().root.get_node_or_null("AudioManager")
+	if audio_manager:
+		audio_manager.play_sfx("res://assets/audio/sfx/selected.mp3", -10.0)

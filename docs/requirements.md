@@ -109,6 +109,7 @@ Immanent is a 3D idle game set inside a digital simulation (processor). Players 
         - Upgrades being purchased (digital "ding").
         - Evolution events (sweeping drone).
         - Enemy arrival and dispersal (glitchy impacts).
+        - UI interactions (all buttons SHALL play 'selected.mp3').
       - THE volume of music and SFX SHALL be independently adjustable (via future settings).
 
 ## Visual Identity (Digital Biome)

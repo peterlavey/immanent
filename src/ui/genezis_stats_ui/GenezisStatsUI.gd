@@ -42,4 +42,10 @@ func format_bytes(bytes: int) -> String:
 		return "%.1f MB" % (bytes / 1048576.0)
 
 func _on_close_button_pressed() -> void:
+	_play_click_sfx()
 	hide()
+
+func _play_click_sfx() -> void:
+	var audio_manager = get_tree().root.get_node_or_null("AudioManager")
+	if audio_manager:
+		audio_manager.play_sfx("res://assets/audio/sfx/selected.mp3", -10.0)
