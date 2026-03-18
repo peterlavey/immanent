@@ -284,3 +284,4 @@
   - [x] Implement inactivity timer in Genezis G1 to help G0 units identify stuck miners (Plan: 12.1)
   - [x] Update G0 search logic to include G1s with high inactivity (Plan: 12.1)
   - [x] Implement teleportation of inactive G1s to the Core by G0 units (Plan: 12.1)
+  - [x] Change the color of Genezis G0 units to gold/yellow to distinguish them from green Data Spots. (Req: 19)
