@@ -92,6 +92,9 @@
   - [ ] Implement the final win condition logic (Plan: 4.2) (Req: 9)
   - [ ] Final win screen/cutscene (Plan: 4.2) (Req: 9)
 
+- [x] **4.4 Idle Feedback**
+  - [x] Implement "sleep" visual feedback (text with "z"s) for Genezis G1 units when inactive for a few seconds.
+
 - [x] **4.3 Genezi G2 & Fusion**
   - [x] Implement Genezi G2 entity with protective AI (Plan: 4.3) (Req: 10)
   - [x] Implement fusion logic (4 G1 -> 1 G2) in WorldManager (Plan: 4.3) (Req: 10)

@@ -30,6 +30,11 @@ var _stuck_threshold: float = 8.0 # Seconds before declaring stuck
 var _position_threshold: float = 0.1 # Minimum movement in 1 second
 var _stuck_reset_count: int = 0
 var inactivity_timer: float = 0.0 # Time since last data extraction/deposit
+var _sleep_timer: float = 0.0
+const SLEEP_THRESHOLD: float = 5.0
+const Z_SPAWN_INTERVAL: float = 2.0
+
+@export var floating_text_scene: PackedScene = preload("res://src/ui/floating_text/FloatingText.tscn")
 
 func _ready() -> void:
 	add_to_group("genezis_g1")
@@ -46,6 +51,13 @@ func upgrade_extraction(multiplier: float) -> void:
 
 func upgrade_capacity(multiplier: float) -> void:
 	carry_capacity = int(carry_capacity * multiplier)
+
+func upgrade_psinergy(level: int) -> void:
+	# Base values for Psinergy
+	# Level 1: Range 10.0, Boost 1.25x
+	# Each level increases range and boost
+	connection_range = 10.0 + (level - 1) * 5.0
+	connection_boost = 1.0 + level * 0.25
 
 func force_search_data() -> void:
 	if current_state == State.IDLE:
@@ -80,10 +92,22 @@ func _physics_process(delta: float) -> void:
 			_stuck_timer = 0.0
 			target_data_spot = null
 			_stuck_reset_count += 1
+	if current_state == State.IDLE:
+		_stuck_timer = 0.0
+		_last_position = global_position
+		_last_load = current_load
+		
+		# Sleep logic
+		if inactivity_timer >= SLEEP_THRESHOLD:
+			_sleep_timer += delta
+			if _sleep_timer >= Z_SPAWN_INTERVAL:
+				_sleep_timer = 0.0
+				_spawn_sleep_text()
 	else:
 		_stuck_timer = 0.0
 		_last_position = global_position
 		_last_load = current_load
+		_sleep_timer = 0.0
 
 	if current_state == State.EXTRACTING:
 		if is_instance_valid(target_data_spot):
@@ -346,6 +370,25 @@ func _update_psinergy_visual(target_pos: Vector3) -> void:
 	var pulse = 1.0 + sin(Time.get_ticks_msec() * 0.01) * 0.15
 	psinergy_beam.scale.x = pulse
 	psinergy_beam.scale.z = pulse
+
+func _spawn_sleep_text() -> void:
+	if floating_text_scene:
+		var text_instance = floating_text_scene.instantiate()
+		get_parent().add_child(text_instance)
+		
+		# Spawn above the head
+		var spawn_pos = head.global_position + Vector3(0, 0.5, 0)
+		text_instance.global_position = spawn_pos
+		
+		# Set text to a random number of 'z's
+		var z_count = randi_range(2, 5)
+		var z_text = ""
+		for i in range(z_count):
+			z_text += "z"
+		
+		text_instance.text = z_text
+		text_instance.modulate = Color(0.6, 0.8, 1.0) # Light blueish sleep color
+		text_instance.scale = Vector3(0.5, 0.5, 0.5) # Smaller than data text
 
 func reset_load() -> void:
 	current_load = 0
