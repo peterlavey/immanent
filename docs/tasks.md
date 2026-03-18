@@ -301,4 +301,9 @@
   - [x] Implement inactivity timer in Genezis G1 to help G0 units identify stuck miners (Plan: 12.1)
   - [x] Update G0 search logic to include G1s with high inactivity (Plan: 12.1)
   - [x] Implement teleportation of inactive G1s to the Core by G0 units (Plan: 12.1)
-  - [x] Change the color of Genezis G0 units to gold/yellow to distinguish them from green Data Spots. (Req: 19)
+  - [x] **12.3 Genezis G0 Orbit**
+  - [x] Implement orbit logic around the Core when no G1s need unblocking (Plan: 12.3) (Req: 19)
+  - [x] Randomize orbit planes and slow down rotation for an "atom/electron" appearance (Plan: 12.3) (Req: 19)
+  - [x] Fix G0 orbital jitter ("low FPS" look) by using direct position updates and tangent-based rotation (Plan: 12.3)
+  - [x] Reduce G0 orbit radius to 3.5 to make them orbit closer to the Core without colliding (Plan: 12.3)
+  - [x] Fix G0 orbit centering to avoid off-center passing (Plan: 12.3)
