@@ -236,6 +236,9 @@
   - [x] Trigger presentation for the first mission on game start (Plan: 8.4) (Req: 15)
   - [x] Trigger presentation automatically when a new mission is unlocked (Plan: 8.4) (Req: 15)
   - [x] Ensure the game pauses during mission presentation (Plan: 8.4) (Req: 15)
+  - [x] Use `victory.mp3` every time that we show the mission presentation (Plan: 8.4) (Req: 15)
+  - [x] Fix SFX playback when the game is paused in `AudioManager.gd` (Plan: 8.4) (Req: 15)
+  - [x] Adjust victory SFX volume to be louder (Plan: 8.4) (Req: 15)
 
 ## Phase 10: Persistence & Optimization
 

@@ -47,6 +47,7 @@ func play_sfx(sfx_path: String, volume_db: float = 0.0) -> void:
 		var stream = load(sfx_path)
 		if stream is AudioStream:
 			var sfx_player = AudioStreamPlayer.new()
+			sfx_player.process_mode = Node.PROCESS_MODE_ALWAYS
 			add_child(sfx_player)
 			sfx_player.stream = stream
 			sfx_player.volume_db = volume_db

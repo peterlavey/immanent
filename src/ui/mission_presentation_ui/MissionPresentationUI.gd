@@ -14,6 +14,7 @@ func present_mission(m_name: String, m_desc: String) -> void:
 	name_label.text = m_name
 	description_label.text = m_desc
 	show()
+	_play_victory_sfx()
 	get_tree().paused = true
 
 func _on_start_button_pressed() -> void:
@@ -26,3 +27,8 @@ func _play_click_sfx() -> void:
 	var audio_manager = get_tree().root.get_node_or_null("AudioManager")
 	if audio_manager:
 		audio_manager.play_sfx("res://assets/audio/sfx/selected.mp3", -10.0)
+
+func _play_victory_sfx() -> void:
+	var audio_manager = get_tree().root.get_node_or_null("AudioManager")
+	if audio_manager:
+		audio_manager.play_sfx("res://assets/audio/sfx/victory.mp3", 0.0)

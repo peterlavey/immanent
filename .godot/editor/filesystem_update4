@@ -9,3 +9,4 @@ res://src/ui/genezis_stats_ui/GenezisStatsUI.gd
 res://src/ui/mission_list_ui/MissionListUI.gd
 res://src/ui/mission_presentation_ui/MissionPresentationUI.gd
 res://src/ui/upgrade_menu/UpgradeMenu.gd
+res://src/core/audio_manager/AudioManager.gd
