@@ -106,6 +106,8 @@
   - [x] Spawn enemies when the first Genezis G2 is created for testing. (Plan: 4.3) (Req: 10, 11)
   - [x] Trigger Bit-Scrubber spawn on the first Genezis G2 generation.
   - [x] Trigger Defragmenter spawn on the second Genezis G2 generation.
+  - [x] Relocate G1 statistics UI to top-left to avoid collision with mission description.
+  - [x] Adjust G1 statistics UI position further down (Y=250) to avoid overlap with world description (Iteration/Data HUD).
 
 ## Phase 6: Visual Identity & Modeling
 
