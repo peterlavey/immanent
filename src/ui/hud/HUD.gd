@@ -11,6 +11,9 @@ extends Control
 @onready var mission_name_label = $MarginContainer/MissionContainer/MissionName
 @onready var mission_description_label = $MarginContainer/MissionContainer/MissionDescription
 @onready var mission_progress_label = $MarginContainer/MissionContainer/MissionProgress
+@onready var mission_list_button = $MarginContainer/MissionContainer/MissionListButton
+@onready var mission_list_ui = $MissionListUI
+@onready var mission_presentation_ui = $MissionPresentationUI
 
 @onready var save_button = $MarginContainer/SaveLoadContainer/SaveButton
 @onready var load_button = $MarginContainer/SaveLoadContainer/LoadButton
@@ -53,6 +56,9 @@ func _ready() -> void:
 		if not mission_manager.mission_updated.is_connected(_on_mission_updated):
 			mission_manager.mission_updated.connect(_on_mission_updated)
 		
+		if not mission_manager.mission_presented.is_connected(_on_mission_presented):
+			mission_manager.mission_presented.connect(_on_mission_presented)
+		
 		# Initialize mission display with the latest data from the manager
 		_on_mission_updated(
 			mission_manager.current_mission_name, 
@@ -73,6 +79,9 @@ func _ready() -> void:
 	if delete_button:
 		delete_button.pressed.connect(_on_delete_button_pressed)
 		delete_button.disabled = not FileAccess.file_exists("user://savegame.json")
+	
+	if mission_list_button:
+		mission_list_button.pressed.connect(_on_mission_list_button_pressed)
 	
 	# Initial count
 	_update_genezis_count()
@@ -195,6 +204,29 @@ func _on_mission_updated(m_name: String, m_desc: String, m_prog: String) -> void
 	mission_name_label.text = m_name
 	mission_description_label.text = m_desc
 	mission_progress_label.text = m_prog
+
+func _on_mission_presented(m_name: String, m_desc: String) -> void:
+	# Hide all other menus to avoid overlapping
+	if upgrade_menu:
+		upgrade_menu.hide()
+	if genezis_stats_ui:
+		genezis_stats_ui.hide()
+	if mission_list_ui:
+		mission_list_ui.hide()
+	
+	if mission_presentation_ui:
+		mission_presentation_ui.present_mission(m_name, m_desc)
+
+func _on_mission_list_button_pressed() -> void:
+	# Hide all other menus to avoid overlapping and blocking input
+	if upgrade_menu:
+		upgrade_menu.hide()
+	if genezis_stats_ui:
+		genezis_stats_ui.hide()
+	
+	if mission_list_ui:
+		mission_list_ui.show_missions()
+		_play_click_sfx()
 
 func _on_save_button_pressed() -> void:
 	if has_node("/root/SaveManager"):

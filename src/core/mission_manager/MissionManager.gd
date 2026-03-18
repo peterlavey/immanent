@@ -2,6 +2,7 @@ extends Node
 
 signal mission_updated(mission_name: String, mission_description: String, mission_progress: String)
 signal mission_completed(mission_name: String)
+signal mission_presented(mission_name: String, mission_description: String)
 
 enum MissionID {
 	EVOLVE_CORE,
@@ -14,6 +15,27 @@ var current_mission_id = MissionID.EVOLVE_CORE
 var current_mission_name = "Core Optimization"
 var current_mission_description = "Optimize the Processor Core to Level 2. Completion grants a 500-byte data packet."
 var current_mission_progress = "Initializing..."
+
+var completed_mission_ids = []
+
+var missions_data = {
+	MissionID.EVOLVE_CORE: {
+		"name": "Core Optimization",
+		"description": "Optimize the Processor Core to Level 2. Completion grants a 500-byte data packet."
+	},
+	MissionID.CREATE_G2: {
+		"name": "Security Protocol",
+		"description": "Fuse G1 units into 2 G2 Guardians to establish a defense perimeter."
+	},
+	MissionID.COLLECT_DATA: {
+		"name": "Data Harvest",
+		"description": "Accumulate a total of 1 MB of data to stabilize the digital biome."
+	},
+	MissionID.G0_MOBILIZATION: {
+		"name": "The Mobilizers",
+		"description": "Unblock the Genezis G0 Mobilizer by reaching 1.5 MB of data. G0 will find and wake up idle G1 units."
+	}
+}
 
 func _enter_tree() -> void:
 	add_to_group("mission_manager")
@@ -54,6 +76,7 @@ func _start_mission(mission_id: MissionID) -> void:
 			_update_progress_g0(0)
 	
 	mission_updated.emit(current_mission_name, current_mission_description, current_mission_progress)
+	mission_presented.emit(current_mission_name, current_mission_description)
 
 func _update_progress_evolution() -> void:
 	var core = get_tree().get_first_node_in_group("core")
@@ -99,6 +122,9 @@ func _complete_current_mission() -> void:
 	var completed_mission_id = current_mission_id
 	var completed_mission_name = current_mission_name
 	
+	if not completed_mission_ids.has(completed_mission_id):
+		completed_mission_ids.append(completed_mission_id)
+	
 	# Transition to next mission FIRST to prevent recursion
 	match completed_mission_id:
 		MissionID.EVOLVE_CORE:
@@ -114,6 +140,7 @@ func _complete_current_mission() -> void:
 			current_mission_description = "Wait for more updates."
 			current_mission_progress = ""
 			mission_updated.emit(current_mission_name, current_mission_description, current_mission_progress)
+			mission_presented.emit(current_mission_name, current_mission_description)
 
 	mission_completed.emit(completed_mission_name)
 	print("Mission Completed: ", completed_mission_name)
@@ -163,3 +190,37 @@ func format_bytes(bytes: int) -> String:
 		return "%.1f KB" % (bytes / 1024.0)
 	else:
 		return "%.1f MB" % (bytes / 1048576.0)
+
+func get_all_missions_status() -> Array:
+	var result = []
+	var ids = [MissionID.EVOLVE_CORE, MissionID.CREATE_G2, MissionID.COLLECT_DATA, MissionID.G0_MOBILIZATION]
+	
+	for id in ids:
+		var status = "locked"
+		if id == current_mission_id:
+			status = "current"
+		elif completed_mission_ids.has(id):
+			status = "completed"
+		elif _is_mission_unlocked(id):
+			status = "available" # Should not happen with current linear progression
+			
+		result.append({
+			"id": id,
+			"name": missions_data[id]["name"],
+			"description": missions_data[id]["description"],
+			"status": status,
+			"progress": current_mission_progress if id == current_mission_id else ""
+		})
+	return result
+
+func _is_mission_unlocked(id: MissionID) -> bool:
+	match id:
+		MissionID.EVOLVE_CORE:
+			return true
+		MissionID.CREATE_G2:
+			return completed_mission_ids.has(MissionID.EVOLVE_CORE)
+		MissionID.COLLECT_DATA:
+			return completed_mission_ids.has(MissionID.CREATE_G2)
+		MissionID.G0_MOBILIZATION:
+			return completed_mission_ids.has(MissionID.COLLECT_DATA)
+	return false

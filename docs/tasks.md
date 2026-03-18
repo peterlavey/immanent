@@ -225,6 +225,18 @@
   - [x] Implement SFX for G2 shooting (Plan: 7.3) (Req: 12)
   - [x] Implement SFX for Genezis G1 and G2 generation (Plan: 7.3) (Req: 12)
 
+- [x] **8.3 Mission List**
+  - [x] Implement `MissionListUI` to show all current and completed missions (Plan: 8.3) (Req: 15)
+  - [x] Add "Missions" button to HUD to open the mission list (Plan: 8.3) (Req: 15)
+  - [x] Ensure the game pauses when the mission list is open (Plan: 8.3) (Req: 15)
+  - [x] Mark completed missions in the list (Plan: 8.3) (Req: 15)
+
+- [x] **8.4 Mission Presentation**
+  - [x] Implement `MissionPresentationUI` for dramatic new mission reveal (Plan: 8.4) (Req: 15)
+  - [x] Trigger presentation for the first mission on game start (Plan: 8.4) (Req: 15)
+  - [x] Trigger presentation automatically when a new mission is unlocked (Plan: 8.4) (Req: 15)
+  - [x] Ensure the game pauses during mission presentation (Plan: 8.4) (Req: 15)
+
 ## Phase 10: Persistence & Optimization
 
 - [x] **10.1 Save & Load System**

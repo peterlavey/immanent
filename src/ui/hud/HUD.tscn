@@ -4,6 +4,8 @@
 [ext_resource type="PackedScene" path="res://src/ui/upgrade_menu/UpgradeMenu.tscn" id="2_scene"]
 [ext_resource type="PackedScene" path="res://src/ui/genezis_stats_ui/GenezisStatsUI.tscn" id="3_scene"]
 [ext_resource type="PackedScene" path="res://src/ui/enemy_description_ui/EnemyDescriptionUI.tscn" id="4_scene"]
+[ext_resource type="PackedScene" path="res://src/ui/mission_list_ui/MissionListUI.tscn" id="5_scene"]
+[ext_resource type="PackedScene" path="res://src/ui/mission_presentation_ui/MissionPresentationUI.tscn" id="6_scene"]
 
 [node name="HUD" type="Control"]
 layout_mode = 3
@@ -103,6 +105,11 @@ theme_override_colors/font_color = Color(1, 1, 0, 1)
 text = "Progress: 0/1"
 horizontal_alignment = 2
 
+[node name="MissionListButton" type="Button" parent="MarginContainer/MissionContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+text = "View All Missions"
+
 [node name="UpgradeMenu" parent="." instance=ExtResource("2_scene")]
 visible = false
 layout_mode = 1
@@ -112,5 +119,13 @@ visible = false
 layout_mode = 1
 
 [node name="EnemyDescriptionUI" parent="." instance=ExtResource("4_scene")]
+visible = false
+layout_mode = 1
+
+[node name="MissionListUI" parent="." instance=ExtResource("5_scene")]
+visible = false
+layout_mode = 1
+
+[node name="MissionPresentationUI" parent="." instance=ExtResource("6_scene")]
 visible = false
 layout_mode = 1
