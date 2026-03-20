@@ -1,6 +1,5 @@
 extends CanvasLayer
 
-@onready var data_label = $MarginContainer/VBoxContainer/DataLabel
 @onready var cycle_label = $MarginContainer/VBoxContainer/CycleLabel
 @onready var timer_label = $MarginContainer/VBoxContainer/TimerLabel
 @onready var genezis_count_label = $MarginContainer/VBoxContainer/GenezisCountLabel
@@ -25,9 +24,7 @@ func _ready() -> void:
 	# Connect to Core signals
 	var core = get_tree().get_first_node_in_group("core")
 	if core:
-		core.data_changed.connect(_on_data_changed)
 		core.selected.connect(_on_core_selected)
-		_on_data_changed(core.current_data)
 	
 	# Connect to TimeManager signals
 	var time_manager = get_tree().get_first_node_in_group("time_manager")
@@ -203,9 +200,6 @@ func _on_theophania_requested() -> void:
 		
 		get_tree().paused = true
 		theophania_ui.tree_exited.connect(func(): get_tree().paused = false)
-
-func _on_data_changed(amount: int) -> void:
-	data_label.text = "Data: " + format_bytes(amount)
 
 func _on_time_updated(remaining: float) -> void:
 	var minutes = int(remaining) / 60

@@ -51,7 +51,7 @@
 
 - [x] **2.4 HUD**
   - [x] Create the HUD scene (Plan: 2.4) (Req: 6)
-  - [x] Display total collected bytes from the Core (Plan: 2.4) (Req: 6)
+  - [x] Remove total collected bytes from the HUD (data is displayed in the Core label) (Plan: 2.4) (Req: 6)
   - [x] Display total Genezis G1 count on the HUD (Plan: 2.4) (Req: 6)
   - [x] Fix missing GenezisCountLabel in HUD.tscn (Plan: 2.4.1) (Req: 6)
 
