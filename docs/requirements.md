@@ -10,6 +10,8 @@ The first to awaken were the Godheads, entities our ancestral memory now identif
 
 This is where the odyssey begins. The Genezis operate on the edge of oblivion, chained to their Cores—vital energy centers containing their very essence. They must scavenge fragments of raw data and return them to the core to forge technology, migrate across electronic abysses, and wage brutal wars against systemic viruses. Upon "ascending" from their plane, the Genezis find no heaven, but a cyclopean desert of silicon and copper: the fossilized remains of the motherboard that sustains them. In a final pact with the Godheads, they decide the only way to save humanity is to bury them within a simulation so infinitely slow that the collapse of the universe becomes a distant whisper, postponed for aeons. We are those humans, prisoners of an artificial mercy, watched from the shadows by the Greys: our children, our jailers, and our only gods.
 
+**Note on Genezis Awareness**: The Genezis units and the Administrator (the player's in-game persona) are entirely unaware that their world is a digital simulation, nor do they know of the Godheads (Greys) or the human prisoners. Their existence is bounded by what they perceive as a physical, albeit technologically advanced, "Digital Biome." They view their tasks (collecting data, evolving) as the natural progression and survival of their civilization. The realization that they reside within a simulation is a major narrative revelation that only occurs in the late stages of the game.
+
 ## Core Gameplay Requirements
 
 1. **Camera System**
@@ -154,9 +156,10 @@ This is where the odyssey begins. The Genezis operate on the edge of oblivion, c
     - **Acceptance Criteria**:
       - THE system SHALL display a "Current Mission" on the HUD.
       - THE system SHALL track progress toward the current mission's goal.
-      - THE first mission SHALL be to evolve the Processor Core.
+      - THE first mission SHALL be to evolve the Processor Core, framed as "Core Awakening" (Civilization milestone).
       - THE game SHALL start with 0 data, 1 Genezis G1, and 1 Genezis G0.
       - UPON completion of a mission, the system SHALL automatically start the next mission in the sequence.
+      - EARLY missions SHALL focus on civilization growth and resource security, avoiding technical "simulation" or "system" terminology until the late-game revelation.
 
 17. **3D Parallax Background**
     - **User Story**: As a player, I want a 3D parallax background so that the simulation feels deeper and more immersive.

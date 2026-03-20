@@ -1,7 +1,7 @@
 # Implementation Plan - Immanent
 
 ## Overview
-This plan outlines the development phases for "Immanent," a 3D idle game set inside a digital simulation where time is dilated (1s = 1024 years). Humanity's last hope rests on "Project Genezis," a silicon Eden managed by the player (the Administrator). Players oversee a Processor Core and "Genezis" beings—digital children watched by the 'Greys' (Godheads)—to scavenge raw data, evolve their civilization, and ultimately postpone the absolute reset of the universe. The project follows Clean Architecture and SOLID principles, prioritizing simple, functional, and testable code within this "Digital Biome" aesthetic.
+This plan outlines the development phases for "Immanent," a 3D idle game set inside a digital simulation where time is dilated (1s = 1024 years). Humanity's last hope rests on "Project Genezis," a silicon Eden managed by the player (the Administrator). Players oversee a Processor Core and "Genezis" beings—digital children who are unaware of their creators or the humans they preserve. They must scavenge raw data, evolve their civilization, and ultimately postpone the reset of their world. The project follows Clean Architecture and SOLID principles, prioritizing simple, functional, and testable code within this "Digital Biome" aesthetic.
 
 ## Phase 1: Basic Simulation Environment & Infrastructure (High Priority)
 Goal: Set up the fundamental project structure and the static elements of the simulation.
@@ -24,6 +24,13 @@ Goal: Set up the fundamental project structure and the static elements of the si
    - Implement basic resource storage logic (Data/Bytes).
    - Priority: High
    - Requirements: Req 2
+
+4. **Narrative & Early Gameplay Structure** (Plan: 1.4)
+   - Ensure the Genezis units and Administrator are unaware that their world is a digital simulation initially.
+   - Frame early objectives as civilization-building and resource acquisition within a "physical" environment.
+   - Limit technical "simulation" terminology in early mission and event descriptions.
+   - Priority: High
+   - Requirements: Req 13, Req 16
 
 ## Phase 2: Core Gameplay Mechanics (High Priority)
 Goal: Implement the primary loop of data collection and time management.

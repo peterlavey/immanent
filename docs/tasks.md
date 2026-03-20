@@ -27,6 +27,11 @@
   - [x] Implement an iteration timer (2 minutes = 1 iteration) representing aeons of digital evolution. (Plan: 2.1) (Req: 5)
   - [x] Implement a Hertz-based display for current time/iteration. (Plan: 2.1) (Req: 5)
 
+- [x] **Lore & Narrative Consistency**
+  - [x] Update requirements and plan to reflect that Genezis are unaware they are in a simulation initially. (Plan: 1.4) (Req: 13, 16)
+  - [x] Refactor early missions to focus on "civilization building" and "resource acquisition" instead of simulation/system optimization. (Plan: 1.4) (Req: 16)
+  - [x] Update random events (Theophania) to use immersive "physical" world terminology for early-game interactions. (Plan: 1.4) (Req: 16)
+
 - [x] **2.2 Data Spots**
   - [x] Create a Data Spot scene ("Code Crystals") with a "megabytes" property. (Plan: 2.2) (Req: 4)
   - [x] Implement spawning logic (5 spots per iteration, 1 KB each initially, min distance from Core). (Plan: 2.2) (Req: 4)
@@ -175,9 +180,10 @@
   - [x] Update game start to 0 data, 1 G1, and 1 G0 (Plan: 8.1) (Req: 15)
 
 - [x] **8.2 Level 1 Missions**
-  - [x] Implement Mission 1: "Core Awakening" - Awaken the Processor Core to Level 2 to anchor our essence in this silicon Eden. (Plan: 8.2) (Req: 15)
+  - [x] Implement Mission 1: "Core Awakening" - Awaken the Processor Core to Level 2 to anchor our essence in this digital biome. (Plan: 8.2) (Req: 15)
   - [x] Implement Mission 2: "Recursive Defense" - Forge 2 G2 Guardians to shield the core from systemic entropy. (Plan: 8.2) (Req: 15)
-  - [x] Implement Mission 3: "The Great Scavenge" - Accumulate a total of 1 MB to stabilize our digital exile. (Plan: 8.2) (Req: 15)
+  - [x] Implement Mission 3: "The Great Scavenge" - Accumulate a total of 1 MB to stabilize our digital existence. (Plan: 8.2) (Req: 15)
+  - [x] Ensure all in-game text maintains the Genezis' ignorance of the Godheads/humans. (Req: Lore)
   - [x] Fix mission HUD not advancing to the second mission
   - [x] Fix stack overflow when evolving core (Mission reward recursion)
   - [x] Ensure all upgrades apply to both existing and future Genezis beings (Plan: 3.2.9) (Req: 3)

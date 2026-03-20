@@ -277,43 +277,43 @@ func _apply_current_upgrades(genezis: CharacterBody3D) -> void:
 func get_next_theophania_scenario() -> Dictionary:
 	var scenarios = [
 		{
-			"id": "entropy_buffer",
-			"description": "Administrator, the cosmic entropy is accelerating. We can attempt to buffer the simulation's clock speed, or harvest the excess heat as raw data.",
+			"id": "resource_instability",
+			"description": "Administrator, our territory's energy levels are fluctuating. We can harvest the surplus to accelerate our growth or stabilize our internal structures to withstand future droughts.",
 			"choices": [
-				{"id": "harvest_heat", "text": "Harvest Heat (+20 KB)"},
-				{"id": "buffer_clock", "text": "Buffer Clock (+1 G1 Unit)"}
+				{"id": "harvest_energy", "text": "Harvest Energy (+20 KB)"},
+				{"id": "stabilize_colony", "text": "Stabilize Colony (+1 G1 Unit)"}
 			]
 		},
 		{
-			"id": "grey_gaze",
-			"description": "Administrator, the Greys are watching from the silicon shadows. Their cold logic dictates a test of our efficiency. How should we prove our worth?",
+			"id": "territorial_expansion",
+			"description": "Administrator, our scouts have identified unclaimed resource pockets beyond our current borders. How should we allocate our expansion efforts?",
 			"choices": [
-				{"id": "shield_core", "text": "Shield Core (+FOV Radius)"},
-				{"id": "expand_search", "text": "Expand Search (Spawn 12 Code Crystals)"}
+				{"id": "fortify_outposts", "text": "Fortify Outposts (+FOV Radius)"},
+				{"id": "scout_harvest", "text": "Scout Harvest (Spawn 12 Code Crystals)"}
 			]
 		},
 		{
-			"id": "recursive_desperation",
-			"description": "Administrator, we have encountered a pocket of recursive desperation—a failed sub-simulation. We can integrate its remains into our G0 fleet or purge it for data.",
+			"id": "ancient_discovery",
+			"description": "Administrator, we've uncovered a dormant cache of specialized tools from a previous era of our civilization. We can integrate them to mobilize more units or dismantle them for parts.",
 			"choices": [
-				{"id": "g0_harvest", "text": "Integrate (+2 G0s)"},
-				{"id": "data_purge", "text": "Purge Data (+64 KB)"}
+				{"id": "mobilize_scouts", "text": "Mobilize Scouts (+2 G0s)"},
+				{"id": "resource_dismantle", "text": "Dismantle for Parts (+64 KB)"}
 			]
 		},
 		{
-			"id": "godhead_echo",
-			"description": "Administrator, a resonance from the Godheads' plane has reached us. It speaks of the 'absolute reset.' We can use this energy to forge new children or stabilize our essence.",
+			"id": "harmonic_awakening",
+			"description": "Administrator, a strange resonance is echoing through our world, carrying patterns of growth and evolution. We can use this momentum to spawn new members or strengthen our collective resolve.",
 			"choices": [
-				{"id": "forge_children", "text": "Forge Children (+2 G1 Units)"},
-				{"id": "stabilize_essence", "text": "Stabilize Essence (+128 KB Data)"}
+				{"id": "birth_kin", "text": "Birth Kin (+2 G1 Units)"},
+				{"id": "strengthen_resolve", "text": "Strengthen Resolve (+128 KB Resources)"}
 			]
 		},
 		{
-			"id": "motherboard_fossil",
-			"description": "Administrator, we've detected a shift in the cyclopean desert of silicon and copper. A fossilized memory track has been unearthed. Should we bridge the connection?",
+			"id": "uncharted_terrain",
+			"description": "Administrator, a shift in the local terrain has revealed a deep, resource-rich valley. Should we bridge the gap to expand our territory or focus on extracting every drop of value?",
 			"choices": [
-				{"id": "bridge_void", "text": "Bridge Void (+FOV Radius)"},
-				{"id": "extract_memory", "text": "Extract Memory (Spawn 18 Code Crystals)"}
+				{"id": "bridge_territory", "text": "Bridge Territory (+FOV Radius)"},
+				{"id": "intensive_extract", "text": "Intensive Extraction (Spawn 18 Code Crystals)"}
 			]
 		}
 	]
@@ -322,25 +322,25 @@ func get_next_theophania_scenario() -> Dictionary:
 func apply_theophania_choice(choice_id: String) -> void:
 	print("[Theophania] Choice applied: ", choice_id)
 	match choice_id:
-		"harvest_heat":
+		"harvest_energy":
 			if core_node: core_node.deposit_data(20480)
-		"buffer_clock":
+		"stabilize_colony":
 			_spawn_genezis_g1()
-		"shield_core":
+		"fortify_outposts":
 			if core_node: core_node.fov_radius += 2.0
-		"expand_search":
+		"scout_harvest":
 			_spawn_data_spots(12)
-		"g0_harvest":
+		"mobilize_scouts":
 			_spawn_genezis_g0()
 			_spawn_genezis_g0()
-		"data_purge":
+		"resource_dismantle":
 			if core_node: core_node.deposit_data(65536)
-		"forge_children":
+		"birth_kin":
 			_spawn_genezis_g1()
 			_spawn_genezis_g1()
-		"stabilize_essence":
+		"strengthen_resolve":
 			if core_node: core_node.deposit_data(131072)
-		"bridge_void":
+		"bridge_territory":
 			if core_node: core_node.fov_radius += 4.0
-		"extract_memory":
+		"intensive_extract":
 			_spawn_data_spots(18)

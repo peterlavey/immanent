@@ -13,7 +13,7 @@ enum MissionID {
 
 var current_mission_id = MissionID.EVOLVE_CORE
 var current_mission_name = "Core Awakening"
-var current_mission_description = "Awaken the Processor Core to Level 2 to anchor our essence in this silicon Eden."
+var current_mission_description = "Awaken the Processor Core to Level 2 to establish a permanent anchor for our growing colony."
 var current_mission_progress = "Initializing..."
 
 var completed_mission_ids = []
@@ -21,19 +21,19 @@ var completed_mission_ids = []
 var missions_data = {
 	MissionID.EVOLVE_CORE: {
 		"name": "Core Awakening",
-		"description": "Awaken the Processor Core to Level 2 to anchor our essence in this silicon Eden. Grants a 500-byte data fragment."
+		"description": "Awaken the Processor Core to Level 2 to establish a permanent anchor for our growing colony. Grants a 500-unit resource fragment."
 	},
 	MissionID.CREATE_G2: {
-		"name": "Recursive Defense",
-		"description": "The Godheads' logic demands protection. Forge 2 G2 Guardians to shield the core from systemic entropy."
+		"name": "Territorial Guardians",
+		"description": "Our expansion requires protection. Forge 2 G2 Guardians to shield the core from hostile entities."
 	},
 	MissionID.COLLECT_DATA: {
-		"name": "The Great Scavenge",
-		"description": "Gather 1 MB of raw data to postpone the absolute reset and stabilize our digital exile."
+		"name": "The Great Harvest",
+		"description": "Gather 1 MB of raw resources to fuel our growth and stabilize our domain."
 	},
 	MissionID.G0_MOBILIZATION: {
-		"name": "Aeon Mobilization",
-		"description": "Unblock the Genezis G0 Mobilizers by reaching 1.5 MB of data. They will find and wake our digital children across the electronic abyss."
+		"name": "Colony Mobilization",
+		"description": "Unblock the Genezis G0 Mobilizers by reaching 1.5 MB of resources. They will find and wake our sleeping brothers across the electronic void."
 	}
 }
 
@@ -60,19 +60,19 @@ func _start_mission(mission_id: MissionID) -> void:
 	match mission_id:
 		MissionID.EVOLVE_CORE:
 			current_mission_name = "Core Awakening"
-			current_mission_description = "Awaken the Processor Core to Level 2 to anchor our essence in this silicon Eden. Grants a 500-byte data fragment."
+			current_mission_description = "Awaken the Processor Core to Level 2 to establish a permanent anchor for our growing colony. Grants a 500-unit resource fragment."
 			_update_progress_evolution()
 		MissionID.CREATE_G2:
-			current_mission_name = "Recursive Defense"
-			current_mission_description = "The Godheads' logic demands protection. Forge 2 G2 Guardians to shield the core from systemic entropy."
+			current_mission_name = "Territorial Guardians"
+			current_mission_description = "Our expansion requires protection. Forge 2 G2 Guardians to shield the core from hostile entities."
 			_update_progress_g2()
 		MissionID.COLLECT_DATA:
-			current_mission_name = "The Great Scavenge"
-			current_mission_description = "Gather 1 MB of raw data to postpone the absolute reset and stabilize our digital exile."
+			current_mission_name = "The Great Harvest"
+			current_mission_description = "Gather 1 MB of raw resources to fuel our growth and stabilize our domain."
 			_update_progress_data(0)
 		MissionID.G0_MOBILIZATION:
-			current_mission_name = "Aeon Mobilization"
-			current_mission_description = "Unblock the Genezis G0 Mobilizers by reaching 1.5 MB of data. They will find and wake our digital children across the electronic abyss."
+			current_mission_name = "Colony Mobilization"
+			current_mission_description = "Unblock the Genezis G0 Mobilizers by reaching 1.5 MB of resources. They will find and wake our sleeping brothers across the electronic void."
 			_update_progress_g0(0)
 	
 	mission_updated.emit(current_mission_name, current_mission_description, current_mission_progress)
@@ -104,7 +104,7 @@ func _update_progress_g2() -> void:
 
 func _update_progress_data(current: int) -> void:
 	var target = 1048576 # 1 MB
-	current_mission_progress = "Data: %s / %s" % [format_bytes(current), format_bytes(target)]
+	current_mission_progress = "Resources: %s / %s" % [format_bytes(current), format_bytes(target)]
 	mission_updated.emit(current_mission_name, current_mission_description, current_mission_progress)
 	
 	if current >= target:
@@ -112,7 +112,7 @@ func _update_progress_data(current: int) -> void:
 
 func _update_progress_g0(current: int) -> void:
 	var target = 1572864 # 1.5 MB
-	current_mission_progress = "Data: %s / %s" % [format_bytes(current), format_bytes(target)]
+	current_mission_progress = "Resources: %s / %s" % [format_bytes(current), format_bytes(target)]
 	mission_updated.emit(current_mission_name, current_mission_description, current_mission_progress)
 	
 	if current >= target:
@@ -155,7 +155,7 @@ func _complete_current_mission() -> void:
 		var core = get_tree().get_first_node_in_group("core")
 		if core:
 			core.deposit_data(500)
-			print("Reward of 500 bytes granted for Mission 1.")
+			print("Reward of 500 units granted for Mission 1.")
 	
 	if completed_mission_id == MissionID.G0_MOBILIZATION:
 		var world_manager = get_tree().get_first_node_in_group("world_manager")
