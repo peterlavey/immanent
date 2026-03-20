@@ -14,6 +14,9 @@ shader_parameter/scanline_speed = 0.5
 shader_parameter/neon_intensity = 0.4
 shader_parameter/neon_threshold = 0.2
 shader_parameter/neon_softness = 0.1
+shader_parameter/chromatic_aberration = 0.001
+shader_parameter/phosphor_opacity = 0.04
+shader_parameter/flicker_intensity = 0.001
 
 [node name="CRTEffect" type="CanvasLayer"]
 layer = 10

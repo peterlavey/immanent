@@ -284,6 +284,9 @@
   - [x] Add scanline effect to the CRT shader for a more authentic "old TV" look.
   - [x] Soften the CRT and scanline effects (reduced strength, roundness, and scanline opacity) for a more subtle CRT aesthetic.
   - [x] Add a neon/glow filter to the elements to enhance the digital/cyberpunk atmosphere.
+  - [x] **CRT Mode & Camera Improvements**
+    - [x] Enhance CRT shader with Chromatic Aberration, Phosphor mask, and subtle Flicker/Noise.
+    - [x] Implement smooth camera interpolation (Zoom & Orbit) for a more premium feel.
 
 ## Phase 11: Advanced G1 Networks (Psinergy)
 

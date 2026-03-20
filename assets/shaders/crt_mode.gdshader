@@ -10,6 +10,9 @@ uniform float scanline_speed : hint_range(0.0, 10.0) = 0.5;
 uniform float neon_intensity : hint_range(0.0, 2.0) = 0.5;
 uniform float neon_threshold : hint_range(0.0, 1.0) = 0.3;
 uniform float neon_softness : hint_range(0.0, 1.0) = 0.1;
+uniform float chromatic_aberration : hint_range(0.0, 0.1) = 0.002;
+uniform float phosphor_opacity : hint_range(0.0, 1.0) = 0.05;
+uniform float flicker_intensity : hint_range(0.0, 0.1) = 0.001;
 uniform sampler2D screen_texture : hint_screen_texture, repeat_disable, filter_nearest;
 
 void fragment() {
@@ -34,11 +37,30 @@ void fragment() {
     if (corner_mask > 1.0) {
         COLOR = vec4(0.0, 0.0, 0.0, 1.0);
     } else {
-        vec4 tex = texture(screen_texture, uv);
+        // Flicker/Noise
+        float flicker = (sin(TIME * 60.0) * 0.5 + 0.5) * flicker_intensity;
+        float noise = (fract(sin(dot(uv * TIME, vec2(12.9898, 78.233))) * 43758.5453) - 0.5) * 0.01;
+        
+        // Chromatic Aberration
+        vec4 tex;
+        if (chromatic_aberration > 0.0) {
+            float r = texture(screen_texture, uv + vec2(chromatic_aberration, 0.0)).r;
+            float g = texture(screen_texture, uv).g;
+            float b = texture(screen_texture, uv - vec2(chromatic_aberration, 0.0)).b;
+            tex = vec4(r, g, b, 1.0);
+        } else {
+            tex = texture(screen_texture, uv);
+        }
+        
+        tex.rgb += noise + flicker;
         
         // Scanlines
         float s = sin(uv.y * scanline_count + TIME * scanline_speed);
         tex.rgb -= s * scanline_opacity;
+        
+        // Phosphor mask (vertical strips)
+        float p = sin(uv.x * scanline_count * 1.5);
+        tex.rgb *= 1.0 - (p * phosphor_opacity);
         
         // Neon Glow effect (simplified 5-sample bloom/glow)
         if (neon_intensity > 0.0) {

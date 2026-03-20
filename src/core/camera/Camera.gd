@@ -6,14 +6,26 @@ extends Camera3D
 @export var rotation_speed: float = 0.005
 @export var gesture_zoom_speed: float = 1.0
 @export var parallax_factor: float = 0.05
+@export var smooth_speed: float = 10.0
 
 var orbit_distance: float = 20.0
+var target_orbit_distance: float = 20.0
 var target: Vector3 = Vector3.ZERO
 var rotation_angles: Vector2 = Vector2(0.7, 0.7) # X: vertical, Y: horizontal
+var target_rotation_angles: Vector2 = Vector2(0.7, 0.7)
 
 func _ready() -> void:
 	# Set target to origin where Core is located
 	target = Vector3.ZERO
+	target_orbit_distance = orbit_distance
+	target_rotation_angles = rotation_angles
+	_update_camera_position()
+
+func _process(delta: float) -> void:
+	# Smoothly interpolate camera position and rotation
+	orbit_distance = lerp(orbit_distance, target_orbit_distance, smooth_speed * delta)
+	rotation_angles.x = lerp(rotation_angles.x, target_rotation_angles.x, smooth_speed * delta)
+	rotation_angles.y = lerp(rotation_angles.y, target_rotation_angles.y, smooth_speed * delta)
 	_update_camera_position()
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -27,7 +39,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		# Some macOS versions might report 1.0 + delta, others 1.0 * factor.
 		# If magnification is very close to 1.0 but not 1.0, we treat it as delta.
 		# However, usually 1.1 = 10% zoom.
-		var zoom_delta = (1.0 - magnification) * orbit_distance * gesture_zoom_speed * 10.0
+		var zoom_delta = (1.0 - magnification) * target_orbit_distance * gesture_zoom_speed * 10.0
 		zoom(zoom_delta)
 		return
 
@@ -65,16 +77,14 @@ func _unhandled_input(event: InputEvent) -> void:
 		# but standard drag handles it above.
 
 func _rotate_camera(dx: float, dy: float) -> void:
-	rotation_angles.y -= dx
-	rotation_angles.x -= dy
+	target_rotation_angles.y -= dx
+	target_rotation_angles.x -= dy
 	# Clamp vertical rotation to avoid being exactly at poles where look_at(Vector3.UP) fails
-	rotation_angles.x = clamp(rotation_angles.x, -PI/2 + 0.1, PI/2 - 0.1)
-	_update_camera_position()
+	target_rotation_angles.x = clamp(target_rotation_angles.x, -PI/2 + 0.1, PI/2 - 0.1)
 
 func zoom(amount: float) -> void:
-	orbit_distance += amount
-	orbit_distance = clamp(orbit_distance, min_zoom, max_zoom)
-	_update_camera_position()
+	target_orbit_distance += amount
+	target_orbit_distance = clamp(target_orbit_distance, min_zoom, max_zoom)
 
 func _update_camera_position() -> void:
 	var pos = Vector3.ZERO

@@ -1,3 +1,4 @@
 res://src/ui/hud/HUD.gd
 res://src/ui/hud/FisheyeEffect.tscn
 res://assets/shaders/fisheye.gdshader
+res://src/core/camera/Camera.gd
