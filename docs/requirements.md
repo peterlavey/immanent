@@ -1,7 +1,7 @@
 # Requirements Document
 
 ## Introduction
-Immanent is a 3D idle game set inside a digital simulation (processor). Players manage a core base and "genezis" beings to collect "data" resources, evolve their civilization, and ultimately escape the simulation. Time is measured in Hertz (iterations), and the game uses a fixed 2D camera with zoom functionality.
+Immanent is a 3D idle game set inside a digital simulation (processor). Players manage a core base and "genezis" beings to collect "data" resources, evolve their civilization, and ultimately escape the simulation. Time is measured in Cycles (processor cycles), and the speed at which these cycles occur is measured in Hertz. The game uses a fixed 2D camera with zoom functionality.
 
 ### The World & Lore
 Humanity reached its apotheosis: science annihilated death, but the cosmos claimed its debt. The exhausted universe prepared for an absolute reset—a final entropy for which man found no shelter. In the dying breath of civilization, Project Genezis was born. It was not a physical salvation, but a digital exile. In this silicon Eden, time dilated monstrously: a single second of human reality equated to 1024 years of virtual evolution. The creators hoped that, in those aeons of stolen time, their digital children would find the key to halting the end of all things.
@@ -49,16 +49,17 @@ This is where the odyssey begins. The Genezis operate on the edge of oblivion, c
      - WHEN the Core is evolved THEN the system SHALL spawn larger data spot variants (e.g., 50 MB).
    - **User Story**: As a player, I want new data spots to appear periodically so that I have a continuous supply of resources.
    - **Acceptance Criteria**:
-     - WHEN a new "day" (iteration) starts THEN the system SHALL spawn 5 data spots initially.
+     - WHEN a new "day" (cycle) starts THEN the system SHALL spawn 5 data spots initially.
      - EACH initial data spot SHALL contain 1 KB of data (1,024 bytes).
      - AS evolution progresses THEN the system SHALL spawn larger data spots.
 
-5. **Time & Iterations (Hertz)**
-   - **User Story**: As a player, I want time to be measured in iterations so that the simulation theme is reinforced.
+5. **Time & Cycles (Hertz)**
+   - **User Story**: As a player, I want time to be measured in cycles so that the simulation theme is reinforced.
    - **Acceptance Criteria**:
-     - THE system SHALL measure time in Hertz.
-     - ONE initial iteration SHALL last exactly 2 minutes.
-     - WHEN an iteration ends THEN the next "day" of resource spawning SHALL begin.
+     - THE system SHALL measure time in Cycles (processor cycles).
+     - THE speed of these cycles SHALL be measured and displayed in Hertz (Hz).
+     - ONE initial cycle SHALL last exactly 2 minutes.
+     - WHEN a cycle ends THEN the next "day" of resource spawning SHALL begin.
 
 6. **HUD (Heads-Up Display)**
    - **User Story**: As a player, I want to see my collected data balance so that I can track my progress.
@@ -190,7 +191,7 @@ This is where the odyssey begins. The Genezis operate on the edge of oblivion, c
 20. **Theophania Event**
     - **User Story**: As a player, I want periodic interactive events with a G1 being so that the world feels more dynamic and my choices matter.
     - **Acceptance Criteria**:
-      - THE "Theophania" event SHALL occur periodically (e.g., every 3-5 iterations/days).
+      - THE "Theophania" event SHALL occur periodically (e.g., every 3-5 cycles).
       - DURING the event, a G1 being SHALL appear on screen, looking at the camera (using `g1_cam.png`).
       - THE G1 SHALL describe a situation to the player and provide multiple choices.
       - THE choices SHALL have direct impacts on the world (e.g., resource gains, spawning entities, temporary buffs).

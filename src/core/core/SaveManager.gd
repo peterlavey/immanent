@@ -240,7 +240,7 @@ func _get_time_data() -> Dictionary:
 	var time_manager = get_tree().get_first_node_in_group("time_manager")
 	if time_manager:
 		return {
-			"current_iteration": time_manager.current_iteration,
+			"current_cycle": time_manager.current_cycle,
 			"remaining_time": time_manager.remaining_time
 		}
 	return {}
@@ -248,9 +248,14 @@ func _get_time_data() -> Dictionary:
 func _apply_time_data(data: Dictionary) -> void:
 	var time_manager = get_tree().get_first_node_in_group("time_manager")
 	if time_manager and not data.is_empty():
-		time_manager.current_iteration = data.get("current_iteration", 1)
-		time_manager.remaining_time = data.get("remaining_time", time_manager.iteration_duration)
-		time_manager.iteration_started.emit(time_manager.current_iteration)
+		# Maintain backward compatibility with old saves if any
+		if data.has("current_iteration"):
+			time_manager.current_cycle = data.get("current_iteration", 1)
+		else:
+			time_manager.current_cycle = data.get("current_cycle", 1)
+			
+		time_manager.remaining_time = data.get("remaining_time", time_manager.cycle_duration)
+		time_manager.cycle_started.emit(time_manager.current_cycle)
 
 func _vec3_to_dict(v: Vector3) -> Dictionary:
 	return {"x": v.x, "y": v.y, "z": v.z}

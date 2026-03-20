@@ -36,8 +36,8 @@ Goal: Set up the fundamental project structure and the static elements of the si
 Goal: Implement the primary loop of data collection and time management.
 
 1. **Time Management (Hertz System)** (Plan: 2.1)
-   - Implement the iteration clock (2 minutes per iteration).
-   - Define the "Hertz" unit of time.
+   - Implement the cycle clock (2 minutes per cycle).
+   - Define the "Hertz" unit of time speed.
    - Priority: High
    - Requirements: Req 5
 
@@ -277,7 +277,7 @@ Goal: Implement periodic interactive events with a G1.
    - Requirements: Req 20
 
 2. **Event Scheduling & Triggering** (Plan: 14.2)
-   - Integrate with `TimeManager` to trigger "Theophania" every few iterations.
+   - Integrate with `TimeManager` to trigger "Theophania" every few cycles.
    - Handle pausing/unpausing of the simulation.
    - Priority: Medium
    - Requirements: Req 20

@@ -27,7 +27,7 @@ func _ready() -> void:
 	if core_node:
 		core_node.evolution_changed.connect(_on_core_evolution_changed)
 	
-	time_manager.iteration_started.connect(_on_iteration_started)
+	time_manager.cycle_started.connect(_on_cycle_started)
 	
 	# Skip initial spawn if we're loading a game
 	# We check if there's any G1 already (SaveManager might have spawned them)
@@ -46,10 +46,10 @@ func _on_core_evolution_changed(new_level: int) -> void:
 		_spawn_data_spots(5)
 		print("Evolution 1: Evolving simulation environment.")
 
-func _on_iteration_started(number: int) -> void:
+func _on_cycle_started(number: int) -> void:
 	_spawn_data_spots(5)
 	
-	# Spawn enemies every 2 iterations after the first 3 iterations
+	# Spawn enemies every 2 cycles after the first 3 cycles
 	if number > 3 and number % 2 == 0:
 		_spawn_enemies()
 

@@ -4,7 +4,7 @@ A 3D idle game set inside a digital simulation (processor). Players manage a cor
 
 ## Core Features
 - 3D simulation environment with a fixed 2D camera (zoom only).
-- "Hertz" time system (iterations).
+- "Hertz" time system (cycles).
 - Autonomous "Genezis G1" data collection.
 - Core upgrades and evolution tree.
 - Field of View (FOV) sphere mechanics.

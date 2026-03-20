@@ -23,9 +23,9 @@
 
 ## Phase 2: Core Gameplay Loop
 
-- [x] **2.1 Time & Hertz System**
-  - [x] Implement an iteration timer (2 minutes = 1 iteration) representing aeons of digital evolution. (Plan: 2.1) (Req: 5)
-  - [x] Implement a Hertz-based display for current time/iteration. (Plan: 2.1) (Req: 5)
+- [x] **2.1 Time & Cycles (Hertz)**
+  - [x] Implement a cycle timer (2 minutes = 1 cycle) representing processor cycles of digital evolution. (Plan: 2.1) (Req: 5)
+  - [x] Implement a Hertz-based display for current cycle speed. (Plan: 2.1) (Req: 5)
 
 - [x] **Lore & Narrative Consistency**
   - [x] Update requirements and plan to reflect that Genezis are unaware they are in a simulation initially. (Plan: 1.4) (Req: 13, 16)
@@ -34,7 +34,7 @@
 
 - [x] **2.2 Data Spots**
   - [x] Create a Data Spot scene ("Code Crystals") with a "megabytes" property. (Plan: 2.2) (Req: 4)
-  - [x] Implement spawning logic (5 spots per iteration, 1 KB each initially, min distance from Core). (Plan: 2.2) (Req: 4)
+  - [x] Implement spawning logic (5 spots per cycle, 1 KB each initially, min distance from Core). (Plan: 2.2) (Req: 4)
 
 - [x] **2.3 Genezis G1 Beings**
 - [x] Create a Genezis G1 being scene (Plan: 2.3) (Req: 3)
@@ -364,9 +364,9 @@
   - [x] Implement typing effect for dialogue with subtle audio cues (Plan: 14.1) (Req: 20)
 
 - [x] **14.2 Event Scheduling & Triggering**
-  - [x] Add `theophania_frequency` (in iterations) to `TimeManager.gd` (Plan: 14.2) (Req: 20)
-  - [x] Trigger `theophania_requested` signal every few iterations (Plan: 14.2) (Req: 20)
-  - [x] Trigger a Theophania on the second day (end of first iteration) (Plan: 14.2) (Req: 20)
+  - [x] Add `theophania_frequency` (in cycles) to `TimeManager.gd` (Plan: 14.2) (Req: 20)
+  - [x] Trigger `theophania_requested` signal every few cycles (Plan: 14.2) (Req: 20)
+  - [x] Trigger a Theophania on the second cycle (end of first cycle) (Plan: 14.2) (Req: 20)
   - [x] Connect signal in `HUD.gd` to show `TheophaniaUI` (Plan: 14.2) (Req: 20)
   - [x] Handle game pause/unpause during the event (Plan: 14.2) (Req: 20)
 

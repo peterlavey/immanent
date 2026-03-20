@@ -1,7 +1,7 @@
 extends CanvasLayer
 
 @onready var data_label = $MarginContainer/VBoxContainer/DataLabel
-@onready var iteration_label = $MarginContainer/VBoxContainer/IterationLabel
+@onready var cycle_label = $MarginContainer/VBoxContainer/CycleLabel
 @onready var timer_label = $MarginContainer/VBoxContainer/TimerLabel
 @onready var genezis_count_label = $MarginContainer/VBoxContainer/GenezisCountLabel
 
@@ -37,10 +37,10 @@ func _ready() -> void:
 	var time_manager = get_tree().get_first_node_in_group("time_manager")
 	if time_manager:
 		time_manager.time_updated.connect(_on_time_updated)
-		time_manager.iteration_started.connect(_on_iteration_started)
+		time_manager.cycle_started.connect(_on_cycle_started)
 		if not time_manager.theophania_requested.is_connected(_on_theophania_requested):
 			time_manager.theophania_requested.connect(_on_theophania_requested)
-		_on_iteration_started(time_manager.current_iteration)
+		_on_cycle_started(time_manager.current_cycle)
 	
 	if upgrade_menu:
 		upgrade_menu.upgrade_purchased.connect(_on_upgrade_purchased)
@@ -221,8 +221,13 @@ func _on_time_updated(remaining: float) -> void:
 	var seconds = int(remaining) % 60
 	timer_label.text = "Sync: %02d:%02d" % [minutes, seconds]
 
-func _on_iteration_started(number: int) -> void:
-	iteration_label.text = str(number) + " Hz"
+func _on_cycle_started(number: int) -> void:
+	cycle_label.text = "Cycle: " + str(number)
+	# Also update hertz if we have a way to get it
+	var time_manager = get_tree().get_first_node_in_group("time_manager")
+	if time_manager:
+		# Assuming we want to show both Cycle and Hz
+		cycle_label.text += " (" + time_manager.get_hertz_display() + ")"
 
 func _on_mission_updated(m_name: String, m_desc: String, m_prog: String) -> void:
 	mission_name_label.text = m_name
