@@ -334,3 +334,12 @@
   - [x] Fix G0 orbital jitter ("low FPS" look) by using direct position updates and tangent-based rotation (Plan: 12.3)
   - [x] Reduce G0 orbit radius to 3.5 to make them orbit closer to the Core without colliding (Plan: 12.3)
   - [x] Fix G0 orbit centering to avoid off-center passing (Plan: 12.3)
+
+## Phase 13: Propulsion & Space Movement
+
+- [x] **13.1 Space Propulsion Mechanics**
+  - [x] Implement acceleration and friction for Genezis G1 (Plan: 13.1)
+  - [x] Implement acceleration and friction for Genezis G2 (Plan: 13.1)
+  - [x] Implement acceleration and friction for Genezis G0 (Plan: 13.1)
+  - [x] Implement acceleration and friction for Enemies (Plan: 13.1)
+  - [x] Adjust rotation to be smoother during acceleration (Plan: 13.1)

@@ -5,6 +5,8 @@ signal selected(genezis: CharacterBody3D)
 enum State { IDLE, MOVING_TO_DATA, EXTRACTING, RETURNING_TO_CORE, DEPOSITING, MERGING }
 
 @export var move_speed: float = 5.0
+@export var acceleration: float = 4.0
+@export var friction: float = 2.0
 @export var carry_capacity: int = 100 # Capacity in bytes
 @export var extraction_rate: int = 10 # Bytes per second
 
@@ -267,22 +269,28 @@ func find_data_spot() -> void:
 			pass # Normal if no spots exist yet
 
 func move_towards(target_pos: Vector3, delta: float) -> void:
-	# Add slight random jitter to prevent being perfectly stuck in local minima/collisions
-	var jitter = Vector3(
-		randf_range(-0.1, 0.1),
-		randf_range(-0.1, 0.1),
-		randf_range(-0.1, 0.1)
-	)
 	var direction = (target_pos - global_position).normalized()
-	velocity = (direction + jitter * 0.1).normalized() * move_speed
-	# Simple look at
+	var target_velocity = direction * move_speed
+	
 	if direction != Vector3.ZERO:
-		var look_target = global_position + direction
+		velocity = velocity.move_toward(target_velocity, acceleration * delta)
+	else:
+		velocity = velocity.move_toward(Vector3.ZERO, friction * delta)
+		
+	# Smooth rotation
+	if velocity.length() > 0.1:
+		var look_target = global_position + velocity
+		var current_quat = visuals.global_transform.basis.get_rotation_quaternion()
+		var target_quat: Quaternion
+		
 		# Check if the target is not exactly above or below to avoid look_at error
-		if abs(direction.dot(Vector3.UP)) < 0.99:
-			look_at(look_target, Vector3.UP)
+		if abs(velocity.normalized().dot(Vector3.UP)) < 0.99:
+			target_quat = Transform3D().looking_at(velocity, Vector3.UP).basis.get_rotation_quaternion()
 		else:
-			look_at(look_target, Vector3.RIGHT)
+			target_quat = Transform3D().looking_at(velocity, Vector3.RIGHT).basis.get_rotation_quaternion()
+		
+		visuals.global_transform.basis = Basis(current_quat.slerp(target_quat, 10.0 * delta))
+		
 	move_and_slide()
 
 func _update_g1_connection(_delta: float) -> void:

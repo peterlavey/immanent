@@ -5,6 +5,8 @@ class_name Enemy
 enum State { IDLE, MOVING_TO_TARGET, PERFORMING_ACTION, ESCAPING }
 
 @export var move_speed: float = 3.0
+@export var acceleration: float = 2.0
+@export var friction: float = 1.0
 @export var health: float = 1.0
 @export var defragmentation_scene: PackedScene = preload("res://src/entities/enemy/defragmentation_effect/DefragmentationEffect.tscn")
 
@@ -40,12 +42,29 @@ func _move_towards_target(delta: float) -> void:
 		target = null
 		current_state = State.IDLE
 		return
+		
 	var target_pos = target.global_position
 	var direction = (target_pos - global_position).normalized()
-	velocity = direction * move_speed
+	var target_velocity = direction * move_speed
+	
 	if direction != Vector3.ZERO:
-		var look_target = global_position + direction
-		look_at(look_target, Vector3.UP)
+		velocity = velocity.move_toward(target_velocity, acceleration * delta)
+	else:
+		velocity = velocity.move_toward(Vector3.ZERO, friction * delta)
+		
+	# Smooth rotation
+	if velocity.length() > 0.1:
+		var current_quat = global_transform.basis.get_rotation_quaternion()
+		var target_quat: Quaternion
+		
+		# Check if the target is not exactly above or below to avoid look_at error
+		if abs(velocity.normalized().dot(Vector3.UP)) < 0.99:
+			target_quat = Transform3D().looking_at(velocity, Vector3.UP).basis.get_rotation_quaternion()
+		else:
+			target_quat = Transform3D().looking_at(velocity, Vector3.RIGHT).basis.get_rotation_quaternion()
+		
+		global_transform.basis = Basis(current_quat.slerp(target_quat, 5.0 * delta))
+		
 	move_and_slide()
 	
 	if global_position.distance_to(target_pos) < 1.0:

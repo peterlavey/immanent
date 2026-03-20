@@ -3,6 +3,8 @@ extends CharacterBody3D
 enum State { IDLE, SEARCHING, MOVING_TO_TARGET, UNBLOCKING, ORBITING }
 
 @export var move_speed: float = 8.0
+@export var acceleration: float = 10.0
+@export var friction: float = 5.0
 @export var unblock_radius: float = 1.0
 @export var orbit_radius: float = 3.5
 @export var orbit_speed: float = 0.5
@@ -141,14 +143,25 @@ func _process_moving(delta: float) -> void:
 	var dist = global_position.distance_to(target_pos)
 	
 	if dist > unblock_radius:
-		velocity = dir * move_speed
+		var target_velocity = dir * move_speed
+		velocity = velocity.move_toward(target_velocity, acceleration * delta)
 		move_and_slide()
 		
-		# Rotate visuals to face movement
+		# Smooth rotation
 		if velocity.length() > 0.1:
-			var look_target = global_position + velocity
-			visuals.look_at(look_target, Vector3.UP)
+			var current_quat = visuals.global_transform.basis.get_rotation_quaternion()
+			var target_quat: Quaternion
+			
+			# Check if the target is not exactly above or below to avoid look_at error
+			if abs(velocity.normalized().dot(Vector3.UP)) < 0.99:
+				target_quat = Transform3D().looking_at(velocity, Vector3.UP).basis.get_rotation_quaternion()
+			else:
+				target_quat = Transform3D().looking_at(velocity, Vector3.RIGHT).basis.get_rotation_quaternion()
+			
+			visuals.global_transform.basis = Basis(current_quat.slerp(target_quat, 10.0 * delta))
 	else:
+		velocity = velocity.move_toward(Vector3.ZERO, friction * delta)
+		move_and_slide()
 		current_state = State.UNBLOCKING
 
 func _process_unblocking(_delta: float) -> void:

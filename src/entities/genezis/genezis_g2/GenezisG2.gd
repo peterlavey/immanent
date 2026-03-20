@@ -5,6 +5,8 @@ signal selected(genezis: CharacterBody3D)
 enum State { PATROL, PROTECT_CORE, PROTECT_G1, INTERCEPT_THREAT, ATTACKING }
 
 @export var move_speed: float = 8.0
+@export var acceleration: float = 6.0
+@export var friction: float = 3.0
 @export var patrol_radius: float = 15.0
 @export var detection_radius: float = 10.0
 @export var attack_damage: float = 1.0
@@ -18,6 +20,8 @@ var threat_target: Node3D = null
 var patrol_target: Vector3 = Vector3.ZERO
 var _wait_timer: float = 0.0
 var _attack_timer: float = 0.0
+
+@onready var visuals: Node3D = $Visuals
 
 func _ready() -> void:
 	add_to_group("genezis_g2")
@@ -141,10 +145,26 @@ func _set_new_patrol_target() -> void:
 
 func move_towards(target_pos: Vector3, delta: float) -> void:
 	var direction = (target_pos - global_position).normalized()
-	velocity = direction * move_speed
+	var target_velocity = direction * move_speed
+	
 	if direction != Vector3.ZERO:
-		var look_target = global_position + direction
-		look_at(look_target, Vector3.UP)
+		velocity = velocity.move_toward(target_velocity, acceleration * delta)
+	else:
+		velocity = velocity.move_toward(Vector3.ZERO, friction * delta)
+		
+	# Smooth rotation
+	if velocity.length() > 0.1:
+		var current_quat = visuals.global_transform.basis.get_rotation_quaternion()
+		var target_quat: Quaternion
+		
+		# Check if the target is not exactly above or below to avoid look_at error
+		if abs(velocity.normalized().dot(Vector3.UP)) < 0.99:
+			target_quat = Transform3D().looking_at(velocity, Vector3.UP).basis.get_rotation_quaternion()
+		else:
+			target_quat = Transform3D().looking_at(velocity, Vector3.RIGHT).basis.get_rotation_quaternion()
+		
+		visuals.global_transform.basis = Basis(current_quat.slerp(target_quat, 10.0 * delta))
+		
 	move_and_slide()
 
 func get_stats() -> Dictionary:
