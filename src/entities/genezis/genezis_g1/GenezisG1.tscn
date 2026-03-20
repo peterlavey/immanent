@@ -3,28 +3,54 @@
 [ext_resource type="Script" path="res://src/entities/genezis/genezis_g1/GenezisG1.gd" id="1_script"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_Head"]
-albedo_color = Color(1.0, 1.0, 1.0, 1.0)
+albedo_color = Color(0.4, 0.2, 0.8, 1.0)
 emission_enabled = true
-emission = Color(0.8, 0.8, 0.8, 1.0)
+emission = Color(0.2, 0.1, 0.5, 1.0)
 
-[sub_resource type="CylinderMesh" id="CylinderMesh_Head"]
-top_radius = 0.3
-bottom_radius = 0.3
-height = 0.4
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_Orange"]
+albedo_color = Color(1.0, 0.6, 0.0, 1.0)
+emission_enabled = true
+emission = Color(0.5, 0.3, 0.0, 1.0)
+
+[sub_resource type="SphereMesh" id="SphereMesh_Head"]
+radius = 0.3
+height = 0.5
 radial_segments = 6
+rings = 4
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_Eye_White"]
+albedo_color = Color(1, 1, 1, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_Eye_Black"]
+albedo_color = Color(0, 0, 0, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_Eye"]
+radius = 0.12
+height = 0.24
+
+[sub_resource type="SphereMesh" id="SphereMesh_Pupil"]
+radius = 0.05
+height = 0.1
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_Stalk"]
-albedo_color = Color(0.7, 0.7, 0.7, 1.0)
+albedo_color = Color(0.5, 0.5, 0.6, 1.0)
+metallic = 0.8
+roughness = 0.2
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_Stalk"]
-top_radius = 0.05
-bottom_radius = 0.05
-height = 0.4
+top_radius = 0.06
+bottom_radius = 0.06
+height = 0.05
+radial_segments = 8
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_Leg"]
+albedo_color = Color(0.3, 0.4, 0.4, 1.0)
+metallic = 0.5
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_Leg"]
 top_radius = 0.02
 bottom_radius = 0.02
-height = 0.3
+height = 0.4
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_Beam"]
 transparency = 1
@@ -77,29 +103,89 @@ script = ExtResource("1_script")
 [node name="Visuals" type="Node3D" parent="."]
 
 [node name="Head" type="MeshInstance3D" parent="Visuals"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
-mesh = SubResource("CylinderMesh_Head")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, 0)
+mesh = SubResource("SphereMesh_Head")
 surface_material_override/0 = SubResource("StandardMaterial3D_Head")
 
-[node name="Stalk" type="MeshInstance3D" parent="Visuals"]
+[node name="OrangeDetail" type="MeshInstance3D" parent="Visuals/Head"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, 0)
+mesh = SubResource("SphereMesh_Head")
+surface_material_override/0 = SubResource("StandardMaterial3D_Orange")
+
+[node name="EyeL" type="MeshInstance3D" parent="Visuals/Head"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.12, 0, 0.22)
+mesh = SubResource("SphereMesh_Eye")
+surface_material_override/0 = SubResource("StandardMaterial3D_Eye_White")
+
+[node name="Pupil" type="MeshInstance3D" parent="Visuals/Head/EyeL"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.08)
+mesh = SubResource("SphereMesh_Pupil")
+surface_material_override/0 = SubResource("StandardMaterial3D_Eye_Black")
+
+[node name="EyeR" type="MeshInstance3D" parent="Visuals/Head"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.12, 0, 0.22)
+mesh = SubResource("SphereMesh_Eye")
+surface_material_override/0 = SubResource("StandardMaterial3D_Eye_White")
+
+[node name="Pupil" type="MeshInstance3D" parent="Visuals/Head/EyeR"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.08)
+mesh = SubResource("SphereMesh_Pupil")
+surface_material_override/0 = SubResource("StandardMaterial3D_Eye_Black")
+
+[node name="Stalk" type="Node3D" parent="Visuals"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, 0)
+
+[node name="Segment1" type="MeshInstance3D" parent="Visuals/Stalk"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 mesh = SubResource("CylinderMesh_Stalk")
 surface_material_override/0 = SubResource("StandardMaterial3D_Stalk")
 
-[node name="Leg1" type="MeshInstance3D" parent="Visuals"]
-transform = Transform3D(0.866025, -0.5, 0, 0.5, 0.866025, 0, 0, 0, 1, 0.1, 0.05, 0)
-mesh = SubResource("CylinderMesh_Leg")
+[node name="Segment2" type="MeshInstance3D" parent="Visuals/Stalk"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.08, 0)
+mesh = SubResource("CylinderMesh_Stalk")
 surface_material_override/0 = SubResource("StandardMaterial3D_Stalk")
 
-[node name="Leg2" type="MeshInstance3D" parent="Visuals"]
-transform = Transform3D(-0.433013, -0.5, 0.75, 0.5, -0.866025, 0, 0.75, 0.375, 0.53033, -0.05, 0.05, 0.0866)
-mesh = SubResource("CylinderMesh_Leg")
+[node name="Segment3" type="MeshInstance3D" parent="Visuals/Stalk"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.16, 0)
+mesh = SubResource("CylinderMesh_Stalk")
 surface_material_override/0 = SubResource("StandardMaterial3D_Stalk")
 
-[node name="Leg3" type="MeshInstance3D" parent="Visuals"]
-transform = Transform3D(-0.433013, -0.5, -0.75, 0.5, -0.866025, 0, -0.75, 0.375, 0.53033, -0.05, 0.05, -0.0866)
-mesh = SubResource("CylinderMesh_Leg")
+[node name="Segment4" type="MeshInstance3D" parent="Visuals/Stalk"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.24, 0)
+mesh = SubResource("CylinderMesh_Stalk")
 surface_material_override/0 = SubResource("StandardMaterial3D_Stalk")
+
+[node name="Legs" type="Node3D" parent="Visuals"]
+
+[node name="Leg1" type="MeshInstance3D" parent="Visuals/Legs"]
+transform = Transform3D(0.866025, -0.5, 0, 0.5, 0.866025, 0, 0, 0, 1, 0.15, 0.1, 0)
+mesh = SubResource("CylinderMesh_Leg")
+surface_material_override/0 = SubResource("StandardMaterial3D_Leg")
+
+[node name="Leg2" type="MeshInstance3D" parent="Visuals/Legs"]
+transform = Transform3D(0.433013, -0.5, 0.75, 0.5, 0.866025, 0, -0.75, 0, 0.661438, 0.075, 0.1, 0.13)
+mesh = SubResource("CylinderMesh_Leg")
+surface_material_override/0 = SubResource("StandardMaterial3D_Leg")
+
+[node name="Leg3" type="MeshInstance3D" parent="Visuals/Legs"]
+transform = Transform3D(-0.433013, -0.5, 0.75, 0.5, -0.866025, 0, 0.75, -0.433013, -0.5, -0.075, 0.1, 0.13)
+mesh = SubResource("CylinderMesh_Leg")
+surface_material_override/0 = SubResource("StandardMaterial3D_Leg")
+
+[node name="Leg4" type="MeshInstance3D" parent="Visuals/Legs"]
+transform = Transform3D(-0.866025, -0.5, 0, 0.5, -0.866025, 0, 0, 0, 1, -0.15, 0.1, 0)
+mesh = SubResource("CylinderMesh_Leg")
+surface_material_override/0 = SubResource("StandardMaterial3D_Leg")
+
+[node name="Leg5" type="MeshInstance3D" parent="Visuals/Legs"]
+transform = Transform3D(-0.433013, -0.5, -0.75, 0.5, -0.866025, 0, -0.75, 0.433013, 0.5, -0.075, 0.1, -0.13)
+mesh = SubResource("CylinderMesh_Leg")
+surface_material_override/0 = SubResource("StandardMaterial3D_Leg")
+
+[node name="Leg6" type="MeshInstance3D" parent="Visuals/Legs"]
+transform = Transform3D(0.433013, -0.5, -0.75, 0.5, 0.866025, 0, 0.75, 0, 0.661438, 0.075, 0.1, -0.13)
+mesh = SubResource("CylinderMesh_Leg")
+surface_material_override/0 = SubResource("StandardMaterial3D_Leg")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3, 0)

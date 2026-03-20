@@ -66,6 +66,8 @@ func force_search_data() -> void:
 
 @onready var visuals: Node3D = $Visuals
 @onready var head: MeshInstance3D = $Visuals/Head
+@onready var stalk: Node3D = $Visuals/Stalk
+@onready var legs: Node3D = $Visuals/Legs
 @onready var connection_beam: MeshInstance3D = $ConnectionBeam
 @onready var psinergy_beam: MeshInstance3D = $PsinergyBeam
 @onready var data_particles: GPUParticles3D = $DataParticles

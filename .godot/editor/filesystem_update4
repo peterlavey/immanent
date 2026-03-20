@@ -2,3 +2,5 @@ res://src/ui/hud/HUD.gd
 res://src/ui/hud/FisheyeEffect.tscn
 res://assets/shaders/fisheye.gdshader
 res://src/core/camera/Camera.gd
+res://src/entities/genezis/genezis_g1/GenezisG1.gd
+res://src/entities/genezis/genezis_g1/GenezisG1.tscn
