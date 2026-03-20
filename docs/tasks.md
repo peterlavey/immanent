@@ -34,6 +34,7 @@
 - [x] **2.3 Genezis G1 Beings**
 - [x] Create a Genezis G1 being scene (Plan: 2.3) (Req: 3)
 - [x] Update Genezis G1 visual design based on g1.png (Plan: 2.3.4)
+- [x] Adjust Genezis G1 eye distance to be on opposite sides (one front, one behind) (Plan: 2.3.4)
 - [x] Implement state machine for Genezis G1 AI: IDLE -> MOVING_TO_DATA -> EXTRACTING -> RETURNING_TO_CORE -> DEPOSITING (Plan: 2.3) (Req: 3)
 - [x] Implement movement logic (Plan: 2.3) (Req: 3)
 - [x] Implement data extraction and carry capacity (Plan: 2.3) (Req: 3)
