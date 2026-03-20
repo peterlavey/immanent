@@ -387,6 +387,7 @@
   - [x] Add unit identifiers to Genezis units (Plan: 15.2) (Req: 1, 13)
   - [x] Implement "Tactical" markers for enemies and data spots (Plan: 15.2) (Req: 1, 13)
   - [x] Further adjust world-space label scales for all entities (Core: 8, others: 6) and enable Nearest filtering to fix blurriness.
+  - [x] Adjust HUD monitor frame labels to prevent clipping from CRT curvature (moved towards center).
 - [x] **15.3 CRT/Glitch Visual Polish**
   - [x] Refine `CRTEffect` shader with subtle glitch artifacts (Plan: 15.3) (Req: 13)
   - [ ] Add a "Boot" sequence or "Signal Lost" transition effect (Plan: 15.3) (Req: 13)
