@@ -9,3 +9,5 @@ res://src/entities/genezis/genezis_g0/GenezisG0.gd
 res://src/entities/genezis/genezis_g2/GenezisG2.gd
 res://src/core/time_manager/TimeManager.gd
 res://src/core/world_manager/WorldManager.gd
+res://src/ui/theophania_ui/TheophaniaUI.gd
+res://src/ui/theophania_ui/TheophaniaUI.tscn

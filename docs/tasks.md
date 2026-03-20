@@ -353,6 +353,8 @@
   - [x] Create `TheophaniaUI.tscn` and `TheophaniaUI.gd` (Plan: 14.1) (Req: 20)
   - [x] Implement `g1_cam.png` background/visual (Plan: 14.1) (Req: 20)
   - [x] Add description and choice button logic (Plan: 14.1) (Req: 20)
+  - [x] Enhance UI to resemble a communication panel with signal info and scanlines (Plan: 14.1) (Req: 20)
+  - [x] Implement typing effect for dialogue with subtle audio cues (Plan: 14.1) (Req: 20)
 
 - [x] **14.2 Event Scheduling & Triggering**
   - [x] Add `theophania_frequency` (in iterations) to `TimeManager.gd` (Plan: 14.2) (Req: 20)
@@ -364,3 +366,5 @@
 - [x] **14.3 Event Content & Effects**
   - [x] Implement varied scenarios and outcomes for the event (Plan: 14.3) (Req: 20)
   - [x] Ensure choices correctly affect the world state (Plan: 14.3) (Req: 20)
+  - [x] Ensure all G1 communications address the player as "Administrator" (Plan: 14.3) (Req: 20)
+  - [x] Add more immersive Theophania scenarios (Plan: 14.3) (Req: 20)

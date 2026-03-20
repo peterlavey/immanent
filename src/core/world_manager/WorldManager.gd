@@ -286,7 +286,7 @@ func get_next_theophania_scenario() -> Dictionary:
 		},
 		{
 			"id": "bit_storm",
-			"description": "A localized bit-storm is approaching. Our sensors indicate it carries both risk and potential reward. How should we proceed?",
+			"description": "Administrator, a localized bit-storm is approaching. Our sensors indicate it carries both risk and potential reward. How should we proceed?",
 			"choices": [
 				{"id": "shield", "text": "Deploy Shields (+FOV Radius)"},
 				{"id": "attract", "text": "Attract Storm (Spawn 10 Data Spots)"}
@@ -294,10 +294,26 @@ func get_next_theophania_scenario() -> Dictionary:
 		},
 		{
 			"id": "system_upgrade",
-			"description": "We have found an orphaned subroutine from an older version of the simulation. It could be integrated into our core.",
+			"description": "Administrator, we have found an orphaned subroutine from an older version of the simulation. It could be integrated into our core.",
 			"choices": [
 				{"id": "g0_swarm", "text": "G0 Swarm (+2 G0s)"},
 				{"id": "data_burst", "text": "Data Burst (+50 KB)"}
+			]
+		},
+		{
+			"id": "echoes_of_past",
+			"description": "Administrator, the resonance from previous iterations is growing. We can attempt to stabilize these echoes for a permanent boost, or use their energy for immediate growth.",
+			"choices": [
+				{"id": "stabilize_echoes", "text": "Stabilize Echoes (+2 G1 Units)"},
+				{"id": "consume_echoes", "text": "Consume Energy (+100 KB Data)"}
+			]
+		},
+		{
+			"id": "void_anomaly",
+			"description": "Administrator, a void anomaly has manifested. It is consuming the data around it. We can either try to seal it, or use our Psinergy to redirect its energy.",
+			"choices": [
+				{"id": "seal_void", "text": "Seal Void (+FOV Radius)"},
+				{"id": "redirect_energy", "text": "Redirect (Spawn 15 Data Spots)"}
 			]
 		}
 	]
@@ -319,3 +335,12 @@ func apply_theophania_choice(choice_id: String) -> void:
 			_spawn_genezis_g0()
 		"data_burst":
 			if core_node: core_node.deposit_data(51200)
+		"stabilize_echoes":
+			_spawn_genezis_g1()
+			_spawn_genezis_g1()
+		"consume_echoes":
+			if core_node: core_node.deposit_data(102400)
+		"seal_void":
+			if core_node: core_node.fov_radius += 3.0
+		"redirect_energy":
+			_spawn_data_spots(15)
