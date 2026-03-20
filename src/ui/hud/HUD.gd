@@ -1,4 +1,4 @@
-extends Control
+extends CanvasLayer
 
 @onready var data_label = $MarginContainer/VBoxContainer/DataLabel
 @onready var iteration_label = $MarginContainer/VBoxContainer/IterationLabel
@@ -14,6 +14,8 @@ extends Control
 @onready var mission_list_button = $MarginContainer/MissionContainer/MissionListButton
 @onready var mission_list_ui = $MissionListUI
 @onready var mission_presentation_ui = $MissionPresentationUI
+@onready var fisheye_effect = $FisheyeEffect
+@onready var fisheye_toggle = $MarginContainer/VBoxContainer/FisheyeToggle
 
 @onready var save_button = $MarginContainer/SaveLoadContainer/SaveButton
 @onready var load_button = $MarginContainer/SaveLoadContainer/LoadButton
@@ -82,6 +84,9 @@ func _ready() -> void:
 	
 	if mission_list_button:
 		mission_list_button.pressed.connect(_on_mission_list_button_pressed)
+	
+	if fisheye_toggle:
+		fisheye_toggle.toggled.connect(_on_fisheye_toggled)
 	
 	# Initial count
 	_update_genezis_count()
@@ -226,6 +231,11 @@ func _on_mission_list_button_pressed() -> void:
 	
 	if mission_list_ui:
 		mission_list_ui.show_missions()
+		_play_click_sfx()
+
+func _on_fisheye_toggled(button_pressed: bool) -> void:
+	if fisheye_effect:
+		fisheye_effect.visible = button_pressed
 		_play_click_sfx()
 
 func _on_save_button_pressed() -> void:

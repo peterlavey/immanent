@@ -267,6 +267,23 @@
   - [x] Ensure the background appears "distant" but responds with depth to camera movements (Plan: 9.1) (Req: 16)
   - [x] Fix "mosaic" effect in background by disabling triplanar mapping and adjusting UV scale (Plan: 9.1) (Req: 16)
 
+- [x] **9.2 Fisheye Filter**
+  - [x] Implement a fisheye shader for post-processing (Plan: 9.2) (Req: 1)
+  - [x] Create a `FisheyeEffect` scene with a `CanvasLayer` and a `ColorRect` using the shader.
+  - [x] Add a toggle button in the `HUD.tscn` to enable/disable the effect.
+  - [x] Update `HUD.gd` to handle the toggle and communicate with the `FisheyeEffect`.
+  - [x] Fix HUD being cut off by moving it to a higher CanvasLayer than the fisheye effect.
+  - [x] Fix script inheritance error for HUD (changed `extends Control` to `extends CanvasLayer`).
+  - [x] Enhance fisheye shader with CRT-style curvature and rounded corners for "old TV" look.
+  - [x] Adjust fisheye parameters (strength, roundness) to make the rounded edges more visible.
+  - [x] Include HUD in the fisheye effect and adjust margins to prevent clipping.
+  - [x] Fine-tune fisheye parameters (reduced roundness/strength) and HUD margins for optimal fit.
+  - [x] Further reduce fisheye distortion and rounding for a "slight" effect and adjust HUD margins to be smaller.
+  - [x] Minimal fisheye tuning: reduced roundness (0.1) and strength (-0.04) for an even subtler effect, with tighter HUD margins (20/15).
+  - [x] Fix HUD clipping: Increased HUD margins in `HUD.tscn` to (80/60) and further reduced fisheye strength (-0.02) and roundness (0.06) to ensure all UI elements and world details are visible with plenty of "leeway".
+  - [x] Add scanline effect to the fisheye shader for a more authentic "old TV" look.
+  - [x] Soften the fisheye and scanline effects (reduced strength, roundness, and scanline opacity) for a more subtle CRT aesthetic.
+
 ## Phase 11: Advanced G1 Networks (Psinergy)
 
 - [x] **11.1 Psinergy Logic**

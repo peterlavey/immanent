@@ -1,0 +1,25 @@
+[gd_scene load_steps=4 format=3]
+
+[ext_resource type="Shader" path="res://assets/shaders/fisheye.gdshader" id="1_shader"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_1"]
+shader = ExtResource("1_shader")
+shader_parameter/strength = -0.01
+shader_parameter/curvature = 2.0
+shader_parameter/roundness = 0.04
+shader_parameter/vignette_softness = 0.03
+shader_parameter/scanline_count = 600.0
+shader_parameter/scanline_opacity = 0.03
+shader_parameter/scanline_speed = 0.5
+
+[node name="FisheyeEffect" type="CanvasLayer"]
+layer = 10
+
+[node name="ColorRect" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_1")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
