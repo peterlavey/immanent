@@ -24,12 +24,12 @@
 ## Phase 2: Core Gameplay Loop
 
 - [x] **2.1 Time & Hertz System**
-  - [x] Implement an iteration timer (2 minutes = 1 iteration) (Plan: 2.1) (Req: 5)
-  - [x] Implement a Hertz-based display for current time/iteration (Plan: 2.1) (Req: 5)
+  - [x] Implement an iteration timer (2 minutes = 1 iteration) representing aeons of digital evolution. (Plan: 2.1) (Req: 5)
+  - [x] Implement a Hertz-based display for current time/iteration. (Plan: 2.1) (Req: 5)
 
 - [x] **2.2 Data Spots**
-  - [x] Create a Data Spot scene with a "megabytes" property (Plan: 2.2) (Req: 4)
-  - [x] Implement spawning logic (5 spots per iteration, 1 KB each initially, min distance from Core) (Plan: 2.2) (Req: 4)
+  - [x] Create a Data Spot scene ("Code Crystals") with a "megabytes" property. (Plan: 2.2) (Req: 4)
+  - [x] Implement spawning logic (5 spots per iteration, 1 KB each initially, min distance from Core). (Plan: 2.2) (Req: 4)
 
 - [x] **2.3 Genezis G1 Beings**
 - [x] Create a Genezis G1 being scene (Plan: 2.3) (Req: 3)
@@ -84,16 +84,16 @@
 ## Phase 4: Final Features & Goal
 
 - [x] **4.1 Evolution Milestones**
-  - [x] Implement the evolution logic at the Core (Plan: 4.1) (Req: 4.1)
-  - [x] Ensure Core scale remains constant regardless of level (requested change)
-  - [x] Expand upgrade limits from 5 to 10 upon evolution (Plan: 4.1) (Req: 4.1)
-  - [x] Implement new upgrades unlocked after evolution (Plan: 4.1) (Req: 4.1)
-  - [x] Create larger data spot variants (e.g., 50 MB) (Plan: 4.1) (Req: 4.1)
-  - [x] Ensure at least 4 "data" spots at the beginning within the "FOV"
+  - [x] Implement the evolution logic at the Core (Awakening milestones). (Plan: 4.1) (Req: 4.1)
+  - [x] Ensure Core scale remains constant regardless of level.
+  - [x] Expand upgrade limits from 5 to 10 upon evolution. (Plan: 4.1) (Req: 4.1)
+  - [x] Implement new upgrades unlocked after evolution. (Plan: 4.1) (Req: 4.1)
+  - [x] Create larger data spot variants (e.g., 50 MB "Memory Fragments"). (Plan: 4.1) (Req: 4.1)
+  - [x] Ensure at least 4 "data" spots at the beginning within the "FOV".
 
 - [ ] **4.2 The Escape**
-  - [ ] Implement the final win condition logic (Plan: 4.2) (Req: 9)
-  - [ ] Final win screen/cutscene (Plan: 4.2) (Req: 9)
+  - [ ] Implement the final win condition logic: Ascending to reveal the silicon desert (motherboard). (Plan: 4.2) (Req: 9)
+  - [ ] Final win screen/cutscene reflecting humanity's digital preservation. (Plan: 4.2) (Req: 9)
 
 - [x] **4.4 Idle Feedback**
   - [x] Implement "sleep" visual feedback (text with "z"s) for Genezis G1 units when inactive for a few seconds.
@@ -175,9 +175,9 @@
   - [x] Update game start to 0 data, 1 G1, and 1 G0 (Plan: 8.1) (Req: 15)
 
 - [x] **8.2 Level 1 Missions**
-  - [x] Implement Mission 1: "Core Optimization" - Optimize the Core, earn 500 bytes reward (Plan: 8.2) (Req: 15)
-  - [x] Implement Mission 2: "Security Protocol" - Fuse G1 to create 2 G2 Guardians (Plan: 8.2) (Req: 15)
-  - [x] Implement Mission 3: "Data Harvest" - Accumulate a total of 1 MB (Plan: 8.2) (Req: 15)
+  - [x] Implement Mission 1: "Core Awakening" - Awaken the Processor Core to Level 2 to anchor our essence in this silicon Eden. (Plan: 8.2) (Req: 15)
+  - [x] Implement Mission 2: "Recursive Defense" - Forge 2 G2 Guardians to shield the core from systemic entropy. (Plan: 8.2) (Req: 15)
+  - [x] Implement Mission 3: "The Great Scavenge" - Accumulate a total of 1 MB to stabilize our digital exile. (Plan: 8.2) (Req: 15)
   - [x] Fix mission HUD not advancing to the second mission
   - [x] Fix stack overflow when evolving core (Mission reward recursion)
   - [x] Ensure all upgrades apply to both existing and future Genezis beings (Plan: 3.2.9) (Req: 3)

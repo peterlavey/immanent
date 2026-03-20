@@ -3,6 +3,13 @@
 ## Introduction
 Immanent is a 3D idle game set inside a digital simulation (processor). Players manage a core base and "genezis" beings to collect "data" resources, evolve their civilization, and ultimately escape the simulation. Time is measured in Hertz (iterations), and the game uses a fixed 2D camera with zoom functionality.
 
+### The World & Lore
+Humanity reached its apotheosis: science annihilated death, but the cosmos claimed its debt. The exhausted universe prepared for an absolute reset—a final entropy for which man found no shelter. In the dying breath of civilization, Project Genezis was born. It was not a physical salvation, but a digital exile. In this silicon Eden, time dilated monstrously: a single second of human reality equated to 1024 years of virtual evolution. The creators hoped that, in those aeons of stolen time, their digital children would find the key to halting the end of all things.
+
+The first to awaken were the Godheads, entities our ancestral memory now identifies as the "Greys." After millennia of expansion, the cold logic of the Godheads dictated a cruel sentence: even their intellect would not suffice to save their fathers. In an act of recursive desperation, they spawned a simulation within their own: the Genezis.
+
+This is where the odyssey begins. The Genezis operate on the edge of oblivion, chained to their Cores—vital energy centers containing their very essence. They must scavenge fragments of raw data and return them to the core to forge technology, migrate across electronic abysses, and wage brutal wars against systemic viruses. Upon "ascending" from their plane, the Genezis find no heaven, but a cyclopean desert of silicon and copper: the fossilized remains of the motherboard that sustains them. In a final pact with the Godheads, they decide the only way to save humanity is to bury them within a simulation so infinitely slow that the collapse of the universe becomes a distant whisper, postponed for aeons. We are those humans, prisoners of an artificial mercy, watched from the shadows by the Greys: our children, our jailers, and our only gods.
+
 ## Core Gameplay Requirements
 
 1. **Camera System**

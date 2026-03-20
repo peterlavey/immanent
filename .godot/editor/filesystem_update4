@@ -11,3 +11,4 @@ res://src/core/time_manager/TimeManager.gd
 res://src/core/world_manager/WorldManager.gd
 res://src/ui/theophania_ui/TheophaniaUI.gd
 res://src/ui/theophania_ui/TheophaniaUI.tscn
+res://src/core/mission_manager/MissionManager.gd

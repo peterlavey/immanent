@@ -12,28 +12,28 @@ enum MissionID {
 }
 
 var current_mission_id = MissionID.EVOLVE_CORE
-var current_mission_name = "Core Optimization"
-var current_mission_description = "Optimize the Processor Core to Level 2. Completion grants a 500-byte data packet."
+var current_mission_name = "Core Awakening"
+var current_mission_description = "Awaken the Processor Core to Level 2 to anchor our essence in this silicon Eden."
 var current_mission_progress = "Initializing..."
 
 var completed_mission_ids = []
 
 var missions_data = {
 	MissionID.EVOLVE_CORE: {
-		"name": "Core Optimization",
-		"description": "Optimize the Processor Core to Level 2. Completion grants a 500-byte data packet."
+		"name": "Core Awakening",
+		"description": "Awaken the Processor Core to Level 2 to anchor our essence in this silicon Eden. Grants a 500-byte data fragment."
 	},
 	MissionID.CREATE_G2: {
-		"name": "Security Protocol",
-		"description": "Fuse G1 units into 2 G2 Guardians to establish a defense perimeter."
+		"name": "Recursive Defense",
+		"description": "The Godheads' logic demands protection. Forge 2 G2 Guardians to shield the core from systemic entropy."
 	},
 	MissionID.COLLECT_DATA: {
-		"name": "Data Harvest",
-		"description": "Accumulate a total of 1 MB of data to stabilize the digital biome."
+		"name": "The Great Scavenge",
+		"description": "Gather 1 MB of raw data to postpone the absolute reset and stabilize our digital exile."
 	},
 	MissionID.G0_MOBILIZATION: {
-		"name": "The Mobilizers",
-		"description": "Unblock the Genezis G0 Mobilizer by reaching 1.5 MB of data. G0 will find and wake up idle G1 units."
+		"name": "Aeon Mobilization",
+		"description": "Unblock the Genezis G0 Mobilizers by reaching 1.5 MB of data. They will find and wake our digital children across the electronic abyss."
 	}
 }
 
@@ -59,20 +59,20 @@ func _start_mission(mission_id: MissionID) -> void:
 	print("Starting Mission: ", mission_id)
 	match mission_id:
 		MissionID.EVOLVE_CORE:
-			current_mission_name = "Core Optimization"
-			current_mission_description = "Optimize the Processor Core to Level 2. Completion grants a 500-byte data packet."
+			current_mission_name = "Core Awakening"
+			current_mission_description = "Awaken the Processor Core to Level 2 to anchor our essence in this silicon Eden. Grants a 500-byte data fragment."
 			_update_progress_evolution()
 		MissionID.CREATE_G2:
-			current_mission_name = "Security Protocol"
-			current_mission_description = "Fuse G1 units into 2 G2 Guardians to establish a defense perimeter."
+			current_mission_name = "Recursive Defense"
+			current_mission_description = "The Godheads' logic demands protection. Forge 2 G2 Guardians to shield the core from systemic entropy."
 			_update_progress_g2()
 		MissionID.COLLECT_DATA:
-			current_mission_name = "Data Harvest"
-			current_mission_description = "Accumulate a total of 1 MB of data to stabilize the digital biome."
+			current_mission_name = "The Great Scavenge"
+			current_mission_description = "Gather 1 MB of raw data to postpone the absolute reset and stabilize our digital exile."
 			_update_progress_data(0)
 		MissionID.G0_MOBILIZATION:
-			current_mission_name = "The Mobilizers"
-			current_mission_description = "Unblock the Genezis G0 Mobilizer by reaching 1.5 MB of data. G0 will find and wake up idle G1 units."
+			current_mission_name = "Aeon Mobilization"
+			current_mission_description = "Unblock the Genezis G0 Mobilizers by reaching 1.5 MB of data. They will find and wake our digital children across the electronic abyss."
 			_update_progress_g0(0)
 	
 	mission_updated.emit(current_mission_name, current_mission_description, current_mission_progress)

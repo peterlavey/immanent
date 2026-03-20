@@ -219,7 +219,7 @@ func _on_data_changed(amount: int) -> void:
 func _on_time_updated(remaining: float) -> void:
 	var minutes = int(remaining) / 60
 	var seconds = int(remaining) % 60
-	timer_label.text = "Next Sync: %02d:%02d" % [minutes, seconds]
+	timer_label.text = "Sync: %02d:%02d" % [minutes, seconds]
 
 func _on_iteration_started(number: int) -> void:
 	iteration_label.text = str(number) + " Hz"

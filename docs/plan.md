@@ -1,7 +1,7 @@
 # Implementation Plan - Immanent
 
 ## Overview
-This plan outlines the development phases for "Immanent," a 3D idle game focusing on resource collection and evolution within a digital simulation. The project follows Clean Architecture and SOLID principles, prioritizing simple, functional, and testable code.
+This plan outlines the development phases for "Immanent," a 3D idle game set inside a digital simulation where time is dilated (1s = 1024 years). Humanity's last hope rests on "Project Genezis," a silicon Eden managed by the player (the Administrator). Players oversee a Processor Core and "Genezis" beings—digital children watched by the 'Greys' (Godheads)—to scavenge raw data, evolve their civilization, and ultimately postpone the absolute reset of the universe. The project follows Clean Architecture and SOLID principles, prioritizing simple, functional, and testable code within this "Digital Biome" aesthetic.
 
 ## Phase 1: Basic Simulation Environment & Infrastructure (High Priority)
 Goal: Set up the fundamental project structure and the static elements of the simulation.
@@ -172,8 +172,8 @@ Goal: Add immersive music and sound effects to the simulation.
    - Requirements: Req 12
 
 2. **Ambient Music** (Plan: 7.2)
-   - Integrate seamless looping ambient electronic music.
-   - Implement fade-in/out logic for scene transitions.
+   - Integrate seamless looping ambient electronic music (e.g., `hope.mp3`).
+   - Implement fade-in/out logic for scene transitions to maintain the immersive 'silicon Eden' atmosphere.
    - Priority: Medium
    - Requirements: Req 12
 

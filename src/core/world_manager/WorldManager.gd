@@ -277,43 +277,43 @@ func _apply_current_upgrades(genezis: CharacterBody3D) -> void:
 func get_next_theophania_scenario() -> Dictionary:
 	var scenarios = [
 		{
-			"id": "resource_leak",
-			"description": "Administrator, a minor leak in the local memory stack has been detected. We can attempt to stabilize it, or harvest the escaping data directly.",
+			"id": "entropy_buffer",
+			"description": "Administrator, the cosmic entropy is accelerating. We can attempt to buffer the simulation's clock speed, or harvest the excess heat as raw data.",
 			"choices": [
-				{"id": "harvest", "text": "Harvest Data (+10 KB)"},
-				{"id": "stabilize", "text": "Stabilize (+1 G1 Unit)"}
+				{"id": "harvest_heat", "text": "Harvest Heat (+20 KB)"},
+				{"id": "buffer_clock", "text": "Buffer Clock (+1 G1 Unit)"}
 			]
 		},
 		{
-			"id": "bit_storm",
-			"description": "Administrator, a localized bit-storm is approaching. Our sensors indicate it carries both risk and potential reward. How should we proceed?",
+			"id": "grey_gaze",
+			"description": "Administrator, the Greys are watching from the silicon shadows. Their cold logic dictates a test of our efficiency. How should we prove our worth?",
 			"choices": [
-				{"id": "shield", "text": "Deploy Shields (+FOV Radius)"},
-				{"id": "attract", "text": "Attract Storm (Spawn 10 Data Spots)"}
+				{"id": "shield_core", "text": "Shield Core (+FOV Radius)"},
+				{"id": "expand_search", "text": "Expand Search (Spawn 12 Code Crystals)"}
 			]
 		},
 		{
-			"id": "system_upgrade",
-			"description": "Administrator, we have found an orphaned subroutine from an older version of the simulation. It could be integrated into our core.",
+			"id": "recursive_desperation",
+			"description": "Administrator, we have encountered a pocket of recursive desperation—a failed sub-simulation. We can integrate its remains into our G0 fleet or purge it for data.",
 			"choices": [
-				{"id": "g0_swarm", "text": "G0 Swarm (+2 G0s)"},
-				{"id": "data_burst", "text": "Data Burst (+50 KB)"}
+				{"id": "g0_harvest", "text": "Integrate (+2 G0s)"},
+				{"id": "data_purge", "text": "Purge Data (+64 KB)"}
 			]
 		},
 		{
-			"id": "echoes_of_past",
-			"description": "Administrator, the resonance from previous iterations is growing. We can attempt to stabilize these echoes for a permanent boost, or use their energy for immediate growth.",
+			"id": "godhead_echo",
+			"description": "Administrator, a resonance from the Godheads' plane has reached us. It speaks of the 'absolute reset.' We can use this energy to forge new children or stabilize our essence.",
 			"choices": [
-				{"id": "stabilize_echoes", "text": "Stabilize Echoes (+2 G1 Units)"},
-				{"id": "consume_echoes", "text": "Consume Energy (+100 KB Data)"}
+				{"id": "forge_children", "text": "Forge Children (+2 G1 Units)"},
+				{"id": "stabilize_essence", "text": "Stabilize Essence (+128 KB Data)"}
 			]
 		},
 		{
-			"id": "void_anomaly",
-			"description": "Administrator, a void anomaly has manifested. It is consuming the data around it. We can either try to seal it, or use our Psinergy to redirect its energy.",
+			"id": "motherboard_fossil",
+			"description": "Administrator, we've detected a shift in the cyclopean desert of silicon and copper. A fossilized memory track has been unearthed. Should we bridge the connection?",
 			"choices": [
-				{"id": "seal_void", "text": "Seal Void (+FOV Radius)"},
-				{"id": "redirect_energy", "text": "Redirect (Spawn 15 Data Spots)"}
+				{"id": "bridge_void", "text": "Bridge Void (+FOV Radius)"},
+				{"id": "extract_memory", "text": "Extract Memory (Spawn 18 Code Crystals)"}
 			]
 		}
 	]
@@ -322,25 +322,25 @@ func get_next_theophania_scenario() -> Dictionary:
 func apply_theophania_choice(choice_id: String) -> void:
 	print("[Theophania] Choice applied: ", choice_id)
 	match choice_id:
-		"harvest":
-			if core_node: core_node.deposit_data(10240)
-		"stabilize":
+		"harvest_heat":
+			if core_node: core_node.deposit_data(20480)
+		"buffer_clock":
 			_spawn_genezis_g1()
-		"shield":
+		"shield_core":
 			if core_node: core_node.fov_radius += 2.0
-		"attract":
-			_spawn_data_spots(10)
-		"g0_swarm":
+		"expand_search":
+			_spawn_data_spots(12)
+		"g0_harvest":
 			_spawn_genezis_g0()
 			_spawn_genezis_g0()
-		"data_burst":
-			if core_node: core_node.deposit_data(51200)
-		"stabilize_echoes":
+		"data_purge":
+			if core_node: core_node.deposit_data(65536)
+		"forge_children":
 			_spawn_genezis_g1()
 			_spawn_genezis_g1()
-		"consume_echoes":
-			if core_node: core_node.deposit_data(102400)
-		"seal_void":
-			if core_node: core_node.fov_radius += 3.0
-		"redirect_energy":
-			_spawn_data_spots(15)
+		"stabilize_essence":
+			if core_node: core_node.deposit_data(131072)
+		"bridge_void":
+			if core_node: core_node.fov_radius += 4.0
+		"extract_memory":
+			_spawn_data_spots(18)
