@@ -279,8 +279,10 @@
 - [x] **9.2 CRT Mode**
   - [x] Implement a CRT distortion shader for post-processing (Plan: 9.2) (Req: 1)
   - [x] Create a `CRTEffect` scene with a `CanvasLayer` and a `ColorRect` using the shader.
-  - [x] Add a toggle button in the `HUD.tscn` to enable/disable the effect.
-  - [x] Update `HUD.gd` to handle the toggle and communicate with the `CRTEffect`.
+  - [x] Move CRT toggle to a Pause Menu settings option, accessible via ESC. (Req: 1)
+  - [x] Enable CRT mode by default. (Req: 1)
+  - [x] Move Save/Load functions to the Pause Menu. (Req: 17)
+  - [x] Update `HUD.gd` and `HUD.tscn` to remove old CRT/Save/Load controls.
   - [x] Fix HUD being cut off by moving it to a higher CanvasLayer than the CRT effect.
   - [x] Fix script inheritance error for HUD (changed `extends Control` to `extends CanvasLayer`).
   - [x] Enhance CRT shader with CRT-style curvature and rounded corners for "old TV" look.

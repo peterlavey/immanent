@@ -15,12 +15,8 @@ extends CanvasLayer
 @onready var mission_list_ui = $MissionListUI
 @onready var mission_presentation_ui = $MissionPresentationUI
 @onready var crt_effect = $CRTEffect
-@onready var crt_toggle = $MarginContainer/VBoxContainer/CRTToggle
+@onready var pause_menu = $PauseMenu
 @onready var theophania_ui_scene = preload("res://src/ui/theophania_ui/TheophaniaUI.tscn")
-
-@onready var save_button = $MarginContainer/SaveLoadContainer/SaveButton
-@onready var load_button = $MarginContainer/SaveLoadContainer/LoadButton
-@onready var delete_button = $MarginContainer/SaveLoadContainer/DeleteButton
 
 var selected_genezis: CharacterBody3D = null
 
@@ -74,27 +70,22 @@ func _ready() -> void:
 	else:
 		printerr("HUD: MissionManager not found in group or at parent level")
 	
-	if save_button:
-		save_button.pressed.connect(_on_save_button_pressed)
-	if load_button:
-		load_button.pressed.connect(_on_load_button_pressed)
-		# Only enable load button if save file exists
-		load_button.disabled = not FileAccess.file_exists("user://savegame.json")
-	
-	if delete_button:
-		delete_button.pressed.connect(_on_delete_button_pressed)
-		delete_button.disabled = not FileAccess.file_exists("user://savegame.json")
-	
 	if mission_list_button:
 		mission_list_button.pressed.connect(_on_mission_list_button_pressed)
 	
-	if crt_toggle:
-		crt_toggle.toggled.connect(_on_crt_toggled)
+	if pause_menu:
+		pause_menu.crt_toggled.connect(_on_crt_toggled)
 	
 	# Initial count
 	_update_genezis_count()
 
 func _unhandled_input(event: InputEvent) -> void:
+	if event.is_action_pressed("ui_cancel") or (event is InputEventKey and event.keycode == KEY_ESCAPE and event.pressed):
+		if pause_menu:
+			pause_menu.toggle()
+			get_viewport().set_input_as_handled()
+			return
+
 	# Close menus if clicking on empty space
 	if event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
@@ -260,33 +251,6 @@ func _on_mission_list_button_pressed() -> void:
 func _on_crt_toggled(button_pressed: bool) -> void:
 	if crt_effect:
 		crt_effect.visible = button_pressed
-		_play_click_sfx()
-
-func _on_save_button_pressed() -> void:
-	if has_node("/root/SaveManager"):
-		get_node("/root/SaveManager").save_game()
-		if load_button:
-			load_button.disabled = false
-		if delete_button:
-			delete_button.disabled = false
-		_play_click_sfx()
-
-func _on_load_button_pressed() -> void:
-	if has_node("/root/SaveManager"):
-		if get_node("/root/SaveManager").load_game():
-			# Close menus after load
-			if upgrade_menu: upgrade_menu.hide()
-			if genezis_stats_ui: genezis_stats_ui.hide()
-			_play_click_sfx()
-
-func _on_delete_button_pressed() -> void:
-	if has_node("/root/SaveManager"):
-		get_node("/root/SaveManager").delete_save()
-		if load_button:
-			load_button.disabled = true
-		if delete_button:
-			delete_button.disabled = true
-		_play_click_sfx()
 
 func _play_click_sfx() -> void:
 	var audio_manager = get_tree().root.get_node_or_null("AudioManager")

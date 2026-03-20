@@ -7,13 +7,14 @@
 [ext_resource type="PackedScene" path="res://src/ui/mission_list_ui/MissionListUI.tscn" id="5_scene"]
 [ext_resource type="PackedScene" path="res://src/ui/mission_presentation_ui/MissionPresentationUI.tscn" id="6_scene"]
 [ext_resource type="PackedScene" path="res://src/ui/hud/CRTEffect.tscn" id="7_crt_scene"]
+[ext_resource type="PackedScene" path="res://src/ui/hud/PauseMenu.tscn" id="8_pause_scene"]
 
 [node name="HUD" type="CanvasLayer"]
 layer = 2
 script = ExtResource("1_script")
 
 [node name="CRTEffect" parent="." instance=ExtResource("7_crt_scene")]
-visible = false
+visible = true
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 anchors_preset = 15
@@ -51,29 +52,6 @@ text = "Data: 0 B"
 layout_mode = 2
 theme_override_font_sizes/font_size = 20
 text = "Genezis Count: 0"
-
-[node name="CRTToggle" type="CheckButton" parent="MarginContainer/VBoxContainer"]
-layout_mode = 2
-text = "CRT Mode"
-
-[node name="SaveLoadContainer" type="HBoxContainer" parent="MarginContainer"]
-layout_mode = 2
-size_flags_horizontal = 0
-size_flags_vertical = 8
-mouse_filter = 0
-theme_override_constants/separation = 10
-
-[node name="SaveButton" type="Button" parent="MarginContainer/SaveLoadContainer"]
-layout_mode = 2
-text = "Save Simulation"
-
-[node name="LoadButton" type="Button" parent="MarginContainer/SaveLoadContainer"]
-layout_mode = 2
-text = "Load Simulation"
-
-[node name="DeleteButton" type="Button" parent="MarginContainer/SaveLoadContainer"]
-layout_mode = 2
-text = "Delete Save"
 
 [node name="MissionContainer" type="VBoxContainer" parent="MarginContainer"]
 layout_mode = 2
@@ -128,5 +106,9 @@ visible = false
 layout_mode = 1
 
 [node name="MissionPresentationUI" parent="." instance=ExtResource("6_scene")]
+visible = false
+layout_mode = 1
+
+[node name="PauseMenu" parent="." instance=ExtResource("8_pause_scene")]
 visible = false
 layout_mode = 1
