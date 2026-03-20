@@ -7,16 +7,19 @@ signal fov_changed(new_radius: float)
 signal evolution_changed(new_level: int)
 
 @export var floating_text_scene: PackedScene = preload("res://src/ui/floating_text/FloatingText.tscn")
+@export var world_space_ui_scene: PackedScene = preload("res://src/ui/hud/WorldSpaceUI.tscn")
 @export var current_data: int = 0: # Start with 0 data
 	set(value):
 		current_data = value
 		data_changed.emit(current_data)
+		_update_world_space_label()
 
 @export var evolution_level: int = 1:
 	set(value):
 		evolution_level = value
 		evolution_changed.emit(evolution_level)
 		_update_visual_for_evolution()
+		_update_world_space_label()
 
 @export var fov_radius: float = 10.0:
 	set(value):
@@ -26,9 +29,25 @@ signal evolution_changed(new_level: int)
 
 @onready var fov_visual: MeshInstance3D = $FOVVisual
 
+var _world_space_label: Label3D
+
 func _ready() -> void:
 	add_to_group("core")
 	_update_fov_visual()
+	_setup_world_space_ui()
+
+func _setup_world_space_ui() -> void:
+	if world_space_ui_scene:
+		var ws_ui = world_space_ui_scene.instantiate()
+		add_child(ws_ui)
+		ws_ui.transform.origin = Vector3(0, 3.5, 0) # Position above the core
+		_world_space_label = ws_ui.get_node("Label")
+		_world_space_label.font_size = 8 # Core is the biggest entity, but still smaller than before
+		_update_world_space_label()
+
+func _update_world_space_label() -> void:
+	if _world_space_label:
+		_world_space_label.text = "CORE_NODE_0%d\nDATA: %s" % [evolution_level, format_bytes(current_data)]
 
 func _update_fov_visual() -> void:
 	if not is_node_ready():

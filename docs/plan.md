@@ -286,3 +286,24 @@ Goal: Implement periodic interactive events with a G1.
    - Implement logical impacts for choices (e.g., granting data, spawning units, etc.).
    - Priority: Medium
    - Requirements: Req 20
+
+## Phase 15: Monitor Interface & Story Context (High Priority)
+Goal: Improve world data display to reflect the 'monitor interface' story context.
+
+1. **HUD Overlay Enhancements** (Plan: 15.1)
+   - Add technical decorative elements to the HUD (e.g., system status bars, coordinate grids, hex readouts).
+   - Implement a "Monitor Frame" overlay to reinforce the feeling of looking through a screen.
+   - Priority: High
+   - Requirements: Req 1, Req 13
+
+2. **World-Space Interface** (Plan: 15.2)
+   - Add 3D labels or "Holographic" indicators to the Processor Core and Genezis units.
+   - Implement "Tactical" markers for enemies and data spots that only appear through the 'monitor'.
+   - Priority: High
+   - Requirements: Req 1, Req 13
+
+3. **CRT/Glitch Visual Polish** (Plan: 15.3)
+   - Refine `CRTEffect` shader with subtle glitch artifacts during high-activity events (e.g., massive data deposits).
+   - Add a "Boot" sequence or "Signal Lost" transition effect for specific narrative moments.
+   - Priority: Medium
+   - Requirements: Req 13

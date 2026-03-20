@@ -377,3 +377,16 @@
   - [x] Ensure choices correctly affect the world state (Plan: 14.3) (Req: 20)
   - [x] Ensure all G1 communications address the player as "Administrator" (Plan: 14.3) (Req: 20)
   - [x] Add more immersive Theophania scenarios (Plan: 14.3) (Req: 20)
+
+## Phase 15: Monitor Interface & Story Context
+- [x] **15.1 HUD Overlay Enhancements**
+  - [x] Add technical decorative elements to the HUD (e.g., system status bars, coordinate grids) (Plan: 15.1) (Req: 1, 13)
+  - [x] Implement a "Monitor Frame" overlay (Plan: 15.1) (Req: 1, 13)
+- [x] **15.2 World-Space Interface**
+  - [x] Add 3D labels/Holographic indicators to the Processor Core (Plan: 15.2) (Req: 1, 13)
+  - [x] Add unit identifiers to Genezis units (Plan: 15.2) (Req: 1, 13)
+  - [x] Implement "Tactical" markers for enemies and data spots (Plan: 15.2) (Req: 1, 13)
+  - [x] Further adjust world-space label scales for all entities (Core: 8, others: 6) and enable Nearest filtering to fix blurriness.
+- [x] **15.3 CRT/Glitch Visual Polish**
+  - [x] Refine `CRTEffect` shader with subtle glitch artifacts (Plan: 15.3) (Req: 13)
+  - [ ] Add a "Boot" sequence or "Signal Lost" transition effect (Plan: 15.3) (Req: 13)

@@ -14,3 +14,7 @@ res://src/ui/theophania_ui/TheophaniaUI.tscn
 res://src/core/mission_manager/MissionManager.gd
 res://src/core/core/SaveManager.gd
 res://src/ui/hud/HUD.tscn
+res://assets/shaders/crt_mode.gdshader
+res://src/core/core/Core.gd
+res://src/entities/data_spot/DataSpot.gd
+res://src/ui/hud/WorldSpaceUI.tscn

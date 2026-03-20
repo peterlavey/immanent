@@ -9,17 +9,34 @@ enum State { IDLE, MOVING_TO_TARGET, PERFORMING_ACTION, ESCAPING }
 @export var friction: float = 1.0
 @export var health: float = 1.0
 @export var defragmentation_scene: PackedScene = preload("res://src/entities/enemy/defragmentation_effect/DefragmentationEffect.tscn")
+@export var world_space_ui_scene: PackedScene = preload("res://src/ui/hud/WorldSpaceUI.tscn")
 
 var current_state: State = State.IDLE
 var target: Node3D = null
+var _world_space_label: Label3D
 
 func _ready() -> void:
 	add_to_group("enemies")
+	_setup_world_space_ui()
 	
 	var audio_manager = get_tree().root.get_node_or_null("AudioManager")
 	if audio_manager:
 		# Use G2 sfx for enemy arrival but lower volume and higher pitch for creepiness
 		audio_manager.play_sfx("res://assets/audio/sfx/G2.mp3", -10.0)
+
+func _setup_world_space_ui() -> void:
+	if world_space_ui_scene:
+		var ws_ui = world_space_ui_scene.instantiate()
+		add_child(ws_ui)
+		ws_ui.transform.origin = Vector3(0, 1.0, 0)
+		_world_space_label = ws_ui.get_node("Label")
+		_world_space_label.modulate = Color(1, 0, 0, 0.6) # Red for enemies
+		_world_space_label.font_size = 6
+		_update_world_space_label()
+
+func _update_world_space_label() -> void:
+	if _world_space_label:
+		_world_space_label.text = "VIRUS_DETECTED\nINTEGRITY: %d%%" % int(health * 100)
 
 func _physics_process(delta: float) -> void:
 	match current_state:
@@ -81,6 +98,7 @@ func _perform_action(_delta: float) -> void:
 
 func take_damage(amount: float) -> void:
 	health -= amount
+	_update_world_space_label()
 	# Visual feedback: flash red
 	var mesh = $MeshInstance3D
 	if mesh:

@@ -13,10 +13,32 @@ uniform float neon_softness : hint_range(0.0, 1.0) = 0.1;
 uniform float chromatic_aberration : hint_range(0.0, 0.1) = 0.002;
 uniform float phosphor_opacity : hint_range(0.0, 1.0) = 0.05;
 uniform float flicker_intensity : hint_range(0.0, 0.1) = 0.001;
+uniform float glitch_intensity : hint_range(0.0, 1.0) = 0.0;
 uniform sampler2D screen_texture : hint_screen_texture, repeat_disable, filter_nearest;
+
+float rand(vec2 co) {
+    return fract(sin(dot(co.xy, vec2(12.9898, 78.233))) * 43758.5453);
+}
 
 void fragment() {
     vec2 uv = SCREEN_UV;
+    
+    // Glitch logic: horizontal offsets
+    if (glitch_intensity > 0.0) {
+        float glitch_time = floor(TIME * 10.0);
+        float glitch_chance = rand(vec2(glitch_time, 0.0));
+        if (glitch_chance < glitch_intensity * 0.3) {
+            float y_strip = floor(uv.y * 20.0);
+            float offset = (rand(vec2(glitch_time, y_strip)) - 0.5) * glitch_intensity * 0.1;
+            uv.x += offset;
+        }
+        
+        // Vertical jump
+        if (rand(vec2(glitch_time, 1.0)) < glitch_intensity * 0.1) {
+            uv.y += (rand(vec2(glitch_time, 2.0)) - 0.5) * glitch_intensity * 0.05;
+        }
+    }
+
     vec2 center = vec2(0.5, 0.5);
     vec2 dir = uv - center;
     float dist = length(dir);

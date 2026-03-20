@@ -37,6 +37,10 @@ const SLEEP_THRESHOLD: float = 5.0
 const Z_SPAWN_INTERVAL: float = 2.0
 
 @export var floating_text_scene: PackedScene = preload("res://src/ui/floating_text/FloatingText.tscn")
+@export var world_space_ui_scene: PackedScene = preload("res://src/ui/hud/WorldSpaceUI.tscn")
+
+var _world_space_label: Label3D
+var _genezis_id: String = ""
 
 func _ready() -> void:
 	add_to_group("genezis_g1")
@@ -44,6 +48,23 @@ func _ready() -> void:
 	var cores = get_tree().get_nodes_in_group("core")
 	if cores.size() > 0:
 		core_node = cores[0]
+	
+	_genezis_id = "GEN_G1_%04d" % (get_instance_id() % 10000)
+	_setup_world_space_ui()
+
+func _setup_world_space_ui() -> void:
+	if world_space_ui_scene:
+		var ws_ui = world_space_ui_scene.instantiate()
+		add_child(ws_ui)
+		ws_ui.transform.origin = Vector3(0, 1.5, 0) # Position above the G1
+		_world_space_label = ws_ui.get_node("Label")
+		_world_space_label.modulate = Color(0, 1, 1, 0.5) # Slightly more transparent
+		_world_space_label.font_size = 6
+		_update_world_space_label()
+
+func _update_world_space_label() -> void:
+	if _world_space_label:
+		_world_space_label.text = "%s\nLOAD: %d/%d" % [_genezis_id, current_load, carry_capacity]
 
 func upgrade_speed(multiplier: float) -> void:
 	move_speed *= multiplier
@@ -184,6 +205,7 @@ func _physics_process(delta: float) -> void:
 					var extracted = target_data_spot.extract_data(can_extract)
 					if extracted > 0:
 						inactivity_timer = 0.0
+						_update_world_space_label()
 					current_load += extracted
 					_extraction_accumulator -= extracted
 				
@@ -205,6 +227,7 @@ func _physics_process(delta: float) -> void:
 				core_node.deposit_data(current_load, global_position)
 				print("[G1] Deposited ", current_load, " data")
 				current_load = 0
+				_update_world_space_label()
 				inactivity_timer = 0.0
 				current_state = State.IDLE
 		State.MERGING:

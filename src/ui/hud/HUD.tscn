@@ -13,6 +13,127 @@
 layer = 2
 script = ExtResource("1_script")
 
+[node name="MonitorFrame" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="TopBar" type="ColorRect" parent="MonitorFrame"]
+custom_minimum_size = Vector2(0, 4)
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+grow_horizontal = 2
+color = Color(0, 1, 1, 0.3)
+
+[node name="BottomBar" type="ColorRect" parent="MonitorFrame"]
+custom_minimum_size = Vector2(0, 4)
+layout_mode = 1
+anchors_preset = 12
+anchor_right = 1.0
+anchor_top = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 0
+color = Color(0, 1, 1, 0.3)
+
+[node name="LeftBar" type="ColorRect" parent="MonitorFrame"]
+custom_minimum_size = Vector2(4, 0)
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+grow_vertical = 2
+color = Color(0, 1, 1, 0.3)
+
+[node name="RightBar" type="ColorRect" parent="MonitorFrame"]
+custom_minimum_size = Vector2(4, 0)
+layout_mode = 1
+anchors_preset = 11
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 0
+grow_vertical = 2
+color = Color(0, 1, 1, 0.3)
+
+[node name="CornerTL" type="ColorRect" parent="MonitorFrame"]
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 0
+offset_right = 20.0
+offset_bottom = 20.0
+color = Color(0, 1, 1, 0.6)
+
+[node name="CornerTR" type="ColorRect" parent="MonitorFrame"]
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -20.0
+offset_bottom = 20.0
+grow_horizontal = 0
+color = Color(0, 1, 1, 0.6)
+
+[node name="CornerBL" type="ColorRect" parent="MonitorFrame"]
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -20.0
+offset_right = 20.0
+grow_vertical = 0
+color = Color(0, 1, 1, 0.6)
+
+[node name="CornerBR" type="ColorRect" parent="MonitorFrame"]
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -20.0
+offset_top = -20.0
+grow_horizontal = 0
+grow_vertical = 0
+color = Color(0, 1, 1, 0.6)
+
+[node name="SystemStatus" type="Label" parent="MonitorFrame"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 15.0
+offset_top = -40.0
+offset_right = 215.0
+offset_bottom = -15.0
+grow_vertical = 0
+theme_override_colors/font_color = Color(0, 1, 1, 0.5)
+theme_override_font_sizes/font_size = 12
+text = "SYS_STATUS: NOMINAL | V_LINK: ACTIVE"
+
+[node name="Coordinates" type="Label" parent="MonitorFrame"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -215.0
+offset_top = -40.0
+offset_right = -15.0
+offset_bottom = -15.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_colors/font_color = Color(0, 1, 1, 0.5)
+theme_override_font_sizes/font_size = 12
+text = "LOC: 0x0000 | CORE_SYNC: OK"
+horizontal_alignment = 2
+
 [node name="CRTEffect" parent="." instance=ExtResource("7_crt_scene")]
 visible = true
 
