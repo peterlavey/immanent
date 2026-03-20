@@ -13,7 +13,7 @@ signal new_enemy_type_spawned(type_name: String)
 @export var bit_scrubber_scene: PackedScene
 @export var defragmenter_scene: PackedScene
 @export var spawn_radius: float = 20.0
-@export var min_spawn_distance: float = 5.0
+@export var min_spawn_distance: float = 10.0
 @export var initial_spots: int = 5
 
 @onready var time_manager = $TimeManager
@@ -175,7 +175,7 @@ func _spawn_genezis_g0() -> void:
 	# Spawn near core
 	if core_node:
 		var angle = randf() * TAU
-		var offset = Vector3(cos(angle), 0, sin(angle)) * 3.0
+		var offset = Vector3(cos(angle), 0, sin(angle)) * 6.0
 		g0.global_position = core_node.global_position + offset
 	else:
 		g0.global_position = Vector3.ZERO
@@ -240,7 +240,7 @@ func _spawn_genezis_g1() -> void:
 	# Random initial position in space
 	var angle = randf() * TAU
 	var elevation = randf_range(-PI/4, PI/4)
-	var distance = 5.0
+	var distance = 12.0
 	genezis.global_position = Vector3(
 		cos(angle) * cos(elevation) * distance,
 		sin(elevation) * distance,
