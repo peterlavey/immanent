@@ -6,13 +6,13 @@
 [ext_resource type="PackedScene" path="res://src/ui/enemy_description_ui/EnemyDescriptionUI.tscn" id="4_scene"]
 [ext_resource type="PackedScene" path="res://src/ui/mission_list_ui/MissionListUI.tscn" id="5_scene"]
 [ext_resource type="PackedScene" path="res://src/ui/mission_presentation_ui/MissionPresentationUI.tscn" id="6_scene"]
-[ext_resource type="PackedScene" path="res://src/ui/hud/FisheyeEffect.tscn" id="7_fisheye_scene"]
+[ext_resource type="PackedScene" path="res://src/ui/hud/CRTEffect.tscn" id="7_crt_scene"]
 
 [node name="HUD" type="CanvasLayer"]
 layer = 2
 script = ExtResource("1_script")
 
-[node name="FisheyeEffect" parent="." instance=ExtResource("7_fisheye_scene")]
+[node name="CRTEffect" parent="." instance=ExtResource("7_crt_scene")]
 visible = false
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
@@ -52,9 +52,9 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 20
 text = "Genezis Count: 0"
 
-[node name="FisheyeToggle" type="CheckButton" parent="MarginContainer/VBoxContainer"]
+[node name="CRTToggle" type="CheckButton" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
-text = "Fisheye Filter"
+text = "CRT Mode"
 
 [node name="SaveLoadContainer" type="HBoxContainer" parent="MarginContainer"]
 layout_mode = 2
