@@ -176,3 +176,13 @@ Immanent is a 3D idle game set inside a digital simulation (processor). Players 
       - THE G0 SHALL have a distinct visual design, smaller than G1 but with a unique "signal" or "antenna" feature.
       - THE G0 units SHALL be available for purchase from the Core at Level 1 and SHALL be the cheapest unit in the simulation.
       - THE G0 units SHALL be unlocked or spawned under specific conditions (e.g., as a mission reward).
+
+20. **Theophania Event**
+    - **User Story**: As a player, I want periodic interactive events with a G1 being so that the world feels more dynamic and my choices matter.
+    - **Acceptance Criteria**:
+      - THE "Theophania" event SHALL occur periodically (e.g., every 3-5 iterations/days).
+      - DURING the event, a G1 being SHALL appear on screen, looking at the camera (using `g1_cam.png`).
+      - THE G1 SHALL describe a situation to the player and provide multiple choices.
+      - THE choices SHALL have direct impacts on the world (e.g., resource gains, spawning entities, temporary buffs).
+      - THE game SHALL be paused during the decision-making process.
+      - THE UI SHALL be distinct and immersive, emphasizing the communication with the G1.

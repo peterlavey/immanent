@@ -271,3 +271,51 @@ func _apply_current_upgrades(genezis: CharacterBody3D) -> void:
 		var psinergy_level = menu.upgrade_levels.get("psinergy", 0)
 		if psinergy_level > 0:
 			genezis.upgrade_psinergy(psinergy_level)
+
+# --- Theophania Logic ---
+
+func get_next_theophania_scenario() -> Dictionary:
+	var scenarios = [
+		{
+			"id": "resource_leak",
+			"description": "Administrator, a minor leak in the local memory stack has been detected. We can attempt to stabilize it, or harvest the escaping data directly.",
+			"choices": [
+				{"id": "harvest", "text": "Harvest Data (+10 KB)"},
+				{"id": "stabilize", "text": "Stabilize (+1 G1 Unit)"}
+			]
+		},
+		{
+			"id": "bit_storm",
+			"description": "A localized bit-storm is approaching. Our sensors indicate it carries both risk and potential reward. How should we proceed?",
+			"choices": [
+				{"id": "shield", "text": "Deploy Shields (+FOV Radius)"},
+				{"id": "attract", "text": "Attract Storm (Spawn 10 Data Spots)"}
+			]
+		},
+		{
+			"id": "system_upgrade",
+			"description": "We have found an orphaned subroutine from an older version of the simulation. It could be integrated into our core.",
+			"choices": [
+				{"id": "g0_swarm", "text": "G0 Swarm (+2 G0s)"},
+				{"id": "data_burst", "text": "Data Burst (+50 KB)"}
+			]
+		}
+	]
+	return scenarios.pick_random()
+
+func apply_theophania_choice(choice_id: String) -> void:
+	print("[Theophania] Choice applied: ", choice_id)
+	match choice_id:
+		"harvest":
+			if core_node: core_node.deposit_data(10240)
+		"stabilize":
+			_spawn_genezis_g1()
+		"shield":
+			if core_node: core_node.fov_radius += 2.0
+		"attract":
+			_spawn_data_spots(10)
+		"g0_swarm":
+			_spawn_genezis_g0()
+			_spawn_genezis_g0()
+		"data_burst":
+			if core_node: core_node.deposit_data(51200)

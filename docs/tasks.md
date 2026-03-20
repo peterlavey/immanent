@@ -35,6 +35,7 @@
 - [x] Create a Genezis G1 being scene (Plan: 2.3) (Req: 3)
 - [x] Update Genezis G1 visual design based on g1.png (Plan: 2.3.4)
 - [x] Adjust Genezis G1 eye distance to be on opposite sides (one front, one behind) (Plan: 2.3.4)
+- [x] Create a PNG image of G1 as a pixel art video game character (Plan: 6.2)
 - [x] Implement state machine for Genezis G1 AI: IDLE -> MOVING_TO_DATA -> EXTRACTING -> RETURNING_TO_CORE -> DEPOSITING (Plan: 2.3) (Req: 3)
 - [x] Implement movement logic (Plan: 2.3) (Req: 3)
 - [x] Implement data extraction and carry capacity (Plan: 2.3) (Req: 3)
@@ -345,3 +346,21 @@
   - [x] Implement acceleration and friction for Enemies (Plan: 13.1)
   - [x] Adjust rotation to be smoother during acceleration (Plan: 13.1)
   - [x] Implement "Rocket-like" momentum (propulsion from below) (Plan: 13.2)
+
+## Phase 14: Theophania Event
+
+- [x] **14.1 Theophania UI**
+  - [x] Create `TheophaniaUI.tscn` and `TheophaniaUI.gd` (Plan: 14.1) (Req: 20)
+  - [x] Implement `g1_cam.png` background/visual (Plan: 14.1) (Req: 20)
+  - [x] Add description and choice button logic (Plan: 14.1) (Req: 20)
+
+- [x] **14.2 Event Scheduling & Triggering**
+  - [x] Add `theophania_frequency` (in iterations) to `TimeManager.gd` (Plan: 14.2) (Req: 20)
+  - [x] Trigger `theophania_requested` signal every few iterations (Plan: 14.2) (Req: 20)
+  - [x] Trigger a Theophania on the second day (end of first iteration) (Plan: 14.2) (Req: 20)
+  - [x] Connect signal in `HUD.gd` to show `TheophaniaUI` (Plan: 14.2) (Req: 20)
+  - [x] Handle game pause/unpause during the event (Plan: 14.2) (Req: 20)
+
+- [x] **14.3 Event Content & Effects**
+  - [x] Implement varied scenarios and outcomes for the event (Plan: 14.3) (Req: 20)
+  - [x] Ensure choices correctly affect the world state (Plan: 14.3) (Req: 20)

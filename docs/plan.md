@@ -257,9 +257,25 @@ Goal: Implement Genezis G0 units to find and unblock idle G1 units.
    - Priority: High
    - Requirements: Req 19
 
-2. **WorldManager Integration** (Plan: 12.2)
-   - Handle G0 spawning (available from Level 1, cheapest unit at 25 bytes).
-   - Ensure one G0 is spawned at the start of the simulation.
-   - Priority: High
-   - Requirements: Req 19
    - Status: Completed
+
+## Phase 14: Theophania Event (Medium Priority)
+Goal: Implement periodic interactive events with a G1.
+
+1. **Theophania UI** (Plan: 14.1)
+   - Create the interactive screen for communication with the G1.
+   - Display `g1_cam.png` as the main visual.
+   - Implement dialogue system for descriptions and choices.
+   - Priority: Medium
+   - Requirements: Req 20
+
+2. **Event Scheduling & Triggering** (Plan: 14.2)
+   - Integrate with `TimeManager` to trigger "Theophania" every few iterations.
+   - Handle pausing/unpausing of the simulation.
+   - Priority: Medium
+   - Requirements: Req 20
+
+3. **Event Effects** (Plan: 14.3)
+   - Implement logical impacts for choices (e.g., granting data, spawning units, etc.).
+   - Priority: Medium
+   - Requirements: Req 20

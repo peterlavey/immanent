@@ -7,3 +7,5 @@ res://src/entities/genezis/genezis_g1/GenezisG1.tscn
 res://src/entities/enemy/Enemy.gd
 res://src/entities/genezis/genezis_g0/GenezisG0.gd
 res://src/entities/genezis/genezis_g2/GenezisG2.gd
+res://src/core/time_manager/TimeManager.gd
+res://src/core/world_manager/WorldManager.gd

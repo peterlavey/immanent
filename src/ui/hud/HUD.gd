@@ -16,6 +16,7 @@ extends CanvasLayer
 @onready var mission_presentation_ui = $MissionPresentationUI
 @onready var crt_effect = $CRTEffect
 @onready var crt_toggle = $MarginContainer/VBoxContainer/CRTToggle
+@onready var theophania_ui_scene = preload("res://src/ui/theophania_ui/TheophaniaUI.tscn")
 
 @onready var save_button = $MarginContainer/SaveLoadContainer/SaveButton
 @onready var load_button = $MarginContainer/SaveLoadContainer/LoadButton
@@ -37,6 +38,8 @@ func _ready() -> void:
 	if time_manager:
 		time_manager.time_updated.connect(_on_time_updated)
 		time_manager.iteration_started.connect(_on_iteration_started)
+		if not time_manager.theophania_requested.is_connected(_on_theophania_requested):
+			time_manager.theophania_requested.connect(_on_theophania_requested)
 		_on_iteration_started(time_manager.current_iteration)
 	
 	if upgrade_menu:
@@ -193,6 +196,22 @@ func _on_genezis_g2_selected(genezis: CharacterBody3D) -> void:
 	# G2 might have its own upgrade mode later, but for now Core mode is fine or just hide menu
 	if upgrade_menu:
 		upgrade_menu.hide()
+
+func _on_theophania_requested() -> void:
+	var world_manager = get_tree().get_first_node_in_group("world_manager")
+	if not world_manager: return
+	
+	var scenario = world_manager.get_next_theophania_scenario()
+	if scenario.is_empty(): return
+	
+	if theophania_ui_scene:
+		var theophania_ui = theophania_ui_scene.instantiate()
+		add_child(theophania_ui)
+		theophania_ui.setup_scenario(scenario)
+		theophania_ui.choice_made.connect(world_manager.apply_theophania_choice)
+		
+		get_tree().paused = true
+		theophania_ui.tree_exited.connect(func(): get_tree().paused = false)
 
 func _on_data_changed(amount: int) -> void:
 	data_label.text = "Data: " + format_bytes(amount)
