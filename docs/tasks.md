@@ -283,10 +283,12 @@
   - [x] Fix HUD clipping: Increased HUD margins in `HUD.tscn` to (80/60) and further reduced CRT strength (-0.02) and roundness (0.06) to ensure all UI elements and world details are visible with plenty of "leeway".
   - [x] Add scanline effect to the CRT shader for a more authentic "old TV" look.
   - [x] Soften the CRT and scanline effects (reduced strength, roundness, and scanline opacity) for a more subtle CRT aesthetic.
+  - [x] Increase scanline visibility for CRT Mode.
   - [x] Add a neon/glow filter to the elements to enhance the digital/cyberpunk atmosphere.
   - [x] **CRT Mode & Camera Improvements**
     - [x] Enhance CRT shader with Chromatic Aberration, Phosphor mask, and subtle Flicker/Noise.
     - [x] Implement smooth camera interpolation (Zoom & Orbit) for a more premium feel.
+    - [x] Smooth the grid effect (scanlines and phosphor mask) to reduce aliasing and Moiré patterns.
 
 ## Phase 11: Advanced G1 Networks (Psinergy)
 

@@ -4,8 +4,8 @@ uniform float strength : hint_range(-1.0, 1.0) = -0.01;
 uniform float curvature : hint_range(0.0, 10.0) = 2.0;
 uniform float roundness : hint_range(0.0, 1.0) = 0.04;
 uniform float vignette_softness : hint_range(0.0, 1.0) = 0.03;
-uniform float scanline_count : hint_range(0.0, 2000.0) = 600.0;
-uniform float scanline_opacity : hint_range(0.0, 1.0) = 0.03;
+uniform float scanline_count : hint_range(0.0, 2000.0) = 480.0;
+uniform float scanline_opacity : hint_range(0.0, 1.0) = 0.1;
 uniform float scanline_speed : hint_range(0.0, 10.0) = 0.5;
 uniform float neon_intensity : hint_range(0.0, 2.0) = 0.5;
 uniform float neon_threshold : hint_range(0.0, 1.0) = 0.3;
@@ -54,13 +54,17 @@ void fragment() {
         
         tex.rgb += noise + flicker;
         
-        // Scanlines
+        // Scanlines: Using a slightly softer wave with smoothstep or just a nicer sin
         float s = sin(uv.y * scanline_count + TIME * scanline_speed);
-        tex.rgb -= s * scanline_opacity;
+        // Soften the scanline intensity using a power function or just a mix
+        float scanline = mix(1.0, 1.0 - scanline_opacity, (s + 1.0) * 0.5);
+        tex.rgb *= scanline;
         
         // Phosphor mask (vertical strips)
+        // Using a smoother triangle wave or a better sin to avoid aliasing
         float p = sin(uv.x * scanline_count * 1.5);
-        tex.rgb *= 1.0 - (p * phosphor_opacity);
+        float phosphor = mix(1.0, 1.0 - phosphor_opacity, (p + 1.0) * 0.5);
+        tex.rgb *= phosphor;
         
         // Neon Glow effect (simplified 5-sample bloom/glow)
         if (neon_intensity > 0.0) {
