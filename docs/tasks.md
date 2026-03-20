@@ -343,3 +343,4 @@
   - [x] Implement acceleration and friction for Genezis G0 (Plan: 13.1)
   - [x] Implement acceleration and friction for Enemies (Plan: 13.1)
   - [x] Adjust rotation to be smoother during acceleration (Plan: 13.1)
+  - [x] Implement "Rocket-like" momentum (propulsion from below) (Plan: 13.2)

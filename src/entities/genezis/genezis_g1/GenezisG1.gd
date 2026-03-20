@@ -277,15 +277,20 @@ func move_towards(target_pos: Vector3, delta: float) -> void:
 	else:
 		velocity = velocity.move_toward(Vector3.ZERO, friction * delta)
 		
-	# Smooth rotation
+	# Rocket-like momentum: the "up" axis should slightly lean towards the acceleration
 	if velocity.length() > 0.1:
-		var look_target = global_position + velocity
+		var target_up = Vector3.UP
+		var accel_dir = (target_velocity - velocity).normalized()
+		if accel_dir.length() > 0.1:
+			# Tilt the unit in the direction of acceleration (momentum from below)
+			target_up = (Vector3.UP + accel_dir * 0.5).normalized()
+			
 		var current_quat = visuals.global_transform.basis.get_rotation_quaternion()
 		var target_quat: Quaternion
 		
-		# Check if the target is not exactly above or below to avoid look_at error
-		if abs(velocity.normalized().dot(Vector3.UP)) < 0.99:
-			target_quat = Transform3D().looking_at(velocity, Vector3.UP).basis.get_rotation_quaternion()
+		# Look towards velocity but use the tilted up vector
+		if abs(velocity.normalized().dot(target_up)) < 0.99:
+			target_quat = Transform3D().looking_at(velocity, target_up).basis.get_rotation_quaternion()
 		else:
 			target_quat = Transform3D().looking_at(velocity, Vector3.RIGHT).basis.get_rotation_quaternion()
 		
