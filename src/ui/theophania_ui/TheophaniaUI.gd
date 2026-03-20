@@ -4,7 +4,7 @@ signal choice_made(choice_id: String)
 
 @onready var description_label: Label = $DialoguePanel/MarginContainer/VBoxContainer/DescriptionLabel
 @onready var options_container: HBoxContainer = $DialoguePanel/MarginContainer/VBoxContainer/OptionsContainer
-@onready var scanline_overlay: ColorRect = $G1Camera/ScanlineOverlay
+@onready var scanline_overlay: ColorRect = $CameraFeed/G1Camera/ScanlineOverlay
 
 var current_scenario: Dictionary = {}
 var typing_speed: float = 0.03

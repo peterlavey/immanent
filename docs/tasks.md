@@ -352,6 +352,7 @@
 - [x] **14.1 Theophania UI**
   - [x] Create `TheophaniaUI.tscn` and `TheophaniaUI.gd` (Plan: 14.1) (Req: 20)
   - [x] Implement `g1_cam.png` background/visual (Plan: 14.1) (Req: 20)
+  - [x] Add `background_cam.png` to `TheophaniaUI.tscn` as a background for the G1 camera feed (Plan: 14.1) (Req: 20)
   - [x] Add description and choice button logic (Plan: 14.1) (Req: 20)
   - [x] Enhance UI to resemble a communication panel with signal info and scanlines (Plan: 14.1) (Req: 20)
   - [x] Implement typing effect for dialogue with subtle audio cues (Plan: 14.1) (Req: 20)
