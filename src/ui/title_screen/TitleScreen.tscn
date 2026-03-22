@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3]
+[gd_scene load_steps=10 format=3]
 
 [ext_resource type="Script" path="res://src/ui/title_screen/TitleScreen.gd" id="1_script"]
 [ext_resource type="Texture2D" path="res://assets/textures/title_screen.png" id="2_texture"]
@@ -15,6 +15,58 @@ corner_radius_top_left = 5
 corner_radius_top_right = 5
 corner_radius_bottom_right = 5
 corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_Button_Normal"]
+bg_color = Color(0, 0, 0, 0.3)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0, 1, 1, 0.5)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_Button_Hover"]
+bg_color = Color(0, 0.5, 0.5, 0.4)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 1, 1, 1)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+shadow_color = Color(0, 1, 1, 0.2)
+shadow_size = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_Button_Pressed"]
+bg_color = Color(0, 0.8, 0.8, 0.6)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 1, 1, 1)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_Focus"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_Button_Disabled"]
+bg_color = Color(0.1, 0.1, 0.1, 0.2)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.3, 0.3, 0.3, 0.3)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
 
 [node name="TitleScreen" type="Control"]
 layout_mode = 3
@@ -54,49 +106,68 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -200.0
+offset_left = -125.0
 offset_top = -125.0
-offset_right = 200.0
+offset_right = 125.0
 offset_bottom = 125.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Panel" type="Panel" parent="MenuContainer"]
-custom_minimum_size = Vector2(400, 250)
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_Menu")
-
 [node name="VBoxContainer" type="VBoxContainer" parent="MenuContainer"]
 layout_mode = 2
-theme_override_constants/separation = 15
+theme_override_constants/separation = 20
 
 [node name="ContinueButton" type="Button" parent="MenuContainer/VBoxContainer"]
-custom_minimum_size = Vector2(250, 45)
+custom_minimum_size = Vector2(250, 50)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.8, 1, 1, 1)
 theme_override_colors/font_disabled_color = Color(0.3, 0.3, 0.3, 1)
-theme_override_font_sizes/font_size = 18
+theme_override_colors/font_hover_color = Color(0, 1, 1, 1)
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = SubResource("StyleBoxFlat_Button_Normal")
+theme_override_styles/hover = SubResource("StyleBoxFlat_Button_Hover")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_Button_Pressed")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_Button_Disabled")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_Focus")
 text = "CONTINUE CYCLE"
 
 [node name="NewGameButton" type="Button" parent="MenuContainer/VBoxContainer"]
-custom_minimum_size = Vector2(250, 45)
+custom_minimum_size = Vector2(250, 50)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.8, 1, 1, 1)
-theme_override_font_sizes/font_size = 18
+theme_override_colors/font_hover_color = Color(0, 1, 1, 1)
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = SubResource("StyleBoxFlat_Button_Normal")
+theme_override_styles/hover = SubResource("StyleBoxFlat_Button_Hover")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_Button_Pressed")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_Button_Disabled")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_Focus")
 text = "NEW SIMULATION"
 
 [node name="SettingsButton" type="Button" parent="MenuContainer/VBoxContainer"]
-custom_minimum_size = Vector2(250, 45)
+custom_minimum_size = Vector2(250, 50)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.8, 1, 1, 1)
-theme_override_font_sizes/font_size = 18
+theme_override_colors/font_hover_color = Color(0, 1, 1, 1)
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = SubResource("StyleBoxFlat_Button_Normal")
+theme_override_styles/hover = SubResource("StyleBoxFlat_Button_Hover")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_Button_Pressed")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_Button_Disabled")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_Focus")
 text = "SETTINGS"
 
 [node name="ExitButton" type="Button" parent="MenuContainer/VBoxContainer"]
-custom_minimum_size = Vector2(250, 45)
+custom_minimum_size = Vector2(250, 50)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.8, 1, 1, 1)
-theme_override_font_sizes/font_size = 18
+theme_override_colors/font_hover_color = Color(0, 1, 1, 1)
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = SubResource("StyleBoxFlat_Button_Normal")
+theme_override_styles/hover = SubResource("StyleBoxFlat_Button_Hover")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_Button_Pressed")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_Button_Disabled")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_Focus")
 text = "EXIT CYCLE"
 
 [node name="SettingsPanel" type="CenterContainer" parent="."]
@@ -137,6 +208,13 @@ text = "CRT MODE"
 custom_minimum_size = Vector2(200, 45)
 layout_mode = 2
 size_flags_horizontal = 4
+theme_override_colors/font_color = Color(0.8, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(0, 1, 1, 1)
+theme_override_styles/normal = SubResource("StyleBoxFlat_Button_Normal")
+theme_override_styles/hover = SubResource("StyleBoxFlat_Button_Hover")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_Button_Pressed")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_Button_Disabled")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_Focus")
 text = "BACK"
 
 [connection signal="pressed" from="MenuContainer/VBoxContainer/ContinueButton" to="." method="_on_continue_button_pressed"]

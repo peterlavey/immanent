@@ -400,6 +400,7 @@
   - [x] Refine `CRTEffect` shader with subtle glitch artifacts (Plan: 15.3) (Req: 13)
 - [x] **15.4 Title Screen & Reliability**
   - [x] Implement Title Screen with Continue, New Game, Settings, and Exit options. (Req: 17)
+  - [x] Change the title screen menu to have separated buttons without a visual container.
   - [x] Implement robust logging and defensive programming in `TitleScreen.gd` to trace and prevent crashes.
   - [x] Fix race conditions in `PauseMenu.gd` and `TitleScreen.gd` by deferring group-based node lookups using `await get_tree().process_frame`.
   - [x] Ensure `CRTEffect` visibility is correctly synced between Title Screen and HUD without triggering null pointer exceptions.
