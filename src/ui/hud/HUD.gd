@@ -255,7 +255,17 @@ func _on_exit_button_pressed() -> void:
 	_play_click_sfx()
 	if SaveManager:
 		SaveManager.save_game()
-	get_tree().change_scene_to_file("res://src/core/godheads/GodheadsWorld.tscn")
+	
+	# Try to find the camera and trigger zoom-out transition
+	var camera = get_tree().get_first_node_in_group("main_camera")
+	if not camera:
+		camera = get_viewport().get_camera_3d()
+	
+	if camera and camera.has_method("zoom_out_and_exit"):
+		camera.zoom_out_and_exit()
+	else:
+		# Fallback if no camera or method found
+		get_tree().change_scene_to_file("res://src/core/godheads/GodheadsWorld.tscn")
 
 func _on_crt_toggled(button_pressed: bool) -> void:
 	if crt_effect:

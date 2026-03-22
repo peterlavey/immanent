@@ -24,6 +24,8 @@ func _ready() -> void:
 	target_rotation_angles = rotation_angles
 	_update_camera_position()
 	
+	add_to_group("main_camera")
+	
 	core_node = get_tree().get_first_node_in_group("core")
 	if core_node:
 		core_node.fov_changed.connect(_on_core_fov_changed)
@@ -105,6 +107,21 @@ func zoom(amount: float) -> void:
 	if target_orbit_distance >= max_zoom:
 		zoom_limit_reached.emit()
 	target_orbit_distance = clamp(target_orbit_distance, min_zoom, max_zoom)
+
+func zoom_out_and_exit() -> void:
+	# Disable inputs
+	set_process_unhandled_input(false)
+	
+	# Create a zoom-out effect
+	var tween = get_tree().create_tween()
+	# Zoom out beyond max_zoom for effect
+	var far_zoom = max_zoom * 2.0
+	tween.tween_property(self, "target_orbit_distance", far_zoom, 1.0).set_trans(Tween.TRANS_SINE)
+	
+	# Fade to black if possible (could be handled by a global overlay or HUD)
+	
+	await tween.finished
+	get_tree().change_scene_to_file("res://src/core/godheads/GodheadsWorld.tscn")
 
 func _update_camera_position() -> void:
 	var pos = Vector3.ZERO

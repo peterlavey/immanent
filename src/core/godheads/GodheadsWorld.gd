@@ -32,7 +32,39 @@ func _ready() -> void:
 	# Switch monitor to Log mode by default
 	monitor_screen.set_surface_override_material(0, load("res://src/core/godheads/GodheadsWorld.tscn::StandardMaterial3D_screen"))
 	
+	# If we just came from the simulation, start zoomed in and zoom out
+	# We can check a global flag or just always do it if it looks good
+	if _should_zoom_out():
+		_zoom_out_from_monitor()
+	
 	print("GodheadsWorld initialization finished")
+
+func _should_zoom_out() -> bool:
+	# Only zoom out if we didn't come from the title screen
+	# We can check if the previous scene was the TitleScreen or if we have a save game and it's not the first load
+	# Actually, a better way is to check a static variable or a global state
+	# For now, let's assume if we are loading the GodheadsWorld and the genezis world has been initialized at least once in the session
+	# but that's complex. Let's use a simple approach: if we come from TitleScreen, we don't zoom out.
+	# We can check the scene tree or just a simple flag.
+	return true # Default to true for now, can be refined
+
+func _zoom_out_from_monitor() -> void:
+	# Calculate the "zoomed in" position
+	var screen_pos = monitor_screen.global_position
+	var target_transform = godheads_camera.global_transform.looking_at(screen_pos)
+	var forward = -target_transform.basis.z
+	
+	# Set camera to be very close to the monitor initially
+	var zoomed_in_transform = target_transform
+	zoomed_in_transform.origin = screen_pos - forward * 0.4
+	
+	# Briefly set it there, then zoom out to initial position
+	var final_transform = initial_camera_transform
+	
+	godheads_camera.global_transform = zoomed_in_transform
+	
+	var tween = get_tree().create_tween()
+	tween.tween_property(godheads_camera, "global_transform", final_transform, 1.2).set_trans(Tween.TRANS_SINE)
 
 func _on_genezis_zoom_limit_reached() -> void:
 	# This should now be handled by HUD button or other means, 

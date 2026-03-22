@@ -451,3 +451,5 @@
   - [x] Ensure `SaveManager` is used to persist state between scene changes. (Plan: 16.7)
   - [x] Remove redundant `SubViewport` and complex camera tweening for simultaneous worlds. (Plan: 16.7)
   - [x] Update HUD exit button to trigger level change back to Godheads. (Plan: 16.7)
+    - [x] Implement smooth zoom-out transition when exiting Genezis world to Godheads world. (Plan: 16.7)
+    - [x] Implement smooth zoom-out transition when entering Godheads world from Genezis world. (Plan: 16.7)
