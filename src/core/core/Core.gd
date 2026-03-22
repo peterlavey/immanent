@@ -18,6 +18,8 @@ signal evolution_changed(new_level: int)
 	set(value):
 		evolution_level = value
 		evolution_changed.emit(evolution_level)
+		# Increase FOV radius by 5 for every evolution level
+		fov_radius = 10.0 + (evolution_level - 1) * 5.0
 		_update_visual_for_evolution()
 		_update_world_space_label()
 

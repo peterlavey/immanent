@@ -60,13 +60,15 @@
 - [x] **3.1 Field of View (FOV)**
   - [x] Implement the visual FOV sphere around the Core (Plan: 3.1) (Req: 7)
   - [x] Logic to hide or prevent Genezis from moving to data spots outside FOV (Plan: 3.1) (Req: 7)
+  - [x] FOV upgrades automatically with every Core evolution (+5 radius per level) (Req: 7)
+  - [x] Camera automatically adjusts its zoom limits and orbit distance when FOV changes. (Req: 7)
 
 - [x] **3.2 Upgrade System**
   - [x] Create an upgrade UI menu at the Core (Plan: 3.2) (Req: 2, 3)
   - [x] Implement "Genezis G1 Movement Speed" upgrade (Plan: 3.2) (Req: 3)
   - [x] Implement "Extraction Rate" upgrade (Plan: 3.2) (Req: 3)
   - [x] Implement "Carry Capacity" upgrade (Plan: 3.2) (Req: 3)
-  - [x] Implement "FOV Expansion" upgrade (Plan: 3.2) (Req: 7)
+  - [x] Implement "FOV Expansion" upgrade (Plan: 3.2) (Req: 7) (Removed: Now automatic with evolution)
   - [x] Implement "Genezis G1 Count" upgrade (Plan: 3.2) (Req: 3)
   - [x] Split upgrades between Core and Genezis G1 clicks (Plan: 3.2.1) (Req: 2, 3)
   - [x] Remove legacy upgrade button and fix context-sensitive clicking (Plan: 3.2.2) (Req: 2, 3)

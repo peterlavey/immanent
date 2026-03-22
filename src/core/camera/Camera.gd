@@ -13,6 +13,7 @@ var target_orbit_distance: float = 20.0
 var target: Vector3 = Vector3.ZERO
 var rotation_angles: Vector2 = Vector2(0.7, 0.7) # X: vertical, Y: horizontal
 var target_rotation_angles: Vector2 = Vector2(0.7, 0.7)
+var core_node: Node3D = null
 
 func _ready() -> void:
 	# Set target to origin where Core is located
@@ -20,6 +21,21 @@ func _ready() -> void:
 	target_orbit_distance = orbit_distance
 	target_rotation_angles = rotation_angles
 	_update_camera_position()
+	
+	core_node = get_tree().get_first_node_in_group("core")
+	if core_node:
+		core_node.fov_changed.connect(_on_core_fov_changed)
+		_on_core_fov_changed(core_node.fov_radius)
+
+func _on_core_fov_changed(new_radius: float) -> void:
+	# Adjust max_zoom according to FOV radius
+	# Initial ratio: radius 10.0 / max_zoom 50.0 = 5.0
+	max_zoom = new_radius * 5.0
+	
+	# If current target is too close for the new FOV, push it back slightly
+	# (e.g., radius 10.0 / orbit 20.0 = 2.0)
+	if target_orbit_distance < new_radius * 2.0:
+		target_orbit_distance = new_radius * 2.0
 
 func _process(delta: float) -> void:
 	# Smoothly interpolate camera position and rotation

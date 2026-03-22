@@ -6,3 +6,7 @@ res://src/ui/hud/PauseMenu.gd
 res://src/core/audio_manager/AudioManager.gd
 res://src/ui/theophania_ui/TheophaniaUI.gd
 res://src/ui/title_screen/TitleScreenMinimal.gd
+res://src/core/core/Core.gd
+res://src/ui/upgrade_menu/UpgradeMenu.gd
+res://src/ui/upgrade_menu/UpgradeMenu.tscn
+res://src/core/camera/Camera.gd

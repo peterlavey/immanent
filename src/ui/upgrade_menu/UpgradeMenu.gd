@@ -5,7 +5,6 @@ signal upgrade_purchased(upgrade_id: String)
 @onready var speed_button = $Panel/MarginContainer/VBoxContainer/SpeedButton
 @onready var extraction_button = $Panel/MarginContainer/VBoxContainer/ExtractionButton
 @onready var capacity_button = $Panel/MarginContainer/VBoxContainer/CapacityButton
-@onready var fov_button = $Panel/MarginContainer/VBoxContainer/FOVButton
 @onready var genezis_count_button = $Panel/MarginContainer/VBoxContainer/GenezisG1CountButton
 @onready var genezis_g0_button = Button.new()
 @onready var psinergy_button = Button.new()
@@ -25,7 +24,6 @@ var upgrade_levels = {
 	"speed": 0,
 	"extraction": 0,
 	"capacity": 0,
-	"fov": 0,
 	"genezis_count": 0,
 	"genezis_g0_count": 0,
 	"evolution": 0,
@@ -108,14 +106,6 @@ func _on_capacity_button_pressed() -> void:
 		upgrade_purchased.emit("capacity")
 		_update_buttons()
 
-func _on_fov_button_pressed() -> void:
-	if upgrade_levels["fov"] >= get_max_level(): return
-	if core_node and core_node.spend_data(get_upgrade_cost("fov")):
-		_play_click_sfx()
-		upgrade_levels["fov"] += 1
-		upgrade_purchased.emit("fov")
-		_update_buttons()
-
 func _on_genezis_count_button_pressed() -> void:
 	var g1_count = get_tree().get_nodes_in_group("genezis_g1").size()
 	if g1_count >= (1 + get_max_level()): return
@@ -163,14 +153,13 @@ func _update_buttons() -> void:
 	if not core_node: return
 	
 	# Ensure upgrade_levels has all necessary keys (for safety when loading old saves)
-	for key in ["speed", "extraction", "capacity", "fov", "genezis_count", "genezis_g0_count", "evolution", "fusion", "psinergy"]:
+	for key in ["speed", "extraction", "capacity", "genezis_count", "genezis_g0_count", "evolution", "fusion", "psinergy"]:
 		if not upgrade_levels.has(key):
 			upgrade_levels[key] = 0
 	
 	speed_button.visible = current_mode == Mode.GENEZIS_G1
 	extraction_button.visible = current_mode == Mode.GENEZIS_G1
 	capacity_button.visible = current_mode == Mode.GENEZIS_G1
-	fov_button.visible = current_mode == Mode.CORE
 	genezis_count_button.visible = current_mode == Mode.CORE
 	genezis_g0_button.visible = current_mode == Mode.CORE
 	evolution_button.visible = current_mode == Mode.CORE
@@ -180,7 +169,6 @@ func _update_buttons() -> void:
 	_update_button_text(speed_button, "speed", "Upgrade G1 Speed")
 	_update_button_text(extraction_button, "extraction", "Upgrade G1 Extraction")
 	_update_button_text(capacity_button, "capacity", "Upgrade G1 Capacity")
-	_update_button_text(fov_button, "fov", "Upgrade FOV")
 	_update_button_text(genezis_count_button, "genezis_count", "Spawn Genezis G1")
 	_update_button_text(genezis_g0_button, "genezis_g0_count", "Spawn Genezis G0")
 	_update_button_text(evolution_button, "evolution", "") # Label is generated in _update_button_text
@@ -253,7 +241,6 @@ func get_upgrade_cost(type: String) -> int:
 		"speed": base_cost = 50
 		"extraction": base_cost = 75
 		"capacity": base_cost = 60
-		"fov": base_cost = 100
 		"genezis_count": base_cost = 250
 		"genezis_g0_count": base_cost = 25
 		"evolution": 
