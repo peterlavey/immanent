@@ -1,5 +1,7 @@
 extends Camera3D
 
+signal zoom_limit_reached
+
 @export var zoom_speed: float = 0.5
 @export var min_zoom: float = 5.0
 @export var max_zoom: float = 50.0
@@ -100,6 +102,8 @@ func _rotate_camera(dx: float, dy: float) -> void:
 
 func zoom(amount: float) -> void:
 	target_orbit_distance += amount
+	if target_orbit_distance >= max_zoom:
+		zoom_limit_reached.emit()
 	target_orbit_distance = clamp(target_orbit_distance, min_zoom, max_zoom)
 
 func _update_camera_position() -> void:

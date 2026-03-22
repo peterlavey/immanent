@@ -11,6 +11,7 @@ extends CanvasLayer
 @onready var mission_description_label = $MarginContainer/MissionContainer/MissionDescription
 @onready var mission_progress_label = $MarginContainer/MissionContainer/MissionProgress
 @onready var mission_list_button = $MarginContainer/MissionContainer/MissionListButton
+@onready var exit_button = $MarginContainer/MissionContainer/ExitButton
 @onready var mission_list_ui = $MissionListUI
 @onready var mission_presentation_ui = $MissionPresentationUI
 @onready var crt_effect = $CRTEffect
@@ -72,6 +73,9 @@ func _ready() -> void:
 	
 	if mission_list_button:
 		mission_list_button.pressed.connect(_on_mission_list_button_pressed)
+	
+	if exit_button:
+		exit_button.pressed.connect(_on_exit_button_pressed)
 	
 	if pause_menu:
 		pause_menu.crt_toggled.connect(_on_crt_toggled)
@@ -211,11 +215,13 @@ func _on_time_updated(remaining: float) -> void:
 
 func _on_cycle_started(number: int) -> void:
 	cycle_label.text = "Cycle: " + str(number)
-	# Also update hertz if we have a way to get it
-	var time_manager = get_tree().get_first_node_in_group("time_manager")
-	if time_manager:
-		# Assuming we want to show both Cycle and Hz
-		cycle_label.text += " (" + time_manager.get_hertz_display() + ")"
+	var hardware_manager = get_tree().get_first_node_in_group("hardware_manager")
+	if hardware_manager and hardware_manager.has_method("get_hertz_display"):
+		cycle_label.text += " (" + hardware_manager.get_hertz_display() + ")"
+	else:
+		var time_manager = get_tree().get_first_node_in_group("time_manager")
+		if time_manager:
+			cycle_label.text += " (" + time_manager.get_hertz_display() + ")"
 
 func _on_mission_updated(m_name: String, m_desc: String, m_prog: String) -> void:
 	mission_name_label.text = m_name
@@ -244,6 +250,12 @@ func _on_mission_list_button_pressed() -> void:
 	if mission_list_ui:
 		mission_list_ui.show_missions()
 		_play_click_sfx()
+
+func _on_exit_button_pressed() -> void:
+	_play_click_sfx()
+	if SaveManager:
+		SaveManager.save_game()
+	get_tree().change_scene_to_file("res://src/core/godheads/GodheadsWorld.tscn")
 
 func _on_crt_toggled(button_pressed: bool) -> void:
 	if crt_effect:

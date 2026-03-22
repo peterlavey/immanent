@@ -314,3 +314,34 @@ Goal: Improve world data display to reflect the 'monitor interface' story contex
    - Add a "Boot" sequence or "Signal Lost" transition effect for specific narrative moments.
    - Priority: Medium
    - Requirements: Req 13
+
+318:## Phase 16: Godheads World & Monitor Interface (High Priority)
+319:Goal: Implement the meta-world of the Godheads and the monitor interface for the Genezis simulation.
+320:
+321:1. **Godheads World Creation** (Plan: 16.1)
+322:   - Create the `GodheadsWorld.tscn` scene with a Grey's chamber aesthetic.
+323:   - Implement a 3D `Monitor` entity in the Godheads world.
+324:   - Priority: High
+325:   - Requirements: Req 21
+326:
+327:2. **Simulation Rendering (Monitor)** (Plan: 16.2)
+328:   - Use `SubViewport` and `SubViewportContainer` to render the Genezis world onto the Monitor's screen.
+329:   - Ensure interactive UI (HUD, upgrades) still works within the monitor.
+330:   - Priority: High
+331:   - Requirements: Req 21
+332:
+333:3. **World Transition Mechanism** (Plan: 16.3)
+334:   - Implement a level-based transition using `get_tree().change_scene_to_file()` between Godheads world and Genezis world.
+335:   - Ensure the worlds are separate and do not run simultaneously to prevent overhead and visual bugs.
+336:   - Use `SaveManager` to persist state (Hardware, Core, Units) during scene changes.
+337:   - Trigger transition to simulation via monitor click in `GodheadsWorld`.
+338:   - Trigger transition to Godheads via "Exit" button in Genezis HUD.
+339:   - Priority: High
+340:   - Requirements: Req 21
+339:
+340:4. **Hardware Upgrades in Godheads World** (Plan: 16.4)
+341:   - Create a 3D interface in the Godheads world for hardware modifications (e.g., overclocking).
+342:   - Link hardware upgrades to Genezis world performance (e.g., increased Hz, more units).
+343:   - Priority: High
+344:   - Requirements: Req 22
+345:

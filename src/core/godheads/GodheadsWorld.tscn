@@ -1,0 +1,147 @@
+[gd_scene load_steps=6 format=3 uid="uid://godheads_world"]
+
+[ext_resource type="Script" path="res://src/core/godheads/GodheadsWorld.gd" id="1_ghw"]
+[ext_resource type="Script" path="res://src/core/godheads/HardwareManager.gd" id="2_hwm"]
+[ext_resource type="Script" path="res://src/core/godheads/HardwareUpgradeUI.gd" id="3_hui"]
+[ext_resource type="PackedScene" path="res://src/ui/godheads/GodheadsLogUI.tscn" id="4_log"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_sky"]
+sky_top_color = Color(0.05, 0.05, 0.1, 1)
+sky_horizon_color = Color(0.1, 0.1, 0.1, 1)
+
+[sub_resource type="Sky" id="Sky_sky"]
+sky_material = SubResource("ProceduralSkyMaterial_sky")
+
+[sub_resource type="Environment" id="Environment_godheads"]
+background_mode = 2
+sky = SubResource("Sky_sky")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="BoxMesh" id="BoxMesh_monitor"]
+size = Vector3(1.6, 1.0, 0.1)
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_screen"]
+viewport_path = NodePath("Monitor/LogViewport")
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_sim"]
+viewport_path = NodePath("Monitor/SubViewport")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_screen"]
+resource_local_to_scene = true
+albedo_texture = SubResource("ViewportTexture_screen")
+emission_enabled = true
+emission = Color(0.1, 0.1, 0.1, 1)
+emission_operator = 1
+emission_texture = SubResource("ViewportTexture_screen")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_sim"]
+resource_local_to_scene = true
+albedo_texture = SubResource("ViewportTexture_sim")
+emission_enabled = true
+emission = Color(0.1, 0.1, 0.1, 1)
+emission_operator = 1
+emission_texture = SubResource("ViewportTexture_sim")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_monitor"]
+size = Vector3(1.6, 1.0, 0.1)
+
+[node name="GodheadsWorld" type="Node3D"]
+script = ExtResource("1_ghw")
+
+[node name="HardwareManager" type="Node" parent="." groups=["hardware_manager"]]
+script = ExtResource("2_hwm")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_godheads")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, -0.75, 0.433013, 0, 5, 0)
+light_color = Color(0.7, 0.8, 1.0, 1)
+light_energy = 0.5
+
+[node name="Monitor" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2, -1.5)
+input_ray_pickable = true
+
+[node name="Screen" type="MeshInstance3D" parent="Monitor"]
+mesh = SubResource("BoxMesh_monitor")
+surface_material_override/0 = SubResource("StandardMaterial3D_screen")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Monitor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.1)
+shape = SubResource("BoxShape3D_monitor")
+
+[node name="LogViewport" type="SubViewport" parent="Monitor"]
+gui_disable_input = true
+size = Vector2i(1280, 720)
+render_target_update_mode = 4
+
+[node name="GodheadsLogUI" parent="Monitor/LogViewport" instance=ExtResource("4_log")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 0.0
+offset_bottom = 0.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="SubViewport" type="SubViewport" parent="Monitor"]
+gui_disable_input = true
+handle_input_locally = false
+size = Vector2i(1280, 720)
+render_target_update_mode = 4
+
+[node name="GodheadsCamera" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.965926, 0.258819, 0, -0.258819, 0.965926, 0, 1.8, 1.0)
+current = true
+
+[node name="Room" type="Node3D" parent="."]
+
+[node name="Floor" type="MeshInstance3D" parent="Room"]
+transform = Transform3D(10, 0, 0, 0, 0.1, 0, 0, 0, 10, 0, -0.05, 0)
+mesh = SubResource("BoxMesh_monitor") # Just reusing box for simplicity
+
+[node name="Table" type="MeshInstance3D" parent="Room"]
+transform = Transform3D(2, 0, 0, 0, 0.7, 0, 0, 0, 1, 0, 0.35, -1.5)
+mesh = SubResource("BoxMesh_monitor")
+
+[node name="HardwareUI" type="CanvasLayer" parent="."]
+
+[node name="UpgradeUI" type="Control" parent="HardwareUI"]
+mouse_filter = 2
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("3_hui")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HardwareUI/UpgradeUI"]
+mouse_filter = 2
+layout_mode = 0
+offset_left = 20.0
+offset_top = 20.0
+offset_right = 150.0
+offset_bottom = 120.0
+
+[node name="Title" type="Label" parent="HardwareUI/UpgradeUI/VBoxContainer"]
+layout_mode = 2
+text = "HARDWARE"
+
+[node name="ProcessorLevel" type="Label" parent="HardwareUI/UpgradeUI/VBoxContainer"]
+layout_mode = 2
+text = "CPU Level: 1"
+
+[node name="UpgradeCost" type="Label" parent="HardwareUI/UpgradeUI/VBoxContainer"]
+layout_mode = 2
+text = "Cost: 1000 Bytes"
+
+[node name="UpgradeButton" type="Button" parent="HardwareUI/UpgradeUI/VBoxContainer"]
+layout_mode = 2
+text = "OVERCLOCK"
+
+[connection signal="input_event" from="Monitor" to="." method="_on_monitor_input_event"]
+[connection signal="pressed" from="HardwareUI/UpgradeUI/VBoxContainer/UpgradeButton" to="HardwareUI/UpgradeUI" method="_on_upgrade_button_pressed"]

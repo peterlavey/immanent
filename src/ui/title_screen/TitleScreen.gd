@@ -39,30 +39,16 @@ func _sync_crt_deferred(crt_toggle_node: Node) -> void:
 
 func _on_continue_button_pressed() -> void:
 	_play_click_sfx()
-	var err = get_tree().change_scene_to_file("res://src/core/world/World.tscn")
+	var err = get_tree().change_scene_to_file("res://src/core/godheads/GodheadsWorld.tscn")
 	if err != OK:
-		printerr("[TitleScreen] Failed to change scene to World.tscn: ", err)
+		printerr("[TitleScreen] Failed to change scene to GodheadsWorld.tscn: ", err)
 		return
-	
-	_load_game_deferred()
-
-func _load_game_deferred() -> void:
-	# Wait for the scene to be fully loaded and initialized
-	for i in range(10): 
-		if not is_inside_tree(): return
-		await get_tree().process_frame
-	
-	if not is_inside_tree(): return
-	
-	var save_manager_node = get_tree().root.get_node_or_null("SaveManager")
-	if is_instance_valid(save_manager_node) and save_manager_node.has_method("load_game"):
-		save_manager_node.load_game()
 
 func _on_new_game_button_pressed() -> void:
 	_play_click_sfx()
-	var err = get_tree().change_scene_to_file("res://src/core/world/World.tscn")
+	var err = get_tree().change_scene_to_file("res://src/core/godheads/GodheadsWorld.tscn")
 	if err != OK:
-		printerr("[TitleScreen] Failed to change scene to World.tscn: ", err)
+		printerr("[TitleScreen] Failed to change scene to GodheadsWorld.tscn: ", err)
 
 func _on_settings_button_pressed() -> void:
 	_play_click_sfx()

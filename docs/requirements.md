@@ -122,7 +122,25 @@ This is where the odyssey begins. The Genezis operate on the edge of oblivion, c
         - UI interactions (all buttons SHALL play 'selected.mp3').
       - THE volume of music and SFX SHALL be independently adjustable (via future settings).
 
-## Visual Identity (Digital Biome)
+125:## Visual Identity (Digital Biome)
+126:
+127:21. **The Godheads World (The Grey's Chamber)**
+128:    - **User Story**: As a player, I want to see the world where the Genezis simulation is hosted so that I understand the meta-context of the game.
+129:    - **Acceptance Criteria**:
+130:      - THE system SHALL feature a "Godheads" world, representing the reality of the Greys (Godheads).
+131:      - THE Godheads world SHALL contain a "Monitor" that displays the Genezis world (the simulation).
+132:      - THE Genezis world SHALL be rendered as a digital simulation within this monitor.
+133:      - THE player SHALL be able to "Zoom Out" from the Genezis world into the Godheads world.
+134:      - THE player SHALL be able to "Zoom In" or click the monitor to enter the Genezis world.
+135:
+136:22. **Hardware Upgrades**
+137:    - **User Story**: As a player, I want to perform hardware upgrades in the Godheads world so that I can improve the performance of the Genezis simulation.
+138:    - **Acceptance Criteria**:
+139:      - THE Godheads world SHALL provide an interface for "Hardware Upgrades" (e.g., Processor Overclocking, Memory Expansion, Cooling Systems).
+140:      - THESE upgrades SHALL be performed using resources gathered within the Genezis world (Data).
+141:      - HARDWARE upgrades SHALL directly impact the Genezis world's mechanics (e.g., higher Hertz/Time speed, increased entity limits, faster processing).
+142:
+143:## Visual Identity (Digital Biome)
 
 13. **Digital Biome Aesthetic**
     - **User Story**: As a player, I want the world and entities to have a design that reflects their function in a virtual environment so that the game feels immersive and coherent.

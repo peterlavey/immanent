@@ -407,3 +407,47 @@
   - [x] Fix race conditions in `PauseMenu.gd` and `TitleScreen.gd` by deferring group-based node lookups using `await get_tree().process_frame`.
   - [x] Ensure `CRTEffect` visibility is correctly synced between Title Screen and HUD without triggering null pointer exceptions.
   - [ ] Add a "Boot" sequence or "Signal Lost" transition effect (Plan: 15.3) (Req: 13)
+
+## Phase 16: Godheads World & Monitor Interface
+
+- [x] **16.1 Godheads World Setup**
+  - [x] Create `src/core/godheads/GodheadsWorld.tscn` with 3D chamber environment (Plan: 16.1) (Req: 21)
+  - [x] Create `src/core/godheads/Monitor.tscn` with `SubViewport` and screen geometry (Plan: 16.1) (Req: 21)
+  - [x] Implement Grey's chamber aesthetics (dark lab, glowing tech, biological elements) (Plan: 16.1) (Req: 21)
+
+- [x] **16.2 Simulation Display**
+  - [x] Integrate `World.tscn` into the Monitor's `SubViewport` (Plan: 16.2) (Req: 21)
+  - [x] Ensure mouse input is correctly propagated from Godheads world to Genezis world inside the monitor (Plan: 16.2) (Req: 21)
+  - [x] Move HUD to a `SubViewport` if necessary for correct monitor display (Plan: 16.2) (Req: 21)
+
+- [x] **16.3 Camera & Transitions**
+  - [x] Implement zoom-out to switch from Genezis camera to Godheads camera (Plan: 16.3) (Req: 21)
+  - [x] Implement zoom-in/click on monitor to return to Genezis view (Plan: 16.3) (Req: 21)
+  - [x] Add smooth FOV/position interpolation for world switching (Plan: 16.3) (Req: 21)
+  - [x] Add "Logs Mode" for the monitor when in Godheads view (Plan: 16.3) (Req: 21)
+  - [x] Implement click-to-zoom on the monitor to enter Genezis world (Plan: 16.3) (Req: 21)
+  - [x] Add an "Exit to Godheads" button in the Genezis HUD (Plan: 16.3) (Req: 21)
+
+- [x] **16.4 Hardware Upgrades**
+  - [x] Create `src/core/godheads/HardwareUpgradeUI.tscn` as a 3D interface (Plan: 16.4) (Req: 22)
+  - [x] Implement "Processor Overclocking" (Increases Time speed / Hertz) (Plan: 16.4) (Req: 22)
+  - [x] Implement "Cooling System" (Reduces chance of negative events or improves efficiency) (Plan: 16.4) (Req: 22)
+  - [x] Implement "Memory Expansion" (Increases G1/G2 unit limits) (Plan: 16.4) (Req: 22)
+  - [x] Link upgrades to use "Data" from the Core (Plan: 16.4) (Req: 22)
+
+- [x] **16.6 Interaction & World Management Fixes**
+  - [x] Fix Godheads monitor click interaction by enabling `input_ray_pickable` and correcting the signal connection in `GodheadsWorld.tscn`.
+  - [x] Fix input blocking by UI elements and improve collision detection for the Godheads monitor.
+  - [x] Prevent superimposition of Godheads and Genezis worlds by managing visibility during transitions.
+  - [x] Integrate `SaveManager` to automatically save game when exiting Genezis world and load it when entering.
+  - [x] Fix `MainCamera` reference in `GodheadsWorld.gd` to match `World.tscn` structure.
+  - [x] Fix error logs during `GodheadsWorld` startup by implementing silent partial loading in `SaveManager.gd`.
+  - [x] Improve camera transition robustness and zoom behavior when entering the simulation.
+  - [x] Prevent superimposition of Godheads and Genezis worlds by hiding the Godheads environment when zoomed into the simulation.
+  - [x] Fix camera switching logic to ensure the Genezis camera becomes the main view without rendering the Godheads world in the background.
+- [x] **16.7 Level-based World Management**
+  - [x] Refactor Godheads and Genezis worlds into separate scenes that do not run simultaneously (Plan: 16.7)
+  - [x] Implement `get_tree().change_scene_to_file()` for transitions between worlds. (Plan: 16.7)
+  - [x] Ensure `SaveManager` is used to persist state between scene changes. (Plan: 16.7)
+  - [x] Remove redundant `SubViewport` and complex camera tweening for simultaneous worlds. (Plan: 16.7)
+  - [x] Update HUD exit button to trigger level change back to Godheads. (Plan: 16.7)

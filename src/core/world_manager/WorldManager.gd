@@ -37,6 +37,10 @@ func _ready() -> void:
 	else:
 		printerr("[WorldManager] Error: time_manager not found as child")
 	
+	# Load game state if it exists
+	if SaveManager:
+		SaveManager.load_game()
+	
 	# Skip initial spawn if we're loading a game
 	# We check if there's any G1 already (SaveManager might have spawned them)
 	print("[WorldManager] Waiting for first frame to check for existing entities...")

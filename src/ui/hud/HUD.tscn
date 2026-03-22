@@ -205,6 +205,12 @@ layout_mode = 2
 size_flags_horizontal = 8
 text = "View All Missions"
 
+[node name="ExitButton" type="Button" parent="MarginContainer/MissionContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+theme_override_colors/font_color = Color(1, 0, 0, 1)
+text = "EXIT TO GODHEADS"
+
 [node name="UpgradeMenu" parent="." instance=ExtResource("2_scene")]
 visible = false
 layout_mode = 1

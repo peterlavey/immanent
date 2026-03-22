@@ -47,10 +47,10 @@ func load_game() -> bool:
 	# Apply data in order of dependency
 	print("[SaveManager] Applying save data...")
 	_apply_upgrade_data(save_data.get("upgrades", {}))
-	_apply_core_data(save_data.get("core", {}))
-	_apply_time_data(save_data.get("time", {}))
-	_apply_world_data(save_data.get("world", {}))
-	_apply_mission_data(save_data.get("missions", {}))
+	_apply_core_data(save_data.get("core", {}), true)
+	_apply_time_data(save_data.get("time", {}), true)
+	_apply_world_data(save_data.get("world", {}), true)
+	_apply_mission_data(save_data.get("missions", {}), true)
 	
 	print("[SaveManager] Game loaded successfully from ", SAVE_PATH)
 	return true
@@ -76,13 +76,14 @@ func _get_core_data() -> Dictionary:
 		}
 	return {}
 
-func _apply_core_data(data: Dictionary) -> void:
+func _apply_core_data(data: Dictionary, silent: bool = false) -> void:
 	print("[SaveManager] _apply_core_data starting")
 	var core = get_tree().get_first_node_in_group("core")
 	if not core:
 		core = get_tree().root.find_child("Core", true, false)
 		if not core:
-			printerr("[SaveManager] Warning: Core not found")
+			if not silent:
+				printerr("[SaveManager] Warning: Core not found")
 			return
 			
 	if not data.is_empty():
@@ -147,14 +148,15 @@ func _get_world_data() -> Dictionary:
 		
 	return data
 
-func _apply_world_data(data: Dictionary) -> void:
+func _apply_world_data(data: Dictionary, silent: bool = false) -> void:
 	print("[SaveManager] _apply_world_data starting")
 	var world_manager = get_tree().get_first_node_in_group("world_manager")
 	if not world_manager:
 		# Fallback to direct search if group is not ready
 		world_manager = get_tree().root.find_child("World", true, false)
 		if not world_manager:
-			printerr("[SaveManager] Error: WorldManager not found in 'world_manager' group or root")
+			if not silent:
+				printerr("[SaveManager] Error: WorldManager not found in 'world_manager' group or root")
 			return
 	
 	print("[SaveManager] WorldManager found, cleaning up existing entities...")
@@ -244,14 +246,15 @@ func _get_mission_data() -> Dictionary:
 		}
 	return {}
 
-func _apply_mission_data(data: Dictionary) -> void:
+func _apply_mission_data(data: Dictionary, silent: bool = false) -> void:
 	print("[SaveManager] _apply_mission_data starting")
 	var mission_manager = get_tree().get_first_node_in_group("mission_manager")
 	if not mission_manager:
 		# Fallback to direct search
 		mission_manager = get_tree().root.find_child("MissionManager", true, false)
 		if not mission_manager:
-			printerr("[SaveManager] Warning: MissionManager not found")
+			if not silent:
+				printerr("[SaveManager] Warning: MissionManager not found")
 			return
 			
 	if data.has("current_mission_id"):
@@ -306,13 +309,14 @@ func _get_time_data() -> Dictionary:
 		}
 	return {}
 
-func _apply_time_data(data: Dictionary) -> void:
+func _apply_time_data(data: Dictionary, silent: bool = false) -> void:
 	print("[SaveManager] _apply_time_data starting")
 	var time_manager = get_tree().get_first_node_in_group("time_manager")
 	if not time_manager:
 		time_manager = get_tree().root.find_child("TimeManager", true, false)
 		if not time_manager:
-			printerr("[SaveManager] Warning: TimeManager not found")
+			if not silent:
+				printerr("[SaveManager] Warning: TimeManager not found")
 			return
 			
 	if not data.is_empty():

@@ -10,3 +10,5 @@ res://src/core/core/Core.gd
 res://src/ui/upgrade_menu/UpgradeMenu.gd
 res://src/ui/upgrade_menu/UpgradeMenu.tscn
 res://src/core/camera/Camera.gd
+res://src/core/godheads/GodheadsWorld.gd
+res://src/core/godheads/HardwareManager.gd
