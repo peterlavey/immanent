@@ -196,7 +196,14 @@ Goal: Add immersive music and sound effects to the simulation.
 ## Phase 10: Persistence & Optimization (Medium Priority)
 Goal: Implement game state persistence and performance optimizations.
 
-1. **Save & Load System** (Plan: 10.1)
+1. **Title Screen** (Plan: 10.4)
+   - Implement the main menu with Continue, New Game, Settings, and Exit.
+   - Background video loop with digital theme.
+   - Settings for CRT effect toggle.
+   - Priority: Medium
+   - Requirements: Req 1, Req 17
+
+2. **Save & Load System** (Plan: 10.1)
    - Implement `SaveManager` for JSON serialization.
    - Integrate manual Save/Load buttons in HUD.
    - Priority: Medium

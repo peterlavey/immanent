@@ -1,0 +1,159 @@
+[gd_scene load_steps=5 format=3]
+
+[ext_resource type="Script" path="res://src/ui/title_screen/TitleScreen.gd" id="1_script"]
+[ext_resource type="Texture2D" path="res://assets/textures/title_screen.png" id="2_texture"]
+[ext_resource type="PackedScene" path="res://src/ui/hud/CRTEffect.tscn" id="3_crt"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_Menu"]
+bg_color = Color(0, 0, 0, 0.7)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 1, 1, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[node name="TitleScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_script")
+
+[node name="Background" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_texture")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="CRTEffect" parent="." instance=ExtResource("3_crt")]
+
+[node name="Overlay" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0.05, 0.1, 0.3)
+
+[node name="MenuContainer" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="MenuContainer"]
+custom_minimum_size = Vector2(400, 350)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_Menu")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MenuContainer"]
+layout_mode = 2
+theme_override_constants/separation = 15
+
+[node name="Title" type="Label" parent="MenuContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 1, 1, 1)
+theme_override_font_sizes/font_size = 48
+text = "IMMANENT"
+horizontal_alignment = 1
+
+[node name="Subtitle" type="Label" parent="MenuContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0.7, 0.7, 1)
+theme_override_font_sizes/font_size = 14
+text = "THE POSTPONED COLLAPSE"
+horizontal_alignment = 1
+
+[node name="HSeparator" type="HSeparator" parent="MenuContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="ContinueButton" type="Button" parent="MenuContainer/VBoxContainer"]
+custom_minimum_size = Vector2(250, 45)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.8, 1, 1, 1)
+theme_override_colors/font_disabled_color = Color(0.3, 0.3, 0.3, 1)
+theme_override_font_sizes/font_size = 18
+text = "CONTINUE CYCLE"
+
+[node name="NewGameButton" type="Button" parent="MenuContainer/VBoxContainer"]
+custom_minimum_size = Vector2(250, 45)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.8, 1, 1, 1)
+theme_override_font_sizes/font_size = 18
+text = "NEW SIMULATION"
+
+[node name="SettingsButton" type="Button" parent="MenuContainer/VBoxContainer"]
+custom_minimum_size = Vector2(250, 45)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.8, 1, 1, 1)
+theme_override_font_sizes/font_size = 18
+text = "SETTINGS"
+
+[node name="ExitButton" type="Button" parent="MenuContainer/VBoxContainer"]
+custom_minimum_size = Vector2(250, 45)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.8, 1, 1, 1)
+theme_override_font_sizes/font_size = 18
+text = "EXIT CYCLE"
+
+[node name="SettingsPanel" type="CenterContainer" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="SettingsPanel"]
+custom_minimum_size = Vector2(400, 350)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_Menu")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="SettingsPanel"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="Title" type="Label" parent="SettingsPanel/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 1, 1, 1)
+theme_override_font_sizes/font_size = 32
+text = "SETTINGS"
+horizontal_alignment = 1
+
+[node name="HSeparator" type="HSeparator" parent="SettingsPanel/VBoxContainer"]
+layout_mode = 2
+
+[node name="CRTToggle" type="CheckButton" parent="SettingsPanel/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 1, 1, 1)
+button_pressed = true
+text = "CRT MODE"
+
+[node name="BackButton" type="Button" parent="SettingsPanel/VBoxContainer"]
+custom_minimum_size = Vector2(200, 45)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "BACK"
+
+[connection signal="pressed" from="MenuContainer/VBoxContainer/ContinueButton" to="." method="_on_continue_button_pressed"]
+[connection signal="pressed" from="MenuContainer/VBoxContainer/NewGameButton" to="." method="_on_new_game_button_pressed"]
+[connection signal="pressed" from="MenuContainer/VBoxContainer/SettingsButton" to="." method="_on_settings_button_pressed"]
+[connection signal="pressed" from="MenuContainer/VBoxContainer/ExitButton" to="." method="_on_exit_button_pressed"]
+[connection signal="toggled" from="SettingsPanel/VBoxContainer/CRTToggle" to="." method="_on_crt_toggle_toggled"]
+[connection signal="pressed" from="SettingsPanel/VBoxContainer/BackButton" to="." method="_on_settings_back_button_pressed"]

@@ -12,13 +12,20 @@ func _ready() -> void:
 	hide()
 	process_mode = PROCESS_MODE_ALWAYS
 	
-	# Initial state for CRT toggle
-	var hud = get_tree().get_first_node_in_group("hud")
-	if hud and hud.has_node("CRTEffect"):
-		crt_toggle.button_pressed = hud.get_node("CRTEffect").visible
+	# Initial state for CRT toggle - wait a frame to ensure groups are populated
+	_sync_crt_deferred()
 	
 	# Initial state for Save/Load buttons
 	_update_save_buttons()
+
+func _sync_crt_deferred() -> void:
+	# Give the scene tree a frame to stabilize
+	await get_tree().process_frame
+	if not is_inside_tree(): return
+	
+	var hud = get_tree().get_first_node_in_group("hud")
+	if hud and is_instance_valid(hud) and hud.has_node("CRTEffect"):
+		crt_toggle.button_pressed = hud.get_node("CRTEffect").visible
 
 func _update_save_buttons() -> void:
 	var save_exists = FileAccess.file_exists("user://savegame.json")

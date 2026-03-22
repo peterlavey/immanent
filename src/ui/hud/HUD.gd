@@ -48,7 +48,10 @@ func _ready() -> void:
 	# Connect to MissionManager
 	var mission_manager = get_tree().get_first_node_in_group("mission_manager")
 	if not mission_manager:
-		mission_manager = get_parent().get_node_or_null("MissionManager")
+		# Fallback to searching the tree if group is not populated yet
+		mission_manager = get_tree().root.find_child("MissionManager", true, false)
+		if not mission_manager:
+			mission_manager = get_parent().get_node_or_null("MissionManager")
 		
 	if mission_manager:
 		if not mission_manager.mission_updated.is_connected(_on_mission_updated):

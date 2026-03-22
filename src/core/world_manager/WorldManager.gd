@@ -23,22 +23,39 @@ var _g2_spawn_count: int = 0
 var _discovered_enemies: Array[String] = []
 
 func _ready() -> void:
+	print("[WorldManager] _ready() starting")
 	core_node = get_tree().get_first_node_in_group("core")
 	if core_node:
 		core_node.evolution_changed.connect(_on_core_evolution_changed)
+		print("[WorldManager] Connected to core_node")
+	else:
+		printerr("[WorldManager] Warning: core_node not found in 'core' group")
 	
-	time_manager.cycle_started.connect(_on_cycle_started)
+	if time_manager:
+		time_manager.cycle_started.connect(_on_cycle_started)
+		print("[WorldManager] Connected to time_manager")
+	else:
+		printerr("[WorldManager] Error: time_manager not found as child")
 	
 	# Skip initial spawn if we're loading a game
 	# We check if there's any G1 already (SaveManager might have spawned them)
+	print("[WorldManager] Waiting for first frame to check for existing entities...")
 	await get_tree().process_frame
+	
+	if not is_instance_valid(self):
+		return # Avoid crash if node was freed during await
+		
 	if get_tree().get_nodes_in_group("genezis_g1").is_empty():
+		print("[WorldManager] No G1 beings found, performing initial spawn")
 		# Initial spawn: ensure at least 4 spots within FOV
 		_spawn_initial_data_spots()
 		# Initial genezis
 		_spawn_genezis_g1()
 		# Initial genezis G0
 		_spawn_genezis_g0()
+	else:
+		print("[WorldManager] G1 beings already exist, skipping initial spawn (likely loaded from save)")
+	print("[WorldManager] _ready() finished")
 
 func _on_core_evolution_changed(new_level: int) -> void:
 	if new_level == 1:

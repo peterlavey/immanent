@@ -23,13 +23,14 @@ func save_game() -> void:
 		printerr("Failed to open save file for writing: ", SAVE_PATH)
 
 func load_game() -> bool:
+	print("[SaveManager] load_game() starting")
 	if not FileAccess.file_exists(SAVE_PATH):
-		print("No save file found at ", SAVE_PATH)
+		print("[SaveManager] No save file found at ", SAVE_PATH)
 		return false
 		
 	var file = FileAccess.open(SAVE_PATH, FileAccess.READ)
 	if not file:
-		printerr("Failed to open save file for reading: ", SAVE_PATH)
+		printerr("[SaveManager] Failed to open save file for reading: ", SAVE_PATH)
 		return false
 		
 	var json_string = file.get_as_text()
@@ -38,19 +39,20 @@ func load_game() -> bool:
 	var json = JSON.new()
 	var error = json.parse(json_string)
 	if error != OK:
-		printerr("JSON Parse Error: ", json.get_error_message(), " at line ", json.get_error_line())
+		printerr("[SaveManager] JSON Parse Error: ", json.get_error_message(), " at line ", json.get_error_line())
 		return false
 		
 	var save_data = json.data
 	
 	# Apply data in order of dependency
+	print("[SaveManager] Applying save data...")
 	_apply_upgrade_data(save_data.get("upgrades", {}))
 	_apply_core_data(save_data.get("core", {}))
 	_apply_time_data(save_data.get("time", {}))
 	_apply_world_data(save_data.get("world", {}))
 	_apply_mission_data(save_data.get("missions", {}))
 	
-	print("Game loaded successfully from ", SAVE_PATH)
+	print("[SaveManager] Game loaded successfully from ", SAVE_PATH)
 	return true
 
 func delete_save() -> void:
@@ -75,11 +77,19 @@ func _get_core_data() -> Dictionary:
 	return {}
 
 func _apply_core_data(data: Dictionary) -> void:
+	print("[SaveManager] _apply_core_data starting")
 	var core = get_tree().get_first_node_in_group("core")
-	if core and not data.is_empty():
+	if not core:
+		core = get_tree().root.find_child("Core", true, false)
+		if not core:
+			printerr("[SaveManager] Warning: Core not found")
+			return
+			
+	if not data.is_empty():
 		core.current_data = data.get("current_data", 0)
 		core.evolution_level = data.get("evolution_level", 1) # Start new games at level 1
 		core.fov_radius = data.get("fov_radius", 10.0)
+	print("[SaveManager] _apply_core_data finished")
 
 func _get_world_data() -> Dictionary:
 	var world_manager = get_tree().get_first_node_in_group("world_manager")
@@ -138,68 +148,93 @@ func _get_world_data() -> Dictionary:
 	return data
 
 func _apply_world_data(data: Dictionary) -> void:
+	print("[SaveManager] _apply_world_data starting")
 	var world_manager = get_tree().get_first_node_in_group("world_manager")
-	if not world_manager: return
+	if not world_manager:
+		# Fallback to direct search if group is not ready
+		world_manager = get_tree().root.find_child("World", true, false)
+		if not world_manager:
+			printerr("[SaveManager] Error: WorldManager not found in 'world_manager' group or root")
+			return
 	
+	print("[SaveManager] WorldManager found, cleaning up existing entities...")
 	# Clear existing entities except Core
 	for g in get_tree().get_nodes_in_group("genezis_g1"): g.queue_free()
 	for g in get_tree().get_nodes_in_group("genezis_g2"): g.queue_free()
 	for g in get_tree().get_nodes_in_group("genezis_g0"): g.queue_free()
+	# The group names were data_spots and enemies in some places, checking both
 	for s in get_tree().get_nodes_in_group("data_spots"): s.queue_free()
+	for s in get_tree().get_nodes_in_group("data_spot"): s.queue_free()
 	for e in get_tree().get_nodes_in_group("enemies"): e.queue_free()
+	for e in get_tree().get_nodes_in_group("enemy"): e.queue_free()
 	
+	print("[SaveManager] Restoring discovered enemies...")
 	var discovered: Array[String] = []
 	for type_name in data.get("discovered_enemies", []):
 		discovered.append(str(type_name))
 	world_manager._discovered_enemies = discovered
 	
 	# Restore Data Spots
-	for s_data in data.get("data_spots", []):
-		var spot = world_manager.data_spot_scene.instantiate()
-		world_manager.add_child(spot)
-		spot.global_position = _dict_to_vec3(s_data.pos)
-		spot.max_bytes = s_data.max_bytes
-		spot.current_bytes = s_data.current_bytes
-		spot.scale = _dict_to_vec3(s_data.scale)
-		
+	print("[SaveManager] Restoring Data Spots...")
+	if world_manager.data_spot_scene:
+		for s_data in data.get("data_spots", []):
+			var spot = world_manager.data_spot_scene.instantiate()
+			world_manager.add_child(spot)
+			spot.global_position = _dict_to_vec3(s_data.pos)
+			spot.max_bytes = s_data.max_bytes
+			spot.current_bytes = s_data.current_bytes
+			spot.scale = _dict_to_vec3(s_data.scale)
+	
 	# Restore Genezis G1
-	for g_data in data.get("genezis_g1", []):
-		var g = world_manager.genezis_g1_scene.instantiate()
-		world_manager.add_child(g)
-		g.global_position = _dict_to_vec3(g_data.pos)
-		g.current_load = g_data.load
-		g.move_speed = g_data.speed
-		g.carry_capacity = g_data.capacity
-		g.extraction_rate = g_data.extraction
-		g.connection_range = g_data.get("conn_range", 0.0)
-		g.connection_boost = g_data.get("conn_boost", 1.0)
-		world_manager.genezis_spawned.emit(g)
+	print("[SaveManager] Restoring Genezis G1...")
+	if world_manager.genezis_g1_scene:
+		for g_data in data.get("genezis_g1", []):
+			var g = world_manager.genezis_g1_scene.instantiate()
+			world_manager.add_child(g)
+			g.global_position = _dict_to_vec3(g_data.pos)
+			g.current_load = g_data.load
+			g.move_speed = g_data.speed
+			g.carry_capacity = g_data.capacity
+			g.extraction_rate = g_data.extraction
+			g.connection_range = g_data.get("conn_range", 0.0)
+			g.connection_boost = g_data.get("conn_boost", 1.0)
+			if world_manager.has_signal("genezis_spawned"):
+				world_manager.genezis_spawned.emit(g)
 		
 	# Restore Genezis G2
+	print("[SaveManager] Restoring Genezis G2...")
 	world_manager._g2_spawn_count = data.get("g2_spawn_count", 0)
-	for g_data in data.get("genezis_g2", []):
-		var g = world_manager.genezis_g2_scene.instantiate()
-		world_manager.add_child(g)
-		g.global_position = _dict_to_vec3(g_data.pos)
-		world_manager.genezis_g2_spawned.emit(g)
+	if world_manager.genezis_g2_scene:
+		for g_data in data.get("genezis_g2", []):
+			var g = world_manager.genezis_g2_scene.instantiate()
+			world_manager.add_child(g)
+			g.global_position = _dict_to_vec3(g_data.pos)
+			if world_manager.has_signal("genezis_g2_spawned"):
+				world_manager.genezis_g2_spawned.emit(g)
 		
 	# Restore Genezis G0
-	for g_data in data.get("genezis_g0", []):
-		var g = world_manager.genezis_g0_scene.instantiate()
-		world_manager.add_child(g)
-		g.global_position = _dict_to_vec3(g_data.pos)
+	print("[SaveManager] Restoring Genezis G0...")
+	if world_manager.genezis_g0_scene:
+		for g_data in data.get("genezis_g0", []):
+			var g = world_manager.genezis_g0_scene.instantiate()
+			world_manager.add_child(g)
+			g.global_position = _dict_to_vec3(g_data.pos)
 		
 	# Restore Enemies
+	print("[SaveManager] Restoring Enemies...")
 	for e_data in data.get("enemies", []):
-		var scene = world_manager.bit_scrubber_scene
+		var scene = null
 		if e_data.type == "Defragmenter":
 			scene = world_manager.defragmenter_scene
+		else:
+			scene = world_manager.bit_scrubber_scene
 		
 		if scene:
 			var e = scene.instantiate()
 			world_manager.add_child(e)
 			e.global_position = _dict_to_vec3(e_data.pos)
 			e.health = e_data.health
+	print("[SaveManager] _apply_world_data finished")
 
 func _get_mission_data() -> Dictionary:
 	var mission_manager = get_tree().get_first_node_in_group("mission_manager")
@@ -210,17 +245,32 @@ func _get_mission_data() -> Dictionary:
 	return {}
 
 func _apply_mission_data(data: Dictionary) -> void:
+	print("[SaveManager] _apply_mission_data starting")
 	var mission_manager = get_tree().get_first_node_in_group("mission_manager")
-	if mission_manager and data.has("current_mission_id"):
+	if not mission_manager:
+		# Fallback to direct search
+		mission_manager = get_tree().root.find_child("MissionManager", true, false)
+		if not mission_manager:
+			printerr("[SaveManager] Warning: MissionManager not found")
+			return
+			
+	if data.has("current_mission_id"):
 		var mid = data.current_mission_id
 		if mid != -1:
-			mission_manager._start_mission(mid)
+			print("[SaveManager] Starting mission ID: ", mid)
+			if mission_manager.has_method("_start_mission"):
+				mission_manager._start_mission(mid)
+			else:
+				mission_manager.current_mission_id = mid
 		else:
+			print("[SaveManager] All missions completed")
 			mission_manager.current_mission_id = -1
 			mission_manager.current_mission_name = "All missions completed"
 			mission_manager.current_mission_description = "Wait for more updates."
 			mission_manager.current_mission_progress = ""
-			mission_manager.mission_updated.emit(mission_manager.current_mission_name, mission_manager.current_mission_description, mission_manager.current_mission_progress)
+			if mission_manager.has_signal("mission_updated"):
+				mission_manager.mission_updated.emit(mission_manager.current_mission_name, mission_manager.current_mission_description, mission_manager.current_mission_progress)
+	print("[SaveManager] _apply_mission_data finished")
 
 func _get_upgrade_data() -> Dictionary:
 	var hud = get_tree().get_first_node_in_group("hud")
@@ -231,10 +281,21 @@ func _get_upgrade_data() -> Dictionary:
 	return {}
 
 func _apply_upgrade_data(data: Dictionary) -> void:
+	print("[SaveManager] _apply_upgrade_data starting")
 	var hud = get_tree().get_first_node_in_group("hud")
-	if hud and hud.upgrade_menu and data.has("upgrade_levels"):
-		hud.upgrade_menu.upgrade_levels = data.upgrade_levels
-		hud.upgrade_menu._update_buttons()
+	if not hud:
+		hud = get_tree().root.find_child("HUD", true, false)
+	
+	if hud and is_instance_valid(hud) and hud.upgrade_menu and data.has("upgrade_levels"):
+		var levels = data.upgrade_levels
+		# Ensure levels is a dictionary before assignment
+		if levels is Dictionary:
+			hud.upgrade_menu.upgrade_levels = levels
+			if hud.upgrade_menu.has_method("_update_buttons"):
+				hud.upgrade_menu._update_buttons()
+		else:
+			printerr("SaveManager: upgrade_levels in save is not a Dictionary")
+	print("[SaveManager] _apply_upgrade_data finished")
 
 func _get_time_data() -> Dictionary:
 	var time_manager = get_tree().get_first_node_in_group("time_manager")
@@ -246,8 +307,15 @@ func _get_time_data() -> Dictionary:
 	return {}
 
 func _apply_time_data(data: Dictionary) -> void:
+	print("[SaveManager] _apply_time_data starting")
 	var time_manager = get_tree().get_first_node_in_group("time_manager")
-	if time_manager and not data.is_empty():
+	if not time_manager:
+		time_manager = get_tree().root.find_child("TimeManager", true, false)
+		if not time_manager:
+			printerr("[SaveManager] Warning: TimeManager not found")
+			return
+			
+	if not data.is_empty():
 		# Maintain backward compatibility with old saves if any
 		if data.has("current_iteration"):
 			time_manager.current_cycle = data.get("current_iteration", 1)
@@ -255,7 +323,9 @@ func _apply_time_data(data: Dictionary) -> void:
 			time_manager.current_cycle = data.get("current_cycle", 1)
 			
 		time_manager.remaining_time = data.get("remaining_time", time_manager.cycle_duration)
-		time_manager.cycle_started.emit(time_manager.current_cycle)
+		if time_manager.has_signal("cycle_started"):
+			time_manager.cycle_started.emit(time_manager.current_cycle)
+	print("[SaveManager] _apply_time_data finished")
 
 func _vec3_to_dict(v: Vector3) -> Dictionary:
 	return {"x": v.x, "y": v.y, "z": v.z}

@@ -266,11 +266,12 @@
 - [x] **10.2 Autosave**
   - [x] Trigger autosave every time a mission is completed (Plan: 10.2) (Req: 17)
 
-- [x] **10.3 Save/Load Fixes**
-  - [x] Fix typed array assignment error in `SaveManager.gd` for `_discovered_enemies` (Plan: 10.3)
-  - [x] Improve enemy type identification using `class_name` and `is` operator (Plan: 10.3)
-  - [x] Fix save/load for G2 count, G1 stats, and Core data (Plan: 10.3)
-  - [x] Implement save file deletion functionality in `SaveManager` and HUD (Plan: 10.3) (Req: 17)
+- [x] **10.4 Title Screen**
+  - [x] Implement the main title screen with a looping video background (Plan: 10.4) (Req: 1, 13)
+  - [x] Implement options: Continue, New Game, Settings, and Exit (Plan: 10.4) (Req: 1, 17)
+  - [x] Add a Settings panel with a CRT toggle (Plan: 10.4) (Req: 1)
+  - [x] Integrate save file checking to enable/disable the "Continue" button (Plan: 10.4) (Req: 17)
+  - [x] Set the title screen as the main scene in project settings (Plan: 10.4) (Req: 1)
 
 ## Phase 9: Visual Enhancements
 
@@ -395,4 +396,9 @@
   - [x] Adjust HUD monitor frame labels to prevent clipping from CRT curvature (moved towards center).
 - [x] **15.3 CRT/Glitch Visual Polish**
   - [x] Refine `CRTEffect` shader with subtle glitch artifacts (Plan: 15.3) (Req: 13)
+- [x] **15.4 Title Screen & Reliability**
+  - [x] Implement Title Screen with Continue, New Game, Settings, and Exit options. (Req: 17)
+  - [x] Implement robust logging and defensive programming in `TitleScreen.gd` to trace and prevent crashes.
+  - [x] Fix race conditions in `PauseMenu.gd` and `TitleScreen.gd` by deferring group-based node lookups using `await get_tree().process_frame`.
+  - [x] Ensure `CRTEffect` visibility is correctly synced between Title Screen and HUD without triggering null pointer exceptions.
   - [ ] Add a "Boot" sequence or "Signal Lost" transition effect (Plan: 15.3) (Req: 13)
