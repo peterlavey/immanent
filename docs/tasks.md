@@ -273,7 +273,7 @@
   - [x] Integrate save file checking to enable/disable the "Continue" button (Plan: 10.4) (Req: 17)
   - [x] Set the title screen as the main scene in project settings (Plan: 10.4) (Req: 1)
   - [x] Remove redundant title/subtitle labels from Title Screen (replaced by background logo)
-  - [x] Reposition Title Screen menu to the bottom-center (25% up from bottom) to avoid overlapping with the background logo
+  - [x] Reposition Title Screen menu to the center to improve visual balance and avoid overlap with background elements
 
 ## Phase 9: Visual Enhancements
 
