@@ -30,7 +30,27 @@ func _ready() -> void:
 		SaveManager.load_game()
 	
 	# Switch monitor to Log mode by default
-	monitor_screen.set_surface_override_material(0, load("res://src/core/godheads/GodheadsWorld.tscn::StandardMaterial3D_screen"))
+	# In Godot 4.3+, we can just set the material if it is already in the scene
+	# or use the surface_override_material property.
+	# The previous load(...) might be failing if it's an internal resource.
+	# Let's ensure the material is correctly applied.
+	
+	# Try to find the material from the Mesh first
+	var material = monitor_screen.get_surface_override_material(0)
+	if not material:
+		material = monitor_screen.mesh.surface_get_material(0)
+	
+	print("Monitor Material: ", material)
+	if material is StandardMaterial3D:
+		var log_viewport = get_node_or_null("Monitor/LogViewport")
+		if log_viewport:
+			# In Godot 4, we should use the viewport's texture directly if possible, 
+			# or ensure the ViewportTexture is properly initialized.
+			# Using get_texture() from the viewport is often more reliable at runtime.
+			material.albedo_texture = log_viewport.get_texture()
+			print("Albedo Texture assigned from LogViewport: ", log_viewport.get_path())
+		else:
+			print("Error: LogViewport not found")
 	
 	# If we just came from the simulation, start zoomed in and zoom out
 	# We can check a global flag or just always do it if it looks good

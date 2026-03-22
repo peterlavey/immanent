@@ -29,11 +29,9 @@ viewport_path = NodePath("Monitor/SubViewport")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_screen"]
 resource_local_to_scene = true
+shading_mode = 0
 albedo_texture = SubResource("ViewportTexture_screen")
-emission_enabled = true
-emission = Color(0.1, 0.1, 0.1, 1)
-emission_operator = 1
-emission_texture = SubResource("ViewportTexture_screen")
+disable_receive_shadows = true
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_sim"]
 resource_local_to_scene = true
@@ -73,6 +71,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.1)
 shape = SubResource("BoxShape3D_monitor")
 
 [node name="LogViewport" type="SubViewport" parent="Monitor"]
+disable_3d = true
 gui_disable_input = true
 size = Vector2i(1280, 720)
 render_target_update_mode = 4

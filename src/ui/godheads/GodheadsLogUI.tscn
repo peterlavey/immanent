@@ -38,6 +38,8 @@ grow_vertical = 2
 [node name="Title" type="Label" parent="VBoxContainer"]
 mouse_filter = 2
 layout_mode = 2
+theme_override_colors/font_color = Color(0, 0.8, 0, 1)
+theme_override_font_sizes/font_size = 18
 text = "SIMULATION_LOG_PROCESSOR_V1.0"
 horizontal_alignment = 1
 
@@ -54,5 +56,7 @@ size_flags_vertical = 3
 mouse_filter = 2
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0, 1, 0, 1)
+theme_override_font_sizes/font_size = 14
 text = "SYSTEM READY"
 autowrap_mode = 3

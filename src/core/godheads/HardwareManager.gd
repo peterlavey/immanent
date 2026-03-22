@@ -1,5 +1,7 @@
 extends Node
 
+signal hardware_upgraded(type, level)
+
 # Hardware properties affecting Genezis world
 var processor_level: int = 1: # Higher level = faster cycle duration (decreases cycle_duration)
 	set(value):

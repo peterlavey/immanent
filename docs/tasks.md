@@ -453,3 +453,6 @@
   - [x] Update HUD exit button to trigger level change back to Godheads. (Plan: 16.7)
     - [x] Implement smooth zoom-out transition when exiting Genezis world to Godheads world. (Plan: 16.7)
     - [x] Implement smooth zoom-out transition when entering Godheads world from Genezis world. (Plan: 16.7)
+    - [x] Implement dark programming logs on the Godheads monitor for a more technical aesthetic. (Plan: 16.3)
+    - [x] Fix Godheads monitor "purple screen" by using `get_texture()` for more reliable runtime ViewportTexture assignment in Godot 4. (Plan: 16.3)
+    - [x] Refine GodheadsLogUI with additional random logs and safer update logic to prevent empty/stale displays. (Plan: 16.3)
