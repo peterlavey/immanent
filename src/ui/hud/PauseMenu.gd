@@ -89,7 +89,8 @@ func _on_delete_button_pressed() -> void:
 		_play_click_sfx()
 
 func _on_quit_button_pressed() -> void:
-	get_tree().quit()
+	get_tree().paused = false
+	get_tree().change_scene_to_file("res://src/ui/title_screen/TitleScreen.tscn")
 
 func _play_click_sfx() -> void:
 	var audio_manager = get_tree().root.get_node_or_null("AudioManager")

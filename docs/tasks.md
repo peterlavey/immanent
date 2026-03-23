@@ -468,3 +468,6 @@
     - [x] Implement dark programming logs on the Godheads monitor for a more technical aesthetic. (Plan: 16.3)
     - [x] Fix Godheads monitor "purple screen" by using `get_texture()` for more reliable runtime ViewportTexture assignment in Godot 4. (Plan: 16.3)
     - [x] Refine GodheadsLogUI with additional random logs and safer update logic to prevent empty/stale displays. (Plan: 16.3)
+
+    - [x] **10.5 Pause Menu Refinement**
+      - [x] Change the pause menu exit behavior to lead to the title screen instead of quitting. (Plan: 10.5) (Req: 1, 17)

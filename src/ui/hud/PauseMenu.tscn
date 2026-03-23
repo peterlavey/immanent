@@ -80,7 +80,7 @@ text = "Delete Save"
 custom_minimum_size = Vector2(200, 50)
 layout_mode = 2
 size_flags_horizontal = 4
-text = "Quit"
+text = "Exit to Title"
 
 [node name="SettingsPanel" type="PanelContainer" parent="."]
 visible = false

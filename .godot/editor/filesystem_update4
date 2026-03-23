@@ -3,3 +3,4 @@ res://src/ui/hud/HUD.gd
 res://src/core/world_manager/WorldManager.gd
 res://src/ui/hud/PauseMenu.gd
 res://src/ui/title_screen/TitleScreen.gd
+res://src/ui/hud/PauseMenu.tscn
