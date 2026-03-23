@@ -38,6 +38,7 @@ func _ready() -> void:
 		printerr("[WorldManager] Error: time_manager not found as child")
 	
 	# Load game state if it exists
+	# Only if we are not already loaded or if this is the first time
 	if SaveManager:
 		SaveManager.load_game()
 	

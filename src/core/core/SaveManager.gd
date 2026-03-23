@@ -8,6 +8,10 @@ const SAVE_PATH = "user://savegame.json"
 func save_game() -> void:
 	save_started.emit()
 	
+	# Load current save data if it exists to merge/preserve data 
+	# that might not be in the current scene (e.g. World or Mission data)
+	var current_save = _load_raw_save_data()
+	
 	var save_data = {
 		"version": "1.0.0",
 		"timestamp": Time.get_datetime_string_from_system(),
@@ -17,6 +21,24 @@ func save_game() -> void:
 		"upgrades": _get_upgrade_data(),
 		"time": _get_time_data()
 	}
+	
+	# If we are NOT in the world scene, we should NOT overwrite world and mission data
+	# if they were already present in a previous save.
+	var is_in_world = get_tree().current_scene.scene_file_path == "res://src/core/world/World.tscn"
+	
+	if not is_in_world and not current_save.is_empty():
+		# Preserve world data if it's missing in current scene but exists in save
+		if save_data.world.is_empty() or (save_data.world.get("genezis_g1", []).is_empty() and save_data.world.get("data_spots", []).is_empty()):
+			if current_save.has("world"):
+				print("[SaveManager] Preserving world data from previous save (not in World scene)")
+				save_data["world"] = current_save["world"]
+		
+		# Preserve mission data if it's missing or default in current scene
+		if current_save.has("missions"):
+			var mission_manager = get_tree().get_first_node_in_group("mission_manager")
+			if not mission_manager:
+				print("[SaveManager] Preserving mission data from previous save (MissionManager not found)")
+				save_data["missions"] = current_save["missions"]
 	
 	var file = FileAccess.open(SAVE_PATH, FileAccess.WRITE)
 	var bytes_saved = 0
@@ -30,6 +52,24 @@ func save_game() -> void:
 		printerr("Failed to open save file for writing: ", SAVE_PATH)
 	
 	save_finished.emit(bytes_saved)
+
+func _load_raw_save_data() -> Dictionary:
+	if not FileAccess.file_exists(SAVE_PATH):
+		return {}
+		
+	var file = FileAccess.open(SAVE_PATH, FileAccess.READ)
+	if not file:
+		return {}
+		
+	var json_string = file.get_as_text()
+	file.close()
+	
+	var json = JSON.new()
+	var error = json.parse(json_string)
+	if error != OK:
+		return {}
+		
+	return json.data
 
 func load_game() -> bool:
 	print("[SaveManager] load_game() starting")
@@ -53,13 +93,28 @@ func load_game() -> bool:
 		
 	var save_data = json.data
 	
+	# Check if we are in the simulation world
+	var is_in_world = get_tree().current_scene.scene_file_path == "res://src/core/world/World.tscn"
+	
 	# Apply data in order of dependency
 	print("[SaveManager] Applying save data...")
 	_apply_upgrade_data(save_data.get("upgrades", {}))
 	_apply_core_data(save_data.get("core", {}), true)
 	_apply_time_data(save_data.get("time", {}), true)
-	_apply_world_data(save_data.get("world", {}), true)
-	_apply_mission_data(save_data.get("missions", {}), true)
+	
+	# For world and mission, we only apply if we are in the simulation scene
+	# or if we are loading into the Godheads view (which is the main entry)
+	if is_in_world:
+		_apply_world_data(save_data.get("world", {}), true)
+		_apply_mission_data(save_data.get("missions", {}), true)
+	else:
+		# If we're not in the world, just ensure world-related managers are updated if they exist
+		_apply_mission_data(save_data.get("missions", {}), true)
+		
+		# If we are NOT in the world, we still want to make sure the WorldManager 
+		# will NOT perform initial spawn when it eventually loads.
+		# We can't easily set a flag on a non-existent node, but we can rely on 
+		# SaveManager state if needed, or just let WorldManager check the file itself.
 	
 	print("[SaveManager] Game loaded successfully from ", SAVE_PATH)
 	return true
@@ -97,7 +152,7 @@ func _apply_core_data(data: Dictionary, silent: bool = false) -> void:
 			
 	if not data.is_empty():
 		core.current_data = data.get("current_data", 0)
-		core.evolution_level = data.get("evolution_level", 1) # Start new games at level 1
+		core.evolution_level = data.get("evolution_level", 1)
 		core.fov_radius = data.get("fov_radius", 10.0)
 	print("[SaveManager] _apply_core_data finished")
 

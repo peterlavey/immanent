@@ -78,8 +78,9 @@ func _on_save_button_pressed() -> void:
 
 func _on_load_button_pressed() -> void:
 	if has_node("/root/SaveManager"):
-		if get_node("/root/SaveManager").load_game():
-			close()
+		# Instead of just calling load_game, reload the scene to ensure clean state
+		get_tree().paused = false
+		get_tree().reload_current_scene()
 
 func _on_delete_button_pressed() -> void:
 	if has_node("/root/SaveManager"):

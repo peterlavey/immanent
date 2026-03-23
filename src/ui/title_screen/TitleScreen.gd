@@ -39,6 +39,9 @@ func _sync_crt_deferred(crt_toggle_node: Node) -> void:
 
 func _on_continue_button_pressed() -> void:
 	_play_click_sfx()
+	if SaveManager:
+		SaveManager.load_game()
+	
 	var err = get_tree().change_scene_to_file("res://src/core/godheads/GodheadsWorld.tscn")
 	if err != OK:
 		printerr("[TitleScreen] Failed to change scene to GodheadsWorld.tscn: ", err)
@@ -46,6 +49,9 @@ func _on_continue_button_pressed() -> void:
 
 func _on_new_game_button_pressed() -> void:
 	_play_click_sfx()
+	if SaveManager:
+		SaveManager.delete_save()
+	
 	var err = get_tree().change_scene_to_file("res://src/core/godheads/GodheadsWorld.tscn")
 	if err != OK:
 		printerr("[TitleScreen] Failed to change scene to GodheadsWorld.tscn: ", err)

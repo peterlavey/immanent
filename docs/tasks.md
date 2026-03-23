@@ -272,6 +272,10 @@
   - [x] Implement state restoration for Core, World, Missions, Upgrades, and Time (Plan: 10.1) (Req: 17)
   - [x] Fix duplicate initial spawns when loading a saved game (Plan: 10.1) (Req: 17)
   - [x] Enable/Disable Load button based on save file existence (Plan: 10.1) (Req: 17)
+  - [x] Fix Title Screen 'Continue' button not loading saved game (Plan: 10.1) (Req: 17)
+  - [x] Fix 'Corrupted Save' (missing entities) when loading from Pause Menu by reloading the scene (Plan: 10.1) (Req: 17)
+  - [x] Ensure 'New Game' from Title Screen correctly deletes the existing save to start fresh (Plan: 10.1) (Req: 17)
+  - [x] Fix 'Hollow Save' (overwriting good save with empty data) when saving from the Godheads world (Plan: 10.1) (Req: 17)
 
 - [x] **10.2 Autosave**
   - [x] Trigger autosave every time a mission is completed (Plan: 10.2) (Req: 17)
