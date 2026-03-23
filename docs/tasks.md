@@ -104,6 +104,14 @@
 
 - [x] **4.4 Idle Feedback**
   - [x] Implement "sleep" visual feedback (text with "z"s) for Genezis G1 units when inactive for a few seconds.
+- [x] Show loading spinner when saving data (Plan: 4.5) (Req: 17)
+- [x] **4.5.1 Enhanced Save Spinner Visibility**
+  - [x] Make save spinner appear and disappear more smoothly with rotation. (Plan: 4.5.1) (Req: 17)
+  - [x] Ensure visibility for the duration of the save process plus a 0.5s buffer with fast fade transitions (0.1s). (Plan: 4.5.1) (Req: 17)
+  - [x] Increase size (64x64) and maximum opacity (1.0). (Plan: 4.5.1) (Req: 17)
+  - [x] Add a save delta (file size) displayed 0.5s after saving is complete. (Plan: 4.5.2) (Req: 17)
+  - [x] Fix "json_string" not declared in scope error in SaveManager.gd.
+  - [x] Ensure visibility and rotation during pause by setting `process_mode` to `ALWAYS` and using pause-aware timers. (Plan: 4.5.1) (Req: 23)
 
   - [x] **4.3 Genezi G2 & Fusion**
   - [x] Implement Genezi G2 entity with protective AI (Plan: 4.3) (Req: 10)

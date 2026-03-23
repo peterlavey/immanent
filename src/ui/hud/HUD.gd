@@ -16,6 +16,9 @@ extends CanvasLayer
 @onready var mission_presentation_ui = $MissionPresentationUI
 @onready var crt_effect = $CRTEffect
 @onready var pause_menu = $PauseMenu
+@onready var save_spinner = $SaveSpinner
+@onready var save_delta_label = $SaveDelta
+
 @onready var theophania_ui_scene = preload("res://src/ui/theophania_ui/TheophaniaUI.tscn")
 
 var selected_genezis: CharacterBody3D = null
@@ -79,6 +82,17 @@ func _ready() -> void:
 	
 	if pause_menu:
 		pause_menu.crt_toggled.connect(_on_crt_toggled)
+	
+	# Connect to SaveManager
+	if SaveManager:
+		SaveManager.save_started.connect(_on_save_started)
+		SaveManager.save_finished.connect(_on_save_finished)
+	
+	if save_spinner:
+		save_spinner.hide()
+	
+	if save_delta_label:
+		save_delta_label.hide()
 	
 	# Initial count
 	_update_genezis_count()
@@ -270,6 +284,51 @@ func _on_exit_button_pressed() -> void:
 func _on_crt_toggled(button_pressed: bool) -> void:
 	if crt_effect:
 		crt_effect.visible = button_pressed
+
+func _on_save_started() -> void:
+	if save_spinner:
+		var anim = save_spinner.get_node_or_null("AnimationPlayer")
+		if anim:
+			anim.play("spin")
+		
+		# Ensure it's not hidden by other UI elements by raising it to the top of the HUD
+		save_spinner.get_parent().move_child(save_spinner, -1)
+		
+		# Let's use a Tween for fade to allow simultaneous rotation.
+		var tween = create_tween().set_pause_mode(Tween.TWEEN_PAUSE_PROCESS)
+		save_spinner.modulate.a = 0.0
+		save_spinner.show()
+		# Increase target opacity to 1.0 for better visibility
+		tween.tween_property(save_spinner, "modulate:a", 1.0, 0.1).set_trans(Tween.TRANS_SINE)
+
+func _on_save_finished(bytes: int) -> void:
+	if save_spinner:
+		# Wait for at least 0.5s total before fading out to ensure visibility
+		# even for near-instant save processes.
+		get_tree().create_timer(0.5, true).timeout.connect(func():
+			var tween = create_tween().set_pause_mode(Tween.TWEEN_PAUSE_PROCESS)
+			tween.tween_property(save_spinner, "modulate:a", 0.0, 0.1).set_trans(Tween.TRANS_SINE)
+			tween.finished.connect(func(): 
+				save_spinner.hide()
+				var anim = save_spinner.get_node_or_null("AnimationPlayer")
+				if anim:
+					anim.stop()
+			)
+		)
+	
+	if save_delta_label:
+		# Show delta 0.5 seconds after saving is complete
+		get_tree().create_timer(0.5, true).timeout.connect(func():
+			save_delta_label.text = "Saved: " + format_bytes(bytes)
+			save_delta_label.modulate.a = 0.0
+			save_delta_label.show()
+			
+			var delta_tween = create_tween().set_pause_mode(Tween.TWEEN_PAUSE_PROCESS)
+			delta_tween.tween_property(save_delta_label, "modulate:a", 1.0, 0.2).set_trans(Tween.TRANS_SINE)
+			delta_tween.tween_interval(2.0)
+			delta_tween.tween_property(save_delta_label, "modulate:a", 0.0, 0.5).set_trans(Tween.TRANS_SINE)
+			delta_tween.finished.connect(func(): save_delta_label.hide())
+		)
 
 func _play_click_sfx() -> void:
 	var audio_manager = get_tree().root.get_node_or_null("AudioManager")

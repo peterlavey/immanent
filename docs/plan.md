@@ -219,6 +219,12 @@ Goal: Implement game state persistence and performance optimizations.
    - Add Delete button to HUD and handle UI state.
    - Priority: Low
    - Requirements: Req 17
+
+4. **Save Indicator** (Plan: 10.5)
+   - Implement rotating `spinner.png` on the HUD during save operations.
+   - Add `save_started` and `save_finished` signals to `SaveManager`.
+   - Priority: Low
+   - Requirements: Req 17
 193:
 194:## Phase 8: Missions & Objectives (Medium Priority)
 195:Goal: Provide a structured progression system with specific tasks.

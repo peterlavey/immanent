@@ -140,7 +140,17 @@ This is where the odyssey begins. The Genezis operate on the edge of oblivion, c
 140:      - THESE upgrades SHALL be performed using resources gathered within the Genezis world (Data).
 141:      - HARDWARE upgrades SHALL directly impact the Genezis world's mechanics (e.g., higher Hertz/Time speed, increased entity limits, faster processing).
 142:
-143:## Visual Identity (Digital Biome)
+143:23. **Save Indicator** (Req: 17)
+144:    - **User Story**: As a player, I want to see a visual indicator when the game is saving so that I know my progress is being recorded.
+145:    - **Acceptance Criteria**:
+146:      - THE system SHALL display a rotating spinner (`spinner.png`) on the HUD while a save operation is in progress AND for 0.5 seconds after it is complete.
+147:      - THE spinner SHALL be located in a non-obtrusive area (e.g., bottom-right corner).
+148:      - THE spinner SHALL disappear smoothly once that 0.5-second buffer is over.
+149:      - THE system SHALL display a "save delta" label (e.g., "Saved: 1.2 KB") 0.5 seconds after the save operation is complete.
+150:      - THE save delta label SHALL fade in smoothly and then fade out after a short duration (e.g., 2 seconds).
+151:      - THE spinner SHALL be visible and continue to rotate even when the game is paused (e.g., in the Pause Menu).
+151:
+152:## Visual Identity (Digital Biome)
 
 13. **Digital Biome Aesthetic**
     - **User Story**: As a player, I want the world and entities to have a design that reflects their function in a virtual environment so that the game feels immersive and coherent.

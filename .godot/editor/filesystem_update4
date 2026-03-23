@@ -1,15 +1,2 @@
-res://src/ui/title_screen/TitleScreen.gd
 res://src/core/core/SaveManager.gd
 res://src/ui/hud/HUD.gd
-res://src/core/world_manager/WorldManager.gd
-res://src/ui/hud/PauseMenu.gd
-res://src/core/audio_manager/AudioManager.gd
-res://src/ui/theophania_ui/TheophaniaUI.gd
-res://src/ui/title_screen/TitleScreenMinimal.gd
-res://src/core/core/Core.gd
-res://src/ui/upgrade_menu/UpgradeMenu.gd
-res://src/ui/upgrade_menu/UpgradeMenu.tscn
-res://src/core/camera/Camera.gd
-res://src/core/godheads/GodheadsWorld.gd
-res://src/core/godheads/HardwareManager.gd
-res://src/ui/godheads/GodheadsLogUI.gd

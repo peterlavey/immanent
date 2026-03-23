@@ -8,8 +8,89 @@
 [ext_resource type="PackedScene" path="res://src/ui/mission_presentation_ui/MissionPresentationUI.tscn" id="6_scene"]
 [ext_resource type="PackedScene" path="res://src/ui/hud/CRTEffect.tscn" id="7_crt_scene"]
 [ext_resource type="PackedScene" path="res://src/ui/hud/PauseMenu.tscn" id="8_pause_scene"]
+[ext_resource type="Texture2D" path="res://assets/textures/spinner.png" id="9_spinner_tex"]
+
+[sub_resource type="Animation" id="Animation_fade_in"]
+resource_name = "fade_in"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 1, 1, 0), Color(0, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_fade_out"]
+resource_name = "fade_out"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 1, 1, 1), Color(0, 1, 1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.1),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_spin"]
+resource_name = "spin"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 6.28319]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_spinner"]
+_data = {
+"fade_in": SubResource("Animation_fade_in"),
+"fade_out": SubResource("Animation_fade_out"),
+"spin": SubResource("Animation_spin")
+}
 
 [node name="HUD" type="CanvasLayer"]
+process_mode = 3
 layer = 2
 script = ExtResource("1_script")
 
@@ -234,3 +315,50 @@ layout_mode = 1
 [node name="PauseMenu" parent="." instance=ExtResource("8_pause_scene")]
 visible = false
 layout_mode = 1
+
+[node name="SaveSpinner" type="TextureRect" parent="."]
+process_mode = 3
+visible = false
+modulate = Color(0, 1, 1, 0)
+custom_minimum_size = Vector2(64, 64)
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -84.0
+offset_top = -84.0
+offset_right = -20.0
+offset_bottom = -20.0
+grow_horizontal = 0
+grow_vertical = 0
+pivot_offset = Vector2(32, 32)
+texture = ExtResource("9_spinner_tex")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="SaveSpinner"]
+process_mode = 3
+libraries = {
+"": SubResource("AnimationLibrary_spinner")
+}
+
+[node name="SaveDelta" type="Label" parent="."]
+visible = false
+modulate = Color(0, 1, 1, 0)
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -250.0
+offset_top = -120.0
+offset_right = -20.0
+offset_bottom = -90.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_colors/font_color = Color(0, 1, 1, 1)
+theme_override_font_sizes/font_size = 18
+text = "Saved: 0 B"
+horizontal_alignment = 2
+vertical_alignment = 1

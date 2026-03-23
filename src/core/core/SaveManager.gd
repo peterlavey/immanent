@@ -1,8 +1,13 @@
 extends Node
 
+signal save_started
+signal save_finished(bytes: int)
+
 const SAVE_PATH = "user://savegame.json"
 
 func save_game() -> void:
+	save_started.emit()
+	
 	var save_data = {
 		"version": "1.0.0",
 		"timestamp": Time.get_datetime_string_from_system(),
@@ -14,13 +19,17 @@ func save_game() -> void:
 	}
 	
 	var file = FileAccess.open(SAVE_PATH, FileAccess.WRITE)
+	var bytes_saved = 0
 	if file:
 		var json_string = JSON.stringify(save_data, "\t")
 		file.store_string(json_string)
+		bytes_saved = json_string.length()
 		file.close()
 		print("Game saved successfully to ", SAVE_PATH)
 	else:
 		printerr("Failed to open save file for writing: ", SAVE_PATH)
+	
+	save_finished.emit(bytes_saved)
 
 func load_game() -> bool:
 	print("[SaveManager] load_game() starting")
