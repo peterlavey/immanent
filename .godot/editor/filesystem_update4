@@ -1,6 +1,3 @@
-res://src/core/core/SaveManager.gd
-res://src/ui/hud/HUD.gd
-res://src/core/world_manager/WorldManager.gd
-res://src/ui/hud/PauseMenu.gd
 res://src/ui/title_screen/TitleScreen.gd
-res://src/ui/hud/PauseMenu.tscn
+res://src/core/audio_manager/AudioManager.gd
+res://src/ui/intro_ui/IntroUI.gd

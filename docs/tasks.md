@@ -470,4 +470,22 @@
     - [x] Refine GodheadsLogUI with additional random logs and safer update logic to prevent empty/stale displays. (Plan: 16.3)
 
     - [x] **10.5 Pause Menu Refinement**
-      - [x] Change the pause menu exit behavior to lead to the title screen instead of quitting. (Plan: 10.5) (Req: 1, 17)
+  - [x] Change the pause menu exit behavior to lead to the title screen instead of quitting. (Plan: 10.5) (Req: 1, 17)
+
+## Phase 17: Intro & Narrative
+
+- [x] **17.1 Story Intro**
+  - [x] Create IntroUI scene with two images (intro-1, intro-2) and story narration (Plan: 17.1)
+  - [x] Implement typing text effect for narration (Plan: 17.1)
+  - [x] Implement click behavior: fill text on first click, next screen on second click (Plan: 17.1)
+  - [x] Implement black screen transition after intro with Year and World info (Plan: 17.1)
+  - [x] Update Title Screen to trigger intro only on "New Game" (Plan: 17.1)
+  - [x] Fix AudioManager.play_sfx() to support pitch scale for intro typing effect.
+  - [x] Fix black screen hang by allowing clicking to skip the narrative timing.
+  - [x] Ensure clicking or pressing any key starts the game from the intro year screen.
+  - [x] Adjust Intro images size to be fully visible (Plan: 17.1)
+  - [x] Increase Intro images size as they appeared too small (Plan: 17.1)
+  - [x] Ensure a dark background is visible during intro image transitions instead of the title screen. (Plan: 17.1)
+  - [x] Fix: Start menu visible when transitioning from the year screen to the game. (Plan: 17.1)
+  - [x] Make Intro images responsive using anchors and KEEP_ASPECT_CENTERED stretch mode. (Plan: 17.1)
+  - [x] Ensure intro images are not cropped by increasing container space and using KEEP_ASPECT. (Plan: 17.1)

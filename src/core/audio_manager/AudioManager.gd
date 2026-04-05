@@ -42,7 +42,7 @@ func play_music(music_path: String) -> void:
 	else:
 		push_warning("AudioManager: Music file not found at ", music_path)
 
-func play_sfx(sfx_path: String, volume_db: float = 0.0) -> void:
+func play_sfx(sfx_path: String, volume_db: float = 0.0, pitch_scale: float = 1.0) -> void:
 	if ResourceLoader.exists(sfx_path):
 		var stream = load(sfx_path)
 		if stream is AudioStream:
@@ -51,6 +51,7 @@ func play_sfx(sfx_path: String, volume_db: float = 0.0) -> void:
 			add_child(sfx_player)
 			sfx_player.stream = stream
 			sfx_player.volume_db = volume_db
+			sfx_player.pitch_scale = pitch_scale
 			
 			sfx_bus = AudioServer.get_bus_index("SFX")
 			if sfx_bus != -1:

@@ -52,6 +52,20 @@ func _on_new_game_button_pressed() -> void:
 	if SaveManager:
 		SaveManager.delete_save()
 	
+	# Show Intro before starting the game
+	var intro_scene = load("res://src/ui/intro_ui/IntroUI.tscn")
+	if intro_scene:
+		var intro_instance = intro_scene.instantiate()
+		add_child(intro_instance)
+		intro_instance.intro_finished.connect(_on_intro_finished)
+		menu_container.hide()
+	else:
+		_start_new_game()
+
+func _on_intro_finished() -> void:
+	_start_new_game()
+
+func _start_new_game() -> void:
 	var err = get_tree().change_scene_to_file("res://src/core/godheads/GodheadsWorld.tscn")
 	if err != OK:
 		printerr("[TitleScreen] Failed to change scene to GodheadsWorld.tscn: ", err)
