@@ -283,7 +283,7 @@
 - [x] **10.4 Title Screen**
   - [x] Implement the main title screen with a looping video background (Plan: 10.4) (Req: 1, 13)
   - [x] Implement options: Continue, New Game, Settings, and Exit (Plan: 10.4) (Req: 1, 17)
-  - [x] Add a Settings panel with a CRT toggle (Plan: 10.4) (Req: 1)
+  - [x] Add a Settings panel with a CRT toggle (Plan: 10.4) (Req: 1) [REMOVED FROM PAUSE MENU]
   - [x] Integrate save file checking to enable/disable the "Continue" button (Plan: 10.4) (Req: 17)
   - [x] Set the title screen as the main scene in project settings (Plan: 10.4) (Req: 1)
   - [x] Remove redundant title/subtitle labels from Title Screen (replaced by background logo)
@@ -301,7 +301,7 @@
 - [x] **9.2 CRT Mode**
   - [x] Implement a CRT distortion shader for post-processing (Plan: 9.2) (Req: 1)
   - [x] Create a `CRTEffect` scene with a `CanvasLayer` and a `ColorRect` using the shader.
-  - [x] Move CRT toggle to a Pause Menu settings option, accessible via ESC. (Req: 1)
+  - [x] Move CRT toggle to a Pause Menu settings option, accessible via ESC. (Req: 1) [REMOVED]
   - [x] Enable CRT mode by default. (Req: 1)
   - [x] Move Save/Load functions to the Pause Menu. (Req: 17)
   - [x] Update `HUD.gd` and `HUD.tscn` to remove old CRT/Save/Load controls.

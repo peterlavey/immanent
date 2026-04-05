@@ -80,9 +80,6 @@ func _ready() -> void:
 	if exit_button:
 		exit_button.pressed.connect(_on_exit_button_pressed)
 	
-	if pause_menu:
-		pause_menu.crt_toggled.connect(_on_crt_toggled)
-	
 	# Connect to SaveManager
 	if SaveManager:
 		SaveManager.save_started.connect(_on_save_started)
@@ -280,10 +277,6 @@ func _on_exit_button_pressed() -> void:
 	else:
 		# Fallback if no camera or method found
 		get_tree().change_scene_to_file("res://src/core/godheads/GodheadsWorld.tscn")
-
-func _on_crt_toggled(button_pressed: bool) -> void:
-	if crt_effect:
-		crt_effect.visible = button_pressed
 
 func _on_save_started() -> void:
 	if save_spinner:

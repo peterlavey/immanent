@@ -108,12 +108,6 @@ theme_override_font_sizes/font_size = 32
 text = "SETTINGS"
 horizontal_alignment = 1
 
-[node name="CRTToggle" type="CheckButton" parent="SettingsPanel/VBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 4
-button_pressed = true
-text = "CRT Mode"
-
 [node name="BackButton" type="Button" parent="SettingsPanel/VBoxContainer"]
 custom_minimum_size = Vector2(200, 50)
 layout_mode = 2
@@ -126,5 +120,4 @@ text = "Back"
 [connection signal="pressed" from="MainPanel/VBoxContainer/LoadButton" to="." method="_on_load_button_pressed"]
 [connection signal="pressed" from="MainPanel/VBoxContainer/DeleteButton" to="." method="_on_delete_button_pressed"]
 [connection signal="pressed" from="MainPanel/VBoxContainer/QuitButton" to="." method="_on_quit_button_pressed"]
-[connection signal="toggled" from="SettingsPanel/VBoxContainer/CRTToggle" to="." method="_on_crt_toggle_toggled"]
 [connection signal="pressed" from="SettingsPanel/VBoxContainer/BackButton" to="." method="_on_settings_back_button_pressed"]

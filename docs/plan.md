@@ -199,7 +199,7 @@ Goal: Implement game state persistence and performance optimizations.
 1. **Title Screen** (Plan: 10.4)
    - Implement the main menu with Continue, New Game, Settings, and Exit.
    - Background video loop with digital theme.
-   - Settings for CRT effect toggle.
+   - Settings for CRT effect toggle (Title Screen).
    - Priority: Medium
    - Requirements: Req 1, Req 17
 
