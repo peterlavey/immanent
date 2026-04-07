@@ -167,8 +167,12 @@ func _update_buttons() -> void:
 	genezis_count_button.visible = current_mode == Mode.CORE
 	genezis_g0_button.visible = current_mode == Mode.CORE
 	evolution_button.visible = current_mode == Mode.CORE
-	fusion_button.visible = current_mode == Mode.GENEZIS_G1
-	psinergy_button.visible = current_mode == Mode.GENEZIS_G1
+	
+	var evolution_met = core_node.evolution_level >= 2
+	var g1_count = get_tree().get_nodes_in_group("genezis_g1").size()
+	
+	fusion_button.visible = current_mode == Mode.GENEZIS_G1 and evolution_met and g1_count >= 5
+	psinergy_button.visible = current_mode == Mode.GENEZIS_G1 and evolution_met
 	
 	_update_button_text(speed_button, "speed", tr("UPGRADE G1 SPEED"))
 	_update_button_text(extraction_button, "extraction", tr("UPGRADE G1 EXTRACTION"))
@@ -211,20 +215,7 @@ func _update_button_text(button: Button, type: String, label: String) -> void:
 		button.text = tr("%S (COST: %S)") % [label, format_bytes(cost)]
 		
 		var can_afford = core_node.current_data >= cost
-		var requirements_met = true
-		if type == "fusion" or type == "psinergy":
-			var evolution_met = core_node.evolution_level >= 2
-			requirements_met = evolution_met
-			if not evolution_met:
-				button.text = tr("%S (REQUIRES EVOLUTION LEVEL 2)") % label
-			
-			if type == "fusion":
-				var g1_count = get_tree().get_nodes_in_group("genezis_g1").size()
-				requirements_met = requirements_met and g1_count >= 5
-				if evolution_met and g1_count < 5:
-					button.text = tr("%S (REQUIRES 5 G1)") % label
-		
-		button.disabled = not (can_afford and requirements_met)
+		button.disabled = not can_afford
 
 func get_max_level() -> int:
 	if upgrade_levels["evolution"] > 0:

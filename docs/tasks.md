@@ -99,6 +99,7 @@
   - [x] Ensure at least 4 "data" spots at the beginning within the "FOV".
 
 - [x] Fix UI overflow in Upgrade Menu by increasing width and enabling text wrapping for buttons.
+- [x] Hide upgrades that have prerequisites (Plan: 11.3) (Req: 2, 3)
 - [ ] **4.2 The Escape**
   - [ ] Implement the final win condition logic: Ascending to reveal the silicon desert (motherboard). (Plan: 4.2) (Req: 9)
   - [ ] Final win screen/cutscene reflecting humanity's digital preservation. (Plan: 4.2) (Req: 9)
