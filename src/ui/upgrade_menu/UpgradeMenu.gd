@@ -182,6 +182,37 @@ func _update_buttons() -> void:
 	_update_button_text(evolution_button, "evolution", tr("EVOLVE CORE"))
 	_update_button_text(fusion_button, "fusion", tr("FUSE GENEZIS (4 G1 -> 1 G2)"))
 	_update_button_text(psinergy_button, "psinergy", tr("UPGRADE PSINERGY"))
+	
+	# After updating all buttons, check if any CORE upgrade is affordable for notification
+	_check_affordable_upgrades()
+
+func _check_affordable_upgrades() -> void:
+	if not SaveManager or SaveManager.has_seen_new_upgrades:
+		return
+		
+	var affordable = false
+	# Only check CORE upgrades for the HUD notification
+	var core_upgrades = ["genezis_count", "evolution", "genezis_g0_count"]
+	for type in core_upgrades:
+		var level = upgrade_levels[type]
+		if type == "genezis_count":
+			level = max(0, get_tree().get_nodes_in_group("genezis_g1").size() - 1)
+		elif type == "genezis_g0_count":
+			level = get_tree().get_nodes_in_group("genezis_g0").size()
+			
+		var max_lvl = get_max_level()
+		if type == "evolution": max_lvl = 10
+		elif type == "genezis_g0_count": max_lvl = 5
+		
+		if level < max_lvl:
+			var cost = get_upgrade_cost(type)
+			if core_node.current_data >= cost:
+				affordable = true
+				break
+	
+	var hud = get_tree().get_first_node_in_group("hud")
+	if hud and hud.has_method("set_upgrade_notification"):
+		hud.set_upgrade_notification(affordable)
 
 func _on_core_data_changed(_new_data: int) -> void:
 	_update_buttons()

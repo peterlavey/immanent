@@ -285,6 +285,25 @@ layout_mode = 2
 size_flags_horizontal = 8
 text = "VIEW ALL MISSIONS"
 
+[node name="UpgradeButton" type="Button" parent="MarginContainer/MissionContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+text = "UPGRADES"
+
+[node name="NotificationDot" type="ColorRect" parent="MarginContainer/MissionContainer/UpgradeButton"]
+visible = false
+custom_minimum_size = Vector2(10, 10)
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -5.0
+offset_top = -5.0
+offset_right = 5.0
+offset_bottom = 5.0
+grow_horizontal = 0
+color = Color(1, 0, 0, 1)
+
 [node name="ExitButton" type="Button" parent="MarginContainer/MissionContainer"]
 layout_mode = 2
 size_flags_horizontal = 8

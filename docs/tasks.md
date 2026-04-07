@@ -82,6 +82,8 @@
   - [x] Fix second G1 not mining data when appearing (Plan: 3.2.8) (Req: 3)
   - [x] Implement stuck detection for Genezis G1 to prevent idle loops or pathfinding failures.
   - [x] Improve G1 stuck recovery by varying target offsets and relaxing reachability thresholds.
+  - [x] Add "UPGRADES" button to the HUD for easy access to Core upgrades.
+  - [x] Implement "dot notification" for new available upgrades that disappears permanently once pressed.
 
   - [x] **3.3 Visual Feedback**
   - [x] Create Floating Text scene and script (Plan: 3.3) (Req: 8)

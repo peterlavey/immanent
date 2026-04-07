@@ -6,6 +6,7 @@ signal show_units_labels_changed(show: bool)
 signal show_spots_labels_changed(show: bool)
 signal show_enemies_labels_changed(show: bool)
 signal show_core_labels_changed(show: bool)
+signal has_seen_new_upgrades_changed(seen: bool)
 
 const SAVE_PATH = "user://savegame.json"
 const SETTINGS_PATH = "user://settings.json"
@@ -34,6 +35,12 @@ var show_core_labels: bool = true:
 		show_core_labels_changed.emit(show_core_labels)
 		_save_settings()
 
+var has_seen_new_upgrades: bool = false:
+	set(value):
+		has_seen_new_upgrades = value
+		has_seen_new_upgrades_changed.emit(has_seen_new_upgrades)
+		_save_settings()
+
 func _ready() -> void:
 	_load_settings()
 
@@ -42,7 +49,8 @@ func _save_settings() -> void:
 		"show_units_labels": show_units_labels,
 		"show_spots_labels": show_spots_labels,
 		"show_enemies_labels": show_enemies_labels,
-		"show_core_labels": show_core_labels
+		"show_core_labels": show_core_labels,
+		"has_seen_new_upgrades": has_seen_new_upgrades
 	}
 	var file = FileAccess.open(SETTINGS_PATH, FileAccess.WRITE)
 	if file:
@@ -61,6 +69,7 @@ func _load_settings() -> void:
 				show_spots_labels = data.get("show_spots_labels", true)
 				show_enemies_labels = data.get("show_enemies_labels", true)
 				show_core_labels = data.get("show_core_labels", true)
+				has_seen_new_upgrades = data.get("has_seen_new_upgrades", false)
 			file.close()
 
 func save_game() -> void:

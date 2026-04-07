@@ -8,3 +8,4 @@ res://src/core/world_manager/WorldManager.gd
 res://src/entities/data_spot/DataSpot.gd
 res://src/ui/upgrade_menu/UpgradeMenu.gd
 res://src/ui/upgrade_menu/UpgradeMenu.tscn
+res://src/ui/hud/HUD.gd

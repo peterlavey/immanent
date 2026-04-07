@@ -11,6 +11,8 @@ extends CanvasLayer
 @onready var mission_description_label = $MarginContainer/MissionContainer/MissionDescription
 @onready var mission_progress_label = $MarginContainer/MissionContainer/MissionProgress
 @onready var mission_list_button = $MarginContainer/MissionContainer/MissionListButton
+@onready var upgrade_button = $MarginContainer/MissionContainer/UpgradeButton
+@onready var notification_dot = $MarginContainer/MissionContainer/UpgradeButton/NotificationDot
 @onready var exit_button = $MarginContainer/MissionContainer/ExitButton
 @onready var mission_list_ui = $MissionListUI
 @onready var mission_presentation_ui = $MissionPresentationUI
@@ -77,6 +79,9 @@ func _ready() -> void:
 	if mission_list_button:
 		mission_list_button.pressed.connect(_on_mission_list_button_pressed)
 	
+	if upgrade_button:
+		upgrade_button.pressed.connect(_on_upgrade_button_pressed)
+	
 	if exit_button:
 		exit_button.pressed.connect(_on_exit_button_pressed)
 	
@@ -93,6 +98,11 @@ func _ready() -> void:
 	
 	# Initial count
 	_update_genezis_count()
+	
+	# Check if we should show the notification dot on startup
+	if notification_dot and SaveManager and not SaveManager.has_seen_new_upgrades:
+		if upgrade_menu:
+			upgrade_menu._check_affordable_upgrades()
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_cancel") or (event is InputEventKey and event.keycode == KEY_ESCAPE and event.pressed):
@@ -261,6 +271,29 @@ func _on_mission_list_button_pressed() -> void:
 	if mission_list_ui:
 		mission_list_ui.show_missions()
 		_play_click_sfx()
+
+func _on_upgrade_button_pressed() -> void:
+	if upgrade_menu:
+		if upgrade_menu.visible:
+			upgrade_menu.hide()
+		else:
+			# Hide other menus
+			if genezis_stats_ui: genezis_stats_ui.hide()
+			if mission_list_ui: mission_list_ui.hide()
+			
+			upgrade_menu.set_mode(0) # Mode.CORE
+			upgrade_menu.show()
+			_play_click_sfx()
+			
+			# Hide notification dot permanently when pressed
+			if notification_dot:
+				notification_dot.hide()
+				if SaveManager:
+					SaveManager.has_seen_new_upgrades = true
+
+func set_upgrade_notification(visible: bool) -> void:
+	if notification_dot and not (SaveManager and SaveManager.has_seen_new_upgrades):
+		notification_dot.visible = visible
 
 func _on_exit_button_pressed() -> void:
 	_play_click_sfx()
