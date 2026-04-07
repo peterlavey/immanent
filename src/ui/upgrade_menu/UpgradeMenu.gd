@@ -45,24 +45,28 @@ func _ready() -> void:
 	
 	# Setup evolution button
 	evolution_button.text = tr("EVOLVE CORE")
+	evolution_button.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	evolution_button.pressed.connect(_on_evolution_button_pressed)
 	$Panel/MarginContainer/VBoxContainer.add_child(evolution_button)
 	$Panel/MarginContainer/VBoxContainer.move_child(evolution_button, $Panel/MarginContainer/VBoxContainer.get_child_count() - 3) # Above spacer
 	
 	# Setup fusion button
 	fusion_button.text = tr("FUSE GENEZIS (4 G1 -> 1 G2)")
+	fusion_button.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	fusion_button.pressed.connect(_on_fusion_button_pressed)
 	$Panel/MarginContainer/VBoxContainer.add_child(fusion_button)
 	$Panel/MarginContainer/VBoxContainer.move_child(fusion_button, $Panel/MarginContainer/VBoxContainer.get_child_count() - 3)
 	
 	# Setup psinergy button
 	psinergy_button.text = tr("UPGRADE PSINERGY")
+	psinergy_button.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	psinergy_button.pressed.connect(_on_psinergy_button_pressed)
 	$Panel/MarginContainer/VBoxContainer.add_child(psinergy_button)
 	$Panel/MarginContainer/VBoxContainer.move_child(psinergy_button, $Panel/MarginContainer/VBoxContainer.get_child_count() - 3)
 	
 	# Setup G0 button
 	genezis_g0_button.text = tr("SPAWN GENEZIS G0")
+	genezis_g0_button.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	genezis_g0_button.pressed.connect(_on_genezis_g0_button_pressed)
 	$Panel/MarginContainer/VBoxContainer.add_child(genezis_g0_button)
 	$Panel/MarginContainer/VBoxContainer.move_child(genezis_g0_button, $Panel/MarginContainer/VBoxContainer.get_child_count() - 3)
