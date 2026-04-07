@@ -21,19 +21,19 @@ var completed_mission_ids = []
 var missions_data = {
 	MissionID.EVOLVE_CORE: {
 		"name": "Core Awakening",
-		"description": "Awaken the Processor Core to Level 2 to establish a permanent anchor for our growing colony. Grants a 500-unit resource fragment."
+		"description": "Awaken the Processor Core to Level 2 to establish a permanent anchor for our growing colony. Grants a significant resource fragment."
 	},
 	MissionID.CREATE_G2: {
 		"name": "Territorial Guardians",
-		"description": "Our expansion requires protection. Forge 2 G2 Guardians to shield the core from hostile entities."
+		"description": "Our expansion requires protection. Forge 2 G2 Guardians to shield the core from hostile entities. High-value data burst included."
 	},
 	MissionID.COLLECT_DATA: {
 		"name": "The Great Harvest",
-		"description": "Gather 1 MB of raw resources to fuel our growth and stabilize our domain."
+		"description": "Gather 1 MB of raw resources to fuel our growth and stabilize our domain. Grants a massive data injection."
 	},
 	MissionID.G0_MOBILIZATION: {
 		"name": "Colony Mobilization",
-		"description": "Unblock the Genezis G0 Mobilizers by reaching 1.5 MB of resources. They will find and wake our sleeping brothers across the electronic void."
+		"description": "Unblock the Genezis G0 Mobilizers by reaching 1.5 MB of resources. They will find and wake our brothers across the electronic void. Rewarded with an experimental data stream."
 	}
 }
 
@@ -60,19 +60,19 @@ func _start_mission(mission_id: MissionID) -> void:
 	match mission_id:
 		MissionID.EVOLVE_CORE:
 			current_mission_name = "Core Awakening"
-			current_mission_description = "Awaken the Processor Core to Level 2 to establish a permanent anchor for our growing colony. Grants a 500-unit resource fragment."
+			current_mission_description = "Awaken the Processor Core to Level 2 to establish a permanent anchor for our growing colony. Grants a significant resource fragment."
 			_update_progress_evolution()
 		MissionID.CREATE_G2:
 			current_mission_name = "Territorial Guardians"
-			current_mission_description = "Our expansion requires protection. Forge 2 G2 Guardians to shield the core from hostile entities."
+			current_mission_description = "Our expansion requires protection. Forge 2 G2 Guardians to shield the core from hostile entities. High-value data burst included."
 			_update_progress_g2()
 		MissionID.COLLECT_DATA:
 			current_mission_name = "The Great Harvest"
-			current_mission_description = "Gather 1 MB of raw resources to fuel our growth and stabilize our domain."
+			current_mission_description = "Gather 1 MB of raw resources to fuel our growth and stabilize our domain. Grants a massive data injection."
 			_update_progress_data(0)
 		MissionID.G0_MOBILIZATION:
 			current_mission_name = "Colony Mobilization"
-			current_mission_description = "Unblock the Genezis G0 Mobilizers by reaching 1.5 MB of resources. They will find and wake our sleeping brothers across the electronic void."
+			current_mission_description = "Unblock the Genezis G0 Mobilizers by reaching 1.5 MB of resources. They will find and wake our sleeping brothers across the electronic void. Rewarded with an experimental data stream."
 			_update_progress_g0(0)
 	
 	mission_updated.emit(current_mission_name, current_mission_description, current_mission_progress)
@@ -154,9 +154,33 @@ func _complete_current_mission() -> void:
 	if completed_mission_id == MissionID.EVOLVE_CORE:
 		var core = get_tree().get_first_node_in_group("core")
 		if core:
-			core.deposit_data(500)
-			print("Reward of 500 units granted for Mission 1.")
+			var base_reward = 500
+			# Grant a larger percentage (e.g. 15%) for mission rewards
+			var total_reward = core.get_scaled_reward(base_reward, 0.15)
+			core.deposit_data(total_reward)
+			print("Reward of %d units granted for Mission 1 (Base: %d)." % [total_reward, base_reward])
 	
+	if completed_mission_id == MissionID.CREATE_G2:
+		var core = get_tree().get_first_node_in_group("core")
+		if core:
+			var reward = core.get_scaled_reward(2000, 0.2)
+			core.deposit_data(reward)
+			print("Reward of %d units granted for Mission 2." % reward)
+			
+	if completed_mission_id == MissionID.COLLECT_DATA:
+		var core = get_tree().get_first_node_in_group("core")
+		if core:
+			var reward = core.get_scaled_reward(10000, 0.25)
+			core.deposit_data(reward)
+			print("Reward of %d units granted for Mission 3." % reward)
+
+	if completed_mission_id == MissionID.G0_MOBILIZATION:
+		var core = get_tree().get_first_node_in_group("core")
+		if core:
+			var reward = core.get_scaled_reward(50000, 0.3)
+			core.deposit_data(reward)
+			print("Reward of %d units granted for Mission 4." % reward)
+
 	if completed_mission_id == MissionID.G0_MOBILIZATION:
 		var world_manager = get_tree().get_first_node_in_group("world_manager")
 		if world_manager and world_manager.has_method("_spawn_genezis_g0"):

@@ -19,10 +19,18 @@ func _ready() -> void:
 	add_to_group("enemies")
 	_setup_world_space_ui()
 	
+	if has_node("/root/SaveManager"):
+		get_node("/root/SaveManager").show_enemies_labels_changed.connect(_on_show_labels_changed)
+		_on_show_labels_changed(get_node("/root/SaveManager").show_enemies_labels)
+	
 	var audio_manager = get_tree().root.get_node_or_null("AudioManager")
 	if audio_manager:
 		# Use G2 sfx for enemy arrival but lower volume and higher pitch for creepiness
 		audio_manager.play_sfx("res://assets/audio/sfx/G2.mp3", -10.0)
+
+func _on_show_labels_changed(show: bool) -> void:
+	if _world_space_label:
+		_world_space_label.visible = show
 
 func _setup_world_space_ui() -> void:
 	if world_space_ui_scene:

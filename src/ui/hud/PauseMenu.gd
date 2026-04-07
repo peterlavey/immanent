@@ -4,6 +4,10 @@ extends Control
 @onready var main_panel = $MainPanel
 @onready var load_button = $MainPanel/VBoxContainer/LoadButton
 @onready var delete_button = $MainPanel/VBoxContainer/DeleteButton
+@onready var show_units_checkbox = $SettingsPanel/VBoxContainer/ShowUnitsContainer/ShowUnitsCheckbox
+@onready var show_spots_checkbox = $SettingsPanel/VBoxContainer/ShowSpotsContainer/ShowSpotsCheckbox
+@onready var show_enemies_checkbox = $SettingsPanel/VBoxContainer/ShowEnemiesContainer/ShowEnemiesCheckbox
+@onready var show_core_checkbox = $SettingsPanel/VBoxContainer/ShowCoreContainer/ShowCoreCheckbox
 
 func _ready() -> void:
 	hide()
@@ -31,6 +35,14 @@ func open() -> void:
 	settings_panel.hide()
 	get_tree().paused = true
 	_update_save_buttons()
+	
+	if has_node("/root/SaveManager"):
+		var sm = get_node("/root/SaveManager")
+		show_units_checkbox.button_pressed = sm.show_units_labels
+		show_spots_checkbox.button_pressed = sm.show_spots_labels
+		show_enemies_checkbox.button_pressed = sm.show_enemies_labels
+		show_core_checkbox.button_pressed = sm.show_core_labels
+		
 	_play_click_sfx()
 
 func close() -> void:
@@ -49,6 +61,26 @@ func _on_settings_button_pressed() -> void:
 func _on_settings_back_button_pressed() -> void:
 	settings_panel.hide()
 	main_panel.show()
+	_play_click_sfx()
+
+func _on_show_units_checkbox_toggled(toggled_on: bool) -> void:
+	if has_node("/root/SaveManager"):
+		get_node("/root/SaveManager").show_units_labels = toggled_on
+	_play_click_sfx()
+
+func _on_show_spots_checkbox_toggled(toggled_on: bool) -> void:
+	if has_node("/root/SaveManager"):
+		get_node("/root/SaveManager").show_spots_labels = toggled_on
+	_play_click_sfx()
+
+func _on_show_enemies_checkbox_toggled(toggled_on: bool) -> void:
+	if has_node("/root/SaveManager"):
+		get_node("/root/SaveManager").show_enemies_labels = toggled_on
+	_play_click_sfx()
+
+func _on_show_core_checkbox_toggled(toggled_on: bool) -> void:
+	if has_node("/root/SaveManager"):
+		get_node("/root/SaveManager").show_core_labels = toggled_on
 	_play_click_sfx()
 
 func _on_save_button_pressed() -> void:

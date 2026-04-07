@@ -2,8 +2,66 @@ extends Node
 
 signal save_started
 signal save_finished(bytes: int)
+signal show_units_labels_changed(show: bool)
+signal show_spots_labels_changed(show: bool)
+signal show_enemies_labels_changed(show: bool)
+signal show_core_labels_changed(show: bool)
 
 const SAVE_PATH = "user://savegame.json"
+const SETTINGS_PATH = "user://settings.json"
+
+var show_units_labels: bool = true:
+	set(value):
+		show_units_labels = value
+		show_units_labels_changed.emit(show_units_labels)
+		_save_settings()
+
+var show_spots_labels: bool = true:
+	set(value):
+		show_spots_labels = value
+		show_spots_labels_changed.emit(show_spots_labels)
+		_save_settings()
+
+var show_enemies_labels: bool = true:
+	set(value):
+		show_enemies_labels = value
+		show_enemies_labels_changed.emit(show_enemies_labels)
+		_save_settings()
+
+var show_core_labels: bool = true:
+	set(value):
+		show_core_labels = value
+		show_core_labels_changed.emit(show_core_labels)
+		_save_settings()
+
+func _ready() -> void:
+	_load_settings()
+
+func _save_settings() -> void:
+	var settings = {
+		"show_units_labels": show_units_labels,
+		"show_spots_labels": show_spots_labels,
+		"show_enemies_labels": show_enemies_labels,
+		"show_core_labels": show_core_labels
+	}
+	var file = FileAccess.open(SETTINGS_PATH, FileAccess.WRITE)
+	if file:
+		file.store_string(JSON.stringify(settings))
+		file.close()
+
+func _load_settings() -> void:
+	if FileAccess.file_exists(SETTINGS_PATH):
+		var file = FileAccess.open(SETTINGS_PATH, FileAccess.READ)
+		if file:
+			var json = JSON.new()
+			var error = json.parse(file.get_as_text())
+			if error == OK:
+				var data = json.data
+				show_units_labels = data.get("show_units_labels", true)
+				show_spots_labels = data.get("show_spots_labels", true)
+				show_enemies_labels = data.get("show_enemies_labels", true)
+				show_core_labels = data.get("show_core_labels", true)
+			file.close()
 
 func save_game() -> void:
 	save_started.emit()
@@ -135,6 +193,7 @@ func _get_core_data() -> Dictionary:
 	if core:
 		return {
 			"current_data": core.current_data,
+			"total_accumulated_data": core.total_accumulated_data,
 			"evolution_level": core.evolution_level,
 			"fov_radius": core.fov_radius
 		}
@@ -152,6 +211,7 @@ func _apply_core_data(data: Dictionary, silent: bool = false) -> void:
 			
 	if not data.is_empty():
 		core.current_data = data.get("current_data", 0)
+		core.total_accumulated_data = data.get("total_accumulated_data", core.current_data)
 		core.evolution_level = data.get("evolution_level", 1)
 		core.fov_radius = data.get("fov_radius", 10.0)
 	print("[SaveManager] _apply_core_data finished")

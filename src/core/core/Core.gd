@@ -14,6 +14,14 @@ signal evolution_changed(new_level: int)
 		data_changed.emit(current_data)
 		_update_world_space_label()
 
+@export var total_accumulated_data: int = 0 # Total data accumulated throughout the game (hidden)
+
+## Calculate a reward based on a percentage of total accumulated data
+## Defaulting to a small percentage (e.g., 5%) for standard rewards
+func get_scaled_reward(base_amount: int, percentage: float = 0.05) -> int:
+	var dynamic_bonus = int(total_accumulated_data * percentage)
+	return base_amount + dynamic_bonus
+
 @export var evolution_level: int = 1:
 	set(value):
 		evolution_level = value
@@ -37,6 +45,14 @@ func _ready() -> void:
 	add_to_group("core")
 	_update_fov_visual()
 	_setup_world_space_ui()
+	
+	if has_node("/root/SaveManager"):
+		get_node("/root/SaveManager").show_core_labels_changed.connect(_on_show_labels_changed)
+		_on_show_labels_changed(get_node("/root/SaveManager").show_core_labels)
+
+func _on_show_labels_changed(show: bool) -> void:
+	if _world_space_label:
+		_world_space_label.visible = show
 
 func _setup_world_space_ui() -> void:
 	if world_space_ui_scene:
@@ -73,6 +89,7 @@ func _update_visual_for_evolution() -> void:
 
 func deposit_data(amount: int, position: Vector3 = Vector3.ZERO) -> void:
 	current_data += amount
+	total_accumulated_data += amount
 	_spawn_floating_text(amount, position)
 	
 	var audio_manager = get_tree().root.get_node_or_null("AudioManager")

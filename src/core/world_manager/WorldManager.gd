@@ -233,15 +233,29 @@ func _spawn_single_data_spot(min_dist: float, max_dist: float) -> void:
 	var spot = data_spot_scene.instantiate()
 	add_child(spot)
 	
-	# Evolve data spot size based on Core evolution level
-	if core_node and core_node.evolution_level > 0:
-		# Randomly spawn a larger variant if evolved
-		if randf() < 0.2: # 20% chance for a 50 MB spot
-			spot.max_bytes = 52428800 # 50 MB
-			spot.scale = Vector3(2, 2, 2)
+	# Evolve data spot size based on total accumulated data
+	if core_node:
+		var total_data = core_node.total_accumulated_data
+		# Base is 1 KB
+		var base_bytes = 1024
+		
+		# If we have some data, scale up. 
+		# Every 10 KB increases the base by 10%
+		var scaled_bytes = core_node.get_scaled_reward(base_bytes, 0.01) # 1% per total data seems too much if total data is 1MB
+		# Let's use a different scaling for data spots to avoid massive values too early
+		# 5% of total_accumulated_data as a floor for data spots once they start evolving
+		
+		if total_data > 10240: # > 10 KB
+			# Randomly spawn a larger variant
+			if randf() < 0.2: 
+				spot.max_bytes = int(total_data * 0.5) # 50% of all-time collection
+				spot.scale = Vector3(2, 2, 2)
+			else:
+				spot.max_bytes = int(total_data * 0.1) # 10% of all-time collection
+				spot.scale = Vector3(1.2, 1.2, 1.2)
 		else:
-			spot.max_bytes = 1048576 # 1 MB instead of 1 KB
-			spot.scale = Vector3(1.2, 1.2, 1.2)
+			spot.max_bytes = base_bytes
+			spot.scale = Vector3(1, 1, 1)
 	
 	# Random position within range [min_dist, max_dist] in 3D
 	var angle = randf() * TAU
@@ -345,7 +359,9 @@ func apply_theophania_choice(choice_id: String) -> void:
 	print("[Theophania] Choice applied: ", choice_id)
 	match choice_id:
 		"harvest_energy":
-			if core_node: core_node.deposit_data(20480)
+			if core_node: 
+				var reward = core_node.get_scaled_reward(20480, 0.1)
+				core_node.deposit_data(reward)
 		"stabilize_colony":
 			_spawn_genezis_g1()
 		"fortify_outposts":
@@ -356,12 +372,16 @@ func apply_theophania_choice(choice_id: String) -> void:
 			_spawn_genezis_g0()
 			_spawn_genezis_g0()
 		"resource_dismantle":
-			if core_node: core_node.deposit_data(65536)
+			if core_node: 
+				var reward = core_node.get_scaled_reward(65536, 0.1)
+				core_node.deposit_data(reward)
 		"birth_kin":
 			_spawn_genezis_g1()
 			_spawn_genezis_g1()
 		"strengthen_resolve":
-			if core_node: core_node.deposit_data(131072)
+			if core_node: 
+				var reward = core_node.get_scaled_reward(131072, 0.1)
+				core_node.deposit_data(reward)
 		"bridge_territory":
 			if core_node: core_node.fov_radius += 4.0
 		"intensive_extract":

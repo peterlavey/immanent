@@ -108,6 +108,54 @@ theme_override_font_sizes/font_size = 32
 text = "SETTINGS"
 horizontal_alignment = 1
 
+[node name="ShowUnitsContainer" type="HBoxContainer" parent="SettingsPanel/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="SettingsPanel/VBoxContainer/ShowUnitsContainer"]
+layout_mode = 2
+text = "Show Units Labels"
+
+[node name="ShowUnitsCheckbox" type="CheckBox" parent="SettingsPanel/VBoxContainer/ShowUnitsContainer"]
+layout_mode = 2
+button_pressed = true
+
+[node name="ShowSpotsContainer" type="HBoxContainer" parent="SettingsPanel/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="SettingsPanel/VBoxContainer/ShowSpotsContainer"]
+layout_mode = 2
+text = "Show Spots Labels"
+
+[node name="ShowSpotsCheckbox" type="CheckBox" parent="SettingsPanel/VBoxContainer/ShowSpotsContainer"]
+layout_mode = 2
+button_pressed = true
+
+[node name="ShowEnemiesContainer" type="HBoxContainer" parent="SettingsPanel/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="SettingsPanel/VBoxContainer/ShowEnemiesContainer"]
+layout_mode = 2
+text = "Show Enemies Labels"
+
+[node name="ShowEnemiesCheckbox" type="CheckBox" parent="SettingsPanel/VBoxContainer/ShowEnemiesContainer"]
+layout_mode = 2
+button_pressed = true
+
+[node name="ShowCoreContainer" type="HBoxContainer" parent="SettingsPanel/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="SettingsPanel/VBoxContainer/ShowCoreContainer"]
+layout_mode = 2
+text = "Show Core Label"
+
+[node name="ShowCoreCheckbox" type="CheckBox" parent="SettingsPanel/VBoxContainer/ShowCoreContainer"]
+layout_mode = 2
+button_pressed = true
+
 [node name="BackButton" type="Button" parent="SettingsPanel/VBoxContainer"]
 custom_minimum_size = Vector2(200, 50)
 layout_mode = 2
@@ -120,4 +168,8 @@ text = "Back"
 [connection signal="pressed" from="MainPanel/VBoxContainer/LoadButton" to="." method="_on_load_button_pressed"]
 [connection signal="pressed" from="MainPanel/VBoxContainer/DeleteButton" to="." method="_on_delete_button_pressed"]
 [connection signal="pressed" from="MainPanel/VBoxContainer/QuitButton" to="." method="_on_quit_button_pressed"]
+[connection signal="toggled" from="SettingsPanel/VBoxContainer/ShowUnitsContainer/ShowUnitsCheckbox" to="." method="_on_show_units_checkbox_toggled"]
+[connection signal="toggled" from="SettingsPanel/VBoxContainer/ShowSpotsContainer/ShowSpotsCheckbox" to="." method="_on_show_spots_checkbox_toggled"]
+[connection signal="toggled" from="SettingsPanel/VBoxContainer/ShowEnemiesContainer/ShowEnemiesCheckbox" to="." method="_on_show_enemies_checkbox_toggled"]
+[connection signal="toggled" from="SettingsPanel/VBoxContainer/ShowCoreContainer/ShowCoreCheckbox" to="." method="_on_show_core_checkbox_toggled"]
 [connection signal="pressed" from="SettingsPanel/VBoxContainer/BackButton" to="." method="_on_settings_back_button_pressed"]

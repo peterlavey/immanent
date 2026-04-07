@@ -1,3 +1,9 @@
-res://src/ui/title_screen/TitleScreen.gd
-res://src/core/audio_manager/AudioManager.gd
-res://src/ui/intro_ui/IntroUI.gd
+res://src/core/core/Core.gd
+res://src/core/core/SaveManager.gd
+res://src/core/mission_manager/MissionManager.gd
+res://src/core/world_manager/WorldManager.gd
+res://src/entities/data_spot/DataSpot.gd
+res://src/entities/enemy/Enemy.gd
+res://src/entities/genezis/genezis_g1/GenezisG1.gd
+res://src/ui/hud/PauseMenu.gd
+res://src/ui/hud/PauseMenu.tscn

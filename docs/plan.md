@@ -105,6 +105,13 @@ Goal: Implement the final evolution stages and the game's conclusion.
 ## Phase 5: Digital Threats & Combat (Medium Priority)
 Goal: Implement digital threats (viruses) and defense mechanics.
 
+1. **Label Management** (Plan: 5.4)
+   - Add individual options to hide labels for units, spots, enemies, and core.
+   - Implement persistence for these settings in `settings.json`.
+   - Priority: Medium
+   - Requirements: Req 1, Req 13
+   - Status: Completed
+
 1. **Digital Threats (Viruses)** (Plan: 5.1)
    - Create base enemy scene and AI.
    - Implement "Bit-Scrubber" (targets G1 load).
@@ -206,6 +213,8 @@ Goal: Implement game state persistence and performance optimizations.
 2. **Save & Load System** (Plan: 10.1)
    - Implement `SaveManager` for JSON serialization.
    - Integrate manual Save/Load buttons in HUD.
+   - Implement `total_accumulated_data` tracking in `Core` and persist it (Plan: 10.6).
+   - Implement scaling reward logic based on `total_accumulated_data` for missions, data spots, and Theophania scenarios.
    - Priority: Medium
    - Requirements: Req 17
 

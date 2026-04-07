@@ -23,6 +23,14 @@ var _world_space_label: Label3D
 func _ready() -> void:
 	add_to_group("data_spots")
 	_setup_world_space_ui()
+	
+	if has_node("/root/SaveManager"):
+		get_node("/root/SaveManager").show_spots_labels_changed.connect(_on_show_labels_changed)
+		_on_show_labels_changed(get_node("/root/SaveManager").show_spots_labels)
+
+func _on_show_labels_changed(show: bool) -> void:
+	if _world_space_label:
+		_world_space_label.visible = show
 
 func _setup_world_space_ui() -> void:
 	if world_space_ui_scene:

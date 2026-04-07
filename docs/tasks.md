@@ -122,7 +122,7 @@
 
 ## Phase 5: Polish & Balancing
 
-- [ ] **5.1 Environment Spacing**
+- [x] **5.1 Environment Spacing**
   - [x] Increase minimum spawn distance for Data Spots and Genezis units to prevent overcrowding near the Core. (Req: 2, 4)
   - [x] Create visual representation for Genezi G2 (Plan: 4.3) (Req: 10)
   - [x] Add validation to Fusion to require at least 5 G1 units (leaving 1 spare) (Plan: 4.3) (Req: 10)
@@ -134,6 +134,7 @@
   - [x] Trigger Defragmenter spawn on the second Genezis G2 generation.
   - [x] Relocate G1 statistics UI to top-left to avoid collision with mission description.
   - [x] Adjust G1 statistics UI position further down (Y=250) to avoid overlap with world description (Iteration/Data HUD).
+  - [x] Add individual options to hide world-space labels (units, data spots, enemies, core) in Pause Menu settings. (Req: 1, 13)
 
 ## Phase 6: Visual Identity & Modeling
 
@@ -279,6 +280,13 @@
 
 - [x] **10.2 Autosave**
   - [x] Trigger autosave every time a mission is completed (Plan: 10.2) (Req: 17)
+
+- [x] **10.3 Statistics Tracking**
+  - [x] Implement hidden `total_accumulated_data` variable in Core to track all-time collection (Req: Internal)
+  - [x] Persist `total_accumulated_data` in SaveManager (Req: Internal)
+  - [x] Update mission rewards to scale with `total_accumulated_data` (Req: Internal)
+  - [x] Update data spot generation to scale with `total_accumulated_data` (Req: Internal)
+  - [x] Update Theophania rewards to scale with `total_accumulated_data` (Req: Internal)
 
 - [x] **10.4 Title Screen**
   - [x] Implement the main title screen with a looping video background (Plan: 10.4) (Req: 1, 13)
