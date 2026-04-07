@@ -53,7 +53,7 @@ layout_mode = 2
 [node name="TitleLabel" type="Label" parent="Panel/MarginContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 24
-text = "New Threat Detected!"
+text = "NEW THREAT DETECTED!"
 horizontal_alignment = 1
 
 [node name="HSeparator" type="HSeparator" parent="Panel/MarginContainer/VBoxContainer"]
@@ -63,11 +63,11 @@ layout_mode = 2
 custom_minimum_size = Vector2(300, 100)
 layout_mode = 2
 size_flags_vertical = 3
-text = "Enemy description goes here."
+text = "ENEMY DESCRIPTION GOES HERE."
 autowrap_mode = 2
 
 [node name="CloseButton" type="Button" parent="Panel/MarginContainer/VBoxContainer"]
 layout_mode = 2
-text = "Close"
+text = "CLOSE"
 
 [connection signal="pressed" from="Panel/MarginContainer/VBoxContainer/CloseButton" to="." method="_on_close_button_pressed"]

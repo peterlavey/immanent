@@ -38,12 +38,7 @@ layout_mode = 2
 [node name="StatsLabel" type="Label" parent="Panel/MarginContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 14
-text = "Genezis Statistics
-------------------
-Status: IDLE
-Speed: 5.0 m/s
-Extraction: 10 B/s
-Load: 0 B / 100 B"
+text = "GENEZIS STATISTICS"
 
 [node name="Spacer" type="Control" parent="Panel/MarginContainer/VBoxContainer"]
 layout_mode = 2

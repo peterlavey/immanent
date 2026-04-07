@@ -210,6 +210,12 @@ Goal: Implement game state persistence and performance optimizations.
    - Priority: Medium
    - Requirements: Req 1, Req 17
 
+3. **Localization** (Plan: 10.5)
+   - Implement English and Spanish translations.
+   - Add language selection to Settings in Title Screen and Pause Menu.
+   - Priority: Medium
+   - Requirements: Req 0
+
 2. **Save & Load System** (Plan: 10.1)
    - Implement `SaveManager` for JSON serialization.
    - Integrate manual Save/Load buttons in HUD.

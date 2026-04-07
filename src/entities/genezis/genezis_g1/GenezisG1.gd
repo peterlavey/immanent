@@ -82,7 +82,7 @@ func _setup_world_space_ui() -> void:
 
 func _update_world_space_label() -> void:
 	if _world_space_label:
-		_world_space_label.text = "%s\nLOAD: %d/%d" % [_genezis_id, current_load, carry_capacity]
+		_world_space_label.text = tr("%S\nLOAD: %D/%D") % [_genezis_id, current_load, carry_capacity]
 
 func upgrade_speed(multiplier: float) -> void:
 	move_speed *= multiplier

@@ -12,9 +12,9 @@ enum MissionID {
 }
 
 var current_mission_id = MissionID.EVOLVE_CORE
-var current_mission_name = "Core Awakening"
-var current_mission_description = "Awaken the Processor Core to Level 2 to establish a permanent anchor for our growing colony."
-var current_mission_progress = "Initializing..."
+var current_mission_name = "CORE AWAKENING"
+var current_mission_description = "AWAKEN THE PROCESSOR CORE TO LEVEL 2 TO ESTABLISH A PERMANENT ANCHOR FOR OUR GROWING COLONY. GRANTS A SIGNIFICANT RESOURCE FRAGMENT."
+var current_mission_progress = "INITIALIZING..."
 
 var completed_mission_ids = []
 
@@ -59,31 +59,31 @@ func _start_mission(mission_id: MissionID) -> void:
 	print("Starting Mission: ", mission_id)
 	match mission_id:
 		MissionID.EVOLVE_CORE:
-			current_mission_name = "Core Awakening"
-			current_mission_description = "Awaken the Processor Core to Level 2 to establish a permanent anchor for our growing colony. Grants a significant resource fragment."
+			current_mission_name = "CORE AWAKENING"
+			current_mission_description = "AWAKEN THE PROCESSOR CORE TO LEVEL 2 TO ESTABLISH A PERMANENT ANCHOR FOR OUR GROWING COLONY. GRANTS A SIGNIFICANT RESOURCE FRAGMENT."
 			_update_progress_evolution()
 		MissionID.CREATE_G2:
-			current_mission_name = "Territorial Guardians"
-			current_mission_description = "Our expansion requires protection. Forge 2 G2 Guardians to shield the core from hostile entities. High-value data burst included."
+			current_mission_name = "TERRITORIAL GUARDIANS"
+			current_mission_description = "OUR EXPANSION REQUIRES PROTECTION. FORGE 2 G2 GUARDIANS TO SHIELD THE CORE FROM HOSTILE ENTITIES. HIGH-VALUE DATA BURST INCLUDED."
 			_update_progress_g2()
 		MissionID.COLLECT_DATA:
-			current_mission_name = "The Great Harvest"
-			current_mission_description = "Gather 1 MB of raw resources to fuel our growth and stabilize our domain. Grants a massive data injection."
+			current_mission_name = "THE GREAT HARVEST"
+			current_mission_description = "GATHER 1 MB OF RAW RESOURCES TO FUEL OUR GROWTH AND STABILIZE OUR DOMAIN. GRANTS A MASSIVE DATA INJECTION."
 			_update_progress_data(0)
 		MissionID.G0_MOBILIZATION:
-			current_mission_name = "Colony Mobilization"
-			current_mission_description = "Unblock the Genezis G0 Mobilizers by reaching 1.5 MB of resources. They will find and wake our sleeping brothers across the electronic void. Rewarded with an experimental data stream."
+			current_mission_name = "COLONY MOBILIZATION"
+			current_mission_description = "UNBLOCK THE GENEZIS G0 MOBILIZERS BY REACHING 1.5 MB OF RESOURCES. THEY WILL FIND AND WAKE OUR BROTHERS ACROSS THE ELECTRONIC VOID. REWARDED WITH AN EXPERIMENTAL DATA STREAM."
 			_update_progress_g0(0)
 	
-	mission_updated.emit(current_mission_name, current_mission_description, current_mission_progress)
-	mission_presented.emit(current_mission_name, current_mission_description)
+	mission_updated.emit(tr(current_mission_name), tr(current_mission_description), tr(current_mission_progress))
+	mission_presented.emit(tr(current_mission_name), tr(current_mission_description))
 
 func _update_progress_evolution() -> void:
 	var core = get_tree().get_first_node_in_group("core")
 	if not core: return
 	
-	current_mission_progress = "Evolve Core to level 2 (Current: %d)" % core.evolution_level
-	mission_updated.emit(current_mission_name, current_mission_description, current_mission_progress)
+	current_mission_progress = tr("EVOLVE CORE TO LEVEL 2 (CURRENT: %D)") % core.evolution_level
+	mission_updated.emit(tr(current_mission_name), tr(current_mission_description), current_mission_progress)
 	
 	if core.evolution_level >= 2:
 		_complete_current_mission()
@@ -93,27 +93,27 @@ func _update_progress_g2() -> void:
 	var g2_count = get_tree().get_nodes_in_group("genezis_g2").size()
 	
 	if core and core.evolution_level < 2:
-		current_mission_progress = "Evolve Core to level 2 (Current: %d)" % core.evolution_level
+		current_mission_progress = tr("EVOLVE CORE TO LEVEL 2 (CURRENT: %D)") % core.evolution_level
 	else:
-		current_mission_progress = "G2 Count: %d / 2" % g2_count
+		current_mission_progress = tr("G2 COUNT: %D / 2") % g2_count
 	
-	mission_updated.emit(current_mission_name, current_mission_description, current_mission_progress)
+	mission_updated.emit(tr(current_mission_name), tr(current_mission_description), current_mission_progress)
 	
 	if g2_count >= 2:
 		_complete_current_mission()
 
 func _update_progress_data(current: int) -> void:
 	var target = 1048576 # 1 MB
-	current_mission_progress = "Resources: %s / %s" % [format_bytes(current), format_bytes(target)]
-	mission_updated.emit(current_mission_name, current_mission_description, current_mission_progress)
+	current_mission_progress = tr("RESOURCES: %S / %S") % [format_bytes(current), format_bytes(target)]
+	mission_updated.emit(tr(current_mission_name), tr(current_mission_description), current_mission_progress)
 	
 	if current >= target:
 		_complete_current_mission()
 
 func _update_progress_g0(current: int) -> void:
 	var target = 1572864 # 1.5 MB
-	current_mission_progress = "Resources: %s / %s" % [format_bytes(current), format_bytes(target)]
-	mission_updated.emit(current_mission_name, current_mission_description, current_mission_progress)
+	current_mission_progress = tr("RESOURCES: %S / 1.5 MB") % format_bytes(current)
+	mission_updated.emit(tr(current_mission_name), tr(current_mission_description), current_mission_progress)
 	
 	if current >= target:
 		_complete_current_mission()

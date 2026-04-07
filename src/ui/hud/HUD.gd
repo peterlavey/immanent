@@ -158,9 +158,9 @@ func _update_genezis_count() -> void:
 	var g2_count = get_tree().get_nodes_in_group("genezis_g2").size()
 	
 	if g2_count > 0:
-		genezis_count_label.text = "Genezis: %d G1, %d G2" % [count, g2_count]
+		genezis_count_label.text = tr("GENEZIS: %D G1, %D G2") % [count, g2_count]
 	else:
-		genezis_count_label.text = "Genezis G1: %d" % count
+		genezis_count_label.text = tr("GENEZIS G1: %D") % count
 	
 	# Re-connect signals for all Genezis beings to ensure new ones are included
 	for genezis in get_tree().get_nodes_in_group("genezis_g1"):
@@ -222,10 +222,10 @@ func _on_theophania_requested() -> void:
 func _on_time_updated(remaining: float) -> void:
 	var minutes = int(remaining) / 60
 	var seconds = int(remaining) % 60
-	timer_label.text = "Sync: %02d:%02d" % [minutes, seconds]
+	timer_label.text = tr("SYNC: %02D:%02D") % [minutes, seconds]
 
 func _on_cycle_started(number: int) -> void:
-	cycle_label.text = "Cycle: " + str(number)
+	cycle_label.text = tr("CYCLE: %S") % str(number)
 	var hardware_manager = get_tree().get_first_node_in_group("hardware_manager")
 	if hardware_manager and hardware_manager.has_method("get_hertz_display"):
 		cycle_label.text += " (" + hardware_manager.get_hertz_display() + ")"
@@ -312,7 +312,7 @@ func _on_save_finished(bytes: int) -> void:
 	if save_delta_label:
 		# Show delta 0.5 seconds after saving is complete
 		get_tree().create_timer(0.5, true).timeout.connect(func():
-			save_delta_label.text = "Saved: " + format_bytes(bytes)
+			save_delta_label.text = tr("SAVED: %S") % format_bytes(bytes)
 			save_delta_label.modulate.a = 0.0
 			save_delta_label.show()
 			

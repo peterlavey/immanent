@@ -109,6 +109,13 @@
   - [x] Make save spinner appear and disappear more smoothly with rotation. (Plan: 4.5.1) (Req: 17)
   - [x] Ensure visibility for the duration of the save process plus a 0.5s buffer with fast fade transitions (0.1s). (Plan: 4.5.1) (Req: 17)
   - [x] Increase size (64x64) and maximum opacity (1.0). (Plan: 4.5.1) (Req: 17)
+
+- [x] **4.6 Localization**
+  - [x] Implement CSV-based translation system for English and Spanish. (Plan: 10.5) (Req: 0)
+  - [x] Add language selection to Settings in Title Screen and Pause Menu. (Plan: 10.5) (Req: 0)
+  - [x] Localize all UI texts, including dynamic labels and intro sequences. (Plan: 10.5) (Req: 0)
+  - [x] Extend localization to mission logs, entity statistics, and hardware upgrades. (Plan: 10.5) (Req: 0)
+  - [x] Ensure all static labels in .tscn files are consistent with translation keys. (Plan: 10.5) (Req: 0)
   - [x] Add a save delta (file size) displayed 0.5s after saving is complete. (Plan: 4.5.2) (Req: 17)
   - [x] Fix "json_string" not declared in scope error in SaveManager.gd.
   - [x] Ensure visibility and rotation during pause by setting `process_mode` to `ALWAYS` and using pause-aware timers. (Plan: 4.5.1) (Req: 23)
@@ -250,6 +257,7 @@
   - [x] Implement SFX for G2 shooting (Plan: 7.3) (Req: 12)
   - [x] Implement SFX for Genezis G1 and G2 generation (Plan: 7.3) (Req: 12)
 
+- [x] Fix "Could not resolve super class inheritance from 'Enemy'" error in `Defragmenter.gd` and `BitScrubber.gd` by switching to explicit path-based inheritance (`extends "res://src/entities/enemy/Enemy.gd"`).
 - [x] **8.3 Mission List**
   - [x] Implement `MissionListUI` to show all current and completed missions (Plan: 8.3) (Req: 15)
   - [x] Add "Missions" button to HUD to open the mission list (Plan: 8.3) (Req: 15)
@@ -498,3 +506,5 @@
   - [x] Fix: Start menu visible when transitioning from the year screen to the game. (Plan: 17.1)
   - [x] Make Intro images responsive using anchors and KEEP_ASPECT_CENTERED stretch mode. (Plan: 17.1)
   - [x] Ensure intro images are not cropped by increasing container space and using KEEP_ASPECT. (Plan: 17.1)
+  - [x] Fix parse errors and indentation in multiple GDScript files (GenezisG1, Core, MissionListUI, DataSpot, Enemy).
+  - [x] Fix recurring "Could not parse global class 'Defragmenter'" error in `SaveManager.gd` and `WorldManager.gd` by using script path check instead of global class name.

@@ -44,7 +44,7 @@ func _setup_world_space_ui() -> void:
 
 func _update_world_space_label() -> void:
 	if _world_space_label:
-		_world_space_label.text = "VIRUS_DETECTED\nINTEGRITY: %d%%" % int(health * 100)
+		_world_space_label.text = tr("VIRUS_DETECTED\nINTEGRITY: %d%%") % int(health * 100)
 
 func _physics_process(delta: float) -> void:
 	match current_state:

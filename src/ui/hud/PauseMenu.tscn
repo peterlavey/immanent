@@ -50,37 +50,32 @@ horizontal_alignment = 1
 custom_minimum_size = Vector2(200, 50)
 layout_mode = 2
 size_flags_horizontal = 4
-text = "Resume"
-
+text = "RESUME"
 [node name="SettingsButton" type="Button" parent="MainPanel/VBoxContainer"]
 custom_minimum_size = Vector2(200, 50)
 layout_mode = 2
 size_flags_horizontal = 4
-text = "Settings"
-
+text = "SETTINGS"
 [node name="SaveButton" type="Button" parent="MainPanel/VBoxContainer"]
 custom_minimum_size = Vector2(200, 50)
 layout_mode = 2
 size_flags_horizontal = 4
-text = "Save Simulation"
-
+text = "SAVE SIMULATION"
 [node name="LoadButton" type="Button" parent="MainPanel/VBoxContainer"]
 custom_minimum_size = Vector2(200, 50)
 layout_mode = 2
 size_flags_horizontal = 4
-text = "Load Simulation"
-
+text = "LOAD SIMULATION"
 [node name="DeleteButton" type="Button" parent="MainPanel/VBoxContainer"]
 custom_minimum_size = Vector2(200, 50)
 layout_mode = 2
 size_flags_horizontal = 4
-text = "Delete Save"
-
+text = "DELETE SAVE"
 [node name="QuitButton" type="Button" parent="MainPanel/VBoxContainer"]
 custom_minimum_size = Vector2(200, 50)
 layout_mode = 2
 size_flags_horizontal = 4
-text = "Exit to Title"
+text = "EXIT TO TITLE"
 
 [node name="SettingsPanel" type="PanelContainer" parent="."]
 visible = false
@@ -114,7 +109,7 @@ alignment = 1
 
 [node name="Label" type="Label" parent="SettingsPanel/VBoxContainer/ShowUnitsContainer"]
 layout_mode = 2
-text = "Show Units Labels"
+text = "SHOW UNITS LABELS"
 
 [node name="ShowUnitsCheckbox" type="CheckBox" parent="SettingsPanel/VBoxContainer/ShowUnitsContainer"]
 layout_mode = 2
@@ -126,7 +121,7 @@ alignment = 1
 
 [node name="Label" type="Label" parent="SettingsPanel/VBoxContainer/ShowSpotsContainer"]
 layout_mode = 2
-text = "Show Spots Labels"
+text = "SHOW SPOTS LABELS"
 
 [node name="ShowSpotsCheckbox" type="CheckBox" parent="SettingsPanel/VBoxContainer/ShowSpotsContainer"]
 layout_mode = 2
@@ -138,7 +133,7 @@ alignment = 1
 
 [node name="Label" type="Label" parent="SettingsPanel/VBoxContainer/ShowEnemiesContainer"]
 layout_mode = 2
-text = "Show Enemies Labels"
+text = "SHOW ENEMIES LABELS"
 
 [node name="ShowEnemiesCheckbox" type="CheckBox" parent="SettingsPanel/VBoxContainer/ShowEnemiesContainer"]
 layout_mode = 2
@@ -150,17 +145,35 @@ alignment = 1
 
 [node name="Label" type="Label" parent="SettingsPanel/VBoxContainer/ShowCoreContainer"]
 layout_mode = 2
-text = "Show Core Label"
+text = "SHOW CORE LABEL"
 
 [node name="ShowCoreCheckbox" type="CheckBox" parent="SettingsPanel/VBoxContainer/ShowCoreContainer"]
 layout_mode = 2
 button_pressed = true
 
+[node name="LanguageContainer" type="HBoxContainer" parent="SettingsPanel/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="SettingsPanel/VBoxContainer/LanguageContainer"]
+layout_mode = 2
+text = "LANGUAGE"
+
+[node name="LanguageButton" type="OptionButton" parent="SettingsPanel/VBoxContainer/LanguageContainer"]
+custom_minimum_size = Vector2(120, 0)
+layout_mode = 2
+item_count = 2
+selected = 0
+popup/item_0/text = "English"
+popup/item_0/id = 0
+popup/item_1/text = "Español"
+popup/item_1/id = 1
+
 [node name="BackButton" type="Button" parent="SettingsPanel/VBoxContainer"]
 custom_minimum_size = Vector2(200, 50)
 layout_mode = 2
 size_flags_horizontal = 4
-text = "Back"
+text = "BACK"
 
 [connection signal="pressed" from="MainPanel/VBoxContainer/ResumeButton" to="." method="_on_resume_button_pressed"]
 [connection signal="pressed" from="MainPanel/VBoxContainer/SettingsButton" to="." method="_on_settings_button_pressed"]

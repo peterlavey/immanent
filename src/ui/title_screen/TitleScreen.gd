@@ -4,6 +4,7 @@ extends Control
 @onready var settings_panel = $SettingsPanel
 @onready var menu_container = $MenuContainer
 @onready var crt_effect = $CRTEffect
+@onready var language_button = get_node_or_null("SettingsPanel/VBoxContainer/LanguageContainer/LanguageButton")
 
 func _ready() -> void:
 	# Initializing nodes with safety checks
@@ -24,6 +25,23 @@ func _ready() -> void:
 	
 	if settings_panel:
 		settings_panel.hide()
+	
+	if language_button:
+		var current_locale = TranslationServer.get_locale()
+		if current_locale.begins_with("es"):
+			language_button.selected = 1
+		else:
+			language_button.selected = 0
+		if not language_button.item_selected.is_connected(_on_language_selected):
+			language_button.item_selected.connect(_on_language_selected)
+
+func _on_language_selected(index: int) -> void:
+	_play_click_sfx()
+	match index:
+		0:
+			TranslationServer.set_locale("en")
+		1:
+			TranslationServer.set_locale("es")
 
 func _sync_crt_deferred(crt_toggle_node: Node) -> void:
 	await get_tree().process_frame

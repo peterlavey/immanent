@@ -44,7 +44,7 @@ func _setup_world_space_ui() -> void:
 
 func _update_world_space_label() -> void:
 	if _world_space_label:
-		_world_space_label.text = "DATA_CACHE\nVAL: %s" % format_bytes(current_bytes)
+		_world_space_label.text = tr("DATA_CACHE\nVAL: %S") % format_bytes(current_bytes)
 
 func format_bytes(bytes: int) -> String:
 	if bytes < 1024:

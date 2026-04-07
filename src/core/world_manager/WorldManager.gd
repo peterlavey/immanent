@@ -91,8 +91,9 @@ func _spawn_single_enemy(scene: PackedScene) -> void:
 	
 	# Handle discovery
 	var enemy_type = ""
-	if enemy is BitScrubber: enemy_type = "BitScrubber"
-	elif enemy is Defragmenter: enemy_type = "Defragmenter"
+	var enemy_script_path = enemy.get_script().get_path()
+	if enemy_script_path.contains("BitScrubber"): enemy_type = "BitScrubber"
+	elif enemy_script_path.contains("Defragmenter"): enemy_type = "Defragmenter"
 	
 	if enemy_type != "" and not _discovered_enemies.has(enemy_type):
 		_discovered_enemies.append(enemy_type)

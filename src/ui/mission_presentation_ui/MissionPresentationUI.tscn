@@ -53,13 +53,13 @@ layout_mode = 2
 [node name="MissionLabel" type="Label" parent="Panel/MarginContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 1, 1, 1)
-text = "New Mission"
+text = "NEW MISSION"
 horizontal_alignment = 1
 
 [node name="NameLabel" type="Label" parent="Panel/MarginContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 24
-text = "Mission Name"
+text = "MISSION NAME"
 horizontal_alignment = 1
 
 [node name="HSeparator" type="HSeparator" parent="Panel/MarginContainer/VBoxContainer"]
@@ -68,9 +68,9 @@ layout_mode = 2
 [node name="DescriptionLabel" type="Label" parent="Panel/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
-text = "Mission description goes here."
+text = "MISSION DESCRIPTION GOES HERE."
 autowrap_mode = 2
 
 [node name="StartButton" type="Button" parent="Panel/MarginContainer/VBoxContainer"]
 layout_mode = 2
-text = "Accept"
+text = "ACCEPT"

@@ -196,7 +196,6 @@ grow_vertical = 0
 theme_override_colors/font_color = Color(0, 1, 1, 0.5)
 theme_override_font_sizes/font_size = 12
 text = "SYS_STATUS: NOMINAL | V_LINK: ACTIVE"
-
 [node name="Coordinates" type="Label" parent="MonitorFrame"]
 layout_mode = 1
 anchors_preset = 3
@@ -212,7 +211,7 @@ grow_horizontal = 0
 grow_vertical = 0
 theme_override_colors/font_color = Color(0, 1, 1, 0.5)
 theme_override_font_sizes/font_size = 12
-text = "LOC: 0x0000 | CORE_SYNC: OK"
+text = "LOC: 0X0000 | CORE_SYNC: OK"
 horizontal_alignment = 2
 
 [node name="CRTEffect" parent="." instance=ExtResource("7_crt_scene")]
@@ -239,16 +238,16 @@ mouse_filter = 2
 [node name="CycleLabel" type="Label" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 24
-text = "1 Hz"
+text = "1 HZ"
 
 [node name="TimerLabel" type="Label" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
-text = "Next Sync: 02:00"
+text = "NEXT SYNC: 02:00"
 
 [node name="GenezisCountLabel" type="Label" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 20
-text = "Genezis Count: 0"
+text = "GENEZIS COUNT: 0"
 
 [node name="MissionContainer" type="VBoxContainer" parent="MarginContainer"]
 layout_mode = 2
@@ -260,31 +259,31 @@ mouse_filter = 2
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 1, 1, 1)
 theme_override_font_sizes/font_size = 20
-text = "Current Mission"
+text = "CURRENT MISSION"
 horizontal_alignment = 2
 
 [node name="MissionName" type="Label" parent="MarginContainer/MissionContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 24
-text = "Core Optimization"
+text = "CORE OPTIMIZATION"
 horizontal_alignment = 2
 
 [node name="MissionDescription" type="Label" parent="MarginContainer/MissionContainer"]
 layout_mode = 2
-text = "Optimize the Processor Core to Level 1. Completion grants a 500-byte data packet."
+text = "OPTIMIZE THE PROCESSOR CORE TO LEVEL 1. COMPLETION GRANTS A 500-BYTE DATA PACKET."
 horizontal_alignment = 2
 autowrap_mode = 3
 
 [node name="MissionProgress" type="Label" parent="MarginContainer/MissionContainer"]
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 0, 1)
-text = "Progress: 0/1"
+text = "PROGRESS: 0/1"
 horizontal_alignment = 2
 
 [node name="MissionListButton" type="Button" parent="MarginContainer/MissionContainer"]
 layout_mode = 2
 size_flags_horizontal = 8
-text = "View All Missions"
+text = "VIEW ALL MISSIONS"
 
 [node name="ExitButton" type="Button" parent="MarginContainer/MissionContainer"]
 layout_mode = 2

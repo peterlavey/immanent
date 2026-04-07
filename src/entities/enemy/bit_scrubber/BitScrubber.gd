@@ -1,4 +1,4 @@
-extends Enemy
+extends "res://src/entities/enemy/Enemy.gd"
 
 class_name BitScrubber
 

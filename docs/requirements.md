@@ -14,6 +14,13 @@ This is where the odyssey begins. The Genezis operate on the edge of oblivion, c
 
 ## Core Gameplay Requirements
 
+0. **Localization**
+   - **User Story**: As a player, I want to be able to change the language of the game to Spanish so that I can understand the texts in my native language.
+   - **Acceptance Criteria**:
+     - THE system SHALL support English and Spanish.
+     - THE system SHALL provide a language selection option in the Settings menu (both Title Screen and Pause Menu).
+     - WHEN the language is changed THEN all UI texts SHALL update immediately.
+
 1. **Camera System**
    - **User Story**: As a player, I want to be able to move and rotate the camera while it remains focused on the Core so that I can view the simulation from different angles.
    - **Acceptance Criteria**: 

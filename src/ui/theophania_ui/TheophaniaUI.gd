@@ -28,7 +28,7 @@ func _process(delta: float) -> void:
 
 func setup_scenario(scenario: Dictionary) -> void:
 	current_scenario = scenario
-	full_text = scenario.description
+	full_text = tr(scenario.description)
 	description_label.text = ""
 	
 	# Clear existing options
@@ -38,7 +38,7 @@ func setup_scenario(scenario: Dictionary) -> void:
 	# Add new options (but keep them hidden initially)
 	for choice in scenario.choices:
 		var button = Button.new()
-		button.text = choice.text
+		button.text = tr(choice.text)
 		button.pressed.connect(_on_choice_selected.bind(choice.id))
 		options_container.add_child(button)
 		button.custom_minimum_size = Vector2(180, 45)

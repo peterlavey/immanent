@@ -6,14 +6,14 @@ signal description_closed
 @onready var description_label = $Panel/MarginContainer/VBoxContainer/DescriptionLabel
 
 var descriptions = {
-	"BitScrubber": "Bit-Scrubber\n\nA fast, aggressive virus that seeks out Genezis G1 units and resets their data load upon contact. Protect your gatherers!",
-	"Defragmenter": "Defragmenter\n\nA slow-moving threat that targets Data Spots directly, consuming the resources before you can collect them. Disperse it quickly!"
+	"BitScrubber": "BIT-SCRUBBER\n\nA FAST, AGGRESSIVE VIRUS THAT SEEKS OUT GENEZIS G1 UNITS AND RESETS THEIR DATA LOAD UPON CONTACT. PROTECT YOUR GATHERERS!",
+	"Defragmenter": "DEFRAGMENTER\n\nA SLOW-MOVING THREAT THAT TARGETS DATA SPOTS DIRECTLY, CONSUMING THE RESOURCES BEFORE YOU CAN COLLECT THEM. DISPERSE IT QUICKLY!"
 }
 
 func show_enemy_description(enemy_type: String) -> void:
 	if descriptions.has(enemy_type):
-		title_label.text = "New Threat Detected!"
-		description_label.text = descriptions[enemy_type]
+		title_label.text = tr("NEW THREAT DETECTED!")
+		description_label.text = tr(descriptions[enemy_type])
 		show()
 		get_tree().paused = true
 	else:

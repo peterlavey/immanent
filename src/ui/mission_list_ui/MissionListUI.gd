@@ -33,16 +33,15 @@ func show_missions() -> void:
 		
 		match mission["status"]:
 			"completed":
-				name_label.text = "[DONE] " + name_label.text
+				name_label.text = tr("[DONE] %S") % name_label.text
 				name_label.add_theme_color_override("font_color", Color.GREEN)
-				desc_label.add_theme_color_override("font_color", Color.GRAY)
 			"current":
-				name_label.text = ">>> " + name_label.text
+				name_label.text = tr(">>> %S") % name_label.text
 				name_label.add_theme_color_override("font_color", Color.YELLOW)
 				
 				if mission["progress"] != "":
 					var prog_label = Label.new()
-					prog_label.text = "Progress: " + mission["progress"]
+					prog_label.text = tr("PROGRESS: %S") % mission["progress"]
 					prog_label.add_theme_color_override("font_color", Color.CYAN)
 					prog_label.add_theme_font_size_override("font_size", 12)
 					container.add_child(prog_label)

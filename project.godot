@@ -20,6 +20,11 @@ config/icon="res://icon.svg"
 SaveManager="*res://src/core/core/SaveManager.gd"
 AudioManager="*res://src/core/audio_manager/AudioManager.gd"
 
+[internationalization]
+
+locale/translations=PackedStringArray("res://assets/translations.en.translation", "res://assets/translations.es.translation")
+locale/test="en"
+
 [physics]
 
 3d/physics_engine="Jolt Physics"

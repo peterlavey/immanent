@@ -12,11 +12,11 @@ signal intro_finished
 var intro_steps = [
 	{
 		"texture": preload("res://assets/textures/intro-1.png"),
-		"text": "The universe was dying. Humanity's last hope was a digital exile, where seconds in reality became millennia of evolution."
+		"text_key": "INTRO_STEP_1"
 	},
 	{
 		"texture": preload("res://assets/textures/intro-2.png"),
-		"text": "Project Genezis. A silicon Eden guarded by the Godheads. But even gods can be desperate."
+		"text_key": "INTRO_STEP_2"
 	}
 ]
 
@@ -57,7 +57,7 @@ func show_step(step_index):
 	
 	var step = intro_steps[step_index]
 	texture_rect.texture = step.texture
-	full_text = step.text
+	full_text = tr(step.text_key)
 	displayed_text = ""
 	char_index = 0
 	label.text = ""
@@ -122,8 +122,8 @@ func show_black_screen():
 	await tween.finished
 	
 	# Set year and world text
-	year_label.text = "YEAR: 0 (AEON ZERO)"
-	world_label.text = "WORLD: DIGITAL BIOME - HUB 01"
+	year_label.text = tr("YEAR: 0 (AEON ZERO)")
+	world_label.text = tr("WORLD: DIGITAL BIOME - HUB 01")
 	
 	# Wait a bit or until clicked
 	var timer = get_tree().create_timer(3.0)

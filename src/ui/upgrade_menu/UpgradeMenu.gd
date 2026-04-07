@@ -44,25 +44,25 @@ func _ready() -> void:
 		world_manager.genezis_removed.connect(_on_genezis_population_changed)
 	
 	# Setup evolution button
-	evolution_button.text = "Evolve Core"
+	evolution_button.text = tr("EVOLVE CORE")
 	evolution_button.pressed.connect(_on_evolution_button_pressed)
 	$Panel/MarginContainer/VBoxContainer.add_child(evolution_button)
 	$Panel/MarginContainer/VBoxContainer.move_child(evolution_button, $Panel/MarginContainer/VBoxContainer.get_child_count() - 3) # Above spacer
 	
 	# Setup fusion button
-	fusion_button.text = "Fuse Genezis (4 G1 -> 1 G2)"
+	fusion_button.text = tr("FUSE GENEZIS (4 G1 -> 1 G2)")
 	fusion_button.pressed.connect(_on_fusion_button_pressed)
 	$Panel/MarginContainer/VBoxContainer.add_child(fusion_button)
 	$Panel/MarginContainer/VBoxContainer.move_child(fusion_button, $Panel/MarginContainer/VBoxContainer.get_child_count() - 3)
 	
 	# Setup psinergy button
-	psinergy_button.text = "Upgrade Psinergy"
+	psinergy_button.text = tr("UPGRADE PSINERGY")
 	psinergy_button.pressed.connect(_on_psinergy_button_pressed)
 	$Panel/MarginContainer/VBoxContainer.add_child(psinergy_button)
 	$Panel/MarginContainer/VBoxContainer.move_child(psinergy_button, $Panel/MarginContainer/VBoxContainer.get_child_count() - 3)
 	
 	# Setup G0 button
-	genezis_g0_button.text = "Spawn Genezis G0"
+	genezis_g0_button.text = tr("SPAWN GENEZIS G0")
 	genezis_g0_button.pressed.connect(_on_genezis_g0_button_pressed)
 	$Panel/MarginContainer/VBoxContainer.add_child(genezis_g0_button)
 	$Panel/MarginContainer/VBoxContainer.move_child(genezis_g0_button, $Panel/MarginContainer/VBoxContainer.get_child_count() - 3)
@@ -73,8 +73,8 @@ func set_mode(mode: Mode) -> void:
 	current_mode = mode
 	if title_label:
 		match current_mode:
-			Mode.CORE: title_label.text = "Core Upgrades"
-			Mode.GENEZIS_G1: title_label.text = "Genezis G1 Upgrades"
+			Mode.CORE: title_label.text = tr("CORE UPGRADES")
+			Mode.GENEZIS_G1: title_label.text = tr("GENEZIS G1 UPGRADES")
 	_update_buttons()
 
 func _play_click_sfx() -> void:
@@ -166,14 +166,14 @@ func _update_buttons() -> void:
 	fusion_button.visible = current_mode == Mode.GENEZIS_G1
 	psinergy_button.visible = current_mode == Mode.GENEZIS_G1
 	
-	_update_button_text(speed_button, "speed", "Upgrade G1 Speed")
-	_update_button_text(extraction_button, "extraction", "Upgrade G1 Extraction")
-	_update_button_text(capacity_button, "capacity", "Upgrade G1 Capacity")
-	_update_button_text(genezis_count_button, "genezis_count", "Spawn Genezis G1")
-	_update_button_text(genezis_g0_button, "genezis_g0_count", "Spawn Genezis G0")
-	_update_button_text(evolution_button, "evolution", "") # Label is generated in _update_button_text
-	_update_button_text(fusion_button, "fusion", "Fuse Genezis")
-	_update_button_text(psinergy_button, "psinergy", "Upgrade Psinergy")
+	_update_button_text(speed_button, "speed", tr("UPGRADE G1 SPEED"))
+	_update_button_text(extraction_button, "extraction", tr("UPGRADE G1 EXTRACTION"))
+	_update_button_text(capacity_button, "capacity", tr("UPGRADE G1 CAPACITY"))
+	_update_button_text(genezis_count_button, "genezis_count", tr("SPAWN GENEZIS G1"))
+	_update_button_text(genezis_g0_button, "genezis_g0_count", tr("SPAWN GENEZIS G0"))
+	_update_button_text(evolution_button, "evolution", tr("EVOLVE CORE"))
+	_update_button_text(fusion_button, "fusion", tr("FUSE GENEZIS (4 G1 -> 1 G2)"))
+	_update_button_text(psinergy_button, "psinergy", tr("UPGRADE PSINERGY"))
 
 func _on_core_data_changed(_new_data: int) -> void:
 	_update_buttons()
@@ -195,16 +195,16 @@ func _update_button_text(button: Button, type: String, label: String) -> void:
 		max_level = 10 # Allow up to 10 evolution stages
 		# The current button text should show what we are evolving TO
 		var target_level = core_node.evolution_level + 1
-		label = "Evolve Core to Level %d" % target_level
+		label = tr("EVOLVE CORE TO LEVEL %D") % target_level
 	elif type == "genezis_g0_count":
 		max_level = 5
 		
 	if level >= max_level:
-		button.text = "%s (MAXED)" % label
+		button.text = tr("%S (MAXED)") % label
 		button.disabled = true
 	else:
 		var cost = get_upgrade_cost(type)
-		button.text = "%s (Cost: %s)" % [label, format_bytes(cost)]
+		button.text = tr("%S (COST: %S)") % [label, format_bytes(cost)]
 		
 		var can_afford = core_node.current_data >= cost
 		var requirements_met = true
@@ -212,13 +212,13 @@ func _update_button_text(button: Button, type: String, label: String) -> void:
 			var evolution_met = core_node.evolution_level >= 2
 			requirements_met = evolution_met
 			if not evolution_met:
-				button.text = "%s (Requires Evolution Level 2)" % label
+				button.text = tr("%S (REQUIRES EVOLUTION LEVEL 2)") % label
 			
 			if type == "fusion":
 				var g1_count = get_tree().get_nodes_in_group("genezis_g1").size()
 				requirements_met = requirements_met and g1_count >= 5
 				if evolution_met and g1_count < 5:
-					button.text = "%s (Requires 5 G1)" % label
+					button.text = tr("%S (REQUIRES 5 G1)") % label
 		
 		button.disabled = not (can_afford and requirements_met)
 

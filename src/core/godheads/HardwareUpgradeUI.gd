@@ -12,9 +12,9 @@ func _ready() -> void:
 
 func _update_display() -> void:
 	if hardware_manager:
-		processor_label.text = "CPU Level: %d" % hardware_manager.processor_level
+		processor_label.text = tr("CPU LEVEL: %D") % hardware_manager.processor_level
 		var cost = hardware_manager.get_upgrade_cost("processor", hardware_manager.processor_level)
-		cost_label.text = "Cost: %d Bytes" % cost
+		cost_label.text = tr("COST: %D BYTES") % cost
 		
 		var core = get_tree().get_first_node_in_group("core")
 		if core:

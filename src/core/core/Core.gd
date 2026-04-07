@@ -65,7 +65,7 @@ func _setup_world_space_ui() -> void:
 
 func _update_world_space_label() -> void:
 	if _world_space_label:
-		_world_space_label.text = "CORE_NODE_0%d\nDATA: %s" % [evolution_level, format_bytes(current_data)]
+		_world_space_label.text = tr("CORE_NODE_0%D\nDATA: %S") % [evolution_level, format_bytes(current_data)]
 
 func _update_fov_visual() -> void:
 	if not is_node_ready():

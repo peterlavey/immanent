@@ -97,14 +97,14 @@ theme_override_constants/separation = 20
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 1, 1, 1)
 theme_override_font_sizes/font_size = 32
-text = "YEAR: 0"
+text = "YEAR: 0 (AEON ZERO)"
 horizontal_alignment = 1
 
 [node name="WorldLabel" type="Label" parent="BlackScreen/CenterContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 1, 1, 1)
 theme_override_font_sizes/font_size = 24
-text = "WORLD: DIGITAL BIOME"
+text = "WORLD: DIGITAL BIOME - HUB 01"
 horizontal_alignment = 1
 
 [connection signal="timeout" from="TypingTimer" to="." method="_on_typing_timer_timeout"]

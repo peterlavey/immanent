@@ -8,28 +8,28 @@ func _ready() -> void:
 func display_stats(stats: Dictionary) -> void:
 	show()
 	var type_label = stats.get("type", "Genezis G1")
-	var text = "%s Statistics\n" % type_label
+	var text = tr("%S STATISTICS") % type_label + "\n"
 	text += "------------------\n"
-	text += "Status: %s\n" % stats.get("state", "UNKNOWN")
-	text += "Speed: %.1f m/s\n" % stats.get("speed", 0.0)
+	text += tr("STATUS: %S") % tr(stats.get("state", "UNKNOWN").to_upper()) + "\n"
+	text += tr("SPEED: %.1F M/S") % stats.get("speed", 0.0) + "\n"
 	
 	if type_label == "Genezis G2":
-		text += "Role: Protection / Security\n"
+		text += tr("ROLE: PROTECTION / SECURITY") + "\n"
 	else:
 		var extraction = stats.get("extraction", 0)
 		var is_connected = stats.get("is_connected", false)
 		var boost = stats.get("conn_boost", 1.0)
 		
 		if is_connected:
-			text += "Extraction: %d B/s (x%.1f Boost!)\n" % [extraction, boost]
+			text += tr("EXTRACTION: %D B/S (X%.1F BOOST!)") % [extraction, boost] + "\n"
 		else:
-			text += "Extraction: %d B/s\n" % extraction
+			text += tr("EXTRACTION: %D B/S") % extraction + "\n"
 			
-		text += "Load: %s / %s\n" % [format_bytes(stats.get("load", 0)), format_bytes(stats.get("capacity", 0))]
+		text += tr("LOAD: %S / %S") % [format_bytes(stats.get("load", 0)), format_bytes(stats.get("capacity", 0))] + "\n"
 		
 		var conn_range = stats.get("conn_range", 0.0)
 		if conn_range > 0:
-			text += "Psinergy: %s" % ("Active" if is_connected else "Scanning...")
+			text += tr("PSINERGY: %S") % tr("ACTIVE" if is_connected else "SCANNING...")
 	
 	stats_label.text = text
 

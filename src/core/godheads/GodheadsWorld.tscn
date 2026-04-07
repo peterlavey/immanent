@@ -132,11 +132,11 @@ text = "HARDWARE"
 
 [node name="ProcessorLevel" type="Label" parent="HardwareUI/UpgradeUI/VBoxContainer"]
 layout_mode = 2
-text = "CPU Level: 1"
+text = "CPU LEVEL: 1"
 
 [node name="UpgradeCost" type="Label" parent="HardwareUI/UpgradeUI/VBoxContainer"]
 layout_mode = 2
-text = "Cost: 1000 Bytes"
+text = "COST: 1000 BYTES"
 
 [node name="UpgradeButton" type="Button" parent="HardwareUI/UpgradeUI/VBoxContainer"]
 layout_mode = 2

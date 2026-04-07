@@ -262,8 +262,14 @@ func _get_world_data() -> Dictionary:
 		
 	for e in get_tree().get_nodes_in_group("enemies"):
 		var type = "BitScrubber"
-		if e is Defragmenter:
-			type = "Defragmenter"
+		if e.has_method("_perform_action") and not e.has_method("reset_load"):
+			# Defragmenter targets DataSpots, BitScrubber targets GenezisG1
+			# Since they both inherit from Enemy, we check for a specific method or property.
+			# Defragmenter has a simpler _perform_action without stealing logic.
+			# But a better way is to check the script path if class_name is failing.
+			if "Defragmenter" in e.get_script().get_path():
+				type = "Defragmenter"
+		
 		data["enemies"].append({
 			"type": type,
 			"pos": _vec3_to_dict(e.global_position),

@@ -8,6 +8,7 @@ extends Control
 @onready var show_spots_checkbox = $SettingsPanel/VBoxContainer/ShowSpotsContainer/ShowSpotsCheckbox
 @onready var show_enemies_checkbox = $SettingsPanel/VBoxContainer/ShowEnemiesContainer/ShowEnemiesCheckbox
 @onready var show_core_checkbox = $SettingsPanel/VBoxContainer/ShowCoreContainer/ShowCoreCheckbox
+@onready var language_button = get_node_or_null("SettingsPanel/VBoxContainer/LanguageContainer/LanguageButton")
 
 func _ready() -> void:
 	hide()
@@ -15,6 +16,23 @@ func _ready() -> void:
 	
 	# Initial state for Save/Load buttons
 	_update_save_buttons()
+	
+	if language_button:
+		var current_locale = TranslationServer.get_locale()
+		if current_locale.begins_with("es"):
+			language_button.selected = 1
+		else:
+			language_button.selected = 0
+		if not language_button.item_selected.is_connected(_on_language_selected):
+			language_button.item_selected.connect(_on_language_selected)
+
+func _on_language_selected(index: int) -> void:
+	_play_click_sfx()
+	match index:
+		0:
+			TranslationServer.set_locale("en")
+		1:
+			TranslationServer.set_locale("es")
 
 func _update_save_buttons() -> void:
 	var save_exists = FileAccess.file_exists("user://savegame.json")
