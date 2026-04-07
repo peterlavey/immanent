@@ -7,3 +7,4 @@ res://src/entities/enemy/Enemy.gd
 res://src/entities/genezis/genezis_g1/GenezisG1.gd
 res://src/ui/hud/PauseMenu.gd
 res://src/ui/hud/PauseMenu.tscn
+res://src/entities/genezis/genezis_g2/GenezisG2.gd

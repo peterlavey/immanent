@@ -374,6 +374,7 @@
   - [x] Fix G0 orbital jitter ("low FPS" look) by using direct position updates and tangent-based rotation (Plan: 12.3)
   - [x] Reduce G0 orbit radius to 3.5 to make them orbit closer to the Core without colliding (Plan: 12.3)
   - [x] Fix G0 orbit centering to avoid off-center passing (Plan: 12.3)
+  - [x] Implement orbit logic for Genezis G1 and G2 when unoccupied (orbiting the FOV edge)
 
 ## Phase 13: Propulsion & Space Movement
 

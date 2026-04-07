@@ -2,13 +2,19 @@ extends CharacterBody3D
 
 signal selected(genezis: CharacterBody3D)
 
-enum State { IDLE, MOVING_TO_DATA, EXTRACTING, RETURNING_TO_CORE, DEPOSITING, MERGING }
+enum State { IDLE, MOVING_TO_DATA, EXTRACTING, RETURNING_TO_CORE, DEPOSITING, MERGING, ORBITING }
 
 @export var move_speed: float = 5.0
 @export var acceleration: float = 4.0
 @export var friction: float = 2.0
 @export var carry_capacity: int = 100 # Capacity in bytes
 @export var extraction_rate: int = 10 # Bytes per second
+
+# Orbit variables
+@export var orbit_speed: float = 0.2
+var _orbit_angle: float = 0.0
+var _orbit_axis: Vector3 = Vector3.UP
+var _orbit_phase_offset: float = 0.0
 
 # Psinergy upgrade variables
 @export var connection_range: float = 0.0 # Disabled by default (0.0)
@@ -51,6 +57,10 @@ func _ready() -> void:
 	
 	_genezis_id = "GEN_G1_%04d" % (get_instance_id() % 10000)
 	_setup_world_space_ui()
+	
+	# Initialize orbit
+	_orbit_phase_offset = randf() * TAU
+	_orbit_axis = Vector3(randf_range(-0.2, 0.2), 1.0, randf_range(-0.2, 0.2)).normalized()
 	
 	if has_node("/root/SaveManager"):
 		get_node("/root/SaveManager").show_units_labels_changed.connect(_on_show_labels_changed)
@@ -125,7 +135,7 @@ func _physics_process(delta: float) -> void:
 			_stuck_timer = 0.0
 			target_data_spot = null
 			_stuck_reset_count += 1
-	if current_state == State.IDLE:
+	if current_state == State.IDLE or current_state == State.ORBITING:
 		_stuck_timer = 0.0
 		_last_position = global_position
 		_last_load = current_load
@@ -185,6 +195,10 @@ func _physics_process(delta: float) -> void:
 	match current_state:
 		State.IDLE:
 			find_data_spot()
+			if current_state == State.IDLE:
+				current_state = State.ORBITING
+		State.ORBITING:
+			_process_orbiting(delta)
 		State.MOVING_TO_DATA:
 			if is_instance_valid(target_data_spot):
 				var target_pos = target_data_spot.global_position + target_offset
@@ -241,6 +255,35 @@ func _physics_process(delta: float) -> void:
 		State.MERGING:
 			move_towards(merging_target_pos, delta)
 			# Rotation is handled in move_towards
+
+func _process_orbiting(delta: float) -> void:
+	# Periodically check for data spots
+	_sleep_timer += delta # Use sleep timer as a proxy for scan interval if needed, but here we just call find_data_spot
+	if int(Engine.get_frames_drawn()) % 60 == 0:
+		find_data_spot()
+		if current_state != State.ORBITING:
+			return
+
+	if not is_instance_valid(core_node):
+		current_state = State.IDLE
+		return
+		
+	# Update angle
+	_orbit_angle += orbit_speed * delta
+	
+	var orbit_radius = core_node.fov_radius * 0.8 # Orbit slightly inside FOV
+	
+	# Calculate orbit position
+	var base_vec = Vector3.UP.cross(_orbit_axis)
+	if base_vec.length() < 0.1:
+		base_vec = Vector3.RIGHT.cross(_orbit_axis)
+	base_vec = base_vec.normalized() * orbit_radius
+	
+	var current_pos_offset = base_vec.rotated(_orbit_axis, _orbit_angle + _orbit_phase_offset)
+	var target_pos = core_node.global_position + current_pos_offset
+	
+	# Move towards the orbit position smoothly
+	move_towards(target_pos, delta)
 
 func find_data_spot() -> void:
 	if not is_instance_valid(core_node):

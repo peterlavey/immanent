@@ -13,6 +13,12 @@ enum State { PATROL, PROTECT_CORE, PROTECT_G1, INTERCEPT_THREAT, ATTACKING }
 @export var projectile_scene: PackedScene = preload("res://src/entities/genezis/g2_projectile/G2Projectile.tscn")
 @export var attack_cooldown: float = 0.5
 
+# Orbit variables
+@export var orbit_speed: float = 0.3
+var _orbit_angle: float = 0.0
+var _orbit_axis: Vector3 = Vector3.UP
+var _orbit_phase_offset: float = 0.0
+
 var current_state: State = State.PATROL
 var core_node: Node3D = null
 var target_to_protect: Node3D = null
@@ -30,6 +36,10 @@ func _ready() -> void:
 	if cores.size() > 0:
 		core_node = cores[0]
 	
+	# Initialize orbit
+	_orbit_phase_offset = randf() * TAU
+	_orbit_axis = Vector3(randf_range(-0.3, 0.3), 1.0, randf_range(-0.3, 0.3)).normalized()
+	
 	_set_new_patrol_target()
 
 func _physics_process(delta: float) -> void:
@@ -38,13 +48,7 @@ func _physics_process(delta: float) -> void:
 	
 	match current_state:
 		State.PATROL:
-			if global_position.distance_to(patrol_target) < 1.0:
-				_wait_timer += delta
-				if _wait_timer > 2.0:
-					_set_new_patrol_target()
-					_wait_timer = 0.0
-			else:
-				move_towards(patrol_target, delta)
+			_process_orbiting(delta)
 		
 		State.PROTECT_CORE:
 			if is_instance_valid(core_node):
@@ -73,6 +77,35 @@ func _physics_process(delta: float) -> void:
 				_attack_threat(delta)
 			else:
 				current_state = State.PATROL
+
+func _process_orbiting(delta: float) -> void:
+	if not is_instance_valid(core_node):
+		# Fallback to random patrol if no core
+		if global_position.distance_to(patrol_target) < 1.0:
+			_wait_timer += delta
+			if _wait_timer > 2.0:
+				_set_new_patrol_target()
+				_wait_timer = 0.0
+		else:
+			move_towards(patrol_target, delta)
+		return
+		
+	# Update angle
+	_orbit_angle += orbit_speed * delta
+	
+	var orbit_radius = core_node.fov_radius * 0.9 # Orbit near the edge of FOV
+	
+	# Calculate orbit position
+	var base_vec = Vector3.UP.cross(_orbit_axis)
+	if base_vec.length() < 0.1:
+		base_vec = Vector3.RIGHT.cross(_orbit_axis)
+	base_vec = base_vec.normalized() * orbit_radius
+	
+	var current_pos_offset = base_vec.rotated(_orbit_axis, _orbit_angle + _orbit_phase_offset)
+	var target_pos = core_node.global_position + current_pos_offset
+	
+	# Move towards the orbit position smoothly
+	move_towards(target_pos, delta)
 
 func _check_for_threats() -> void:
 	if current_state == State.ATTACKING: return
